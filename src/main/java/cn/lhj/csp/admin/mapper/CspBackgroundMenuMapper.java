@@ -1,11 +1,10 @@
-package com.lhj.csp.admin.mapper;
+package cn.lhj.csp.admin.mapper;
 
 import java.util.List;
-
-import com.lhj.csp.admin.po.CspBackgroundMenu;
-import com.lhj.csp.admin.po.CspBackgroundMenuExample;
 import org.apache.ibatis.annotations.Param;
 
+import cn.lhj.csp.admin.po.CspBackgroundMenu;
+import cn.lhj.csp.admin.po.CspBackgroundMenuExample;
 
 public interface CspBackgroundMenuMapper {
     int countByExample(CspBackgroundMenuExample example);

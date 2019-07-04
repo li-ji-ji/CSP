@@ -1,4 +1,4 @@
-package com.lhj.csp.admin.po;
+package cn.lhj.csp.admin.po;
 
 import java.util.ArrayList;
 import java.util.List;
