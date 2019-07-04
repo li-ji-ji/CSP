@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan(basePackages = {"cn.lhj.csp.admin.mapper"})
+@MapperScan(basePackages = {"cn.lhj.csp.adminmenu.mapper"})
 public class CspApplication {
 
 	public static void main(String[] args) {

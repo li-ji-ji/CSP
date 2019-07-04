@@ -17,7 +17,7 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 
-		<javaModelGenerator targetPackage="com.lhj.csp.admin.po"
+		<javaModelGenerator targetPackage="cn.lhj.csp.admin.po"
 			targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -29,10 +29,10 @@
 		</sqlMapGenerator>
 
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.lhj.csp.admin.mapper" targetProject=".\src\main\java">
+			targetPackage="cn.lhj.csp.admin.mapper" targetProject=".\src\main\java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		<!-- <table tableName="backmenu"></table> -->
-		<table tableName="csp_background_menu"></table>
+		<table tableName="font_css"></table>
 	</context>
 </generatorConfiguration>
