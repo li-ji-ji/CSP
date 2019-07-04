@@ -1,4 +1,4 @@
-package com.lhj.csp;
+package com.lhj.csp.admin;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
