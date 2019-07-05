@@ -6,12 +6,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.lhj.csp.admin.feign.HelloRemote;
 import cn.lhj.csp.admin.po.FontCss;
 import cn.lhj.csp.admin.service.FontCssService;
 
@@ -29,5 +26,4 @@ public class FontCssAPI {
 			HttpServletResponse response)throws Exception{
 		return fontCssService.getFontCssById(2);
 	}
-	
 }
