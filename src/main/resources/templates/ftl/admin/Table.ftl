@@ -1,13 +1,6 @@
 <!DOCTYPE html>
 <html>
 <script type="text/javascript" src="../../js/jquery-3.3.1.js"></script>
-<script type="text/javascript">
-	menu=window.parent.menu
-	console.log("从父页面拿到的菜单链接：")
-	console.log(menu)
-	getListUrl=window.parent.menu.selectUrl
-	
-</script>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -15,35 +8,66 @@
 	href="../../js/plugins/layui/css/layui.css" media="all">
 </head>
 <body>
-        			
-	<table class="layui-table" id="MsgTable"
-				lay-data="{width: 1100, height:500, page:true, id:'idTest'}"
-				lay-filter="demo">
-				<thead>
-					<tr>
-						<th lay-data="{type:'checkbox'}">ID</th>
-						<#list nameList as menuitem>
-							<#switch menuitem.DATA_TYPE>
-								<#case "tinyint">  
-          							<th lay-data="{field:'${menuitem.column_name}',title:'${menuitem.column_comment}', width:110, templet: '#status_switch', unresize: true}"></th>
-          						<#break>   
-								<#default>  
-									<th lay-data="{field:'${menuitem.column_name}', width:120, sort: true, edit: 'text'}">${menuitem.column_comment}</th>
-							</#switch>
-        				</#list>
-						<th lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}"></th>
-					</tr>
-				</thead>
-			</table>
-		<script src="../../js/plugins/layui/layui.js"></script>
+	<table id="MsgTable" lay-filter="MsgTable"></table>
 
-
-	<script type="text/html" id="barDemo">
+	
+	<script src="../../js/plugins/layui/layui.js"></script>
+	<script type="text/html" id="editTool">
   		<a class="layui-btn layui-btn-xs" lay-event="edit">保存修改</a>
   		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
 
-
+	<script type="text/javascript">
+	/* 废弃列渲染
+	//定义对象
+	colsData=new Array
+	$.ajax({
+    	"url" :"http://192.168.1.126:8007/getColumnName",<!--//http://92.68.10.110:8080/PageConfig/delPageConfigById-->
+    	"data" : "",
+    	"type" : "get",
+    	"dataType" : "json",
+    	"success" : function (returnMsg) {
+    		//console.log(returnMsg)
+    		for(var index in returnMsg){
+    			colsDataItem={
+    				field:"",
+    				title:"",
+    				minWidth:150,
+    				sort:true,
+    				edit: 'text'
+    			}
+    			//console.log("每一层JSON:")
+    			//console.log(returnMsg[index])
+    			
+    			if(returnMsg[index].column_name=="icon_open"){
+    				colsDataItem["field"]="iconOpen"
+    			}
+    			else if(returnMsg[index].column_name=="icon_close"){
+    				colsDataItem["field"]="iconClose"
+    			}
+    			else{
+        			colsDataItem["field"]=returnMsg[index].column_name
+    			}
+    			colsDataItem["title"]=returnMsg[index].column_comment
+    			//console.log("打印出每个对象")
+    			//console.log(colsDataItem)//打印对象
+    			colsData[index]=colsDataItem
+    			if(colsData[index].field=="inserturl"||
+    					colsData[index].field=="deleteurl"||
+    					colsData[index].field=="selecturl"||
+    					colsData[index].field=="updateurl"){
+    					colsData[index].hide=true
+    			}
+                //console.log(colsData[index])
+    		}
+            //console.log("打印出对象数组:")
+            colsData[0].fixed="left"
+            colsData[0].width=80
+            colsData.push({fixed: 'right', width:200, align:'center',toolbar: '#editTool'})
+            console.log(colsData)
+		}
+    }) */
+	</script>
 	<script>
 		//JavaScript代码区域
 		layui.use('element', function() {
@@ -53,15 +77,32 @@
 		layui.use('table', function(){
 			  form = layui.form;
 			  var table = layui.table;
-			  
+			  table.render({
+				    elem: '#MsgTable'
+				    ,MinHeight: 500
+				    ,url: 'http://192.168.1.126:8004/feign/adminMenu/getAllToLayUI' //数据接口
+				    ,page: true //开启分页
+				    ,cols: [[//表头
+				  		{field: "id", title: "菜单ID", align: "center",width: 90, sort: true, edit: "text"}
+				    	,{field: "name", title: "菜单名称",align: "center", width: 120, sort: true, edit: "text"}
+				    	,{field: "pId", title: "父级菜单ID",align: "center", width: 120, sort: true, edit: "text"}
+				    	,{field: "pId", title: "父级菜单名称",align: "center", width: 120, sort: true, edit: "text"}
+				    	,{field: "mainurl", title: "菜单跳转页面链接",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{field: "icon", title: "终极菜单图标",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{field: "iconOpen", title: "非终极菜单开启图标",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{field: "iconClose", title: "非终极菜单关闭图标",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{field: "fong_css", title: "菜单字体样式",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{fixed: "right", width: 200, align: "center", toolbar: "#editTool"}
+				    ]]
+				  });
 			  //表格重载
-			  table.reload('idTest', {
+			  /* table.reload('idTest', {
   				url: getListUrl
   				,where: {} //设定异步数据接口的额外参数
   				//,height: 300
-			  });
+			  }); */
 			  //监听表格复选框选择
-			  table.on('checkbox(demo)', function(obj){
+			  table.on('checkbox(MsgTable)', function(obj){
 			    //console.log(obj)
 			  });
 			  //监听启用状态操作
@@ -77,15 +118,15 @@
 			    //console.log(status_data.elem.id);
 			  });
 			  //监听工具条
-			  table.on('tool(demo)', function(obj){
+			  table.on('tool(MsgTable)', function(obj){
 			    var data = obj.data;
 			    if(obj.event === 'detail'){
 			      layer.msg('ID：'+ data.id + ' 的查看操作');
 			    } else if(obj.event === 'del'){
 			      layer.confirm('真的删除行么', function(index){
-			        //console.log(data);
+			        //console.log(data); //输出此行数据
 			        $.ajax({
-			        	"url" : menu.deleteUrl,<!--//http://92.68.10.110:8080/PageConfig/delPageConfigById-->
+			        	"url" : "http://192.168.1.126:8004/feign/adminMenu/delById",
 			        	"data" : "id="+data.id,
 			        	"type" : "post",
 			        	"dataType" : "text",
@@ -102,13 +143,13 @@
 			        
 			      });
 			    } else if(obj.event === 'edit'){
-			      data.status=statu;
+			      //data.status=statu;
 			      //console.log("更改后的数据"+data.status);
 			      //console.log(data);
 			      json=JSON.stringify(data);
 			      
 			      $.ajax({
-			    	  "url" : menu.updateUrl,<!--http://92.68.10.110:8080/PageConfig/updatePageConfigById-->
+			    	  "url" : "http://192.168.1.126:8004/feign/adminMenu/updateOne",
 			    	  "data" : "menu="+json,
 			    	  "type" : "post",
 			    	  "dataType" : "json",

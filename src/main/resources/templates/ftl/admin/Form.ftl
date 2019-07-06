@@ -12,19 +12,47 @@
 <body>
 <form class="layui-form" style="margin-top:50px;" action="" lay-filter="example">
   
-<#list nameList as menuitem>
-  <div class="layui-form-item">
-    <label class="layui-form-label">${menuitem}</label>
+<div class="layui-form-item">
+    <label class="layui-form-label" style="width: 150px;">菜单ID</label>
     <div class="layui-input-block">
-      <input type="text" name="${menuitem}" id="${menuitem}" placeholder="请输入${menuitem}" autocomplete="off" class="layui-input">
+      <input type="number" name="id" placeholder="请输入菜单ID" autocomplete="off" class="layui-input" style="width: 50%;">
     </div>
   </div>
-</#list>
-  
+  <div class="layui-form-item">
+    <label class="layui-form-label" style="width: 150px;">菜单名称</label>
+    <div class="layui-input-block">
+      <input type="text" name="name" placeholder="请输入菜单名称" autocomplete="off" class="layui-input" style="width: 50%;">
+    </div>
+  </div>
+  <div class="layui-form-item" >
+    <label class="layui-form-label" style="width:150px;">父级菜单名称</label>
+    <div class="layui-input-block" style="width:45%;margin-left: 180px;">
+      <select name="interest" lay-filter="aihao">
+        <option value="">请选择父级菜单</option>
+        <option value="0">写作</option>
+        <option value="1">阅读</option>
+        <option value="2">游戏</option>
+        <option value="3">音乐</option>
+        <option value="4">旅行</option>
+      </select>
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label" style="width: 150px;">父级菜单ID</label>
+    <div class="layui-input-block">
+      <input type="number" name="pId" placeholder="请输入父级菜单ID" autocomplete="off" class="layui-input" style="width: 50%;">
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label" style="width: 150px;">菜单跳转链接</label>
+    <div class="layui-input-block">
+      <input type="text" name="mainurl" placeholder="请输入菜单跳转链接" autocomplete="off" class="layui-input" style="width: 50%;">
+    </div>
+  </div>
  
   <div class="layui-form-item">
     <div class="layui-input-block">
-      <button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+      <button class="layui-btn" lay-submit="" lay-filter="MsgSubmit">立即提交</button>
     </div>
   </div>
 </form>
@@ -71,12 +99,12 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   });
   
   //监听提交
-  form.on('submit(demo1)', function(data){
+  form.on('submit(MsgSubmit)', function(data){
 	  console.log(data.field);
 	  var menuJSON=JSON.stringify(data.field);
 	  if(status==0){
 		  $.ajax({
-			  "url": "",
+			  "url": "http://192.168.1.126:8004/feign/adminMenu/addOne",
 			  "data":"menu="+menuJSON,
 			  "type":"post",
 	    	  "dataType" : "text",
@@ -97,7 +125,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	    				    ,success: function(layero){
 	    				         var btn = layero.find('.layui-layer-btn');
 	    				            btn.find('.layui-layer-btn0').attr({
-	    				                 href: 'http://92.68.10.110:8080/back/index'
+	    				                 href: 'http://192.168.1.126:8004/csp/admin/toIndex'
 	    				            ,target: '_parent'
 	    				        });
 	    				    }
@@ -117,7 +145,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	  				    ,success: function(layero){
 	  				         var btn = layero.find('.layui-layer-btn');
 	  				            btn.find('.layui-layer-btn0').attr({
-	  				                 href: 'http://92.68.10.110:8080/back/index'
+	  				                 href: 'http://192.168.1.126:8004/csp/admin/toIndex'
 	  				            ,target: '_parent'
 	  				        });
 	  				    }
@@ -148,7 +176,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	    				    ,success: function(layero){
 	    				         var btn = layero.find('.layui-layer-btn');
 	    				            btn.find('.layui-layer-btn0').attr({
-	    				                 href: 'http://localhost:8080/back/getMenuTable'
+	    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
 	    				            ,target: '_self'
 	    				        });
 	    				    }
@@ -168,7 +196,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	  				    ,success: function(layero){
 	  				         var btn = layero.find('.layui-layer-btn');
 	  				            btn.find('.layui-layer-btn0').attr({
-	  				                 href: 'http://localhost:8080/back/getMenuTable'
+	  				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
 	  				            ,target: '_self'
 	  				        });
 	  				    }
@@ -183,7 +211,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
     return false;
   });
   
-  $(function getMenu() {
+  /* $(function getMenu() {
 		var menuMsg=eval('('+parent.json+')');
 		status=1;
 		if(menuMsg!=null){
@@ -193,8 +221,8 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 			$("#menumid").val(menuMsg.menumid);
 			$("#images").val(menuMsg.images);
 			$("#url").val(menuMsg.url);
-		}
-		});
+		} 
+		});*/
   //表单初始赋值
   /* form.val('example', {
     "menuid": ""// "name": "value"

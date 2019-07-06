@@ -23,7 +23,7 @@
 		var menuLevel=0	//菜单等级，用于设置字体
 		var menu
 		$.ajax({
-			"url": "http://92.68.10.110:8080/csp/api/fontCss/getCssById",
+			"url": "http://192.168.1.126:8004/csp/api/fontCss/getCssById",
 			"data": "",
 			"type": "post",
 			"dataType": "text",
@@ -35,7 +35,7 @@
 			}
 		});
 		$.ajax({
-			"url": "http://92.68.10.110:8080/csp/api/back/getAll",
+			"url": "http://192.168.1.126:8004/feign/adminMenu/getAll",
 			"data": "",
 			"type": "post",
 			"dataType": "text",
@@ -70,10 +70,10 @@
 					var zTree = $.fn.zTree.getZTreeObj("treeDemo");
 					zTree.expandNode(treeNode);
 					console.log(treeNode)//拿到预设数据
-					console.log(treeNode.tableName)//拿到预设数据
+					console.log(treeNode.mainurl)//拿到预设数据
 					menu=treeNode
 					if(treeNode.mainUrl!="javascript:void(0)"){
-						$("#data-table").attr("src", treeNode.mainUrl+"?tableName="+treeNode.tableName);
+						$("#data-table").attr("src", treeNode.mainurl);
 					}
 				}
 				$(document).ready(function () {
@@ -85,7 +85,7 @@
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">
 		<div class="layui-header">
-			<div class="layui-logo">管理员界面</div>
+			<div class="layui-logo">CSP后台管理界面</div>
 			<ul class="layui-nav layui-layout-right">
 				<li class="layui-nav-item"><a href="javascript:;"> <img
 						src="http://t.cn/RCzsdCq" class="layui-nav-img"> 贤心
