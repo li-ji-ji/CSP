@@ -8,6 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 
 /*
@@ -40,7 +44,10 @@ public class CspAdminPageController {
 	
 	//跳转到添加菜单表单
 	@RequestMapping("/toForm")
-	public String toMenuFrom()throws Exception{
+	public String toMenuFrom(Model model)throws Exception{
+		System.out.println(adminMenuApi.getAll());
+		JSONArray AdminMenuList =JSONArray.parseArray(adminMenuApi.getAll());
+		model.addAttribute("AdminMenuList",AdminMenuList);
 		return "ftl/admin/Form";
 	}
 }

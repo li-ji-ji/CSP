@@ -31,6 +31,12 @@ public class AdminMenuApiFeign {
 	public String getAllToLayUI() {
 		return adminMenuApiInterface.getAllToLayUI();
 	}
+
+	//分页获取数据并以Layui数据格式返回
+	@RequestMapping(value="/getMenuLimit")
+	public String getMenuLimit(@RequestParam("page")Integer page,@RequestParam("limit")Integer count){
+		return adminMenuApiInterface.getMenuLimit(page, count);
+	}
 	
 	//获取数据表字段名
 	@RequestMapping("/getColumnName")
@@ -49,6 +55,11 @@ public class AdminMenuApiFeign {
 	public int getById(@RequestParam("id") Integer id)throws Exception{
 		return adminMenuApiInterface.getById(id);
 	}
+	@RequestMapping("/getLayUIJSONByPid")
+	public String getLayUIJSONByPid(@RequestParam("pid") Integer pid,@RequestParam("page")Integer page,@RequestParam("limit")Integer limit)throws Exception{
+		return adminMenuApiInterface.getLayUIJSONByPid(pid, page, limit);
+	}
+	
 	
 	//根据ID删除菜单
 	@RequestMapping("/delById")

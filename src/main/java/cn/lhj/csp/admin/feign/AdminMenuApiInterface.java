@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 
+
 @FeignClient(name="csp-admin-menu")
 public interface AdminMenuApiInterface {
 	//获取所有后台菜单
@@ -18,9 +19,14 @@ public interface AdminMenuApiInterface {
 	//获取所有后台菜单以LayUI数据格式返回
 	@RequestMapping(value="/getAllToLayUI")
 	public String getAllToLayUI();
+	//分页获取数据并以Layui数据格式返回
+	@RequestMapping(value="/getMenuLimit")
+	public String getMenuLimit(@RequestParam("page")Integer page,@RequestParam("limit")Integer count);
 	//根据ID查询后台菜单
 	@RequestMapping("/getById")
 	public int getById(@RequestParam("id") Integer id)throws Exception;
+	@RequestMapping("/getLayUIJSONByPid")
+	public String getLayUIJSONByPid(@RequestParam("pid") Integer pid,@RequestParam("page")Integer page,@RequestParam("limit")Integer limit)throws Exception;	
 	//根据ID删除菜单
 	@RequestMapping("/delById")
 	public int delById(@RequestParam("id") Integer id)throws Exception;

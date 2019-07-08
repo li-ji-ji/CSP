@@ -9,14 +9,17 @@
 </head>
 <body>
 	<table id="MsgTable" lay-filter="MsgTable"></table>
-
-	
 	<script src="../../js/plugins/layui/layui.js"></script>
 	<script type="text/html" id="editTool">
+		<!-- 工具栏 -->
+  		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="toChild">查看下级菜单</a>
   		<a class="layui-btn layui-btn-xs" lay-event="edit">保存修改</a>
   		<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 	</script>
-
+	<script type="text/html" id="isHiddenCheck">
+  		<!-- 启用状态CheckBox -->
+  		<input type="checkbox" name="isHidden" id="{{d.id}}" value="{{d.isHidden}}" title="启用" lay-filter="isHiddenCheck" {{ d.isHidden == 1 ? 'checked' : '' }}>
+	</script>
 	<script type="text/javascript">
 	/* 废弃列渲染
 	//定义对象
@@ -74,25 +77,36 @@
 			var element = layui.element;
 
 		});
-		layui.use('table', function(){
+		layui.use(['table','laypage'] ,function(){
 			  form = layui.form;
 			  var table = layui.table;
+			  var laypage = layui.laypage;
+			  
+			  
 			  table.render({
 				    elem: '#MsgTable'
 				    ,MinHeight: 500
-				    ,url: 'http://192.168.1.126:8004/feign/adminMenu/getAllToLayUI' //数据接口
-				    ,page: true //开启分页
+				    ,url: 'http://192.168.1.126:8004/feign/adminMenu/getMenuLimit' //数据接口
+				    ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+				        layout: [ 'count', 'prev', 'page', 'next', 'skip','limit'] //自定义分页布局
+				      //,curr: 5 //设定初始在第 5 页
+				      ,groups: 5 //只显示 1 个连续页码
+				      ,first: false //不显示首页
+				      ,last: false //不显示尾页
+				      
+				    }//开启分页 */
 				    ,cols: [[//表头
-				  		{field: "id", title: "菜单ID", align: "center",width: 90, sort: true, edit: "text"}
-				    	,{field: "name", title: "菜单名称",align: "center", width: 120, sort: true, edit: "text"}
-				    	,{field: "pId", title: "父级菜单ID",align: "center", width: 120, sort: true, edit: "text"}
-				    	,{field: "pId", title: "父级菜单名称",align: "center", width: 120, sort: true, edit: "text"}
-				    	,{field: "mainurl", title: "菜单跳转页面链接",align: "center", width: 150, sort: true, edit: "text"}
+				  		{field: "id", title: "菜单ID",fixed:"left", align: "center",width: 90, sort: true, edit: "text"}
+				    	,{field: "name", title: "菜单名称",fixed:"left", align: "center", width: 150, sort: true, edit: "text"}
+				    	,{field: "pId", title: "父级菜单ID",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{field: "pId", title: "父级菜单名称",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{field:"isHidden", title:'是否启用', width:120, templet: '#isHiddenCheck', unresize: true}
+				    	,{field: "mainurl", title: "菜单跳转页面链接",align: "center", width: 180, sort: true, edit: "text"}
 				    	,{field: "icon", title: "终极菜单图标",align: "center", width: 150, sort: true, edit: "text"}
-				    	,{field: "iconOpen", title: "非终极菜单开启图标",align: "center", width: 150, sort: true, edit: "text"}
-				    	,{field: "iconClose", title: "非终极菜单关闭图标",align: "center", width: 150, sort: true, edit: "text"}
-				    	,{field: "fong_css", title: "菜单字体样式",align: "center", width: 150, sort: true, edit: "text"}
-				    	,{fixed: "right", width: 200, align: "center", toolbar: "#editTool"}
+				    	,{field: "iconOpen", title: "非终极菜单开启图标",align: "center", width: 200, sort: true, edit: "text"}
+				    	,{field: "iconClose", title: "非终极菜单关闭图标",align: "center", width: 200, sort: true, edit: "text"}
+				    	,{field: "fontCss", title: "菜单字体样式",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{fixed: "right", width: 300, align: "center", toolbar: "#editTool"}
 				    ]]
 				  });
 			  //表格重载
@@ -105,23 +119,87 @@
 			  table.on('checkbox(MsgTable)', function(obj){
 			    //console.log(obj)
 			  });
-			  //监听启用状态操作
-			  form.on('switch(statusCheck)', function(status_data){
-				//console.log(status_data.elem);
-			  	//console.log("获取父元素：");
-			  	statu=0; //声明全局变量statu表示状态值
-			  	if(status_data.elem.checked==true){
-			  		statu=1;
-			  	}else{
-			  		statu=0;
-			  	}
-			    //console.log(status_data.elem.id);
+			  //监听锁定操作
+			  form.on('checkbox(isHiddenCheck)', function(obj){
+			    //layer.tips(this.value + ' ' + this.id + '：'+ obj.elem.checked, obj.othis);
+			    //console.log(this.id)
+			    //console.log("打印选中状态")
+			    //console.log(obj.elem.checked)
+			    menu=new Object()
+			    menu["id"]=this.id
+			    if(obj.elem.checked==true){
+			    	menu["isHidden"]=1
+			    }
+			    else{
+			    	menu["isHidden"]=0
+			    }
+			    //console.log("打印菜单数据")
+			    //console.log(menu)
+			    json=JSON.stringify(menu)
+			    //console.log(json)
+			    $.ajax({
+			    	  "url" : "http://192.168.1.126:8004/feign/adminMenu/updateOne",
+			    	  "data" : "menu="+json,
+			    	  "type" : "post",
+			    	  "dataType" : "json",
+			    	  "success"	: function (resultMsg) {
+			    		  if(resultMsg==1){
+			    			  layer.open({
+			    				    type: 1 //不显示标题栏   title : false/标题
+			    				    ,title: "修改成功，返回菜单"
+			    				    ,closeBtn: false
+			    				    ,area: '300px;'
+			    				    ,shade: 0.8
+			    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+			    				    ,resize: false
+			    				    ,btn: ['好的']
+			    				    ,btnAlign: 'c'
+			    				    ,moveType: 1 //拖拽模式，0或者1
+			    				    ,success: function(layero){
+			    				         var btn = layero.find('.layui-layer-btn');
+			    				            btn.find('.layui-layer-btn0').attr({
+			    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+			    				            ,target: '_self'
+			    				        });
+			    				    }
+			    				});
+			    		  }else{
+			    			  layer.open({
+			    				    type: 1 //不显示标题栏   title : false/标题
+			    				    ,title: "修改失败，返回菜单"
+			    				    ,closeBtn: false
+			    				    ,area: '300px;'
+			    				    ,shade: 0.8
+			    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+			    				    ,resize: false
+			    				    ,btn: ['好的']
+			    				    ,btnAlign: 'c'
+			    				    ,moveType: 1 //拖拽模式，0或者1
+			    				    ,success: function(layero){
+			    				         var btn = layero.find('.layui-layer-btn');
+			    				            btn.find('.layui-layer-btn0').attr({
+			    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+			    				            ,target: '_self'
+			    				        });
+			    				    }
+			    				});
+			    		  }
+	    			  
+					}
+			      });
 			  });
 			  //监听工具条
 			  table.on('tool(MsgTable)', function(obj){
 			    var data = obj.data;
-			    if(obj.event === 'detail'){
-			      layer.msg('ID：'+ data.id + ' 的查看操作');
+			    if(obj.event === 'toChild'){
+			      layer.msg("查看下级菜单");
+			      table.reload('MsgTable', {
+	      				url: "http://192.168.1.126:8004/feign/adminMenu/getLayUIJSONByPid"
+	      				,where: {
+	      					pid:data.id
+	      				} //设定异步数据接口的额外参数
+	      				//,height: 300
+	    			  }); 
 			    } else if(obj.event === 'del'){
 			      layer.confirm('真的删除行么', function(index){
 			        //console.log(data); //输出此行数据
@@ -132,10 +210,46 @@
 			        	"dataType" : "text",
 			        	"success" : function (returnMsg) {
 							if(returnMsg==1){
-								layer.alert("删除成功");
+								layer.open({
+			    				    type: 1 //不显示标题栏   title : false/标题
+			    				    ,title: "删除成功，返回菜单"
+			    				    ,closeBtn: false
+			    				    ,area: '300px;'
+			    				    ,shade: 0.8
+			    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+			    				    ,resize: false
+			    				    ,btn: ['好的']
+			    				    ,btnAlign: 'c'
+			    				    ,moveType: 1 //拖拽模式，0或者1
+			    				    ,success: function(layero){
+			    				         var btn = layero.find('.layui-layer-btn');
+			    				            btn.find('.layui-layer-btn0').attr({
+			    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+			    				            ,target: '_self'
+			    				        });
+			    				    }
+			    				});
 			        			obj.del();
 							}else{
-								layer.alert("删除失败");
+				    			  layer.open({
+				    				    type: 1 //不显示标题栏   title : false/标题
+				    				    ,title: "删除失败，返回菜单"
+				    				    ,closeBtn: false
+				    				    ,area: '300px;'
+				    				    ,shade: 0.8
+				    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
+				    				    ,resize: false
+				    				    ,btn: ['好的']
+				    				    ,btnAlign: 'c'
+				    				    ,moveType: 1 //拖拽模式，0或者1
+				    				    ,success: function(layero){
+				    				         var btn = layero.find('.layui-layer-btn');
+				    				            btn.find('.layui-layer-btn0').attr({
+				    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+				    				            ,target: '_self'
+				    				        });
+				    				    }
+				    				});
 							}
 						}
 			        })
@@ -166,6 +280,11 @@
 	    				    ,btnAlign: 'c'
 	    				    ,moveType: 1 //拖拽模式，0或者1
 	    				    ,success: function(layero){
+	    				         var btn = layero.find('.layui-layer-btn');
+	    				            btn.find('.layui-layer-btn0').attr({
+	    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+	    				            ,target: '_self'
+	    				        });
 	    				    }
 	    				});
 					}

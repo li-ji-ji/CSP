@@ -32,52 +32,63 @@
 				//console.log(fontCss.fontStyle)
 				fontCss["font-style"]=fontCss.fontStyle	//设置正确属性用于存放font-style
 				fontCss["font-weight"]=fontCss.fontWeight	//设置正确属性用于存放font-weight
-			}
-		});
-		$.ajax({
-			"url": "http://192.168.1.126:8004/feign/adminMenu/getAll",
-			"data": "",
-			"type": "post",
-			"dataType": "text",
-			"success": function (returnMsg) {
-				zNodes = JSON.parse(returnMsg)
-				//console.log(returnMsg)
-				//console.log("得到数据：")
-				
-				//console.log( zNodes)//打印拿到的菜单数据
-				var setting = {
-					view: {
-						fontCss :fontCss,
-						dblClickExpand: false,
-						showLine: true
-					},
-					/* edit: {
-						enable: true //是否允许直接编辑
-					}, */
-					data: {
-						simpleData: {
-							enable: true
+
+				$.ajax({
+					"url": "http://192.168.1.126:8004/feign/adminMenu/getAll",
+					"data": "",
+					"type": "post",
+					"dataType": "text",
+					"success": function (returnMsg) {
+						zNodes = JSON.parse(returnMsg)
+						for(var item in zNodes){
+							if(zNodes[item]["isHidden"]==1){
+								zNodes[item]["isHidden"]=true
+							}
+							else{
+								zNodes[item]['isHidden']=false
+							}
 						}
-					},
-					callback: {
-						onClick: onClick
+						//console.log(returnMsg)
+						//console.log("得到数据：")
+						
+						//console.log( zNodes)//打印拿到的菜单数据
+						var setting = {
+							view: {
+								fontCss :fontCss,
+								dblClickExpand: false,
+								showLine: true
+							},
+							/* edit: {
+								enable: true //是否允许直接编辑
+							}, */
+							data: {
+								simpleData: {
+									enable: true
+								}
+							},
+							callback: {
+								onClick: onClick
+							}
+						};
+						/* function setFontCss(treeId, treeNode) {
+							return treeNode.level == menuLevel ? fontCss : {"color":"white"};
+						}; */
+						function onClick(e, treeId, treeNode) {
+							var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+							zTree.expandNode(treeNode);
+							//console.log(treeNode)//拿到预设数据
+							//console.log(treeNode.mainurl)//拿到预设数据
+							menu=treeNode
+							if(treeNode.mainUrl!="javascript:void(0)"){
+								$("#data-table").attr("src", treeNode.mainurl);
+							}
+						}
+						$(document).ready(function () {
+							//console.log("渲染前数据")
+							//console.log(zNodes)
+							$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+						});
 					}
-				};
-				/* function setFontCss(treeId, treeNode) {
-					return treeNode.level == menuLevel ? fontCss : {"color":"white"};
-				}; */
-				function onClick(e, treeId, treeNode) {
-					var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-					zTree.expandNode(treeNode);
-					console.log(treeNode)//拿到预设数据
-					console.log(treeNode.mainurl)//拿到预设数据
-					menu=treeNode
-					if(treeNode.mainUrl!="javascript:void(0)"){
-						$("#data-table").attr("src", treeNode.mainurl);
-					}
-				}
-				$(document).ready(function () {
-					$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 				});
 			}
 		});
@@ -110,6 +121,7 @@
 		</div>
 		<div class="layui-body">
 			<iframe id="data-table" src="" width="100%" height="100%"></iframe>
+			
 
 			<!-- <table class="layui-table"
 				lay-data="{width: 1150, height:500, url:'http://92.68.10.110:8080/back/getMenuUrlById', page:true, id:'idTest'}"
