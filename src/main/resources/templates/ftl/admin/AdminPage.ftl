@@ -40,14 +40,15 @@
 					"dataType": "text",
 					"success": function (returnMsg) {
 						zNodes = JSON.parse(returnMsg)
-						for(var item in zNodes){
+						//console.log(returnMsg)
+						/* for(var item in zNodes){
 							if(zNodes[item]["isHidden"]==1){
 								zNodes[item]["isHidden"]=true
 							}
 							else{
 								zNodes[item]['isHidden']=false
 							}
-						}
+						} */
 						//console.log(returnMsg)
 						//console.log("得到数据：")
 						

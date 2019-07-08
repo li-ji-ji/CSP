@@ -77,12 +77,11 @@
 			var element = layui.element;
 
 		});
-		layui.use(['table','laypage'] ,function(){
+		layui.use(['table','laypage','layer'] ,function(){
 			  form = layui.form;
 			  var table = layui.table;
 			  var laypage = layui.laypage;
-			  
-			  
+			  var $ = layui.jquery, layer = layui.layer;
 			  table.render({
 				    elem: '#MsgTable'
 				    ,MinHeight: 500
@@ -96,10 +95,10 @@
 				      
 				    }//开启分页 */
 				    ,cols: [[//表头
-				  		{field: "id", title: "菜单ID",fixed:"left", align: "center",width: 90, sort: true, edit: "text"}
+				  		{field: "id", title: "菜单ID",fixed:"left", align: "center",width: 90, sort: true}
 				    	,{field: "name", title: "菜单名称",fixed:"left", align: "center", width: 150, sort: true, edit: "text"}
 				    	,{field: "pId", title: "父级菜单ID",align: "center", width: 150, sort: true, edit: "text"}
-				    	,{field: "pId", title: "父级菜单名称",align: "center", width: 150, sort: true, edit: "text"}
+				    	,{field: "pName", title: "父级菜单名称",align: "center", width: 150, sort: true}
 				    	,{field:"isHidden", title:'是否启用', width:120, templet: '#isHiddenCheck', unresize: true}
 				    	,{field: "mainurl", title: "菜单跳转页面链接",align: "center", width: 180, sort: true, edit: "text"}
 				    	,{field: "icon", title: "终极菜单图标",align: "center", width: 150, sort: true, edit: "text"}
@@ -315,10 +314,6 @@
 			    active[type] ? active[type].call(this) : '';
 			  });
 			});
-	</script>
-	<script type="text/html" id="status_switch">
-	<!--菜单状态显示-->
-  		<input type="checkbox" id="{{d.id}}"  name="status" value="{{d.status}}" lay-skin="switch" lay-text="启用|停用" lay-filter="statusCheck" {{ d.status == false ? 'checked' : '' }}>
 	</script>
 </body>
 </html>

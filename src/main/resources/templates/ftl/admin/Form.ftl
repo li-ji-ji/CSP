@@ -79,7 +79,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	    		  if(resultMsg==1){
 	    			  layer.open({
 	    				    type: 1 //不显示标题栏   title : false/标题
-	    				    ,title: "修改成功，返回菜单"
+	    				    ,title: "添加成功，返回菜单"
 	    				    ,closeBtn: false
 	    				    ,area: '300px;'
 	    				    ,shade: 0.8
@@ -99,7 +99,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	    		  }else{
 	    			  layer.open({
 	  				    type: 1 //不显示标题栏   title : false/标题
-	  				    ,title: "修改失败，返回菜单"
+	  				    ,title: "添加 失败，返回菜单"
 	  				    ,closeBtn: false
 	  				    ,area: '300px;'
 	  				    ,shade: 0.8
