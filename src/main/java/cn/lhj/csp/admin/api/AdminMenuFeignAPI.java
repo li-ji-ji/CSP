@@ -15,7 +15,7 @@ import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 @RestController
 @RequestMapping("/feign/adminMenu")
 @CrossOrigin
-public class AdminMenuApiFeign {
+public class AdminMenuFeignAPI {
 	
 	@Autowired
 	AdminMenuApiInterface adminMenuApiInterface;

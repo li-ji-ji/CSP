@@ -1,15 +1,16 @@
+<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html>
-<script type="text/javascript" src="../../js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="../../js/plugins/layui/css/layui.css" media="all">
+	href="${base}/js/plugins/layui/css/layui.css" media="all">
 </head>
 <body>
 	<table id="MsgTable" lay-filter="MsgTable"></table>
-	<script src="../../js/plugins/layui/layui.js"></script>
+	<script src="${base}/js/plugins/layui/layui.js"></script>
 	<script type="text/html" id="editTool">
 		<!-- 工具栏 -->
   		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="toChild">查看下级菜单</a>
@@ -85,7 +86,7 @@
 			  table.render({
 				    elem: '#MsgTable'
 				    ,MinHeight: 500
-				    ,url: 'http://192.168.1.126:8004/feign/adminMenu/getMenuLimit' //数据接口
+				    ,url: '${base}/feign/adminMenu/getMenuLimit' //数据接口
 				    ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
 				        layout: [ 'count', 'prev', 'page', 'next', 'skip','limit'] //自定义分页布局
 				      //,curr: 5 //设定初始在第 5 页
@@ -137,7 +138,7 @@
 			    json=JSON.stringify(menu)
 			    //console.log(json)
 			    $.ajax({
-			    	  "url" : "http://192.168.1.126:8004/feign/adminMenu/updateOne",
+			    	  "url" : "${base}/feign/adminMenu/updateOne",
 			    	  "data" : "menu="+json,
 			    	  "type" : "post",
 			    	  "dataType" : "json",
@@ -146,18 +147,12 @@
 			    			  layer.open({
 			    				    type: 1 //不显示标题栏   title : false/标题
 			    				    ,title: "修改成功，返回菜单"
-			    				    ,closeBtn: false
-			    				    ,area: '300px;'
-			    				    ,shade: 0.8
-			    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-			    				    ,resize: false
 			    				    ,btn: ['好的']
 			    				    ,btnAlign: 'c'
-			    				    ,moveType: 1 //拖拽模式，0或者1
 			    				    ,success: function(layero){
 			    				         var btn = layero.find('.layui-layer-btn');
 			    				            btn.find('.layui-layer-btn0').attr({
-			    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+			    				                 href: '${base}/csp/admin/toTable'
 			    				            ,target: '_self'
 			    				        });
 			    				    }
@@ -166,18 +161,12 @@
 			    			  layer.open({
 			    				    type: 1 //不显示标题栏   title : false/标题
 			    				    ,title: "修改失败，返回菜单"
-			    				    ,closeBtn: false
-			    				    ,area: '300px;'
-			    				    ,shade: 0.8
-			    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-			    				    ,resize: false
 			    				    ,btn: ['好的']
 			    				    ,btnAlign: 'c'
-			    				    ,moveType: 1 //拖拽模式，0或者1
 			    				    ,success: function(layero){
 			    				         var btn = layero.find('.layui-layer-btn');
 			    				            btn.find('.layui-layer-btn0').attr({
-			    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+			    				                 href: '${base}/csp/admin/toTable'
 			    				            ,target: '_self'
 			    				        });
 			    				    }
@@ -193,7 +182,7 @@
 			    if(obj.event === 'toChild'){
 			      layer.msg("查看下级菜单");
 			      table.reload('MsgTable', {
-	      				url: "http://192.168.1.126:8004/feign/adminMenu/getLayUIJSONByPid"
+	      				url: "${base}/feign/adminMenu/getLayUIJSONByPid"
 	      				,where: {
 	      					pid:data.id
 	      				} //设定异步数据接口的额外参数
@@ -203,7 +192,7 @@
 			      layer.confirm('真的删除行么', function(index){
 			        //console.log(data); //输出此行数据
 			        $.ajax({
-			        	"url" : "http://192.168.1.126:8004/feign/adminMenu/delById",
+			        	"url" : "${base}/feign/adminMenu/delById",
 			        	"data" : "id="+data.id,
 			        	"type" : "post",
 			        	"dataType" : "text",
@@ -212,18 +201,12 @@
 								layer.open({
 			    				    type: 1 //不显示标题栏   title : false/标题
 			    				    ,title: "删除成功，返回菜单"
-			    				    ,closeBtn: false
-			    				    ,area: '300px;'
-			    				    ,shade: 0.8
-			    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-			    				    ,resize: false
 			    				    ,btn: ['好的']
 			    				    ,btnAlign: 'c'
-			    				    ,moveType: 1 //拖拽模式，0或者1
 			    				    ,success: function(layero){
 			    				         var btn = layero.find('.layui-layer-btn');
 			    				            btn.find('.layui-layer-btn0').attr({
-			    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+			    				                 href: '${base}/csp/admin/toTable'
 			    				            ,target: '_self'
 			    				        });
 			    				    }
@@ -233,18 +216,12 @@
 				    			  layer.open({
 				    				    type: 1 //不显示标题栏   title : false/标题
 				    				    ,title: "删除失败，返回菜单"
-				    				    ,closeBtn: false
-				    				    ,area: '300px;'
-				    				    ,shade: 0.8
-				    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-				    				    ,resize: false
 				    				    ,btn: ['好的']
 				    				    ,btnAlign: 'c'
-				    				    ,moveType: 1 //拖拽模式，0或者1
 				    				    ,success: function(layero){
 				    				         var btn = layero.find('.layui-layer-btn');
 				    				            btn.find('.layui-layer-btn0').attr({
-				    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+				    				                 href: '${base}/csp/admin/toTable'
 				    				            ,target: '_self'
 				    				        });
 				    				    }
@@ -262,7 +239,7 @@
 			      json=JSON.stringify(data);
 			      
 			      $.ajax({
-			    	  "url" : "http://192.168.1.126:8004/feign/adminMenu/updateOne",
+			    	  "url" : "${base}/feign/adminMenu/updateOne",
 			    	  "data" : "menu="+json,
 			    	  "type" : "post",
 			    	  "dataType" : "json",
@@ -270,18 +247,12 @@
 	    			  layer.open({
 	    				    type: 1 //不显示标题栏   title : false/标题
 	    				    ,title: "修改成功，返回菜单"
-	    				    ,closeBtn: false
-	    				    ,area: '300px;'
-	    				    ,shade: 0.8
-	    				    ,id: 'LAY_layuipro' //设定一个id，防止重复弹出
-	    				    ,resize: false
 	    				    ,btn: ['好的']
 	    				    ,btnAlign: 'c'
-	    				    ,moveType: 1 //拖拽模式，0或者1
 	    				    ,success: function(layero){
 	    				         var btn = layero.find('.layui-layer-btn');
 	    				            btn.find('.layui-layer-btn0').attr({
-	    				                 href: 'http://192.168.1.126:8004/csp/admin/toTable'
+	    				                 href: '${base}/csp/admin/toTable'
 	    				            ,target: '_self'
 	    				        });
 	    				    }

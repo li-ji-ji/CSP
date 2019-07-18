@@ -1,13 +1,13 @@
-
+<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="../../js/plugins/layui/css/layui.css" media="all">
-<script type="text/javascript" src="../../js/jquery-3.3.1.js"></script>
-<script src="../../js/plugins/layui/layui.js"></script>
+	href="${base}/js/plugins/layui/css/layui.css" media="all">
+<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
+<script src="${base}/js/plugins/layui/layui.js"></script>
 </head>
 <body>
 <form class="layui-form" style="margin-top:50px;" action="" lay-filter="example">
@@ -28,7 +28,7 @@
     <label class="layui-form-label" style="width:150px;">父级菜单名称</label>
     <div class="layui-input-block" style="width:45%;margin-left: 180px;">
       <select name="parentSelect" lay-filter="parentSelect" lay-search>
-        <option value="">请选择父级菜单</option>
+        <option value="none" selected></option>
         <#list AdminMenuList as item>
         	<option value="${item.id}" >${item.name}</option>
 		</#list>
@@ -70,7 +70,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	  console.log(data.field);
 	  var menuJSON=JSON.stringify(data.field);
 		  $.ajax({
-			  "url": "http://192.168.1.126:8004/feign/adminMenu/addOne",
+			  "url": "${base}/feign/adminMenu/addOne",
 			  "data":"menu="+menuJSON,
 			  "type":"post",
 	    	  "dataType" : "text",
@@ -91,7 +91,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	    				    ,success: function(layero){
 	    				         var btn = layero.find('.layui-layer-btn');
 	    				            btn.find('.layui-layer-btn0').attr({
-	    				                 href: 'http://192.168.1.126:8004/csp/admin/toIndex'
+	    				                 href: '${base}/csp/admin/toIndex'
 	    				            ,target: '_parent'
 	    				        });
 	    				    }
@@ -111,7 +111,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	  				    ,success: function(layero){
 	  				         var btn = layero.find('.layui-layer-btn');
 	  				            btn.find('.layui-layer-btn0').attr({
-	  				                 href: 'http://192.168.1.126:8004/csp/admin/toIndex'
+	  				                 href: '${base}/csp/admin/toIndex'
 	  				            ,target: '_parent'
 	  				        });
 	  				    }

@@ -1,4 +1,4 @@
-
+<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +10,12 @@
 	}
 </style>
 <link rel="stylesheet"
-	href="../../js/plugins/layui/css/layui.css" media="all">
-	<script type="text/javascript" src="../../js/jquery-3.3.1.js"></script>
-	<script src="../../js/Ztree/jquery.ztree.core.js"></script>
-	<script src="../../js/Ztree/jquery.ztree.excheck.js"></script>
-	<script src="../../js/Ztree/jquery.ztree.exedit.js"></script>
-	<link rel="stylesheet" href="../../css/ZTree/metroStyle/metroStyle.css">
+	href="${base}/js/plugins/layui/css/layui.css" media="all">
+	<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
+	<script src="${base}/js/Ztree/jquery.ztree.core.js"></script>
+	<script src="${base}/js/Ztree/jquery.ztree.excheck.js"></script>
+	<script src="${base}/js/Ztree/jquery.ztree.exedit.js"></script>
+	<link rel="stylesheet" href="${base}/css/ZTree/metroStyle/metroStyle.css">
 </head>
 <script type="text/javascript">
 		var zNodes	//菜单节点数据
@@ -23,7 +23,7 @@
 		var menuLevel=0	//菜单等级，用于设置字体
 		var menu
 		$.ajax({
-			"url": "http://192.168.1.126:8004/csp/api/fontCss/getCssById",
+			"url": "${base}/csp/api/fontCss/getCssById",
 			"data": "",
 			"type": "post",
 			"dataType": "text",
@@ -34,7 +34,7 @@
 				fontCss["font-weight"]=fontCss.fontWeight	//设置正确属性用于存放font-weight
 
 				$.ajax({
-					"url": "http://192.168.1.126:8004/feign/adminMenu/getAll",
+					"url": "${base}/feign/adminMenu/getAll",
 					"data": "",
 					"type": "post",
 					"dataType": "text",
@@ -163,7 +163,7 @@
 		</div>
 	</div>
 
-	<script src="../../js/plugins/layui/layui.js"></script>
+	<script src="${base}/js/plugins/layui/layui.js"></script>
 
 
 	<script type="text/html" id="barDemo">

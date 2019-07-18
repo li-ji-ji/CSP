@@ -24,17 +24,15 @@ public class GeneratorSqlMap {
 		
 	}
 
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
-		
-		try{
-		GeneratorSqlMap generatorSqlMap=new GeneratorSqlMap();
-		generatorSqlMap.generator();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-
-	}
+	/*
+	 * public static void main(String[] args) throws Exception { // TODO
+	 * Auto-generated method stub
+	 * 
+	 * try{ GeneratorSqlMap generatorSqlMap=new GeneratorSqlMap();
+	 * generatorSqlMap.generator(); }catch(Exception e){ e.printStackTrace(); }
+	 * 
+	 * 
+	 * }
+	 */
 
 }
