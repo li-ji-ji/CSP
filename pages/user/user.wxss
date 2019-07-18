@@ -1,0 +1,114 @@
+.user-list{
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 40rpx;
+}
+.user-text-wrap{
+  padding: 20rpx 0 20rpx 0rpx;
+  border-bottom: #EFEFEF solid 2rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 这个page很关键 */
+.flex-wrap {
+
+  display: -webkit-flex;
+}
+.flex-chooseWrap{
+  flex-wrap: wrap;
+}
+
+.flex-wrap-column {
+  display: -webkit-flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 1035rpx;
+}
+
+.flex-wrap view {
+  /* width: 200rpx; */
+  /* height: 200rpx;
+  text-align: center;
+  line-height: 200rpx;
+  font-size: 40rpx;
+  color: white; */
+}
+
+.flex-1 {
+  flex: 1;
+  /*占据整个盒子的1/4*/
+}
+
+.flex-2 {
+  flex: 2;
+  /*占据整个盒子的2/4*/
+}
+
+.flex-3 {
+  flex: 3;
+  /*占据整个盒子的3/4*/
+}
+
+.flex-5 {
+  flex: 5;
+  /*占据整个盒子*/
+}
+
+.flex-5 {
+  flex: 5;
+  /*占据整个盒子*/
+}
+
+.flex-6 {
+  flex: 6;
+  /*占据整个盒子*/
+}
+
+.flex-7 {
+  flex: 7;
+  /*占据整个盒子*/
+}
+
+.flex-8 {
+  flex: 8;
+  /*占据整个盒子*/
+}
+
+.flex-9 {
+  flex: 9;
+  /*占据整个盒子*/
+}
+
+.flex-10 {
+  flex: 10;
+  /*占据整个盒子*/
+}
+
+.flex-11 {
+  flex: 11;
+  /*占据整个盒子*/
+}
+
+.flex-12 {
+  flex: 12;
+  /*占据整个盒子*/
+}

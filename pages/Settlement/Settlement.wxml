@@ -1,0 +1,65 @@
+<view class="list-item-top flex-wrap">
+  <view class="flex-wrap flex-3">
+    <text class="publisherName">{{item.publisherName}}</text>
+  </view>
+  <view class="flex-wrap flex-1 phone-wrap">
+    <view class="image-wrap flex-1">
+      <image src="/images/phone.png" class="phone-image" />
+    </view>
+    <view class="number-wrap flex-11">
+      <text class="publisherNumber">{{item.publisherNumber}}</text>
+    </view>
+  </view>
+</view>
+<form bind:submit="formPay">
+  <view class="list-item flex-wrap">
+    <block wx:if="{{item.taskType==1}}">
+      <view class="task-title flex-1 flex-wrap">
+        <text class="">快递信息</text>
+        <text class=""></text>
+      </view>
+      <block wx:for="{{item.expresses}}" wx:key="*this">
+        <view class="task-text flex-1 flex-wrap task-text-top">
+          <text class="takeaddress-title">取件地址</text>
+          <text class="">{{item.takeaddress}}</text>
+        </view>
+        <view class="task-text  flex-1 flex-wrap">
+          <text class="targetaddress-title">送达地点</text>
+          <text class="">{{item.targetaddress}}</text>
+        </view>
+        <view class="task-text  flex-1 flex-wrap task-text-bottom">
+          <text class="takeaddress-title">取件信息</text>
+          <text class="">{{item.textcontent}}</text>
+        </view>
+      </block>
+    </block>
+    <block wx:if="{{item.taskType==2}}">
+      <view class="task-text  flex-wrap">
+        <text class="content-title">内容:</text>
+        <text class="takeaddress-content flex-1">{{item.taskContext}}</text>
+      </view>
+    </block>
+    <view class="task-text  flex-1 flex-wrap">
+      <text class="takeaddress-title">赏金</text>
+      <text class="">{{item.taskReward}}</text>
+    </view>
+    <!-- <view class="task-text  flex-1 flex-wrap">
+        <text class="takeaddress-title">优惠卷</text>
+        <text class="takeaddress-content task-content"></text>
+      </view> -->
+    <view class="task-text flex-1 flex-wrap">
+      <view class="flex-1 remarks-title">
+        <text class="">备注</text>
+      </view>
+      <input class="flex-1" name="remarks" type="number" placeholder="写 下 你 的 备 注 信 息">
+        {{item.remarks}}
+      </input>
+    </view>
+  </view>
+  <view class="page-bottom">
+    <view class="page-bottom-wrap flex-wrap">
+        <text class="flex-6 bottom-left">￥{{item.taskReward}}</text>
+      <button form-type="submit" class="bottom-right flex-2">确认支付</button>
+    </view>
+  </view>
+</form>

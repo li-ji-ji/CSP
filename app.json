@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/task/task",
+    "pages/user/user",
+    "pages/taskList/taskList",
+    "pages/taskDetails/taskDetails",
+    "pages/MyReceipt/MyReceipt",
+    "pages/MyRelease/MyRelease",
+    "pages/Settlement/Settlement"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "CSP",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  
+  "tabBar": {
+    "color": "#fff",
+    "list": [{
+        "pagePath": "pages/taskList/taskList",
+        "iconPath": "images/taskList.png",
+        "selectedIconPath": "images/taskList.png"
+      },{
+      "pagePath": "pages/task/task",
+      "iconPath": "images/task.png",
+      "selectedIconPath": "images/task.png"
+    },
+    {
+      "pagePath": "pages/user/user",
+      "iconPath": "images/user.png",
+      "selectedIconPath": "images/user.png"
+    }]
+  }
+  
+}

@@ -1,0 +1,266 @@
+page {
+    height: 100%;
+    background: white;
+}
+
+.navbar-warp {
+    position: relative;
+}
+
+.weui-navbar__slider {
+    position: absolute;
+    content: " ";
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 3px;
+    background-color: #FFFF00;
+    -webkit-transition: -webkit-transform 0.3s;
+    transition: -webkit-transform 0.3s;
+    transition: transform 0.3s;
+    transition: transform 0.3s, -webkit-transform 0.3s;
+}
+
+.main2-form {
+    /* padding: 0 0 0 20rpx;  */
+    /* margin: 0% 5% 5% 5%; */
+    background: #F6F6F6;
+}
+
+.Navbar {
+    text-align: center;
+    border-bottom: #EFEFEF solid 1rpx;
+    font-size: 25rpx;
+    line-height: 70rpx;
+    color: #666666;
+}
+
+.activeNavbar {
+    border-bottom: #FFFF00 solid 8rpx;
+}
+
+.form-main {
+    margin-bottom: 10rpx;
+}
+
+.form-item {
+    padding: 20rpx 0 20rpx 20rpx;
+    border-bottom: #EFEFEF solid 1rpx;
+    background: white;
+    /* text-align: center; */
+    /* margin-top: 5%; */
+}
+
+.accessInformation-top {
+    height: 100rpx;
+    border-bottom: none;
+}
+
+.accessInformation-bottom {
+    justify-content: flex-end;
+    background: white;
+}
+.up-images-wrap{
+    justify-content: flex-start;
+    padding: 0 30rpx 10rpx 30rpx;
+}
+.up-images{
+width: 150rpx;
+height: 150rpx;
+}
+.image-fluid{
+    width: 100%;
+    height: auto;
+}
+
+.accessInformation-bottom .button-left {
+    font-size: 20rpx;
+    border-radius: 60px;
+    background: #f8e5ef;
+    color: red;
+    border: #FF0000 solid 1rpx;
+    margin-right: 4%;
+    padding: 0;
+    margin-bottom: 1%;
+}
+
+.accessInformation-bottom .button-right {
+    font-size: 20rpx;
+    border-radius: 60px;
+    background: #ffffcc;
+    color: #F4C400;
+    border: #F4C400 solid 1rpx;
+    margin-right: 4%;
+    padding: 0;
+    margin-bottom: 1%;
+}
+
+.item-text {
+    font-size: 35rpx;
+}
+
+.item-input {
+    text-align: end;
+    font-size: 20rpx;
+    padding-right: 40rpx;
+    /* height: 100%;
+    border-bottom: #999999 solid 1px; */
+    /* text-indent: 20%; */
+}
+
+.item-input-x1 {
+    text-align: end;
+    font-size: 20rpx;
+    padding-right: 10rpx;
+}
+
+.item-input-x2 {
+    text-align: end;
+    font-size: 35rpx;
+    padding-right: 10rpx;
+}
+
+.padding-right20rpx {
+    padding-right: 20rpx;
+
+}
+.margin-bottom10{
+    margin-bottom:10%;
+}
+
+.form-submit {
+    font-size: 31rpx;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    background-color: #FFFF00;
+    z-index: 100;
+}
+
+.image-20rx20r {
+    width: 20rpx;
+    height: 20rpx;
+}
+
+.item-textarea {
+    height: 100%;
+    text-align: end;
+    font-size: 20rpx;
+    padding-right: 40rpx;
+    /* border: #999999 dashed 1px;
+    text-align: center;
+    padding-top: 20rpx; */
+}
+.reward{
+    border-bottom: none;
+}
+.tips-image{
+    width: 20rpx;
+    height: 20rpx;
+}
+.tips-warp{
+    font-size: 20rpx;
+    color: #C9C9C9;
+    background:none;
+    border-bottom: none;
+    padding: 20rpx 20rpx 20rpx 20rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 这个page很关键 */
+.flex-wrap {
+
+    display: -webkit-flex;
+}
+.flex-chooseWrap{
+    flex-wrap: wrap;
+}
+
+.flex-wrap-column {
+    display: -webkit-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 1035rpx;
+}
+
+.flex-wrap view {
+    /* width: 200rpx; */
+    /* height: 200rpx;
+    text-align: center;
+    line-height: 200rpx;
+    font-size: 40rpx;
+    color: white; */
+}
+
+.flex-1 {
+    flex: 1;
+    /*占据整个盒子的1/4*/
+}
+
+.flex-2 {
+    flex: 2;
+    /*占据整个盒子的2/4*/
+}
+
+.flex-3 {
+    flex: 3;
+    /*占据整个盒子的3/4*/
+}
+
+.flex-5 {
+    flex: 5;
+    /*占据整个盒子*/
+}
+
+.flex-5 {
+    flex: 5;
+    /*占据整个盒子*/
+}
+
+.flex-6 {
+    flex: 6;
+    /*占据整个盒子*/
+}
+
+.flex-7 {
+    flex: 7;
+    /*占据整个盒子*/
+}
+
+.flex-8 {
+    flex: 8;
+    /*占据整个盒子*/
+}
+
+.flex-9 {
+    flex: 9;
+    /*占据整个盒子*/
+}
+
+.flex-10 {
+    flex: 10;
+    /*占据整个盒子*/
+}
+
+.flex-11 {
+    flex: 11;
+    /*占据整个盒子*/
+}
+
+.flex-12 {
+    flex: 12;
+    /*占据整个盒子*/
+}

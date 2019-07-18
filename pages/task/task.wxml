@@ -1,0 +1,111 @@
+<!-- index.wxml -->
+<view class="navbar-warp">
+  <view class="main1 flex-wrap">
+    <text class="Navbar flex-1" bind:tap="activeNavBar" id="active1">取快递</text>
+    <text class="Navbar flex-1" bind:tap="activeNavBar" id="active2">其他任务</text>
+    <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}rpx); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+  </view>
+</view>
+<block wx:if="{{active1!=''}}">
+  <form class="main2-form flex-wrap-column" bind:submit="expressForm">
+    <input hidden="true" value="取快递" name="taskTitle"/>
+    <input hidden="true" value="1" name="taskType"/>
+    <input hidden="true" value="{{user.userId}}" name="taskPublisher"/>
+    <input hidden="true" value="0" name="taskStatus"/>
+    <input hidden="true" value=""  name="publishTime"/>
+    <view class="form-main ">
+      <view class="flex-wrap form-item">
+        <text class="flex-1 item-text">姓名</text>
+        <input name="name" type="text" class="flex-6 item-input" placeholder="请 输 入 姓 名"></input>
+      </view>
+      <view class="flex-wrap form-item">
+        <text class="flex-1 item-text">电话</text>
+        <input name="number" type="number" class="flex-6 item-input" placeholder="请 输 入 电 话"></input>
+      </view>
+    </view>
+    <block wx:for="{{formMain}}" wx:key="*this">
+      <view class="form-main">
+        <view class="flex-wrap form-item">
+          <text class="flex-5 item-text">取件地址</text>
+          <input name="takeAddress{{index}}" type="text" class="flex-8 item-input-x1" placeholder="请 输 入 文 字"></input>
+          <picker mode="selector" class="flex-1">
+            <image src="/images/down.png" class="image-20rx20r" />
+          </picker>
+        </view>
+        <view class="flex-wrap form-item">
+          <text class="flex-5 item-text">送达地点</text>
+          <input name="targetAddress{{index}}" type="text" value="{{isLocation}}" class="flex-8 item-input-x1" placeholder="请 输 入 文 字"></input>
+          <view mode="selector" class="flex-1" bind:tap="chooseLocation">
+            <image class="flex-1" src="/images/down.png" class="image-20rx20r" />
+          </view>
+        </view>
+        <view class="accessInformation">
+          <view class="flex-wrap form-item accessInformation-top">
+            <text class="flex-3 item-text">取件信息</text>
+            <textarea name="textContent{{index}}" type="text" class="flex-12 item-textarea" placeholder="准确的取件信息是任务完成的关键!"></textarea>
+          </view>
+          <block wx:if="{{index==formMain.length-1}}">
+            <view class="flex-wrap accessInformation-bottom">
+              <view class="flex-7"></view>
+              <button class="flex-2 button-left" bind:tap="deleteItem">x 删除</button>
+              <button class="flex-2 button-right" bind:tap="addItem">+ 添加快递</button>
+            </view>
+          </block>
+        </view>
+      </view>
+    </block>
+    <view class="flex-wrap form-item reward margin-bottom10">
+      <text class="flex-7 item-text">赏金</text>
+      <input type="number" class="flex-4 item-input-x2" placeholder="请 输 入 金 额" name="taskReward"></input>
+      <text class="flex-1 padding-right20rpx">元</text>
+    </view>
+    <button class="form-submit" form-type="submit">下单</button>
+  </form>
+</block>
+<block wx:if="{{active2!=''}}">
+  <form class="main2-form flex-wrap-column" bind:submit="taskForm">
+    <input hidden="true" value="其他任务" name="taskTitle"/>
+    <input hidden="true" value="2" name="taskType"/>
+    <input hidden="true" value="{{user.userId}}" name="taskPublisher"/>
+    <input hidden="true" value="0" name="taskStatus"/>
+    <input hidden="true" value=""  name="publishTime"/>
+    <view class="form-main ">
+      <view class="flex-wrap form-item">
+        <text class="flex-1 item-text">姓名</text>
+        <input name="name" type="text" class="flex-6 item-input" placeholder="请 输 入 姓 名"></input>
+      </view>
+      <view class="flex-wrap form-item">
+        <text class="flex-1 item-text">电话</text>
+        <input  name="number" type="number" class="flex-6 item-input" placeholder="请 输 入 电 话"></input>
+      </view>
+    </view>
+    <view class="form-main">
+      <view class="accessInformation">
+        <view class="flex-wrap form-item accessInformation-top">
+          <text class="flex-3 item-text">任务描述</text>
+          <textarea  type="text" class="flex-12 item-textarea" placeholder="详细描述任务,保证任务完成质量!" name="taskContext"></textarea>
+        </view>
+
+        <view class="flex-wrap accessInformation-bottom up-images-wrap flex-chooseWrap">
+          <block wx:for="{{chooseImages}}" wx:key="*this">
+          <image src="{{item}}" class="up-images" bind:tap="preview"/>
+          </block>
+          <image src="{{upImages}}" class="up-images" bind:touchstart="touchUpImages" bind:tap="chooseImages"/>
+        </view>
+        
+      </view>
+    </view>
+    <view class="flex-wrap form-item reward">
+      <text class="flex-7 item-text">赏金</text>
+      <input type="number" class="flex-4 item-input-x2" placeholder="请 输 入 金 额" name="taskReward"></input>
+      <text class="flex-1 padding-right20rpx">元</text>
+    </view>
+    <view class="flex-wrap form-item margin-bottom10 tips-warp">
+    <view class="flex-1">
+      <image src="/images/tips.png" class="tips-image"/>
+      </view>
+      <text class="flex-12 tips-text">如涉及代购商品等任务,接单同学先垫付代购金额</text>
+    </view>
+    <button class="form-submit" form-type="submit">下单</button>
+  </form>
+</block>

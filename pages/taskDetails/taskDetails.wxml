@@ -1,0 +1,79 @@
+<view class="list-item flex-wrap">
+  <view class="flex-wrap list-item-user flex-1">
+    <open-data type="userAvatarUrl" class="icon flex-2" />
+    <view class="user-content flex-wrap flex-11">
+      <view class="user-content-top flex-wrap">
+        <open-data type="userNickName" class="top-userName" />
+        <image src="/images/man.png" class="user-sex" />
+      </view>
+      <view class="user-content-bottom flex-wrap">
+        <text class="user-bottom-time flex-1">{{item.time}}</text>
+        <text class="user-bottom-school flex-1">{{item.school}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="flex-wrap list-item-task flex-2">
+    <view class="task-title flex-wrap flex-1">
+      <text class="">{{item.title}}</text>
+      <text class="task-title-reward">￥ {{item.taskReward}}</text>
+    </view>
+<block wx:if="{{item.taskType==1}}">
+    <block wx:for="{{item.express}}"wx:key="{{index}}">
+      <view class="task-text takeaddress flex-1 flex-wrap">
+      <text class="takeaddress-title">取件地点</text>
+      <text class="takeaddress-content task-content">{{item.takeaddress}}</text>
+    </view>
+    <view class="task-text targetaddress flex-1 flex-wrap">
+      <text class="targetaddress-title">送达地点</text>
+      <text class="targetaddress-content task-content">{{item.targetaddress}}</text>
+    </view>
+    </block>
+    <view class="task-text targetaddress flex-1 flex-wrap">
+      <text class="targetaddress-title">备注</text>
+      <text class="targetaddress-content task-content-remarks">{{item.remarks}}</text>
+    </view>
+    </block>
+    <block wx:if="{{item.taskType==2}}">
+        <view class="task-text takeaddress flex-wrap">
+          <text class="content-title">内容:</text>
+          <text class="takeaddress-content flex-1">{{item.taskContext}}</text>
+        </view>
+        </block>
+
+  </view>
+
+  <view class="flex-1">
+    <view class="flex-wrap taskStatus">
+      <text class="flex-1 taskStatus-title">任务状态</text>
+      <block wx:if="{{item.status==1}}">
+        <view class="flex-1 tatus-wrap">
+        <image  src="/images/statusPublication.png" class="task-status"></image>
+      </view>
+      </block>
+      <block wx:if="{{item.status==2}}">
+        <view class="flex-1 tatus-wrap">
+        <image  src="/images/statusAccepted.png" class="task-status"></image>
+      </view>
+      </block>
+      <block wx:if="{{item.status==3}}">
+        <view class="flex-1 tatus-wrap">
+        <image  src="/images/statusComplete.png" class="task-status"></image>
+      </view>
+      </block>
+      <block wx:if="{{item.status==4}}">
+        <view class="flex-1 tatus-wrap">
+        <image  src="/images/statusSettled.png" class="task-status"></image>
+      </view>
+      </block>
+    </view>
+  </view>
+  <block wx:if="{{item.taskPublisher!=user.userId}}">
+    <block wx:if="{{item.status==1}}">
+  <view class="flex-1">
+    <view class="flex-wrap detailsButton">
+      <button class="button-style flex-1" bind:tap="receipt" data-taskid="{{item.taskId}}" data-taskReward="{{item.taskReward}}">接单</button>
+    </view>
+  </view>
+  </block>
+  </block>
+</view>

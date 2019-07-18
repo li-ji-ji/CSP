@@ -1,0 +1,176 @@
+page {
+   background: #F6F6F6;
+   height: 100%;
+}
+.list-item-top {
+   margin: 10rpx 40rpx 10rpx 40rpx;
+   padding: 20rpx 40rpx 20rpx 40rpx;
+   border-radius: 30rpx;
+   background: yellow;
+   flex-direction: column;
+   justify-content: space-between;
+
+}
+.publisherNumber{
+   font-size: 25rpx;
+}
+.list-item {
+   margin: 10rpx 40rpx 40rpx 40rpx;
+   padding: 20rpx 40rpx 20rpx 40rpx;
+   border-radius: 30rpx;
+   background: white;
+   flex-direction: column;
+   justify-content: space-between;
+
+}
+.task-title{
+   padding-bottom: 20rpx;
+   border-bottom: #F6F6F6 solid 10rpx;
+}
+.task-text{
+   font-size: 25rpx;
+   padding: 20rpx 0rpx 20rpx 0rpx;
+   justify-content: space-between
+}
+.page-bottom{
+   position: fixed;
+   width: 100%;
+   bottom: 0px;
+   z-index: 100;
+}
+.page-bottom-wrap{
+   justify-content: space-between
+}
+.bottom-left{
+   padding-left: 40rpx;
+   line-height: 90rpx;
+   color: #ffffff;
+   text-align: initial;
+   background-color: black;
+}
+.bottom-right{
+   font-size: 31rpx;
+   background-color: #FFFF00;
+}
+.phone-wrap{
+   padding: 20rpx 0 20rpx 0;
+}
+.phone-image{
+   border-radius:50%;
+   width: 20rpx;
+   height: 20rpx;
+}
+.task-text-top{
+   margin-top: 20rpx;
+}
+.task-text-bottom{
+   border-bottom: #F6F6F6 solid 5rpx;
+}
+.remarks-title{
+   padding: 10rpx 0 0 0rpx;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 这个page很关键 */
+.flex-wrap {
+
+   display: -webkit-flex;
+}
+
+.flex-chooseWrap {
+   flex-wrap: wrap;
+}
+
+.flex-wrap-column {
+   display: -webkit-flex;
+   flex-direction: column;
+   justify-content: space-between;
+   height: 1130rpx;
+}
+
+.flex-wrap view {
+   /* width: 200rpx; */
+   /* height: 200rpx;
+   text-align: center;
+   line-height: 200rpx;
+   font-size: 40rpx;
+   color: white; */
+}
+
+.flex-1 {
+   flex: 1;
+   /*占据整个盒子的1/4*/
+}
+
+.flex-2 {
+   flex: 2;
+   /*占据整个盒子的2/4*/
+}
+
+.flex-3 {
+   flex: 3;
+   /*占据整个盒子的3/4*/
+}
+
+.flex-5 {
+   flex: 5;
+   /*占据整个盒子*/
+}
+
+.flex-5 {
+   flex: 5;
+   /*占据整个盒子*/
+}
+
+.flex-6 {
+   flex: 6;
+   /*占据整个盒子*/
+}
+
+.flex-7 {
+   flex: 7;
+   /*占据整个盒子*/
+}
+
+.flex-8 {
+   flex: 8;
+   /*占据整个盒子*/
+}
+
+.flex-9 {
+   flex: 9;
+   /*占据整个盒子*/
+}
+
+.flex-10 {
+   flex: 10;
+   /*占据整个盒子*/
+}
+
+.flex-11 {
+   flex: 11;
+   /*占据整个盒子*/
+}
+
+.flex-12 {
+   flex: 12;
+   /*占据整个盒子*/
+}
