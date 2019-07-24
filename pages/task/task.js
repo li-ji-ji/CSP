@@ -33,6 +33,9 @@ Page({
     that.setData({
       user: user
     })
+    if (JSON.stringify(options.isOk)!=null){
+      
+    }
   },
 
   /**
@@ -169,13 +172,13 @@ Page({
     var name = task.name;
     var title = task.title;
     var number = task.number;
-    var taskPublisher = that.data.user.userId;
+    var taskPublisher = that.data.user.userID;
     console.log(taskPublisher)
     var taskStatus = task.taskStatus;
     var taskType = task.taskType;
     var textContent = task.textContent0;
     var publishTime = task.publishTime;
-    var taskReward = task.taskReward;
+    var taskReward = task.taskReward*100;
     var getNewdate = that.getNewDate();
     var num = that.data.formMain.length;
     var expresses = [];
@@ -203,10 +206,11 @@ Page({
         "taskContext": textContent,
         "expresses": expresses
       };
-      taskJson = JSON.stringify(taskJson);
+      taskJson = taskJson;
       console.log(taskJson);
+      taskJson = JSON.stringify(taskJson);
       wx.navigateTo({
-        url: '/pages/Settlement/Settlement?taskJson=' + taskJson,
+        url: '/pages/Settlement/Settlement?taskJson=' + taskJson+'&num='+num,
       })
       // wx: wx.request({
       //   url: 'http://244z00029g.zicp.vip/PublishingTasks',
@@ -275,7 +279,7 @@ Page({
     var taskPublisher = that.data.user.userId;
     var taskStatus = task.taskStatus;
     var taskType = task.taskType;
-    var textContent = task.textContent0;
+    var textContent = task.textContent;
     var publishTime = task.publishTime;
     var taskReward = task.taskReward;
     var getNewdate = that.getNewDate();
@@ -295,7 +299,7 @@ Page({
         "taskStatus": "0",
         "taskTitle": title,
         "taskType": "1",
-        "taskContext": textContent
+        "taskContext": textContent      
       };
       console.log(taskJson);
       if (images.length > 0) {

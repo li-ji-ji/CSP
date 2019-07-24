@@ -2,15 +2,37 @@ page {
    background: #F6F6F6;
    height: 100%;
 }
-
+.ppt{
+   margin: 20rpx 40rpx 0rpx 40rpx;
+}
+.ppt-image{
+   border-radius: 30rpx;
+   height: 100%;
+   width: 100%;
+}
+.topNav-wrap{
+   margin: 40rpx 40rpx 0rpx 40rpx;
+   height: 250rpx !important;
+}
+.topNav{
+   margin-bottom: 40rpx;
+   justify-content: space-between;
+}
+.topNav-item{
+   margin: 0 10rpx 0 10rpx;
+   background-color:#F4C400;
+   padding-top: 30rpx;
+   font-size: 18rpx;
+   border-radius: 20rpx;
+   text-align: center;
+}
 .list-item {
-   margin: 40rpx 40rpx 40rpx 40rpx;
+   margin: 0rpx 40rpx 40rpx 40rpx;
    height: 50%;
    border-radius: 30rpx;
    background: white;
    flex-direction: column;
    justify-content: space-between;
-
 }
 
 .list-item-user {

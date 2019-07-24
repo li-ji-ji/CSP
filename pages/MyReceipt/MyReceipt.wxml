@@ -29,7 +29,7 @@
       <view class="flex-wrap list-item-task flex-2">
         <view class="task-title flex-wrap flex-1">
           <text class="">{{item.title}}</text>
-          <text class="task-title-reward">￥ {{item.taskReward}}</text>
+          <text class="task-title-reward">￥ {{item.taskReward/100}}</text>
         </view>
 
         <view class="task-text takeaddress flex-1 flex-wrap">

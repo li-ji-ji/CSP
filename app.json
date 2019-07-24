@@ -6,7 +6,8 @@
     "pages/taskDetails/taskDetails",
     "pages/MyReceipt/MyReceipt",
     "pages/MyRelease/MyRelease",
-    "pages/Settlement/Settlement"
+    "pages/Settlement/Settlement",
+    "pages/Success/Success"
   ],
   "window": {
     "backgroundTextStyle": "light",

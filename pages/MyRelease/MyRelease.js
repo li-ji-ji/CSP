@@ -109,8 +109,9 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    var app=getApp();
     that.setData({
-      user:options
+      user: app.globalData.user
     })
     var refresh = that.refresh();
     refresh;

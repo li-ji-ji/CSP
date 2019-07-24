@@ -1,38 +1,55 @@
-<block wx:for="{{taskList}}"wx:key="index">
-<view class="list-item flex-wrap" bind:tap="taskDetails" data-task="{{item}}">
-      <view class="flex-wrap list-item-user flex-1">
-        <open-data type="userAvatarUrl" class="icon flex-1" />
-        <view class="user-content flex-wrap flex-5">
-          <view class="user-content-top flex-wrap">
-            <open-data type="userNickName" class="top-userName" />
-            <image src="/images/man.png" class="user-sex" />
-          </view>
-          <view class="user-content-bottom flex-wrap">
-            <text class="user-bottom-time flex-1">{{item.time}}</text>
-            <text class="user-bottom-school flex-1">{{item.school}}</text>
-          </view>
+<swiper class="ppt" indicator-dots="{{pptConfig.indicatordots}}" autoplay="{{pptConfig.autoplay}}" interval="{{pptConfig.interval}}" duration="{{pptConfig.duration}}">
+  <block wx:for="{{pptImages}}" wx:key="index">
+    <swiper-item class="ppt-item">
+      <image src="{{item}}" class="ppt-image" />
+    </swiper-item>
+  </block>
+</swiper>
+<view class="flex-wrap-column topNav-wrap">
+  <view class="flex-wrap topNav flex-1">
+    <text class="topNav-item flex-1">打印中心</text>
+    <text class="topNav-item flex-1">摄影中心</text>
+    <text class="topNav-item flex-1">知识产权中心</text>
+  </view>
+  <view class="flex-wrap topNav flex-1">
+    <text class="topNav-item flex-1">学生服务中心</text>
+    <text class="topNav-item flex-1">教师中心</text>
+    <text class="topNav-item flex-1">开发中心</text>
+  </view>
+</view>
+<block wx:for="{{taskList}}" wx:key="index">
+  <view class="list-item flex-wrap" bind:tap="taskDetails" data-task="{{item}}">
+    <view class="flex-wrap list-item-user flex-1">
+      <open-data type="userAvatarUrl" class="icon flex-1" />
+      <view class="user-content flex-wrap flex-5">
+        <view class="user-content-top flex-wrap">
+          <open-data type="userNickName" class="top-userName" />
+          <image src="/images/man.png" class="user-sex" />
         </view>
-        
-        <block wx:if="{{item.status==1}}">
-            <image  src="/images/Publication.png" class="flex-1 task-status"></image>
-        </block>
-        <block wx:if="{{item.status==2}}">
-            <image  src="/images/Accepted.png" class="flex-1 task-status"></image>
-        </block>
-        <block wx:if="{{item.status==3}}">
-            <image  src="/images/complete.png" class="flex-1 task-status"></image>
-        </block>
-        <block wx:if="{{item.status==4}}">
-            <image  src="/images/Settled.png" class="flex-1 task-status"></image>
-        </block>
+        <view class="user-content-bottom flex-wrap">
+          <text class="user-bottom-time flex-1">{{item.time}}</text>
+          <text class="user-bottom-school flex-1">{{item.school}}</text>
+        </view>
       </view>
-      <view class="flex-wrap list-item-task flex-2">
-        <view class="task-title flex-wrap">
-          <text class="">{{item.title}}</text>
-          <text class="task-title-reward">￥ {{item.taskReward}}</text>
-        </view>
-
-        <block wx:if="{{item.taskType==1}}">
+      <block wx:if="{{item.status==1}}">
+        <image src="/images/Publication.png" class="flex-1 task-status"></image>
+      </block>
+      <block wx:if="{{item.status==2}}">
+        <image src="/images/Accepted.png" class="flex-1 task-status"></image>
+      </block>
+      <block wx:if="{{item.status==3}}">
+        <image src="/images/complete.png" class="flex-1 task-status"></image>
+      </block>
+      <block wx:if="{{item.status==4}}">
+        <image src="/images/Settled.png" class="flex-1 task-status"></image>
+      </block>
+    </view>
+    <view class="flex-wrap list-item-task flex-2">
+      <view class="task-title flex-wrap">
+        <text class="">{{item.title}}</text>
+        <text class="task-title-reward">￥ {{item.taskReward/100}}</text>
+      </view>
+      <block wx:if="{{item.taskType==1}}">
         <view class="task-text takeaddress flex-1 flex-wrap">
           <text class="takeaddress-title">取件地点</text>
           <text class="takeaddress-content task-content">{{item.express[0].takeaddress}}</text>
@@ -45,15 +62,14 @@
           <text class="targetaddress-title">备注</text>
           <text class="targetaddress-content task-content-remarks">{{item.remarks}}</text>
         </view>
-        </block>
-
-        <block wx:if="{{item.taskType==2}}">
+      </block>
+      <block wx:if="{{item.taskType==2}}">
         <view class="task-text takeaddress flex-wrap">
           <text class="content-title">内容:</text>
           <text class="takeaddress-content flex-1">{{item.taskContext}}</text>
         </view>
-        </block>
-      </view>
-      <view class="flex-1"></view>
+      </block>
     </view>
-    </block>
+    <view class="flex-1"></view>
+  </view>
+</block>

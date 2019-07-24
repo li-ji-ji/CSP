@@ -10,7 +10,23 @@ Page({
     taskList: [],//构造的task任务列表
     num: 0,//
     taskidList: [],
-    originalData: []
+    originalData: [],
+    pptImages: ["http://static.runoob.com/images/mix/img_nature_wide.jpg",
+    "http://static.runoob.com/images/mix/img_mountains_wide.jpg",
+    "http://static.runoob.com/images/mix/img_nature_wide.jpg",
+    "http://static.runoob.com/images/mix/img_mountains_wide.jpg",
+    "http://static.runoob.com/images/mix/img_nature_wide.jpg",
+    "http://static.runoob.com/images/mix/img_mountains_wide.jpg",
+    ],
+    pptConfig:{
+
+      "indicatordots": "true",//是否显示指示点
+      "indicatorcolor":"",//指示点颜色
+      "indicatoractivecolor":"",//已选中指示点
+      "autoplay": "true",//是否自动切换
+      "interval":"2000",//切换频率
+      "duration":"1000"//切换速度
+    }
   },
   //得到一个taskList并更新值
   getTaskList: function () {

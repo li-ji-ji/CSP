@@ -11,7 +11,7 @@ Page({
     num: 0,//
     taskidList: [],
     originalData: [],
-    user: {}
+    user: {},
   },
   //得到一个taskList并更新值
   getTaskList: function () {
@@ -110,7 +110,7 @@ Page({
   onLoad: function (options) {
     var that = this;
     that.setData({
-      user: options
+      user: app.globalData.user
     })
     var refresh = that.refresh();
     refresh;
