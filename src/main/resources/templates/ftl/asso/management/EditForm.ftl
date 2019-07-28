@@ -51,12 +51,29 @@
     </div>
   </div>
   <div class="layui-form-item">
+    <label class="layui-form-label" style="width: 150px;">挂靠部门</label>
+    <div class="layui-input-block"style="width:46%;margin-left:180px;">
+      <select name="assoAffiliateNo" lay-verify="" lay-search>
+		  <#list schoolUnit as unit>
+		  	<option value="${unit.unitNo}" 
+		  		<#if unit.unitNo == asso.assoAffiliateNo>
+		  			selected
+		  		</#if>
+		  	>${unit.unitName}</option>
+		  </#list>
+	  </select>  
+    </div>
+  </div>
+  <div class="layui-form-item">
     <label class="layui-form-label" style="width: 150px;">社团指导老师</label>
     <div class="layui-input-block"style="width:46%;margin-left:180px;">
-      <select name="assoGuiderId" lay-verify="" >
-		  <option value="${asso.assoGuiderId}" label="${asso.assoGuiderName}" disabled selected>${asso.assoGuiderName}</option>
+      <select name="assoGuiderId" lay-verify="" lay-search>
 		  <#list assoGuiders as guider>
-		  	<option value="${guider.id}" >${guider.tName}</option>
+		  	<option value="${guider.id}" 
+		  		<#if guider.id == asso.assoGuiderId>
+		  			selected
+		  		</#if>
+		  	>${guider.tName}</option>
 		  </#list>
 	  </select>  
     </div>

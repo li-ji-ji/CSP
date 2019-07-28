@@ -106,7 +106,7 @@
 				    	,{field: "iconOpen", title: "非终极菜单开启图标",align: "center", width: 200, sort: true, edit: "text"}
 				    	,{field: "iconClose", title: "非终极菜单关闭图标",align: "center", width: 200, sort: true, edit: "text"}
 				    	,{field: "fontCss", title: "菜单字体样式",align: "center", width: 150, sort: true, edit: "text"}
-				    	,{fixed: "right", width: 300, align: "center", toolbar: "#editTool"}
+				    	,{fixed: "right",title: "操作栏", width: 300, align: "center", toolbar: "#editTool"}
 				    ]]
 				  });
 			  //表格重载

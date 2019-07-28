@@ -2,7 +2,7 @@ package cn.lhj.csp.admin.controller;
 
 import java.util.List;
 
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 
 import cn.lhj.csp.admin.dto.AssoManagemrntDto;
+import cn.lhj.csp.admin.dto.AssoSchoolDto;
 import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
+import cn.lhj.csp.admin.po.asso.CspAssoManagement;
 
 @Controller
 @RequestMapping("/csp/asso")
@@ -24,7 +27,7 @@ public class CspAssoManagementPageController {
 	//跳转到已成立社团列表
 	@RequestMapping("/toExistedAssoTable")
 	public String toExistedAssoTable(Model model) throws Exception{
-		List<Object> ExistedAssoList=assoManagementApiInterface.getExistedAssoLimit(1, 100);
+		List<CspAssoManagement> ExistedAssoList=assoManagementApiInterface.getExistedAssoLimit(1, 100);
 		model.addAttribute("AssoList",ExistedAssoList);
 		// System.out.println(ExistedAssoList.toString());
 		model.addAttribute("TableType", "ExistedTable");
@@ -34,7 +37,7 @@ public class CspAssoManagementPageController {
 	//跳转到待审核社团列表
 	@RequestMapping("/toExamingAssoTable")
 	public String toExamingAssoTable(Model model) throws Exception{
-		List<Object> ExamingAssoList=assoManagementApiInterface.getCheckingAssoLimit(1, 100);
+		List<CspAssoManagement> ExamingAssoList=assoManagementApiInterface.getCheckingAssoLimit(1, 100);
 		model.addAttribute("AssoList",ExamingAssoList);
 		// System.out.println(ExistedAssoList.toString());
 		model.addAttribute("TableType", "ExamingTable");
@@ -54,6 +57,8 @@ public class CspAssoManagementPageController {
 	public String toAdd(AssoManagemrntDto asso,Model model) throws Exception{
 		List<Object> assoGuiders=assoManagementApiInterface.getGuiderAll();
 		model.addAttribute("assoGuiders",assoGuiders);
+		List<Object> schoolUnit=assoManagementApiInterface.getUnitAll();
+		model.addAttribute("schoolUnit",schoolUnit);
 		return "ftl/asso/management/AddForm";
 	}
 	
@@ -64,6 +69,8 @@ public class CspAssoManagementPageController {
 		model.addAttribute("asso", asso);
 		List<Object> assoGuiders=assoManagementApiInterface.getGuiderAll();
 		model.addAttribute("assoGuiders",assoGuiders);
+		List<Object> schoolUnit=assoManagementApiInterface.getUnitAll();
+		model.addAttribute("schoolUnit",schoolUnit);
 		return "ftl/asso/management/EditForm";
 	}
 	
@@ -107,5 +114,20 @@ public class CspAssoManagementPageController {
 	public int setCheckedAssoList(@RequestParam("checkList") List<Integer> checkList)throws Exception{
 		//返回成功值后由页面JS进行跳转
 		return assoManagementApiInterface.setCheckedAssoList(checkList);
+	}
+	
+	//查看社团详细信息
+	@RequestMapping("/getAssoDetail")
+	public String getAssoDetail(@RequestParam("id") Integer id,Model model)throws Exception{
+		Object getAsso=assoManagementApiInterface.getAssoById(id);
+		String json=JSON.toJSONString(getAsso);
+		//System.out.println(json);
+		AssoManagemrntDto asso=JSON.parseObject(json,AssoManagemrntDto.class);
+		//System.out.println(asso.toString());
+		int memberNum=assoManagementApiInterface.countRelationByAId(asso.getAssoId());//获取社团成员数目
+		//System.out.println(memberNum);
+		List<Object> memberList=assoManagementApiInterface.getRelationByAId(asso.getAssoId());
+		
+		return null;
 	}
 }

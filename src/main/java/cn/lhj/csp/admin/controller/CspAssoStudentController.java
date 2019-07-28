@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
+import cn.lhj.csp.admin.po.asso.CspAssoStudent;
 
 @Controller
 @RequestMapping("/csp/assoStu")
@@ -22,7 +22,7 @@ public class CspAssoStudentController {
 	//跳转到学生列表
 	@RequestMapping("/toStuTable")
 	public String toStuTable(Model model)throws Exception{
-		List<Object> stuList=assoStudent.getStuAll();
+		List<CspAssoStudent> stuList=assoStudent.getStuAll();
 		//System.out.println(stuList.toString());
 		model.addAttribute("stuList", stuList);
 		return "ftl/asso/student/Table";

@@ -20,6 +20,7 @@
 				<th lay-data="{field:'assoStatus',width:'150',align:'center'}">运营状态</th>
 				<th lay-data="{field:'assoExamined',width:'150',align:'center'}">审核状态</th>
 				<th lay-data="{field:'assoGuiderName',width:'150',align:'center'}">指导老师</th>
+				<th lay-data="{field:'assoAffiliateName',width:'150',align:'center'}">挂靠部门</th>
 				<th lay-data="{field:'assoLeader',width:'150',align:'center'}">学生负责人</th>
 				<th lay-data="{field:'assoEstablishmentTime',width:'150',align:'center'}">
 					<#if TableType=="ExistedTable">
@@ -28,7 +29,7 @@
 						申请时间
 					</#if>
 				</th>
-				<th lay-data="{field:'tool',width:'300',fixed:'right',align:'center'}">操作栏</th>
+				<th lay-data="{field:'tool',width:'200',fixed:'right',align:'center'}">操作栏</th>
 			</tr>
 			<tbody>
 				<#list AssoList as asso>
@@ -52,6 +53,7 @@
 							</#if>
 						</td>
 						<td>${asso.assoGuiderName}</td>
+						<td>${asso.assoAffiliateName}</td>
 						<td>${asso.assoLeader}</td>
 						<td>${asso.assoEstablishmentTime?date}</td>
 						<td>
@@ -88,7 +90,7 @@
 	layui.use(['laypage','table'],function(){
 		  var table = layui.table;
 		  table.init('AssoTable',{
-			  height:500,
+			  height:450,
 			  toolbar: '#toolbar',
 			  page:true,
 			  limit:10
