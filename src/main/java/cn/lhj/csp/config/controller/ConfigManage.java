@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.lhj.csp.admin.controller.CspAdminPageController;
+import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 import cn.lhj.csp.config.feign.ConfigApiInterface;
 import cn.lhj.csp.config.po.Config;
 
@@ -18,7 +20,7 @@ import cn.lhj.csp.config.po.Config;
 public class ConfigManage {
 	
 	@Autowired
-	private ConfigApiInterface configApiInterface;
+	private AdminMenuApiInterface configApiInterface;
 	
 	@RequestMapping("/list")
 	public String list(ModelMap map,@RequestParam(required = false, defaultValue = "0")Integer id,@RequestParam(required = false, defaultValue = "null")String enable,@RequestParam(required = false, defaultValue = "null")String operation) {
@@ -46,7 +48,7 @@ public class ConfigManage {
 	@RequestMapping("/edit")
 	public String edit(ModelMap map,String operation,Config config,@RequestParam(required = false, defaultValue = "0")int id,@RequestParam(required = false, defaultValue = "")String dataType) {
 		if(operation.equals("update")) {
-			config = configApiInterface.getById(id);
+			config = configApiInterface.getConfigById(id);
 			map.addAttribute("config", config);
 			map.addAttribute("operation", "update");
 		}

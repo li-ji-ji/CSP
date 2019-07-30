@@ -20,7 +20,14 @@ public class Config implements Serializable{
 
     private String enable;
 
-    public Config(Integer id, String configKey, String configValue, String dataType, String type, String enable) {
+    
+    
+    public Config() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Config(Integer id, String configKey, String configValue, String dataType, String type, String enable) {
 		super();
 		this.id = id;
 		this.configKey = configKey;

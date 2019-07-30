@@ -139,7 +139,7 @@
 								//指定允许上传的文件类型
 								upload.render({
 									elem : '#test3',
-									url : 'http://92.68.10.197:8005/upload/',
+									url : '/upload/',
 									accept : 'file' //普通文件
 									,
 									done : function(res) {
@@ -148,7 +148,7 @@
 								});
 								upload.render({ //允许上传的文件后缀
 									elem : '#test4',
-									url : 'http://92.68.10.197:8005/upload/',
+									url : '/upload/',
 									accept : 'file' //普通文件
 									,
 									exts : 'zip|rar|7z' //只允许上传压缩文件
@@ -159,7 +159,7 @@
 								});
 								upload.render({
 									elem : '#test5',
-									url : 'http://92.68.10.197:8005/upload/',
+									url : '/upload/',
 									accept : 'video' //视频
 									,
 									done : function(res) {
@@ -168,7 +168,7 @@
 								});
 								upload.render({
 									elem : '#test6',
-									url : 'http://92.68.10.197:8005/upload/',
+									url : '/upload/',
 									accept : 'audio' //音频
 									,
 									done : function(res) {
@@ -189,7 +189,7 @@
 												function(data) {
 													var dataType = data.value;
 													layer.msg(dataType);
-													var link = 'http://92.68.10.197:8005/config/edit?operation=insert&dataType='
+													var link = '${request.contextPath}/config/edit?operation=insert&dataType='
 															+ dataType;
 													window.location.href = link;
 												})
@@ -198,6 +198,7 @@
 										.on(
 												'submit(demo)',
 												function(data) {
+												var configJSON=JSON.stringify(data.field);
 													layer
 															.confirm(
 																	'真的提交么',
@@ -205,12 +206,12 @@
 																			index) {
 																		$
 																				.ajax({
-																					url : 'http://92.68.10.197:8005/api/config/edit?operation=${operation}',
+																					url : '${request.contextPath}/api/config/edit?operation=${operation}',
 																					method : 'post',
-																					data : data.field,
+																					data : "configJSON="+configJSON,
 																					dataType : 'JSON'
 																				});
-																		var link = 'http://92.68.10.197:8005/config/list';
+																		var link = '/config/list';
 																		window.location.href = link;
 																	});
 													return false;

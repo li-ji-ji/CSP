@@ -233,7 +233,7 @@
 		</div>
 	</div>
 	<script src="../../js/plugins/layui/layui.all.js"></script>
-	<script src="../../js/jquery-3.3.1.min.js"></script>
+	<script src="../../js/jquery-3.3.1.js"></script>
 	<script src="../../js/plugins/layui/layui.js"></script>
 <script type="text/html" id="barDemo">
    <a class="layui-btn layui-btn-xs" lay-event="edit">编  辑</a>
@@ -266,7 +266,7 @@
 						var enable = this.value;
 						
 						//layer.msg(id+enable);
-						var link = "http://92.68.10.197:8005/config/list?id="
+						var link = "/config/list?id="
 							+id+"&enable="+enable;
 						window.location.href = link;
 					   // layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
@@ -282,7 +282,7 @@
 									function (index) {
 										obj.del();
 										layer.close(index);
-										var link = "http://92.68.10.197:8005/config/list?operation=delete&id="+id;
+										var link = "/config/list?operation=delete&id="+id;
 										window.location.href = link;
 										/* $
 											.ajax({
@@ -295,7 +295,7 @@
 									});
 						} else if (obj.event === 'edit') {
 							var id = data['id'];
-							var link = "http://92.68.10.197:8005/config/edit?operation=update&id="
+							var link = "/config/edit?operation=update&id="
 								+ id;
 							window.location.href = link;
 						}
@@ -303,7 +303,7 @@
 
 					var $ = layui.$, active = {
 						insert: function () { //获取选中数据
-							var link = "http://92.68.10.197:8005/config/edit?operation=insert";
+							var link = "/config/edit?operation=insert";
 							window.location.href = link;
 						}
 					};
