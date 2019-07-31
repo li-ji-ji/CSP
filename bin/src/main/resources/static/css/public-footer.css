@@ -1,0 +1,66 @@
+@charset 'UTF-8';
+
+.public-footer-box{
+    margin:0 auto;
+    background-color: #000000;
+    opacity: 0.9;
+    color: #5f4838;
+    font-size: 11px;
+}
+a{
+	text-decoration-line:none;
+}
+.font-20{
+    font-size: 20px;
+}
+.font-24{
+    font-size: 24px;
+    font-weight: 700;
+}
+/*分割竖线*/
+.vertical-decorate-line{
+    width: 1px;
+    height:12px;
+    background-color: #3a2f2b;
+}
+
+/*通用尾部容器*/
+.public-footer-box{
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+.footer-top-box{
+    display: flex;
+    justify-content: space-around;
+}
+    /*尾部导航栏*/
+.footer-nav-box{
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.footer-nav-box a{
+    color: #5f4838;
+    text-decoration-line: none;
+    font-weight: 700;
+}
+.footer-nav-box a:hover{
+    color: #ccac82;
+}
+    /*尾部联系电话*/
+.footer-tel-box{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+    /*尾部底部盒子*/
+.footer-bottom-box{
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 30px 60px;
+}
