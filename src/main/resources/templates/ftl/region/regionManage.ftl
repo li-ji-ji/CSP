@@ -103,10 +103,10 @@ function addData(kwx){
 					
 					var link = "/region/delete?id="+ id;
 					layer.confirm('其所有子地区将会一并删除,真的要删除吗？', function(index){
-						/* var link = "/region/delete?id="+ id;
+						 var link = "/region/delete?id="+ id;
 						window.location.href = link;  
-						layer.msg('删除成功'); */
-						layer.msg('对不起，您没有权限，删除无效'); 
+						layer.msg('删除成功'); 
+						/* layer.msg('对不起，您没有权限，删除无效');  */
 				      });
 					
 				}

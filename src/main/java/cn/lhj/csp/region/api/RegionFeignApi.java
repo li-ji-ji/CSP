@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 import cn.lhj.csp.region.feign.RegionApiInterface;
 import cn.lhj.csp.region.po.Region2;
 
@@ -21,7 +22,7 @@ import cn.lhj.csp.region.po.Region2;
 @CrossOrigin
 public class RegionFeignApi {
 	@Autowired
-	 private RegionApiInterface regionApiInterface;
+	 private AdminMenuApiInterface regionApiInterface;
 	
 	//获取所有地区
 	@RequestMapping("/allregion")

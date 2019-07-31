@@ -11,6 +11,9 @@ import cn.lhj.csp.news.po.Category;
 import cn.lhj.csp.news.po.Comment;
 import cn.lhj.csp.news.po.News;
 
+/*
+ *  已整合到AdminMenuFeignInterface中
+ * */
 
 @FeignClient(name= "csp-news")
 public interface NewsApiInterface {

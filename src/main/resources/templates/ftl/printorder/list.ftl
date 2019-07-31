@@ -1,10 +1,11 @@
+<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="utf-8">
 <title>打印订单管理</title>
-<link rel="stylesheet" href="../../js/plugins/layui/css/layui.css"
+<link rel="stylesheet" href="${base}/js/plugins/layui/css/layui.css"
 	media="all">
 
 </head>
@@ -75,9 +76,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="../../js/plugins/layui/layui.all.js"></script>
-	<script src="../../js/jquery-3.3.1.min.js"></script>
-	<script src="../../js/plugins/layui/layui.js"></script>
+	<script src="${base}/js/plugins/layui/layui.all.js"></script>
+	<script src="${base}/js/jquery-3.3.1.min.js"></script>
+	<script src="${base}/js/plugins/layui/layui.js"></script>
 	<script type="text/html" id="barDemo">
    <a class="layui-btn layui-btn-xs" lay-event="edit">编  辑</a>
    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删  除</a>
@@ -112,13 +113,13 @@
 																				.del();
 																		layer
 																				.close(index);
-																		var link = "${request.contextPath}/fileinfo/list?operation=delete&id="
+																		var link = "${base}/fileinfo/list?operation=delete&id="
 																				+ id;
 																		window.location.href = link;
 																	});
 												} else if (obj.event === 'edit') {
 													var id = data['id'];
-													var link = "${request.contextPath}/printOrder/edit?operation=update&id="
+													var link = "${base}/printOrder/edit?operation=update&id="
 															+ id;
 													window.location.href = link;
 												}else if (obj.event === 'download') {
@@ -130,7 +131,7 @@
 
 							var $ = layui.$, active = {
 								insert : function() { //获取选中数据
-									var link = "${request.contextPath}/printOrder/edit?operation=insert";
+									var link = "${base}/printOrder/edit?operation=insert";
 									window.location.href = link;
 								}
 							};

@@ -1,10 +1,11 @@
+<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html>
 
 <head>
 <meta charset="utf-8">
 <title>文件夹信息管理</title>
-<link rel="stylesheet" href="../../js/plugins/layui/css/layui.css"
+<link rel="stylesheet" href="${base}/js/plugins/layui/css/layui.css"
 	media="all">
 
 </head>
@@ -51,9 +52,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="../../js/plugins/layui/layui.all.js"></script>
-	<script src="../../js/jquery-3.3.1.min.js"></script>
-	<script src="../../js/plugins/layui/layui.js"></script>
+	<script src="${base}/js/plugins/layui/layui.all.js"></script>
+	<script src="${base}/js/jquery-3.3.1.min.js"></script>
+	<script src="${base}/js/plugins/layui/layui.js"></script>
 	<script type="text/html" id="barDemo">
    <a class="layui-btn layui-btn-xs" lay-event="edit">编  辑</a>
    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删  除</a>

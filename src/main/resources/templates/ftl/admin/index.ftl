@@ -1,3 +1,4 @@
+<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,8 +9,8 @@
 		width: 100%;
 	}
 </style>
-<link rel="stylesheet" href="../../js/plugins/layui/css/layui.css" media="all">
-<script type="text/javascript" src="../../js/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="${base}/js/plugins/layui/css/layui.css" media="all">
+<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
 </head>
 <body class="layui-layout-body">
 	<div class="layui-layout layui-layout-admin">

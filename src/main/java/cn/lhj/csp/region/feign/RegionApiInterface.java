@@ -13,6 +13,10 @@ import cn.lhj.csp.region.po.Region2;
 import cn.lhj.csp.region.po.Region2Example;
 
 
+/*
+ *  已整合到AdminMenuFeignInterface
+ * */
+
 @FeignClient(name= "csp-region")
 @RequestMapping("/region")
 public interface RegionApiInterface {

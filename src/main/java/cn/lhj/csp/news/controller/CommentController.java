@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 import cn.lhj.csp.news.feign.NewsApiInterface;
 import cn.lhj.csp.news.po.Comment;
 
@@ -15,7 +16,7 @@ import cn.lhj.csp.news.po.Comment;
 @RequestMapping("/comment")
 public class CommentController {
 	@Autowired
-	 private NewsApiInterface newsApiInterface;
+	 private AdminMenuApiInterface newsApiInterface;
 	
 	//跳到评论列表
 		@RequestMapping("/toCommentList")

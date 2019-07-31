@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 import cn.lhj.csp.news.feign.NewsApiInterface;
 import cn.lhj.csp.news.po.Category;
 
@@ -17,7 +18,7 @@ import cn.lhj.csp.news.po.Category;
 public class CategoryController {
 
 	 @Autowired
-	 private NewsApiInterface newsApiInterface;
+	 private AdminMenuApiInterface newsApiInterface;
 	
 		// 跳转到分类列表
 		@RequestMapping("/toCategoryList")

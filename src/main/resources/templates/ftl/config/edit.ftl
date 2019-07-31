@@ -1,9 +1,10 @@
+<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>文件管理</title>
-<link rel="stylesheet" href="../../js/plugins/layui/css/layui.css"
+<link rel="stylesheet" href="${base}/js/plugins/layui/css/layui.css"
 	media="all">
 </head>
 <body>
@@ -123,8 +124,8 @@
 			</div>
 		</form>
 
-		<script src="../../js/jquery-3.3.1.js"></script>
-		<script src="../../js/plugins/layui/layui.js" charset="utf-8"></script>
+		<script src="${base}/js/jquery-3.3.1.js"></script>
+		<script src="${base}/js/plugins/layui/layui.js" charset="utf-8"></script>
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
 			layui
@@ -189,7 +190,7 @@
 												function(data) {
 													var dataType = data.value;
 													layer.msg(dataType);
-													var link = '${request.contextPath}/config/edit?operation=insert&dataType='
+													var link = '${base}/config/edit?operation=insert&dataType='
 															+ dataType;
 													window.location.href = link;
 												})
@@ -206,7 +207,7 @@
 																			index) {
 																		$
 																				.ajax({
-																					url : '${request.contextPath}/api/config/edit?operation=${operation}',
+																					url : '${base}/api/config/edit?operation=${operation}',
 																					method : 'post',
 																					data : "configJSON="+configJSON,
 																					dataType : 'JSON'

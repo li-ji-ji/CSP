@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.lhj.csp.region.feign.RegionApiInterface;
+import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 import cn.lhj.csp.region.po.Region2;
 import cn.lhj.csp.region.po.Region2Example;
 
@@ -19,7 +19,7 @@ import cn.lhj.csp.region.po.Region2Example;
 public class Region2Controller {
 
 	 @Autowired
-	 private RegionApiInterface regionApiInterface;
+	 private AdminMenuApiInterface regionApiInterface;
 	 
 	 
 	 

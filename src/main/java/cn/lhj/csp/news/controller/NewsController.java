@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 import cn.lhj.csp.news.feign.NewsApiInterface;
 import cn.lhj.csp.news.po.Category;
 import cn.lhj.csp.news.po.News;
@@ -18,7 +19,7 @@ import cn.lhj.csp.news.po.News;
 @RequestMapping("/news")
 public class NewsController {
 	@Autowired
-	 private NewsApiInterface newsApiInterface;
+	 private AdminMenuApiInterface newsApiInterface;
 	
 	//跳到新闻列表
 		@RequestMapping("/toNewsList")
