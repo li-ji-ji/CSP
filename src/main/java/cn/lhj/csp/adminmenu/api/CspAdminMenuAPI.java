@@ -21,7 +21,7 @@ import cn.lhj.csp.adminmenu.service.CspAdminMenuService;
 import cn.lhj.csp.adminmenu.utils.LayUIJSON;
 
 /*
- * 后台菜单API
+    *       后台菜单API
  * */
 @RestController
 @CrossOrigin
