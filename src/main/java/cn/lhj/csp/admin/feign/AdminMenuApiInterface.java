@@ -21,7 +21,7 @@ import cn.lhj.csp.region.po.Region2Example;
 
 
 
-@FeignClient(name="csp-admin-menu")
+@FeignClient(name="csp-assist")
 public interface AdminMenuApiInterface {
 	//获取所有后台菜单
 	@RequestMapping(value="/getAll")

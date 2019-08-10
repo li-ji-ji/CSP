@@ -12,7 +12,7 @@
 <body>
 <body>
 
-	<form class="layui-form" action="/region/add" style="margin-top: 20px;">
+	<form class="layui-form" action="${base}/region/add" style="margin-top: 20px;">
    
  
 		<div class="layui-form-item">

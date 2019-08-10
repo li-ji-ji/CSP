@@ -52,16 +52,16 @@
 						<td>${act.activityIntro}</td>
 						<td>
 							<#if act.activityStatus==0>
-								<a href="${base}/csp/assoAct/updateActivityStatusOpen?id=${act.id?c}" class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">开启活动</a>
+								<a href="${base}/assoAct/updateActivityStatusOpen?id=${act.id?c}" class="layui-btn layui-btn-xs layui-btn-warm" lay-event="edit">开启活动</a>
 							<#elseif act.activityStatus==1>
-								<a href="${base}/csp/assoAct/updateActivityStatusClose?id=${act.id?c}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="edit">关闭活动</a>
+								<a href="${base}/assoAct/updateActivityStatusClose?id=${act.id?c}" class="layui-btn layui-btn-xs layui-btn-danger" lay-event="edit">关闭活动</a>
 							<#else>
 								<a href="#" enable class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="edit">活动已结束</a>
 							</#if>
 		  					
 		  					
-		  					<a href="${base}/csp/assoAct/toActEditForm?id=${act.id?c}" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-		  					<a href="${base}/csp/assoAct/deleteActivityOneById?id=${act.id?c}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		  					<a href="${base}/assoAct/toActEditForm?id=${act.id?c}" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+		  					<a href="${base}/assoAct/deleteActivityOneById?id=${act.id?c}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 						</td>
 					</tr>
 				</#list>
@@ -79,7 +79,7 @@
 	<script type="text/html" id="toolbar">
   		<div class="layui-btn-container">
     		<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="getDeleteList">删除选中数据</button>
-    		<a href="${base}/csp/assoAct/toActAddForm"><button class="layui-btn layui-btn-sm" lay-event="getCheckLength">添加活动</button></a>
+    		<a href="${base}/assoAct/toActAddForm"><button class="layui-btn layui-btn-sm" lay-event="getCheckLength">添加活动</button></a>
   		</div>
 	</script>
 	<script>
@@ -103,7 +103,7 @@
 		        };
 		        layer.confirm('确认删除选中数据', function(index){
 		        	$.ajax({
-				    	  "url" : "${base}/csp/assoSchool/deleteSchoolList",
+				    	  "url" : "${base}/feign/assoAct/deleteActListById",
 				    	  "data" : "idList="+idList,
 				    	  "type" : "post",
 				    	  "dataType" : "json",
@@ -117,7 +117,7 @@
 				    				    ,success: function(layero){
 				    				         var btn = layero.find('.layui-layer-btn');
 				    				            btn.find('.layui-layer-btn0').attr({
-				    				                 href: '${base}/csp/assoSchool/toSchoolTbale'
+				    				                 href: '${base}/assoAct/toActTable'
 				    				            ,target: '_self'
 				    				        });
 				    				    }
@@ -131,7 +131,7 @@
 				    				    ,success: function(layero){
 				    				         var btn = layero.find('.layui-layer-btn');
 				    				            btn.find('.layui-layer-btn0').attr({
-				    				                 href: '${base}/csp/assoSchool/toSchoolTbale'
+				    				                 href: '${base}/assoAct/toActTable'
 				    				            ,target: '_self'
 				    				        });
 				    				    }
@@ -150,7 +150,7 @@
 			        };
 			        layer.confirm('确认通过审核', function(index){
 			        	$.ajax({
-					    	  "url" : "${base}/csp/asso/setCheckedAssoList",
+					    	  "url" : "${base}/asso/setCheckedAssoList",
 					    	  "data" : "checkList="+checkList,
 					    	  "type" : "post",
 					    	  "dataType" : "json",
@@ -164,7 +164,7 @@
 					    				    ,success: function(layero){
 					    				         var btn = layero.find('.layui-layer-btn');
 					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '${base}/csp/assoStu/toStuTable'
+					    				                 href: '${base}/assoAct/toActTable'
 					    				            ,target: '_self'
 					    				        });
 					    				    }
@@ -178,7 +178,7 @@
 					    				    ,success: function(layero){
 					    				         var btn = layero.find('.layui-layer-btn');
 					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '${base}/csp/assoStu/toStuTable'
+					    				                 href: '${base}/assoAct/toActTable'
 					    				            ,target: '_self'
 					    				        });
 					    				    }

@@ -76,8 +76,8 @@
 			</div>
 		</div>
 	</div>
+<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
 	<script src="${base}/js/plugins/layui/layui.all.js"></script>
-	<script src="${base}/js/jquery-3.3.1.min.js"></script>
 	<script src="${base}/js/plugins/layui/layui.js"></script>
 	<script type="text/html" id="barDemo">
    <a class="layui-btn layui-btn-xs" lay-event="edit">编  辑</a>

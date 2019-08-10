@@ -12,7 +12,7 @@
 <body>
 <body>
 
-	<form class="layui-form" action="/region/edit" style="margin-top: 20px;">
+	<form class="layui-form" action="${base}/region/edit" style="margin-top: 20px;">
 	<#if region.id gt 0>
 		<input type="hidden" name="id" value="${region.id?c}">
 	</#if>

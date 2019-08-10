@@ -12,7 +12,7 @@ import cn.lhj.csp.admin.dto.AssoSchoolDto;
 import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
 
 @Controller
-@RequestMapping("/csp/assoSchool")
+@RequestMapping("/assoSchool")
 public class CspAssoSchoolController {
 	
 	@Autowired

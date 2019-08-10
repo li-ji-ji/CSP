@@ -44,7 +44,7 @@
 						
 						
 						<td>
-		  					<a href="/comment/deleteOneComment?operation=del&id=${comment.id}" onClick="return confirm('确认删除吗？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		  					<a href="${base}/comment/deleteOneComment?operation=del&id=${comment.id}" onClick="return confirm('确认删除吗？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 						</td>
 					</tr>
 				</#list>
@@ -56,7 +56,7 @@
 	
 	<script type="text/html" id="toolbar">
   		<div class="layui-btn-container">
-			<a href="/comment/toCommentList"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
+			<a href="${base}/comment/toCommentList"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
   		</div>
 	</script>
 	<script>

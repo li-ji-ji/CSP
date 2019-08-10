@@ -72,7 +72,7 @@ public class NewsController {
 					@RequestParam("operation") String operation) {
 				
 				if(operation != null && operation.equals("edit") && id != null) {
-					List<Category> categories = newsApiInterface.findAllcategoryIsNotleaf();//从分类表获取所有叶子分类
+					List<Category> categories = newsApiInterface.findAllcategoryIsleaf();//从分类表获取所有叶子分类
 					
 					News news = newsApiInterface.findOneNewsById(id);//根据id获取单个新闻信息
 					

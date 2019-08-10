@@ -12,16 +12,19 @@
 <link rel="stylesheet"
 	href="${base}/js/plugins/layui/css/layui.css" media="all">
 	<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
-	<script src="${base}/js/Ztree/jquery.ztree.core.js"></script>
-	<script src="${base}/js/Ztree/jquery.ztree.excheck.js"></script>
-	<script src="${base}/js/Ztree/jquery.ztree.exedit.js"></script>
-	<link rel="stylesheet" href="${base}/css/ZTree/metroStyle/metroStyle.css">
+	<script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.core.js"></script>
+	<script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.excheck.js"></script>
+	<script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.exedit.min.js"></script>
+	<link href="https://cdn.bootcss.com/zTree.v3/3.5.32/css/metroStyle/metroStyle.min.css" rel="stylesheet">
+	
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 </head>
 <script type="text/javascript">
 		var zNodes	//菜单节点数据
 		var fontCss	//字体css样式数据
 		var menuLevel=0	//菜单等级，用于设置字体
 		var menu
+		var path="${base}"
 		$.ajax({
 			"url": "${base}/csp/api/fontCss/getCssById",
 			"data": "",
@@ -80,8 +83,11 @@
 							//console.log(treeNode)//拿到预设数据
 							//console.log(treeNode.mainurl)//拿到预设数据
 							menu=treeNode
-							if(treeNode.mainUrl!="javascript:void(0)"){
-								$("#data-table").attr("src", treeNode.mainurl);
+							if(treeNode.mainurl=="/admin/toWelcome"){
+								$("#data-table").attr("src",path+treeNode.mainurl+"?name="+treeNode.name);
+							}
+							else{
+								$("#data-table").attr("src",path+treeNode.mainurl);
 							}
 						}
 						$(document).ready(function () {
@@ -121,7 +127,7 @@
 		
 		</div>
 		<div class="layui-body">
-			<iframe id="data-table" src="" width="100%" height="100%"></iframe>
+			<iframe id="data-table" src="${base}/admin/toWelcome?name=WELCOME" width="100%" height="98%"></iframe>
 			
 
 			<!-- <table class="layui-table"

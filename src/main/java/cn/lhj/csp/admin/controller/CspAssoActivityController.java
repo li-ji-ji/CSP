@@ -14,7 +14,7 @@ import cn.lhj.csp.admin.po.asso.CspAssoManagement;
 import cn.lhj.csp.admin.po.asso.CspAssoStudent;
 
 @Controller
-@RequestMapping("/csp/assoAct")
+@RequestMapping("/assoAct")
 public class CspAssoActivityController {
 	
 	@Autowired

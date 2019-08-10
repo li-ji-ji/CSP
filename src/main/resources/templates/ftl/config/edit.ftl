@@ -212,7 +212,7 @@
 																					data : "configJSON="+configJSON,
 																					dataType : 'JSON'
 																				});
-																		var link = '/config/list';
+																		var link = '${base}/config/list';
 																		window.location.href = link;
 																	});
 													return false;

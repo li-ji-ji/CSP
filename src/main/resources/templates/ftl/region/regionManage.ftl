@@ -39,13 +39,13 @@
 </script>
 
 <script type="text/html" id="toolbar">
-	<a href="/region/toedit?operation=addany" class="layui-btn">添加地区</a>
+	<a href="${base}/region/toedit?operation=addany" class="layui-btn">添加地区</a>
 </script>
 
 
 <script>
 layui.use('table', function(){
-    var kw='/feign/region/areaParent';
+    var kw='${base}/feign/region/areaParent';
     addData(kw);
 });
 
@@ -81,29 +81,29 @@ function addData(kwx){
 				if (obj.event === 'edit') {
 					var id = data['id'];
 					
-					var link = "/region/toedit?operation=edit&id="+ id;
+					var link = "${base}/region/toedit?operation=edit&id="+ id;
 					window.location.href = link;
 				} 
 				
 				else if(obj.event === 'detail'){
 					var id = data['id'];
-					var link = "/feign/region/areaParamJSON2?id="+ id;
+					var link = "${base}/feign/region/areaParamJSON2?id="+ id;
 					addData(link);
 				}
 				
 				else if(obj.event === 'add'){
 					var id = data['id'];
 					
-					var link = "/region/toedit?operation=add&id="+ id;
+					var link = "${base}/region/toedit?operation=add&id="+ id;
 					window.location.href = link;
 				}
 				
 				else if(obj.event === 'del'){
 					var id = data['id'];
 					
-					var link = "/region/delete?id="+ id;
+					var link = "${base}/region/delete?id="+ id;
 					layer.confirm('其所有子地区将会一并删除,真的要删除吗？', function(index){
-						 var link = "/region/delete?id="+ id;
+						 var link = "${base}/region/delete?id="+ id;
 						window.location.href = link;  
 						layer.msg('删除成功'); 
 						/* layer.msg('对不起，您没有权限，删除无效');  */
@@ -119,14 +119,14 @@ function addData(kwx){
     $("#sear1").keyup(function(event){
             if(event.keyCode ==13){
              var keyWord=$("#sear1").val();
-             var url="/feign/region/areaParamJSON?keyWord="+keyWord
+             var url="${base}/feign/region/areaParamJSON?keyWord="+keyWord
                 addData(url);
             }
         });
     
     function serach(){
     	 var keyWord=$("#sear1").val();
-         var url="/feign/region/areaParamJSON?keyWord="+keyWord
+         var url="${base}/feign/region/areaParamJSON?keyWord="+keyWord
          addData(url);
     }
 

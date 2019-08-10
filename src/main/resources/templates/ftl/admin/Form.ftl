@@ -12,12 +12,12 @@
 <body>
 <form class="layui-form" style="margin-top:50px;" action="" lay-filter="example">
   
-<div class="layui-form-item">
+<!-- <div class="layui-form-item">
     <label class="layui-form-label" style="width: 150px;">菜单ID</label>
     <div class="layui-input-block">
       <input type="number" name="id" placeholder="请输入菜单ID" autocomplete="off" class="layui-input" style="width: 50%;">
     </div>
-  </div>
+  </div> -->
   <div class="layui-form-item">
     <label class="layui-form-label" style="width: 150px;">菜单名称</label>
     <div class="layui-input-block">
@@ -91,7 +91,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	    				    ,success: function(layero){
 	    				         var btn = layero.find('.layui-layer-btn');
 	    				            btn.find('.layui-layer-btn0').attr({
-	    				                 href: '${base}/csp/admin/toIndex'
+	    				                 href: '${base}/admin/toIndex'
 	    				            ,target: '_parent'
 	    				        });
 	    				    }
@@ -111,7 +111,7 @@ layui.use(['form', 'layedit', 'laydate'], function(){
 	  				    ,success: function(layero){
 	  				         var btn = layero.find('.layui-layer-btn');
 	  				            btn.find('.layui-layer-btn0').attr({
-	  				                 href: '${base}/csp/admin/toIndex'
+	  				                 href: '${base}/admin/toIndex'
 	  				            ,target: '_parent'
 	  				        });
 	  				    }

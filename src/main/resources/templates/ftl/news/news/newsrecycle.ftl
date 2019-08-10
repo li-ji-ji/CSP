@@ -100,8 +100,8 @@
 						<td>${news.newsCommentCount}</td>
 						
 						<td>
-		  					<a href="/news/reductionOneNews?operation=reduction&id=${news.id}" class="layui-btn layui-btn-xs" lay-event="reduction">还原</a>
-		  					<a href="/news/deleteOneNews?operation=del&id=${news.id}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		  					<a href="${base}/news/reductionOneNews?operation=reduction&id=${news.id}" class="layui-btn layui-btn-xs" lay-event="reduction">还原</a>
+		  					<a href="${base}/news/deleteOneNews?operation=del&id=${news.id}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 						</td>
 					</tr>
 				</#list>
@@ -142,7 +142,7 @@
 			        else{
 			        layer.confirm('确认删除选中数据', function(index){
 			        	$.ajax({
-					    	  "url" : "/news/deleteNewsList",
+					    	  "url" : "${base}/news/deleteNewsList",
 					    	  "data" : "idList="+idList,
 					    	  "type" : "post",
 					    	  "dataType" : "json",
@@ -156,7 +156,7 @@
 					    				    ,success: function(layero){
 					    				         var btn = layero.find('.layui-layer-btn');
 					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '/news/toNewsList'
+					    				                 href: '${base}/news/toNewsList'
 					    				            ,target: '_self'
 					    				        });
 					    				    }
@@ -170,7 +170,7 @@
 					    				    ,success: function(layero){
 					    				         var btn = layero.find('.layui-layer-btn');
 					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '/news/toNewsList'
+					    				                 href: '${base}/news/toNewsList'
 					    				            ,target: '_self'
 					    				        });
 					    				    }

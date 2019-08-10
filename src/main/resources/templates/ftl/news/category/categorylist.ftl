@@ -52,9 +52,9 @@
 						</td>
 						<td>${category.categorylevel}</td>
 						<td>
-							<a href="/category/toCategoryList?operation=toChild&id=${category.id}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="toChild">查看子级分类</a>
-		  					<a href="/category/toCategoryEdit?operation=edit&id=${category.id}" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-		  					<a href="/category/deleteCategory?operation=del&id=${category.id}" onClick="return confirm('其所有子集分类将会一并删除,真的要删除吗？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+							<a href="${base}/category/toCategoryList?operation=toChild&id=${category.id}" class="layui-btn layui-btn-primary layui-btn-xs" lay-event="toChild">查看子级分类</a>
+		  					<a href="${base}/category/toCategoryEdit?operation=edit&id=${category.id}" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+		  					<a href="${base}/category/deleteCategory?operation=del&id=${category.id}" onClick="return confirm('其所有子集分类将会一并删除,真的要删除吗？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 						</td>
 					</tr>
 				</#list>
@@ -66,10 +66,10 @@
 	
 	<script type="text/html" id="toolbar">
   		<div class="layui-btn-container">
-    		<a href="/category/toCategoryAdd"><button class="layui-btn layui-btn-warm layui-btn-sm" >添加分类</button></a>
-    		<a href="/category/toCategoryList?operation=isNotLeaf"><button class="layui-btn layui-btn-sm" >查看非叶子分类</button></a>
-			<a href="/category/toCategoryList?operation=isLeaf"><button class="layui-btn layui-btn-sm" >查看叶子分类</button></a>
-			<a href="/category/toCategoryList"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
+    		<a href="${base}/category/toCategoryAdd"><button class="layui-btn layui-btn-warm layui-btn-sm" >添加分类</button></a>
+    		<a href="${base}/category/toCategoryList?operation=isNotLeaf"><button class="layui-btn layui-btn-sm" >查看非叶子分类</button></a>
+			<a href="${base}/category/toCategoryList?operation=isLeaf"><button class="layui-btn layui-btn-sm" >查看叶子分类</button></a>
+			<a href="${base}/category/toCategoryList"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
   		</div>
 	</script>
 	<script>

@@ -18,7 +18,7 @@ import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
 import cn.lhj.csp.admin.po.asso.CspAssoManagement;
 
 @Controller
-@RequestMapping("/csp/asso")
+@RequestMapping("/asso")
 public class CspAssoManagementPageController {
 
 	@Autowired

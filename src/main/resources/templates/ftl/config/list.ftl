@@ -267,7 +267,7 @@
 						var enable = this.value;
 						
 						//layer.msg(id+enable);
-						var link = "/config/list?id="
+						var link = "${base}/config/list?id="
 							+id+"&enable="+enable;
 						window.location.href = link;
 					   // layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
@@ -283,7 +283,7 @@
 									function (index) {
 										obj.del();
 										layer.close(index);
-										var link = "/config/list?operation=delete&id="+id;
+										var link = "${base}/config/list?operation=delete&id="+id;
 										window.location.href = link;
 										/* $
 											.ajax({
@@ -296,7 +296,7 @@
 									});
 						} else if (obj.event === 'edit') {
 							var id = data['id'];
-							var link = "/config/edit?operation=update&id="
+							var link = "${base}/config/edit?operation=update&id="
 								+ id;
 							window.location.href = link;
 						}
@@ -304,7 +304,7 @@
 
 					var $ = layui.$, active = {
 						insert: function () { //获取选中数据
-							var link = "/config/edit?operation=insert";
+							var link = "${base}/config/edit?operation=insert";
 							window.location.href = link;
 						}
 					};

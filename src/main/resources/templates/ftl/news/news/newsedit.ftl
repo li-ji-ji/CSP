@@ -9,7 +9,7 @@
 <script src="${base}/js/plugins/layui/layui.js"></script>
 </head>
 <body>
-<form class="layui-form " method="post" action="/news/updateNews" style="margin-top:50px;"   >
+<form class="layui-form " method="post" action="${base}/news/updateNews" style="margin-top:50px;"   >
   
   
   <div class="layui-form-item" hidden="true">

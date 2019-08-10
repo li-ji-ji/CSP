@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<form class="layui-form" method="post" action="${base}/csp/asso/insertOne" style="margin-top:50px;"   >
+<form class="layui-form" method="post" action="${base}/asso/insertOne" style="margin-top:50px;"   >
   
 <div class="layui-form-item">
     <label class="layui-form-label" style="width: 150px;">社团ID</label>

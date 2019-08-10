@@ -48,8 +48,8 @@
 						</td>
 						<td>
 							<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="toChild">查看社团</a>
-		  					<a href="${base}/csp/assoStu/toStuEdit?id=${stu.id}" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-		  					<a href="${base}/csp/assoStu/deleteStuOne?id=${stu.id}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+		  					<a href="${base}/assoStu/toStuEdit?id=${stu.id}" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+		  					<a href="${base}/assoStu/deleteStuOne?id=${stu.id}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 						</td>
 					</tr>
 				</#list>
@@ -67,9 +67,9 @@
 	<script type="text/html" id="toolbar">
   		<div class="layui-btn-container">
     		<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="getDeleteList">删除选中数据</button>
-    		<a href="${base}/csp/asso/toAdd"><button class="layui-btn layui-btn-sm" lay-event="getCheckLength">添加社团</button></a>
-    		<a href="${base}/csp/asso/toExamingAssoTable"><button class="layui-btn layui-btn-sm" lay-event="isAll">查看待审核社团</button></a>
-			<a href="${base}/csp/asso/toExistedAssoTable"><button class="layui-btn layui-btn-sm" lay-event="isAll">查看已成立社团</button></a>
+    		<a href="${base}/asso/toAdd"><button class="layui-btn layui-btn-sm" lay-event="getCheckLength">添加社团</button></a>
+    		<a href="${base}/asso/toExamingAssoTable"><button class="layui-btn layui-btn-sm" lay-event="isAll">查看待审核社团</button></a>
+			<a href="${base}/asso/toExistedAssoTable"><button class="layui-btn layui-btn-sm" lay-event="isAll">查看已成立社团</button></a>
 			<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="getCheckList">批量审核选中社团</button>
   		</div>
 	</script>
@@ -94,7 +94,7 @@
 		        };
 		        layer.confirm('确认删除选中数据', function(index){
 		        	$.ajax({
-				    	  "url" : "${base}/csp/assoStu/deleteStuList",
+				    	  "url" : "${base}/assoStu/deleteStuList",
 				    	  "data" : "idList="+idList,
 				    	  "type" : "post",
 				    	  "dataType" : "json",
@@ -108,7 +108,7 @@
 				    				    ,success: function(layero){
 				    				         var btn = layero.find('.layui-layer-btn');
 				    				            btn.find('.layui-layer-btn0').attr({
-				    				                 href: '${base}/csp/assoStu/toStuTable'
+				    				                 href: '${base}/assoStu/toStuTable'
 				    				            ,target: '_self'
 				    				        });
 				    				    }
@@ -122,7 +122,7 @@
 				    				    ,success: function(layero){
 				    				         var btn = layero.find('.layui-layer-btn');
 				    				            btn.find('.layui-layer-btn0').attr({
-				    				                 href: '${base}/csp/assoStu/toStuTable'
+				    				                 href: '${base}/assoStu/toStuTable'
 				    				            ,target: '_self'
 				    				        });
 				    				    }
@@ -141,7 +141,7 @@
 			        };
 			        layer.confirm('确认通过审核', function(index){
 			        	$.ajax({
-					    	  "url" : "${base}/csp/asso/setCheckedAssoList",
+					    	  "url" : "${base}/asso/setCheckedAssoList",
 					    	  "data" : "checkList="+checkList,
 					    	  "type" : "post",
 					    	  "dataType" : "json",
@@ -155,7 +155,7 @@
 					    				    ,success: function(layero){
 					    				         var btn = layero.find('.layui-layer-btn');
 					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '${base}/csp/assoStu/toStuTable'
+					    				                 href: '${base}/assoStu/toStuTable'
 					    				            ,target: '_self'
 					    				        });
 					    				    }
@@ -169,7 +169,7 @@
 					    				    ,success: function(layero){
 					    				         var btn = layero.find('.layui-layer-btn');
 					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '${base}/csp/assoStu/toStuTable'
+					    				                 href: '${base}/assoStu/toStuTable'
 					    				            ,target: '_self'
 					    				        });
 					    				    }

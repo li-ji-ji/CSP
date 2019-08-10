@@ -4,6 +4,7 @@
 <head>
 <meta charset="utf-8">
 <title>打印订单管理</title>
+<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
 <link rel="stylesheet" href="${base}/js/plugins/layui/css/layui.css"
 	media="all">
 </head>
@@ -181,7 +182,6 @@
 			</div>
 		</form>
 
-		<script src="${base}/js/jquery-3.3.1.js"></script>
 		<script src="${base}/js/plugins/layui/layui.js" charset="utf-8"></script>
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>

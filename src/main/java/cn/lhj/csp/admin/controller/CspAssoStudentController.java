@@ -13,7 +13,7 @@ import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
 import cn.lhj.csp.admin.po.asso.CspAssoStudent;
 
 @Controller
-@RequestMapping("/csp/assoStu")
+@RequestMapping("/assoStu")
 public class CspAssoStudentController {
 	
 	@Autowired

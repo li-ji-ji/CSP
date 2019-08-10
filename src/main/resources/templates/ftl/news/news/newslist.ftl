@@ -112,8 +112,8 @@
 						<td>${news.newsCommentCount}</td>
 						
 						<td>
-		  					<a href="/news/toNewsEdit?operation=edit&id=${news.id}" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
-		  					<a href="/news/deleteOneNewsInRecycle?operation=delInRecycle&id=${news.id}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delInRecycle">删除</a>
+		  					<a href="${base}/news/toNewsEdit?operation=edit&id=${news.id}" class="layui-btn layui-btn-xs" lay-event="edit">修改</a>
+		  					<a href="${base}/news/deleteOneNewsInRecycle?operation=delInRecycle&id=${news.id}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delInRecycle">删除</a>
 						</td>
 					</tr>
 				</#list>
@@ -125,12 +125,12 @@
 	
 	<script type="text/html" id="toolbar">
   		<div class="layui-btn-container">
-    		<a href="/news/toNewsAdd"><button class="layui-btn layui-btn-warm layui-btn-sm" >添加新闻</button></a>
-    		<a href="/news/toNewsList?operation=isAudit"><button class="layui-btn layui-btn-sm" >查看已审核新闻</button></a>
-			<a href="/news/toNewsList?operation=isNotAudit"><button class="layui-btn layui-btn-sm" >查看待审核新闻</button></a>
+    		<a href="${base}/news/toNewsAdd"><button class="layui-btn layui-btn-warm layui-btn-sm" >添加新闻</button></a>
+    		<a href="${base}/news/toNewsList?operation=isAudit"><button class="layui-btn layui-btn-sm" >查看已审核新闻</button></a>
+			<a href="${base}/news/toNewsList?operation=isNotAudit"><button class="layui-btn layui-btn-sm" >查看待审核新闻</button></a>
 			<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="getDeleteList">删除选中数据</button>
-			<a href="/news/toNewsList?operation=isDelete"><button class="layui-btn layui-btn-sm" >新闻回收站</button></a>
-			<a href="/news/toNewsList"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
+			<a href="${base}/news/toNewsList?operation=isDelete"><button class="layui-btn layui-btn-sm" >新闻回收站</button></a>
+			<a href="${base}/news/toNewsList"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
   		</div>
 	</script>
 	<script>
@@ -159,7 +159,7 @@
 			        else{
 			        layer.confirm('确认删除选中数据', function(index){
 			        	$.ajax({
-					    	  "url" : "/news/deleteNewsListInRecycle",
+					    	  "url" : "${base}/news/deleteNewsListInRecycle",
 					    	  "data" : "idList="+idList,
 					    	  "type" : "post",
 					    	  "dataType" : "json",
@@ -173,7 +173,7 @@
 					    				    ,success: function(layero){
 					    				         var btn = layero.find('.layui-layer-btn');
 					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '/news/toNewsList'
+					    				                 href: '${base}/news/toNewsList'
 					    				            ,target: '_self'
 					    				        });
 					    				    }
@@ -187,7 +187,7 @@
 					    				    ,success: function(layero){
 					    				         var btn = layero.find('.layui-layer-btn');
 					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '/news/toNewsList'
+					    				                 href: '${base}/news/toNewsList'
 					    				            ,target: '_self'
 					    				        });
 					    				    }
@@ -208,7 +208,7 @@
             if(event.keyCode ==13){
              var newsKeyword=$("#keyword").val();
              if(newsKeyword.length>0){
-             	var url="/news/selectNewsByNewsKeyword?newsKeyword="+newsKeyword
+             	var url="${base}/news/selectNewsByNewsKeyword?newsKeyword="+newsKeyword
              	window.location.href = url;  
              }
              else{
@@ -220,7 +220,7 @@
     function serach(){
     	 var newsKeyword=$("#keyword").val();
     	 if(newsKeyword.length>0){
-          	var url="/news/selectNewsByNewsKeyword?newsKeyword="+newsKeyword
+          	var url="${base}/news/selectNewsByNewsKeyword?newsKeyword="+newsKeyword
           	window.location.href = url;  
           }
           else{

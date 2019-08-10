@@ -10,7 +10,7 @@
 <script src="${base}/js/plugins/layui/layui.js"></script>
 </head>
 <body>
-<form class="layui-form" method="post" action="${base}/csp/assoAct/insertActivity" style="margin-top:50px;"   >
+<form class="layui-form" method="post" action="${base}/assoAct/insertActivity" style="margin-top:50px;"   >
   
  
   <div class="layui-form-item">

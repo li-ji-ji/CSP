@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -19,7 +20,7 @@ import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
  * */
 
 @Controller
-@RequestMapping("/csp/admin")
+@RequestMapping("/admin")
 @CrossOrigin
 public class CspAdminPageController {
 	
@@ -49,5 +50,12 @@ public class CspAdminPageController {
 		JSONArray AdminMenuList =JSONArray.parseArray(adminMenuApi.getAll());
 		model.addAttribute("AdminMenuList",AdminMenuList);
 		return "ftl/admin/Form";
+	}
+	
+	//跳转到欢迎页
+	@RequestMapping("/toWelcome")
+	public String toWelcome(@RequestParam("name") String name,Model model)throws Exception{
+		model.addAttribute("name", name);
+		return "ftl/admin/welcome";
 	}
 }
