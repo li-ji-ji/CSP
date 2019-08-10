@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <form class="layui-form" action="/authority/rolepermission/onedit" method="post">
+    <form class="layui-form" action="${base}/authority/rolepermission/onedit" method="post">
         <input type="hidden" name="id" value="${(sysRolePermission.id)!}" />
         <div class="layui-form-item">
             <div class="layui-inline">

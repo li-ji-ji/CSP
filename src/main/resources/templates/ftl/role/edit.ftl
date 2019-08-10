@@ -29,7 +29,7 @@
 </head>
 
 <body>
-    <form class="layui-form" action="/authority/role/onedit" method="post">
+    <form class="layui-form" action="${base}/authority/role/onedit" method="post">
         <input type="hidden" name="id" value="${(sysRole.id)!}" />
         <div class="layui-form-item">
             <label class="layui-form-label">可获得</label>

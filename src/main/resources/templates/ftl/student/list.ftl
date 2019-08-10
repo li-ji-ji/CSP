@@ -21,12 +21,12 @@
 		<button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
 		<button class="layui-btn" data-type="isAll">验证是否全选</button>
 		<button class="layui-btn" style="background: antiquewhite;">
-			<a href="/authority/student/toedit">添加</a>
+			<a href="${base}/authority/student/toedit">添加</a>
 		</button>
 	</div>
 
 	<table class="layui-table"
-		lay-data="{width: 1200, height:330, url:'/authority/student/all', page:true, id:'idTest'}"
+		lay-data="{width: 1200, height:330, url:'${base}/authority/student/all', page:true, id:'idTest'}"
 		lay-filter="demo">
 		<thead>
 			<tr>
@@ -107,7 +107,7 @@
 																		xmlhttp
 																				.open(
 																						"get",
-																						"/authority/student/delete?id="
+																						"${base}/authority/student/delete?id="
 																								+ data.id,
 																						true);
 																		xmlhttp
@@ -122,7 +122,7 @@
 															.alert('Ã§Â¼ÂÃ¨Â¾ÂÃ¨Â¡ÂÃ¯Â¼Â<br>'
 																	+ JSON
 																			.stringify(data))
-													window.location.href = "/authority/student/toedit?id="
+													window.location.href = "${base}/authority/student/toedit?id="
 															+ data.id;
 												}
 											});
@@ -152,7 +152,7 @@
 									layer.alert(JSON.stringify(data));
 
 									$.ajax({
-										url : "/authority/student/batchdelete",
+										url : "${base}/authority/student/batchdelete",
 										type : "post",
 										dataType : "json",
 										data : {
@@ -180,7 +180,7 @@
 			//æå®åè®¸ä¸ä¼ çæä»¶ç±»åÂÂ
 			upload.render({
 				elem : '#test3',
-				url : '/authority/student/excelimport',
+				url : '${base}/authority/student/excelimport',
 				accept : 'file' //æ®éæä»¶
 				,done : function(res) {
 					console.log("hello")
@@ -191,7 +191,7 @@
 			});
 			upload.render({ //åè®¸ä¸ä¼ çæä»¶åç¼Â
 				elem : '#test4',
-				url : '/authority/student/excelimport',
+				url : '${base}/authority/student/excelimport',
 				accept : 'file' //æ®éæä»¶
 				,
 				exts : 'zip|rar|7z' //åªåè®¸ä¸ä¼ åç¼©æä»¶

@@ -18,11 +18,11 @@
         <button class="layui-btn" data-type="getCheckLength">获取选中数目</button>
         <button class="layui-btn" data-type="isAll">验证是否全选</button>
         <button class="layui-btn" style="background: antiquewhite;">
-            <a href="/authority/studentrole/toedit">添加 </a>
+            <a href="${base}/authority/studentrole/toedit">添加 </a>
         </button>
     </div>
 
-    <table class="layui-table" lay-data="{width: 1200, height:330, url:'/authority/studentrole/all', page:true, id:'idTest'}"
+    <table class="layui-table" lay-data="{width: 1200, height:330, url:'${base}/authority/studentrole/all', page:true, id:'idTest'}"
         lay-filter="demo">
         <thead>
             <tr>
@@ -78,7 +78,7 @@
                         xmlhttp
                             .open(
                                 "get",
-                                "/authority/studentrole/delete?id="
+                                "${base}/authority/studentrole/delete?id="
                                 + data.id,
                                 true);
                         xmlhttp
@@ -88,7 +88,7 @@
                     });
                 } else if (obj.event === 'edit') {
                     layer.alert('编辑行：<br>' + JSON.stringify(data))
-                    window.location.href = "/authority/studentrole/toedit?id="+data.id;
+                    window.location.href = "${base}/authority/studentrole/toedit?id="+data.id;
                 }
             });
 
@@ -113,7 +113,7 @@
                     layer.alert(JSON.stringify(data));
 
                     $.ajax({
-                        url: "/authority/studentrole/batchdelete", type: "post", dataType: "json", data: { "jsonStr": JSON.stringify(data) }, success: function (e) {
+                        url: "${base}/authority/studentrole/batchdelete", type: "post", dataType: "json", data: { "jsonStr": JSON.stringify(data) }, success: function (e) {
                             console.log("请求成功！");
                         }
                     });

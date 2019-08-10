@@ -29,7 +29,7 @@
 </head>
 
 <body>
-	<form class="layui-form" action="/authority/student/onedit"
+	<form class="layui-form" action="${base}/authority/student/onedit"
 		method="post">
 		<input type="hidden" name="id" value="${(student.id)!}" />
 		<div class="layui-form-item">

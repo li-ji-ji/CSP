@@ -29,7 +29,7 @@
 </head>
 
 <body>
-	<form class="layui-form" action="/authority/permission/onedit" method="post">
+	<form class="layui-form" action="${base}/authority/permission/onedit" method="post">
 		<input type="hidden" name="id" value="${(sysPermission.id)!}" />
 		<div class="layui-form-item">
 			<label class="layui-form-label">可获得</label>
