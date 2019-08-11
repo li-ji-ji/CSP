@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -87,45 +88,45 @@ public class StudentApi {
 	}
 
 	@RequestMapping(value = "/excelimport", method = RequestMethod.POST)
-	public Integer excelImport(@RequestParam("file") MultipartFile file) throws Exception {
-		System.out.println("excel-------------------------------");
-		// String path = servletRequest.getServletContext().getRealPath("/uploadFile");
-		// System.out.println("文件名称" + file.getOriginalFilename());
-		// 上传文件名
-		// String name = file.getOriginalFilename();// 上传文件的真实名称
-		// String suffixName = name.substring(name.lastIndexOf("."));// 获取后缀名
-		// String hash = Integer.toHexString(new Random().nextInt());//
-		// 自定义随机数（字母+数字）作为文件
-		// String fileName = hash + suffixName;
-		// File filepath = new File(path, fileName);
-		// System.out.println("随机数文件名称" + filepath.getName());
-		// if (!filepath.getParentFile().exists()) {
-		// filepath.getParentFile().mkdirs();
-		// }
+	public Integer excelImport(@RequestPart("file") MultipartFile file) throws Exception {
+		System.out.println("excelimport-------------------------------");
+
 		String name = file.getOriginalFilename();// 上传文件的真实名称
 		String suffixName = name.substring(name.lastIndexOf("."));// 获取后缀名
 		File excelFile = File.createTempFile("imagesFile-" + System.currentTimeMillis(), suffixName);
 		file.transferTo(excelFile);
 
-		// File tempFile = new File(path + File.separator + fileName);
-		// try {
-		// file.transferTo(tempFile);
-		// } catch (IllegalStateException | IOException e) {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// }
-		// System.out.println(tempFile.getPath());
-
 		ExcelUtil excelUtil = new ExcelUtil();
 		List<Student> students = new ArrayList<Student>();
-
 		students = excelUtil.importXLS(excelFile.toString());
-
 		Integer rows = 0;
-		for (int i = 0; i < students.size(); i++) {
-			int row = studentService.insert(students.get(i));
-			rows += row;
+		System.out.println("students长度==" + students.size());
+		/**
+		 * // 插入方案一
+		 */
+//		for (Student student : students) {
+//			int row = 0;
+//			try {
+//				row = studentService.insert(student);
+//			} catch (Exception e) {
+//				System.out.println("第" + rows + "行出错");
+//				e.printStackTrace();
+//				break;
+//			}
+//			rows += row;
+//		}
+
+		/**
+		 * // 插入方案二
+		 */
+		
+		try {
+			rows = studentService.insertStudentInfoBatch(students);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		System.out.println("插入的students长度==" + rows);
+
 		return rows;
 	}
 

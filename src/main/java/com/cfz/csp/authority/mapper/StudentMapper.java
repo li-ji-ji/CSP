@@ -44,4 +44,6 @@ public interface StudentMapper {
 		@Result(property = "famillyAdd", column = "familly_add")
 	})
 	List<Student> select(int page,int limit);
+    
+    int insertStudentInfoBatch(List<Student> students);
 }

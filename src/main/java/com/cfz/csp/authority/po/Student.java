@@ -45,15 +45,8 @@ public class Student {
     private List<SysRole> roleList;// 一个用户具有多个角色
 
     
-
-    public Integer getId() {
+	public Integer getId() {
 		return id;
-	}
-
-
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 
@@ -64,20 +57,8 @@ public class Student {
 
 
 
-	public void setSn(String sn) {
-		this.sn = sn;
-	}
-
-
-
 	public String getName() {
 		return name;
-	}
-
-
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 
@@ -88,20 +69,8 @@ public class Student {
 
 
 
-	public void setDormitoryAdd(String dormitoryAdd) {
-		this.dormitoryAdd = dormitoryAdd;
-	}
-
-
-
 	public String getPhone() {
 		return phone;
-	}
-
-
-
-	public void setPhone(String phone) {
-		this.phone = phone;
 	}
 
 
@@ -112,20 +81,8 @@ public class Student {
 
 
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-
-
 	public String getCollege() {
 		return college;
-	}
-
-
-
-	public void setCollege(String college) {
-		this.college = college;
 	}
 
 
@@ -136,20 +93,8 @@ public class Student {
 
 
 
-	public void setClasses(String classes) {
-		this.classes = classes;
-	}
-
-
-
 	public String getGrade() {
 		return grade;
-	}
-
-
-
-	public void setGrade(String grade) {
-		this.grade = grade;
 	}
 
 
@@ -160,20 +105,8 @@ public class Student {
 
 
 
-	public void setMajor(String major) {
-		this.major = major;
-	}
-
-
-
 	public String getFamillyAdd() {
 		return famillyAdd;
-	}
-
-
-
-	public void setFamillyAdd(String famillyAdd) {
-		this.famillyAdd = famillyAdd;
 	}
 
 
@@ -184,20 +117,8 @@ public class Student {
 
 
 
-	public void setWxopenid(String wxopenid) {
-		this.wxopenid = wxopenid;
-	}
-
-
-
 	public String getHurl() {
 		return hurl;
-	}
-
-
-
-	public void setHurl(String hurl) {
-		this.hurl = hurl;
 	}
 
 
@@ -208,20 +129,8 @@ public class Student {
 
 
 
-	public void setWxname(String wxname) {
-		this.wxname = wxname;
-	}
-
-
-
 	public String getSex() {
 		return sex;
-	}
-
-
-
-	public void setSex(String sex) {
-		this.sex = sex;
 	}
 
 
@@ -232,20 +141,8 @@ public class Student {
 
 
 
-	public void setSchool(String school) {
-		this.school = school;
-	}
-
-
-
 	public String getPassword() {
 		return password;
-	}
-
-
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 
@@ -256,20 +153,8 @@ public class Student {
 
 
 
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
-
-
 	public Byte getState() {
 		return state;
-	}
-
-
-
-	public void setState(Byte state) {
-		this.state = state;
 	}
 
 
@@ -280,11 +165,126 @@ public class Student {
 
 
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+
+	public void setSn(String sn) {
+		this.sn = sn;
+	}
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+	public void setDormitoryAdd(String dormitoryAdd) {
+		this.dormitoryAdd = dormitoryAdd;
+	}
+
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
+	public void setCollege(String college) {
+		this.college = college;
+	}
+
+
+
+	public void setClasses(String classes) {
+		this.classes = classes;
+	}
+
+
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+
+
+	public void setMajor(String major) {
+		this.major = major;
+	}
+
+
+
+	public void setFamillyAdd(String famillyAdd) {
+		this.famillyAdd = famillyAdd;
+	}
+
+
+
+	public void setWxopenid(String wxopenid) {
+		this.wxopenid = wxopenid;
+	}
+
+
+
+	public void setHurl(String hurl) {
+		this.hurl = hurl;
+	}
+
+
+
+	public void setWxname(String wxname) {
+		this.wxname = wxname;
+	}
+
+
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+
+
+	public void setSchool(String school) {
+		this.school = school;
+	}
+
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
+
+
+
+	public void setState(Byte state) {
+		this.state = state;
+	}
+
+
+
 	public void setRoleList(List<SysRole> roleList) {
 		this.roleList = roleList;
 	}
 
-	
+
+
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", sn=" + sn + ", name=" + name + ", dormitoryAdd=" + dormitoryAdd + ", phone="

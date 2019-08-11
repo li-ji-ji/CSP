@@ -32,6 +32,9 @@ public interface StudentService {
     
     List<Student> select(int page,int limit);
     
+    //批量插入
+    int insertStudentInfoBatch(List<Student> students);
+    
     /**
      * 微信登录业务接口:
      * @param code

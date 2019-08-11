@@ -155,5 +155,8 @@ public class StudentServiceImpl implements StudentService {
 		// TODO Auto-generated method stub
 		return studentMapper.updateByPrimaryKey(record);
 	}
-
+	
+	public int insertStudentInfoBatch(List<Student> students) {
+		return studentMapper.insertStudentInfoBatch(students);
+	}
 }

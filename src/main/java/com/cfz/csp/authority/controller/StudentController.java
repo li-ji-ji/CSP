@@ -64,7 +64,7 @@ public class StudentController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/onedit")
-	public String edit(Student student) throws Exception { 
+	public String edit(Student student) throws Exception {
 		System.out.println("student ->> onedit");
 //		if (student.getSn() != null && student.getSn() > 0) {
 //			studentService.updateByPrimaryKey(student);
@@ -84,7 +84,7 @@ public class StudentController {
 	 */
 	@RequestMapping("/delete")
 	public String delete(Integer sn) throws Exception {
-		System.out.println("微服务的删除的删除"+sn);
+		System.out.println("微服务的删除的删除" + sn);
 		int row = studentService.deleteByPrimaryKey(sn);
 		return "redirect:index";
 	}
@@ -133,34 +133,100 @@ public class StudentController {
 	}
 
 	@RequestMapping(value = "/excelimport", method = RequestMethod.POST)
-	public String excelImport(@RequestParam("file") MultipartFile file, HttpServletRequest servletRequest) {
+	public String excelImport(@RequestParam("file") MultipartFile file, HttpServletRequest servletRequest)
+			throws IOException {
 		System.out.println("StudentController -->> excelImport");
-		String path = servletRequest.getServletContext().getRealPath("/uploadFile");
-		System.out.println("文件名称" + file.getOriginalFilename());
+
+		// String path = servletRequest.getServletContext().getRealPath("/uploadFile");
+		// System.out.println("文件名称" + file.getOriginalFilename());
 		// 上传文件名
+		// String name = file.getOriginalFilename();// 上传文件的真实名称
+		// String suffixName = name.substring(name.lastIndexOf("."));// 获取后缀名
+		// String hash = Integer.toHexString(new Random().nextInt());//
+		// 自定义随机数（字母+数字）作为文件
+		// String fileName = hash + suffixName;
+		// File filepath = new File(path, fileName);
+		// System.out.println("随机数文件名称" + filepath.getName());
+		// if (!filepath.getParentFile().exists()) {
+		// filepath.getParentFile().mkdirs();
+		// }
 		String name = file.getOriginalFilename();// 上传文件的真实名称
 		String suffixName = name.substring(name.lastIndexOf("."));// 获取后缀名
-		String hash = Integer.toHexString(new Random().nextInt());// 自定义随机数（字母+数字）作为文件
-		String fileName = hash + suffixName;
-		File filepath = new File(path, fileName);
-		System.out.println("随机数文件名称" + filepath.getName());
-		if (!filepath.getParentFile().exists()) {
-			filepath.getParentFile().mkdirs();
-		}
-		File tempFile = new File(path + File.separator + fileName);
-		try {
-			file.transferTo(tempFile);
-		} catch (IllegalStateException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(tempFile.getPath());
+		File excelFile = File.createTempFile("imagesFile-" + System.currentTimeMillis(), suffixName);
+		file.transferTo(excelFile);
+
+		// File tempFile = new File(path + File.separator + fileName);
+		// try {
+		// file.transferTo(tempFile);
+		// } catch (IllegalStateException | IOException e) {
+		// // TODO Auto-generated catch block
+		// e.printStackTrace();
+		// }
+		// System.out.println(tempFile.getPath());
+
 		ExcelUtil excelUtil = new ExcelUtil();
 		List<Student> students = new ArrayList<Student>();
-		//students = excelUtil.importXLS(tempFile);
-		for(int i = 0 ; i<students.size() ;i++) {
-			studentService.insert(students.get(i));
+		students = excelUtil.importXLS(excelFile.toString());
+		Integer rows = 0;
+		System.out.println("students长度==" + students.size());
+//		System.out.println(students.get(391));
+//		System.out.println(students.get(392));
+//		System.out.println(students.get(393));
+
+		/**
+		 * // 插入方案一
+		 */
+//		for (Student student : students) {
+//			int row = 0;
+//			try {
+//				row = studentService.insert(student);
+//			} catch (Exception e) {
+//				System.out.println("第" + rows + "行出错");
+//				e.printStackTrace();
+//				break;
+//			}
+//			rows += row;
+//		}
+
+		/**
+		 * // 插入方案二
+		 */
+		
+		try {
+			rows = studentService.insertStudentInfoBatch(students);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		System.out.println("插入的students长度==" + rows);
+
+//		String path = servletRequest.getServletContext().getRealPath("/uploadFile");
+//		System.out.println("文件名称" + file.getOriginalFilename());
+//		// 上传文件名
+//		String name = file.getOriginalFilename();// 上传文件的真实名称
+//		String suffixName = name.substring(name.lastIndexOf("."));// 获取后缀名
+//		String hash = Integer.toHexString(new Random().nextInt());// 自定义随机数（字母+数字）作为文件
+//		String fileName = hash + suffixName;
+//		File filepath = new File(path, fileName);
+//		System.out.println("随机数文件名称" + filepath.getName());
+//		if (!filepath.getParentFile().exists()) {
+//			filepath.getParentFile().mkdirs();
+//		}
+//		
+//		File tempFile = new File(path + File.separator + fileName);
+//		try {
+//			file.transferTo(tempFile);
+//		} catch (IllegalStateException | IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		System.out.println(tempFile.getPath());
+//		ExcelUtil excelUtil = new ExcelUtil();
+//		List<Student> students = new ArrayList<Student>();
+//		students = excelUtil.importXLS(tempFile.toString());
+//		for(int i = 0 ; i<students.size() ;i++) {
+//			studentService.insert(students.get(i));
+//		}
+//		System.out.println("excel导入的model  students："+students);
 		return "redirect:index";
 	}
 }

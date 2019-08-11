@@ -70,6 +70,26 @@
 	</select>
   
   
+  <!-- 批量插入 -->
+  <insert id="insertStudentInfoBatch" parameterType="java.util.List">
+		insert into student (sn, name, dormitory_add,
+		phone, email, college, classes,grade, major,familly_add)
+		
+		values 
+		<foreach collection="list" item="item" index="index" separator=",">
+		(#{item.sn,jdbcType=VARCHAR}, 
+		#{item.name,jdbcType=VARCHAR},
+		#{item.dormitoryAdd,jdbcType=VARCHAR},
+		#{item.phone,jdbcType=VARCHAR}, 
+		#{item.email,jdbcType=VARCHAR}, 
+		#{item.college,jdbcType=VARCHAR},
+		#{item.classes,jdbcType=VARCHAR},
+		#{item.grade,jdbcType=VARCHAR}, 
+		#{item.major,jdbcType=VARCHAR}, 
+		#{item.famillyAdd,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
