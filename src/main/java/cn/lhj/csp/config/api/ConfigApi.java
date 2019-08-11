@@ -12,29 +12,33 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import cn.lhj.csp.config.po.Config;
-import cn.lhj.csp.config.service.impl.ConfigServiceImpl;
+import cn.lhj.csp.config.po.ConfigCategory;
+import cn.lhj.csp.config.service.ConfigCategoryService;
+import cn.lhj.csp.config.service.ConfigService;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/config")
 @CrossOrigin
 public class ConfigApi {
 
 	@Autowired
-	private ConfigServiceImpl configServiceImpl;
+	private ConfigService configService;
+	
+	@Autowired
+	private ConfigCategoryService configCategoryService;
 
 	@ApiOperation(value = "获取配置详细信息")
-	@RequestMapping("/getAllConfig")
+	@RequestMapping("/api/config/getAll")
 	public List<Config> getAllConfig() {
-		return configServiceImpl.selectAll();
+		return configService.selectAll();
 	}
 
 	@ApiOperation(value = "获取layui所有配置详细信息")
-	@RequestMapping("/layuigetAll")
-	public Map<String, Object> layuigetAll(@RequestParam(required = false, defaultValue = "1") int page,
+	@RequestMapping("/api/config/layuigetAll")
+	public Map<String, Object> layuigetAllConfig(@RequestParam(required = false, defaultValue = "1") int page,
 			@RequestParam(required = false, defaultValue = "100") int limit) {
-		List<Config> data = configServiceImpl.select(page, limit);
-		List<Config> datas = configServiceImpl.selectAll();
+		List<Config> data = configService.select(page, limit);
+		List<Config> datas = configService.selectAll();
 		int count = datas.size();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("code", 0);
@@ -45,60 +49,86 @@ public class ConfigApi {
 	}
 
 	@ApiOperation(value = "获取配置详细信息", notes = "根据url的id来获取配置详细信息")
-	@RequestMapping("/getConfigById")
-	public Config getConfigById(Integer id) {
-		return configServiceImpl.findById(id);
+	@RequestMapping("/api/config/getById")
+	public Config getByIdConfig(@RequestParam("id")Integer id) {
+		return configService.findById(id);
 	}
 
 	@ApiOperation(value = "增加配置详细信息", notes = "增加配置详细信息")
-	@RequestMapping("/edit")
-	public void edit(@RequestParam(value = "operation")String operation,@RequestBody Config config, @RequestParam(value="id",required = false, defaultValue = "0") int id) {
-		System.out.println(operation);
-		System.out.println(config.getId());
-		System.out.println(id);
+	@RequestMapping("/api/config/insert")
+	public String insertConfig(@RequestBody Config config) {
+		configService.insert(config);
+		return "增加成功";
+	}
+	
+	@RequestMapping("/api/config/delete")
+	public String deleteConfig(@RequestParam("id")Integer id) {
+		configService.delete(id);
+		return "删除成功";
+	}
+	
+	@RequestMapping("/api/config/update")
+	public String updateConfig(@RequestBody Config config) {
+		configService.update(config);
+		System.out.println("修改");
+		return "修改成功";
+	}
+	
+	@RequestMapping("/api/config/updateEnableById")
+	public void updateEnableById(@RequestParam("id")Integer id, @RequestParam("enable")String enable) {
+		configService.updateEnableById(id, enable);
+	}
+	
+	@RequestMapping("/api/config/selectByType")
+	public List<Config> selectByType(@RequestParam("type")String type){
+		return configService.selectByType(type);
+	}
+	
+	@RequestMapping("/api/config/getTypes")
+	public List<String> getTypes() {
+		return configService.getTypes();
+	}
+	
+	@RequestMapping("/api/configCategory/getAll")
+	public List<ConfigCategory> getAllConfigCategory(){
+		return configCategoryService.getAll();
+	}
+	
+	@ApiOperation(value = "增加配置分类详细信息", notes = "增加配置分类详细信息")
+	@RequestMapping("/api/configCategory/edit")
+	public void editConfigCategory(@RequestParam("operation")String operation,@RequestParam("editid")String editid,@RequestParam("name")String name, @RequestParam(required = false, defaultValue = "0") int id) {
+		ConfigCategory configCategory = new ConfigCategory(Integer.parseInt(editid), name);		
 		if (operation.equals("delete")) {
-			configServiceImpl.delete(id);
-		} else if (operation.equals("insert")) {
-			configServiceImpl.insert(config);
-		} else if (operation.equals("update")) {
-			configServiceImpl.update(config);
+			configCategoryService.delete(id);
+		} else if (operation.equals("insert")) {		
+			configCategoryService.insert(configCategory);
+		} else if (operation.equals("update")) {		
+			configCategoryService.update(configCategory);
 		}
 	}
 	
-	@RequestMapping("/updateEnableById")
-	public void updateEnableById(Integer id, String enable) {
-		configServiceImpl.updateEnableById(id, enable);
+	@RequestMapping("/api/configCategory/insert")
+	public String insertConfigCategory(@RequestBody ConfigCategory configCategory) {
+		configCategoryService.insert(configCategory);
+		return "增加成功";
 	}
 	
-	@RequestMapping("/delete")
-	public void delete(@RequestParam("id")Integer id) {
-		configServiceImpl.delete(id);
+	@RequestMapping("/api/configCategory/delete")
+	public String deleteConfigCategory(@RequestParam("id")Integer id) {
+		configCategoryService.delete(id);
+		return "删除成功";
 	}
 	
-	@RequestMapping("/selectByType")
-	public List<Config> selectByType(String type){
-		return configServiceImpl.selectByType(type);
+	@RequestMapping("/api/configCategory/update")
+	public String updateConfigCategory(@RequestBody ConfigCategory configCategory) {
+		configCategoryService.update(configCategory);
+		return "修改成功";
 	}
 	
-	@RequestMapping("/insertConfigOne")
-	public int insertConfigOne(@RequestBody Config config )throws Exception{
-		try {
-			configServiceImpl.insert(config);
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
+	
+	@RequestMapping("/api/configCategory/findById")
+	public ConfigCategory findByIdConfigCategory(@RequestParam("id")Integer id) {
+		return configCategoryService.findById(id);
 	}
 	
-	@RequestMapping("/updateConfigOne")
-	public int updateConfigOne(@RequestBody Config config )throws Exception{
-		try {
-			configServiceImpl.update(config);
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
 }

@@ -22,4 +22,5 @@ public interface ConfigService {
 	
 	public List<Config> selectByType(String type);
 	
+	public List<String> getTypes();
 }

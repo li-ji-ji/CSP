@@ -46,4 +46,15 @@ public interface ConfigMapper {
 	})
 	List<Config> select(int page,int limit);
     
+    @Select("SELECT * FROM config where type=#{type} limit 1")
+    @Results({
+		@Result(property = "configKey",  column = "config_key"),
+		@Result(property = "configValue", column = "config_value"),
+		@Result(property = "dataType", column = "data_type")
+	})
+    Config findOneByType(String type);
+    
+    @Select("SELECT distinct type FROM config where 1= 1")
+    List<String> getTypes();
+    
 }

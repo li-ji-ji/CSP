@@ -69,4 +69,10 @@ public class ConfigServiceImpl implements ConfigService {
 		return configMapper.selectByExample(example);
 	}
 
+	@Override
+	public List<String> getTypes() {
+		// TODO Auto-generated method stub
+		return configMapper.getTypes();
+	}
+
 }
