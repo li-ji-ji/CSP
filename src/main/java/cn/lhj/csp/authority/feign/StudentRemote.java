@@ -4,17 +4,22 @@ package cn.lhj.csp.authority.feign;
 import java.util.Map;
 
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
+import ch.qos.logback.core.encoder.Encoder;
 import cn.lhj.csp.authority.po.Student;
 import cn.lhj.csp.authority.po.SysPermission;
 import cn.lhj.csp.authority.po.SysRole;
 import cn.lhj.csp.authority.po.SysRolePermission;
 import cn.lhj.csp.authority.po.SysStudentRole;
+import feign.form.spring.SpringFormEncoder;
 
 @FeignClient(name="csp-authority")
 public interface StudentRemote {
@@ -39,7 +44,8 @@ public interface StudentRemote {
 	public Integer delete(@RequestParam("id") Integer id) throws Exception;
 	
 	@RequestMapping(value = "/bg/studentapi/excelimport", method = RequestMethod.POST)
-	public Integer excelImport(@RequestParam("file") MultipartFile file) throws Exception ;
+	public Integer excelImport(@RequestPart("file") MultipartFile file) throws Exception ;
+
 	
 	/**
 	 * 学生角色中间表

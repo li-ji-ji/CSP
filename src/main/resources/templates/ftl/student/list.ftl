@@ -180,7 +180,7 @@
 			//æå®åè®¸ä¸ä¼ çæä»¶ç±»åÂÂ
 			upload.render({
 				elem : '#test3',
-				url : '${base}/authority/student/excelimport',
+				url : 'http://92.68.50.32:8212/bg/studentapi/excelimport',
 				accept : 'file' //æ®éæä»¶
 				,done : function(res) {
 					console.log("hello")
@@ -191,7 +191,7 @@
 			});
 			upload.render({ //åè®¸ä¸ä¼ çæä»¶åç¼Â
 				elem : '#test4',
-				url : '${base}/authority/student/excelimport',
+				url : 'http://92.68.50.32:8212/bg/studentapi/excelimport',
 				accept : 'file' //æ®éæä»¶
 				,
 				exts : 'zip|rar|7z' //åªåè®¸ä¸ä¼ åç¼©æä»¶
