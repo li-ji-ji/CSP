@@ -30,7 +30,9 @@ public class Swagger2Config {
                 .termsOfServiceUrl("http://blog.csdn.net/forezp")
 				.version("1.0")
 				.build();
-		         //启动后加/swagger-ui.html
+		
+		
+		         //启动后加上/swagger-ui.html
 	}
 
 }
