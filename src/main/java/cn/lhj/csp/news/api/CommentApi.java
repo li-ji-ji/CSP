@@ -41,4 +41,10 @@ public class CommentApi {
 		}
 		
 		
+		//根据新闻ID获取所有评论
+		@RequestMapping("/findAllCommentByNewsId")
+		public List<Comment> findAllCommentByNewsId(@RequestParam("newsId") String newsId){
+			return commentService.findAllCommentByNewsId(newsId);
+		}
+		
 }

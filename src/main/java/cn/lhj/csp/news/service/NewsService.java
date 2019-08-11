@@ -2,6 +2,7 @@ package cn.lhj.csp.news.service;
 
 import java.util.List;
 
+
 import cn.lhj.csp.news.po.News;
 
 
@@ -33,5 +34,11 @@ public interface NewsService {
 	
 	//根据ID集合批量查询新闻
 	List<News> findAllByNewsIdList(List<String> ids);
+	
+	//获取新闻总数
+	long findAllNewsCount();
+
+	//分页查询新闻
+	List<News> findAll(Integer page, Integer size);
 
 }
