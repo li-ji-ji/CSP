@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.lhj.csp.config.po.Config;
+import cn.lhj.csp.config.po.ConfigCategory;
 import cn.lhj.csp.news.po.Category;
 import cn.lhj.csp.news.po.Comment;
 import cn.lhj.csp.news.po.News;
@@ -58,8 +59,8 @@ public interface AdminMenuApiInterface {
 	public Map<String, Object> layuigetAll(@RequestParam(value = "name") int page,
 			@RequestParam(value = "limit") int limit);
 	
-	@RequestMapping("/api/config/getConfigById")
-	public Config getConfigById(@RequestParam(value = "id")Integer id);
+	@RequestMapping("/api/config/getById")
+	public Config getByIdConfig(@RequestParam(value = "id")Integer id);
 	
 	@RequestMapping("/api/config/edit")
 	public void edit(@RequestParam(value = "operation")String operation,@RequestBody Config config, @RequestParam(value="id",required = false, defaultValue = "0") int id);
@@ -76,11 +77,34 @@ public interface AdminMenuApiInterface {
 	@RequestMapping("/api/config/upload")
     public Map<String,Object> upload(@RequestParam("file") MultipartFile multfile)throws Exception;
 	
-	@RequestMapping("/api/config/insertConfigOne")
+	@RequestMapping("/api/config/insert")
 	public int insertConfigOne(@RequestBody Config config )throws Exception;
 	
-	@RequestMapping("/api/config/updateConfigOne")
+	@RequestMapping("/api/config/update")
 	public int updateConfigOne(@RequestBody Config config )throws Exception;
+
+	@RequestMapping("/api/config/getTypes")
+	public List<String> getTypes();
+	/*
+	 * 配置分类
+	 */
+	@RequestMapping("/api/configCategory/getAll")
+	public List<ConfigCategory> getAllConfigCategory();
+	
+	@RequestMapping("/api/configCategory/edit")
+	public void editConfigCategory(@RequestParam("operation")String operation,@RequestParam("editid")String editid,@RequestParam("name")String name, @RequestParam(required = false, defaultValue = "0") int id);
+	
+	@RequestMapping("/api/configCategory/insert")
+	public String insertConfigCategory(@RequestBody ConfigCategory configCategory);
+	
+	@RequestMapping("/api/configCategory/delete")
+	public String deleteConfigCategory(@RequestParam("id")Integer id);
+	
+	@RequestMapping("/api/configCategory/update")
+	public String updateConfigCategory(@RequestBody ConfigCategory configCategory);
+	
+	@RequestMapping("/api/configCategory/findById")
+	public ConfigCategory findByIdConfigCategory(@RequestParam("id")Integer id);
 	
 	//新闻分类管理(Category)
 	//页面级

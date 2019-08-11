@@ -1,10 +1,9 @@
-<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>文件管理</title>
-<link rel="stylesheet" href="${base}/js/plugins/layui/css/layui.css"
+<link rel="stylesheet" href="${request.contextPath}/js/plugins/layui/css/layui.css"
 	media="all">
 </head>
 <body>
@@ -45,17 +44,15 @@
 					<label class="layui-form-label">类型</label>
 					<div class="layui-input-inline">
 						<select name="type" lay-verify="required" lay-search="">
-							<option value="${config.type}">${config.type}</option>
-							<option value="系统配置">系统配置</option>
-							<option value="网站配置">网站配置</option>
-							<option value="邮件配置">邮件配置</option>
-							<option value="短信配置">短信配置</option>
-							<option value="腾讯云配置">腾讯云配置</option>
-							<option value="微信支付配置">微信支付配置</option>
+							<option value="${config.type}">${config.type}</option>	
+							<#assign i = 0>	
+							<#list configCategorys as configCategory>
+								<option value="${configCategorys[i].name }">${configCategorys[i].name }</option>
+							<#assign i++>
+							</#list>
 						</select>
 					</div>
 				</div>
-
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">是否使用</label>
@@ -124,8 +121,8 @@
 			</div>
 		</form>
 
-		<script src="${base}/js/jquery-3.3.1.js"></script>
-		<script src="${base}/js/plugins/layui/layui.js" charset="utf-8"></script>
+		<script src="${request.contextPath}/js/jquery-3.3.1.js"></script>
+		<script src="${request.contextPath}/js/plugins/layui/layui.js" charset="utf-8"></script>
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
 			layui
@@ -140,7 +137,7 @@
 								//指定允许上传的文件类型
 								upload.render({
 									elem : '#test3',
-									url : '/upload/',
+									url : '${request.contextPath}/upload/',
 									accept : 'file' //普通文件
 									,
 									done : function(res) {
@@ -149,7 +146,7 @@
 								});
 								upload.render({ //允许上传的文件后缀
 									elem : '#test4',
-									url : '/upload/',
+									url : '${request.contextPath}/upload/',
 									accept : 'file' //普通文件
 									,
 									exts : 'zip|rar|7z' //只允许上传压缩文件
@@ -160,7 +157,7 @@
 								});
 								upload.render({
 									elem : '#test5',
-									url : '/upload/',
+									url : '${request.contextPath}/upload/',
 									accept : 'video' //视频
 									,
 									done : function(res) {
@@ -169,7 +166,7 @@
 								});
 								upload.render({
 									elem : '#test6',
-									url : '/upload/',
+									url : '${request.contextPath}/upload/',
 									accept : 'audio' //音频
 									,
 									done : function(res) {
@@ -189,8 +186,7 @@
 												'select(dataType)',
 												function(data) {
 													var dataType = data.value;
-													layer.msg(dataType);
-													var link = '${base}/config/edit?operation=insert&dataType='
+													var link = '${request.contextPath}/config/edit?operation=insert&dataType='
 															+ dataType;
 													window.location.href = link;
 												})
@@ -199,7 +195,6 @@
 										.on(
 												'submit(demo)',
 												function(data) {
-												var configJSON=JSON.stringify(data.field);
 													layer
 															.confirm(
 																	'真的提交么',
@@ -207,12 +202,13 @@
 																			index) {
 																		$
 																				.ajax({
-																					url : '${base}/api/config/edit?operation=${operation}',
+																					url : '${request.contextPath}/api/config/insert',
 																					method : 'post',
-																					data : "configJSON="+configJSON,
-																					dataType : 'JSON'
+																					contentType:"application/json;charset=UTF-8",
+																					data : JSON.stringify(data.field),
+																					dataType:'json',
 																				});
-																		var link = '${base}/config/list';
+																		var link = '${request.contextPath}/config/list';
 																		window.location.href = link;
 																	});
 													return false;
