@@ -30,7 +30,7 @@ public class GeneratorSqlMap {
 	 * 
 	 * try{ GeneratorSqlMap generatorSqlMap=new GeneratorSqlMap();
 	 * generatorSqlMap.generator(); }catch(Exception e){ e.printStackTrace(); }
-	 * 
+	 
 	 * 
 	 * }
 	 */
