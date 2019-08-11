@@ -14,4 +14,7 @@ public interface CommentService {
 	
 	//根据评论实体删除一条数据
 	int deleteOneEntity(Comment comment);
+	
+	//根据新闻ID获取所有评论
+	List<Comment> findAllCommentByNewsId(String newsId);
 }

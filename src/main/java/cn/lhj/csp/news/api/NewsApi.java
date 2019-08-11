@@ -25,6 +25,17 @@ public class NewsApi {
 			return newsService.findAllNews();
 		}
 		
+		//获取新闻总数
+		@RequestMapping("/findAllNewsCount")
+		public long findAllNewsCount() {
+			return newsService.findAllNewsCount();
+		}
+		
+		//分页查询新闻
+		@RequestMapping("/findAllNewsPage")
+		public List<News> findAll(@RequestParam("page") Integer page, @RequestParam("size") Integer size){
+			return newsService.findAll(page, size);
+		}
 		
 		
 		//获取所有已审核的新闻

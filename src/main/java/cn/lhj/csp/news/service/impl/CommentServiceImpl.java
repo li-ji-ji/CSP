@@ -44,6 +44,14 @@ public class CommentServiceImpl implements CommentService {
 		commentRepository.delete(comment);
 		return 1;
 	}
+
+	@Override
+	//根据新闻ID获取所有评论
+	public List<Comment> findAllCommentByNewsId(String newsId) {
+		//按评论时间排序
+		Sort sort = new Sort(Sort.Direction.DESC,"commentTime");
+		return commentRepository.findByNewsId(newsId, sort);
+	}
 	
 	
 	

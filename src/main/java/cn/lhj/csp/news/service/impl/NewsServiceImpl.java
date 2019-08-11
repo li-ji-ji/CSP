@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +104,21 @@ public class NewsServiceImpl implements NewsService {
 			newses.add(iterator.next());
 		}
 		return newses;
+	}
+	
+	@Override
+	//获取新闻总数
+	public long findAllNewsCount() {
+		return newsRepository.count();
+	}
+	
+	@Override
+	//分页查询新闻
+	public List<News> findAll(Integer page, Integer size) {
+		//按新闻发布时间排序
+		Sort sort = new Sort(Sort.Direction.DESC,"newsPubdate");
+		Pageable pageable = new PageRequest(page-1,size,sort);
+		return newsRepository.findAll(pageable).getContent();
 	}
 	
 	
