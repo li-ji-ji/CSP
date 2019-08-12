@@ -120,6 +120,15 @@ public class NewsServiceImpl implements NewsService {
 		Pageable pageable = new PageRequest(page-1,size,sort);
 		return newsRepository.findAll(pageable).getContent();
 	}
+
+
+	@Override
+	//根据新闻分类类型查询所有新闻
+	public List<News> findAllNewsByType(String categoryType) {
+		//按新闻发布时间排序
+		Sort sort = new Sort(Sort.Direction.DESC,"newsPubdate");
+		return newsRepository.findByCategoryType(categoryType, sort);
+	}
 	
 	
 }

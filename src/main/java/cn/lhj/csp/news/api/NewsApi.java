@@ -100,4 +100,11 @@ public class NewsApi {
 		public List<News> findAllNewsByNewsKeywordLike(@RequestParam("newsKeyword") String newsKeyword){
 			return newsService.findAllNewsByNewsKeywordLike(newsKeyword);
 		}
+		
+		
+		//根据新闻分类类型查询所有新闻
+		@RequestMapping("/findAllNewsByType")
+		public List<News> findAllNewsByType(@RequestParam("categoryType") String categoryType){
+			return newsService.findAllNewsByType(categoryType);
+		}
 }

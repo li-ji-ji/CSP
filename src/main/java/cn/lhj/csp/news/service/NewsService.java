@@ -40,5 +40,8 @@ public interface NewsService {
 
 	//分页查询新闻
 	List<News> findAll(Integer page, Integer size);
+	
+	//根据新闻分类类型查询所有新闻
+	List<News> findAllNewsByType(String categoryType);
 
 }

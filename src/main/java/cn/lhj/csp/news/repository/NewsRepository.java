@@ -18,5 +18,7 @@ public interface NewsRepository extends MongoRepository<News, String>{
 	//根据新闻关键词进行模糊查询
 	List<News> findByNewsKeywordLike(String newsKeyword,Sort sort);
 
+	//根据新闻分类类型查询所有新闻
+	List<News> findByCategoryType(String categoryType,Sort sort);
 	
 }
