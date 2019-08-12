@@ -259,7 +259,7 @@
 		  //执行实例
 		  var uploadInst = upload.render({
 		    elem: '#uploadImage' //绑定元素
-		    ,url: 'http://92.68.10.197:8010/upload' //上传接口
+		    ,url: '${base}/file/upload' //上传接口
 		    ,done: function(res){
 		      //上传完毕回调
 		      $("#newsPicture").attr("value",res.data.src);
@@ -276,7 +276,7 @@
 		  
 		  layedit.set({
 			  uploadImage: {
-			    url: 'http://92.68.10.197:8010/upload' //接口url
+			    url: '${base}/file/upload' //接口url
 			    ,type: 'post' //默认post
 			    ,done: function(res){
 					//上传完毕回调
