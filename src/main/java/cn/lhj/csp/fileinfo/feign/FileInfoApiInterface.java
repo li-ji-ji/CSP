@@ -1,22 +1,35 @@
 package cn.lhj.csp.fileinfo.feign;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.ObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.cloud.openfeign.support.SpringEncoder;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.lhj.csp.fileinfo.po.FileInfo;
 import cn.lhj.csp.fileinfo.po.FolderInfo;
 import cn.lhj.csp.fileinfo.po.PrintOrder;
-
+import feign.codec.Encoder;
+import feign.form.spring.SpringFormEncoder;
 
 @CrossOrigin
-@FeignClient(name= "csp-fileinfo")
+@FeignClient(name= "csp-fileinfo", configuration = FileInfoApiInterface.MultipartSupportConfig.class)
 public interface FileInfoApiInterface {
 		
 	@RequestMapping("/api/fileinfo/getAll")
@@ -48,9 +61,9 @@ public interface FileInfoApiInterface {
 
 	@RequestMapping("/api/folderinfo/getById")
 	public FolderInfo getFolderById(@RequestParam(value = "id") Integer id);
-
-	@RequestMapping("/file/upload")
-    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile multfile,@RequestParam(required = false, defaultValue = "其他")String folderName)throws Exception;
+	
+	@RequestMapping("/uploadFile")
+	public Map<String,Object> uploadFile(@RequestPart("file") MultipartFile multfile,@RequestParam("folderName")String folderName) throws IOException;
 	
 	@RequestMapping("/api/printOrder/getAll")
 	public List<PrintOrder> getAllPrintOrder();
@@ -65,8 +78,23 @@ public interface FileInfoApiInterface {
 	public void updatePrintOrder(@RequestBody PrintOrder printOrder);
 	
 	@RequestMapping("/api/printOrder/findById")
-	public PrintOrder findByIdPrintOrder(@RequestParam(value = "id") Integer id);
+	public PrintOrder findByIdPrintOrder(@RequestParam(value = "id") Integer id);	
 	
-	@RequestMapping("/print/upload")
-    public Map<String,Object> uploadPrintOrder(@RequestParam("file") MultipartFile multfile,@RequestParam(required = false, defaultValue = "其他")String folderName)throws Exception;
+	@RequestMapping(value="/print/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Map<String,Object> uploadPrintOrder(@RequestPart("file") MultipartFile multfile,@RequestParam(required = false, defaultValue = "其他")String folderName)throws Exception;
+	
+	@Scope("prototype")
+    @Primary
+    @Configuration
+	class MultipartSupportConfig {
+        @Autowired
+		private ObjectFactory<HttpMessageConverters> messageConverters;
+		@Bean
+		public Encoder feignFormEncoder() {
+			return new SpringFormEncoder(new SpringEncoder(messageConverters));
+		}
+	}
+	
+	
+
 }

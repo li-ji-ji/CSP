@@ -1,12 +1,16 @@
 package cn.lhj.csp.fileinfo.api;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -45,8 +49,7 @@ public class FileInfoApi {
 		}
 		
 		@RequestMapping("/file/upload")
-	    public Map<String,Object> uploadFile(@RequestParam("file") MultipartFile multfile,@RequestParam(required = false, defaultValue = "其他")String folderName)throws Exception{
-			return fileInfoApiInterface.uploadFile(multfile, folderName);
+		public Map<String, Object> uploadFile(@RequestPart("file") MultipartFile multfile,@RequestParam(required=false,defaultValue = "其他")String folderName) throws IOException {
+			return fileInfoApiInterface.uploadFile(multfile,folderName);
 		}
-		
 }
