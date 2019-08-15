@@ -218,7 +218,7 @@
 		  //执行实例
 		  var uploadInst = upload.render({
 		    elem: '#uploadImage' //绑定元素
-		    ,url: '${base}/file/upload' //上传接口
+		    ,url: 'http://qzimp.cn/api/file/uploadFile' //上传接口
 		    ,done: function(res){
 		      //上传完毕回调
 		      $("#newsPicture").attr("value",res.data.src);
@@ -235,7 +235,7 @@
 		  
 		  layedit.set({
 			  uploadImage: {
-			    url: '${base}/file/upload' //接口url
+			    url: 'http://qzimp.cn/api/file/uploadFile' //接口url
 			    ,type: 'post' //默认post
 			    ,done: function(res){
 					//上传完毕回调
