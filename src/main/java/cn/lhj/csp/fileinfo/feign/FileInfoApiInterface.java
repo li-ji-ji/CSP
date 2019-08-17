@@ -32,7 +32,6 @@ import feign.form.spring.SpringFormEncoder;
 
 @CrossOrigin
 @FeignClient(name = "csp-fileinfo")
-@Headers({"Content-Type: application/json","Accept: application/json"})
 public interface FileInfoApiInterface {
 
 	@RequestMapping("/api/fileinfo/getAll")
@@ -83,13 +82,6 @@ public interface FileInfoApiInterface {
 
 	@RequestMapping("/api/printOrder/findById")
 	public PrintOrder findByIdPrintOrder(@RequestParam(value = "id") Integer id);
-
-	@RequestMapping(value = "/print/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public Map<String, Object> uploadPrintOrder(@RequestPart("file") MultipartFile multfile,
-			@RequestParam(required = false, defaultValue = "其他") String folderName) throws Exception;
-
-	@RequestMapping(value="/print/test",method = RequestMethod.POST,produces = { MediaType.APPLICATION_JSON_UTF8_VALUE }, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String printtest(@RequestPart(value = "file", required = false) MultipartFile file);
 
 	
 }

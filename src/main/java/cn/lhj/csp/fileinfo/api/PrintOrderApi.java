@@ -45,15 +45,5 @@ public class PrintOrderApi {
 		public PrintOrder findById(Integer id) {
 			return fileInfoApiInterface.findByIdPrintOrder(id);
 		}
-		
-		@RequestMapping("/print/upload")
-	    public Map<String,Object> uploadPrintOrder(@RequestParam("file") MultipartFile multfile,@RequestParam(required = false, defaultValue = "其他")String folderName)throws Exception{
-			return fileInfoApiInterface.uploadPrintOrder(multfile, folderName);
-		}
-		
-		@RequestMapping(name="/print/test",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-		public String test(@RequestPart("file") MultipartFile multfile) {
-			System.out.println(multfile.getOriginalFilename());
-			return fileInfoApiInterface.printtest(multfile);
-		}
+
 }

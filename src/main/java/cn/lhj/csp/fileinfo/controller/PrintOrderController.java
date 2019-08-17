@@ -54,8 +54,5 @@ public class PrintOrderController {
 			return "ftl/printorder/edit";
 		}
 		
-		@RequestMapping("/upload")
-	    public Map<String,Object> upload(@RequestParam("file") MultipartFile multfile,@RequestParam(required = false, defaultValue = "其他")String folderName)throws Exception{
-			return fileInfoApiInterface.uploadPrintOrder(multfile, folderName);
-		}
+
 }
