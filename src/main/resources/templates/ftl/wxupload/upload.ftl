@@ -1,3 +1,4 @@
+<#assign base=request.contextPath />
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,11 +6,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="X-UA-Compatible" content="ie=edge">
-<link rel="stylesheet" href="${request.contextPath}/css/upload.css"
+<link rel="stylesheet" href="${base}/css/upload.css"
 	media="all">
-<link rel="stylesheet"
-	href="${request.contextPath}/js/plugins/layui/css/layui.css"
-	media="all">
+<link rel="stylesheet" href="${base}/js/plugins/layui/css/layui.css" media="all">
 <title>文件上传</title>
 </head>
 
@@ -17,9 +16,9 @@
 	<div class="up-bg">
 		<div class="up-buttom" onclick="up()" id="test3">上传文件</div>
 	</div>
-	<script src="${request.contextPath}/js/plugins/layui/layui.all.js"></script>
-	<script src="${request.contextPath}/js/jquery-3.3.1.min.js"></script>
-	<script src="${request.contextPath}/js/plugins/layui/layui.js"></script>
+	<script src="${base}/js/plugins/layui/layui.all.js"></script>
+	<script src="${base}/js/jquery-3.3.1.min.js"></script>
+	<script src="${base}/js/plugins/layui/layui.js"></script>
 </body>
 <script type="text/javascript">
 	layui.use('upload', function() {

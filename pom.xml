@@ -123,22 +123,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
-		<!-- 文件上传feign依赖 -->
-		<dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-core</artifactId>
-            <version>9.5.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-gson</artifactId>
-            <version>9.3.1</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.openfeign</groupId>
-            <artifactId>feign-jackson</artifactId>
-            <version>9.5.0</version>
-        </dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -154,6 +139,7 @@
 	</dependencyManagement>
 
 	<build>
+		<finalName>CSP</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

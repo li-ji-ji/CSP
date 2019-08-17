@@ -31,7 +31,7 @@ import feign.codec.Encoder;
 import feign.form.spring.SpringFormEncoder;
 
 @CrossOrigin
-@FeignClient(name = "csp-fileinfo", configuration = FileInfoApiInterface.MultipartSupportConfig.class)
+@FeignClient(name = "csp-fileinfo")
 @Headers({"Content-Type: application/json","Accept: application/json"})
 public interface FileInfoApiInterface {
 
@@ -90,19 +90,6 @@ public interface FileInfoApiInterface {
 
 	@RequestMapping(value="/print/test",method = RequestMethod.POST,produces = { MediaType.APPLICATION_JSON_UTF8_VALUE }, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public String printtest(@RequestPart(value = "file", required = false) MultipartFile file);
-	
-	@Scope("prototype")
-	@Primary
-	@Configuration
-	class MultipartSupportConfig {
-		@Autowired
-		private ObjectFactory<HttpMessageConverters> messageConverters;
-
-		@Bean
-		public Encoder feignFormEncoder() {
-			return new SpringFormEncoder(new SpringEncoder(messageConverters));
-		}
-	}
 
 	
 }
