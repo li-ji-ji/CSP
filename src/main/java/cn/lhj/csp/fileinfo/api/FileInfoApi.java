@@ -19,37 +19,39 @@ import cn.lhj.csp.fileinfo.po.FileInfo;
 
 @RestController
 public class FileInfoApi {
-		
-		@Autowired
-		private FileInfoApiInterface fileInfoApiInterface;
-		
-		@RequestMapping("/api/fileinfo/getAll")
-		public List<FileInfo> getAll(){
-			return fileInfoApiInterface.getAll();
-		}
-		
-		@RequestMapping("/api/fileinfo/insert")
-		public void insert(@RequestBody FileInfo fileInfo) {
-			fileInfoApiInterface.insert(fileInfo);
-		}
-		
-		@RequestMapping("/api/fileinfo/delete")
-		public void delete(Integer id) {
-			fileInfoApiInterface.delete(id);
-		}
-		
-		@RequestMapping("/api/fileinfo/update")
-		public void update(@RequestBody FileInfo fileInfo) {
-			fileInfoApiInterface.update(fileInfo);
-		}
-		
-		@RequestMapping("/api/fileinfo/getById")
-		public FileInfo getById(Integer id) {
-			return fileInfoApiInterface.getById(id);
-		}
-		
-		@RequestMapping("/file/upload")
-		public Map<String, Object> uploadFile(@RequestPart("file") MultipartFile multfile,@RequestParam(required=false,defaultValue = "其他")String folderName) throws IOException {
-			return fileInfoApiInterface.uploadFile(multfile,folderName);
-		}
+
+	@Autowired
+	private FileInfoApiInterface fileInfoApiInterface;
+
+	@RequestMapping("/api/fileinfo/getAll")
+	public List<FileInfo> getAll() {
+		return fileInfoApiInterface.getAll();
+	}
+
+	@RequestMapping("/api/fileinfo/insert")
+	public void insert(@RequestBody FileInfo fileInfo) {
+		fileInfoApiInterface.insert(fileInfo);
+	}
+
+	@RequestMapping("/api/fileinfo/delete")
+	public void delete(Integer id) {
+		fileInfoApiInterface.delete(id);
+	}
+
+	@RequestMapping("/api/fileinfo/update")
+	public void update(@RequestBody FileInfo fileInfo) {
+		fileInfoApiInterface.update(fileInfo);
+	}
+
+	@RequestMapping("/api/fileinfo/getById")
+	public FileInfo getById(Integer id) {
+		return fileInfoApiInterface.getById(id);
+	}
+
+	@RequestMapping("/file/upload")
+	public Map<String, Object> uploadFile(@RequestParam("file") MultipartFile file,
+			@RequestParam(required = false, defaultValue = "其他") String folderName) throws IOException {
+		return fileInfoApiInterface.uploadFile(file, folderName);
+	}
+
 }
