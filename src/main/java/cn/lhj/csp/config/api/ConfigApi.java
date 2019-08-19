@@ -89,6 +89,11 @@ public class ConfigApi {
 		return configService.getTypes();
 	}
 	
+	@RequestMapping("/api/config/findByConfigKey")
+	public Config findByConfigKey(String configKey) {
+		return configService.findByConfigKey(configKey);
+	}
+	
 	@RequestMapping("/api/configCategory/getAll")
 	public List<ConfigCategory> getAllConfigCategory(){
 		return configCategoryService.getAll();
@@ -129,11 +134,6 @@ public class ConfigApi {
 	@RequestMapping("/api/configCategory/findById")
 	public ConfigCategory findByIdConfigCategory(@RequestParam("id")Integer id) {
 		return configCategoryService.findById(id);
-	}
-	
-	@RequestMapping("/api/configCategory/findByConfigKey")
-	public Config findByConfigKey(String configKey) {
-		return configService.findByConfigKey(configKey);
 	}
 	
 }
