@@ -131,4 +131,9 @@ public class ConfigApi {
 		return configCategoryService.findById(id);
 	}
 	
+	@RequestMapping("/api/configCategory/findByConfigKey")
+	public Config findByConfigKey(String configKey) {
+		return configService.findByConfigKey(configKey);
+	}
+	
 }

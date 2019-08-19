@@ -75,4 +75,10 @@ public class ConfigServiceImpl implements ConfigService {
 		return configMapper.getTypes();
 	}
 
+	@Override
+	public Config findByConfigKey(String configKey) {
+		// TODO Auto-generated method stub
+		return configMapper.findByConfigKey(configKey);
+	}
+
 }
