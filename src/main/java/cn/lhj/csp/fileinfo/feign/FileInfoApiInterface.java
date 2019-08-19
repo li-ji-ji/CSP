@@ -25,6 +25,8 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.lhj.csp.fileinfo.po.FileInfo;
 import cn.lhj.csp.fileinfo.po.FolderInfo;
 import cn.lhj.csp.fileinfo.po.PrintOrder;
+import cn.lhj.csp.fileinfo.po.PrintShop;
+import cn.lhj.csp.fileinfo.po.Printer;
 import feign.Headers;
 import feign.RequestLine;
 import feign.codec.Encoder;
@@ -83,5 +85,36 @@ public interface FileInfoApiInterface {
 	@RequestMapping("/api/printOrder/findById")
 	public PrintOrder findByIdPrintOrder(@RequestParam(value = "id") Integer id);
 
+	@RequestMapping("/api/printer/getAll")
+	public List<Printer> getAllPrinter();
 	
+	@RequestMapping("/api/printer/insert")
+	public String insertPrinter(@RequestBody Printer printer);
+	
+	@RequestMapping("/api/printer/delete")
+	public String deletePrinter(@RequestParam(value = "id")Integer id);
+	
+	@RequestMapping("/api/printer/update")
+	public String updatePrinter(@RequestBody Printer printer);
+	
+	@RequestMapping("/api/printer/findById")
+	public Printer findByIdPrinter(@RequestParam(value = "id")Integer id);
+	
+	@RequestMapping("/api/printShop/getAll")
+	public List<PrintShop> getAllPrintShop();
+	
+	@RequestMapping("/api/printShop/layuiGetAll")
+	public List<PrintShop> getLayuiGetAllPrintShop();
+	
+	@RequestMapping("/api/printShop/insert")
+	public String insertPrintShop(@RequestBody PrintShop printShop);
+	
+	@RequestMapping("/api/printShop/delete")
+	public String deletePrintShop(@RequestParam(value = "id") Integer id);
+	
+	@RequestMapping("/api/printShop/update")
+	public String updatePrintShop(@RequestBody PrintShop printShop);
+	
+	@RequestMapping("/api/printShop/findById")
+	public PrintShop findByIdPrintShop(@RequestParam(value = "id") Integer id);
 }
