@@ -10,10 +10,16 @@ import cn.lhj.csp.assomanagement.po.CspAssoActivity;
 @Service
 public interface CspAssoActivityService {
 	
+	//查询所有活动条数
+	public int countActivityAll()throws Exception;
 	//查询所有活动
 	public List<CspAssoActivity> getActivityAll()throws Exception;
+	//查询所有活动（分页）
+	public List<CspAssoActivity> getActivityAllLimit(Integer page,Integer count)throws Exception;
 	//根据活动状态查询活动
-	public List<CspAssoActivity> getActivityNotStart(Integer status)throws Exception;
+	public List<CspAssoActivity> getActivityByStatus(Integer status)throws Exception;
+	//根据活动状态查询活动（分页）
+	public List<CspAssoActivity> getActivityByStatusLimit(Integer status,Integer page,Integer count)throws Exception;
 	//根据活动ID查询活动
 	public CspAssoActivity getActivityById(Integer id) throws Exception;
 	//根据活动名称查询活动
@@ -22,6 +28,8 @@ public interface CspAssoActivityService {
 	public CspAssoActivity getActivityByActId(String actId)throws Exception;
 	//根据社团编号查询活动
 	public List<CspAssoActivity> getActivityByAId(String assoId)throws Exception;
+	//根据社团编号查询活动（分页）
+	public List<CspAssoActivity> getActivityByAIdLimit(String assoId,Integer page,Integer count)throws Exception;
 	//根据活动负责人编号查询活动
 	public List<CspAssoActivity> getActivityByOId(String oId)throws Exception;
 	//添加活动

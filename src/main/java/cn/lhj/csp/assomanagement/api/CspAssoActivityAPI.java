@@ -19,19 +19,33 @@ public class CspAssoActivityAPI {
 
 	@Autowired
 	private CspAssoActivityService cspAssoActivityService;
-
+	
+	//查询所有活动条数
+	@RequestMapping("/countActivityAll")
+	public int countActivityAll()throws Exception{
+		return cspAssoActivityService.countActivityAll();
+	}
 	// 查询所有活动
 	@RequestMapping("/getActivityAll")
 	public List<CspAssoActivity> getActivityAll() throws Exception {
 		return cspAssoActivityService.getActivityAll();
 	}
-
-	// 根据活动状态查询活动
-	@RequestMapping("/getActivityNotStart")
-	public List<CspAssoActivity> getActivityNotStart(@RequestParam("status") Integer status) throws Exception {
-		return cspAssoActivityService.getActivityNotStart(status);
+	
+	// 查询所有活动（分页）
+	@RequestMapping("/getActivityAllLimit")
+	public List<CspAssoActivity> getActivityAllLimit(@RequestParam("page")Integer page,@RequestParam("count")Integer count) throws Exception {
+		return cspAssoActivityService.getActivityAllLimit(page, count);
 	}
-
+	// 根据活动状态查询活动
+	@RequestMapping("/getActivityByStatus")
+	public List<CspAssoActivity> getActivityByStatus(@RequestParam("status") Integer status) throws Exception {
+		return cspAssoActivityService.getActivityByStatus(status);
+	}
+	// 根据活动状态查询活动（分页）
+	@RequestMapping("/getActivityByStatusLimit")
+	public List<CspAssoActivity> getActivityByStatusLimit(@RequestParam("status") Integer status,@RequestParam("page")Integer page,@RequestParam("count")Integer count) throws Exception {
+		return cspAssoActivityService.getActivityByStatusLimit(status, page, count);
+	}
 	// 根据活动ID查询活动
 	@RequestMapping("/getActivityById")
 	public CspAssoActivity getActivityById(@RequestParam("id") Integer id) throws Exception {
@@ -56,7 +70,11 @@ public class CspAssoActivityAPI {
 		System.out.println(cspAssoActivityService.getActivityByAId(assoId).toString());
 		return cspAssoActivityService.getActivityByAId(assoId);
 	}
-
+	// 根据社团编号查询活动（分页 ）
+	@RequestMapping("/getActivityByAIdLimit")
+	public List<CspAssoActivity> getActivityByAIdLimit(@RequestParam("assoId") String assoId,@RequestParam("page")Integer page,@RequestParam("count")Integer count) throws Exception {
+		return cspAssoActivityService.getActivityByAIdLimit(assoId, page, count);
+	}
 	// 根据活动负责人编号查询活动
 	@RequestMapping("/getActivityByOId")
 	public List<CspAssoActivity> getActivityByOId(@RequestParam("oId") String oId) throws Exception {

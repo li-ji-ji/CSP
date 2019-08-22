@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+
 import cn.lhj.csp.assomanagement.dto.AssoActivityFormDto;
 import cn.lhj.csp.assomanagement.mapper.AssoActivityMapper;
 import cn.lhj.csp.assomanagement.mapper.CspAssoManagementMapper;
@@ -28,21 +30,40 @@ public class CspAssoActivityServiceImpl implements CspAssoActivityService {
 	@Autowired
 	private CspAssoStudentService assoStuService;
 	
+	
+	//查询所有活动条数
+	@Override
+	public int countActivityAll()throws Exception{
+		return assoActivityMapper.countByExample(null);
+	}
 	//查询所有活动
 	@Override
 	public List<CspAssoActivity> getActivityAll() throws Exception {
 		return assoActivityMapper.selectByExample(null);
 	}
-
+	//查询所有活动（分页）
+	@Override
+	public List<CspAssoActivity> getActivityAllLimit(Integer page,Integer count) throws Exception {
+		PageHelper.startPage(page,count);
+		return assoActivityMapper.selectByExample(null);
+	}
 	//根据活动状态查询活动
 	@Override
-	public List<CspAssoActivity> getActivityNotStart(Integer status) throws Exception {
+	public List<CspAssoActivity> getActivityByStatus(Integer status) throws Exception {
 		CspAssoActivityExample example=new CspAssoActivityExample();
 		CspAssoActivityExample.Criteria criteria=example.createCriteria();
 		criteria.andActivityStatusEqualTo(status);
 		return assoActivityMapper.selectByExample(example);
 	}
-
+	//根据活动状态查询活动（分页）
+	@Override
+	public List<CspAssoActivity> getActivityByStatusLimit(Integer status,Integer page,Integer count) throws Exception {
+		PageHelper.startPage(page,count);
+		CspAssoActivityExample example=new CspAssoActivityExample();
+		CspAssoActivityExample.Criteria criteria=example.createCriteria();
+		criteria.andActivityStatusEqualTo(status);
+		return assoActivityMapper.selectByExample(example);
+	}
 	//根据活动ID查询活动
 	@Override
 	public CspAssoActivity getActivityById(Integer id) throws Exception {
@@ -81,7 +102,16 @@ public class CspAssoActivityServiceImpl implements CspAssoActivityService {
 		System.out.println(assoActivityMapper.selectByExample(example).toString());
 		return assoActivityMapper.selectByExample(example);
 	}
-
+	//根据社团编号查询活动（分页）
+	@Override
+	public List<CspAssoActivity> getActivityByAIdLimit(String assoId,Integer page,Integer count) throws Exception {
+		PageHelper.startPage(page,count);
+		CspAssoActivityExample example=new CspAssoActivityExample();
+		CspAssoActivityExample.Criteria criteria=example.createCriteria();
+		criteria.andActivityAssoIdEqualTo(assoId);
+		System.out.println(assoActivityMapper.selectByExample(example).toString());
+		return assoActivityMapper.selectByExample(example);
+	}
 	//根据活动负责人编号查询活动
 	@Override
 	public List<CspAssoActivity> getActivityByOId(String oId) throws Exception {
