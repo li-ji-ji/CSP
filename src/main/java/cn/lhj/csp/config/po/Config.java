@@ -83,6 +83,5 @@ public class Config implements Serializable{
 		return "Config [id=" + id + ", configKey=" + configKey + ", configValue=" + configValue + ", dataType="
 				+ dataType + ", type=" + type + ", enable=" + enable + "]";
 	}
-    
-    
+	
 }
