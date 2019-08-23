@@ -99,7 +99,7 @@
 																			index) {
 																		$
 																				.ajax({
-																					url : '${request.contextPath}/api/printshop/update',
+																					url : '${request.contextPath}/api/printShop/update',
 																					method : 'post',
 																					contentType : "application/json;charset=UTF-8",
 																					data : JSON

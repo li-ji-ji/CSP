@@ -31,8 +31,10 @@ public class PrintShopController {
 		}
 		
 		@RequestMapping("/todelete")
-		public String delete(Integer id) {
+		public String delete(ModelMap map,Integer id) {
 			fileInfoApiInterface.deletePrintShop(id);
+			List<PrintShop> printshops = fileInfoApiInterface.getAllPrintShop();
+			map.addAttribute("printshops", printshops);
 			return "ftl/printshop/list";
 		}
 		

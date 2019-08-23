@@ -77,7 +77,7 @@
 													var id = data['id'];
 													layer
 															.confirm(
-																	确定删除吗,
+																	"确定删除吗",
 																	function(
 																			index) {
 																		obj

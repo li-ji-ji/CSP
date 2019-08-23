@@ -20,13 +20,7 @@
 			<div class="layui-form-item">
 				<div class="layui-inline"></div>
 			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label">id</label>
-				<div class="layui-input-block">
-					<input type="text" name="id" lay-verify="title" value=""
-						autocomplete="off" placeholder="请输入id" class="layui-input">
-				</div>
-			</div>
+
 			<div class="layui-form-item">
 				<label class="layui-form-label">打印店名字</label>
 				<div class="layui-input-block">
@@ -89,7 +83,7 @@
 																			index) {
 																		$
 																				.ajax({
-																					url : '${request.contextPath}/api/printshop/insert',
+																					url : '${request.contextPath}/api/printShop/insert',
 																					method : 'post',
 																					contentType : "application/json;charset=UTF-8",
 																					data : JSON
