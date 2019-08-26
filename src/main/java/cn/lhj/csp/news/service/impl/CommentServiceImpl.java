@@ -52,6 +52,13 @@ public class CommentServiceImpl implements CommentService {
 		Sort sort = new Sort(Sort.Direction.DESC,"commentTime");
 		return commentRepository.findByNewsId(newsId, sort);
 	}
+
+	@Override
+	//添加一条评论
+	public int insertOneComment(Comment comment) {
+		commentRepository.insert(comment);
+		return 1;
+	}
 	
 	
 	

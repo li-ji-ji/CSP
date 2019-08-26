@@ -47,4 +47,10 @@ public class CommentApi {
 			return commentService.findAllCommentByNewsId(newsId);
 		}
 		
+		
+		//添加一条评论
+		@RequestMapping("/insertOneComment")
+		public int insertOneComment(@RequestBody Comment comment) {
+			return commentService.insertOneComment(comment);
+		}
 }

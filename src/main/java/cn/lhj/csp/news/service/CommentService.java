@@ -17,4 +17,7 @@ public interface CommentService {
 	
 	//根据新闻ID获取所有评论
 	List<Comment> findAllCommentByNewsId(String newsId);
+	
+	//添加一条评论
+	int insertOneComment(Comment comment);
 }
