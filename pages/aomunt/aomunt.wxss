@@ -1,0 +1,124 @@
+/* pages/aomunt/aomunt.wxss */
+page{
+  background-color: #f7f7f7;
+}
+.aount-box{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 28rpx;
+}
+.choose-box{
+  width:96%;
+  height: 120rpx;
+  border-radius: 20rpx;
+  background-color: #fff;
+  display: flex;
+
+  margin:8rpx;
+  
+}
+.choose-buttom{
+  width: 90rpx;
+  height: 120rpx;
+  display: flex;
+justify-content: center;
+align-items: center;
+}
+.choose-buttom-img-box{
+  width: 39rpx;
+  height: 39rpx;
+  border-radius: 40rpx;
+  border: 1px solid #e7e7e7;
+}
+.choose-buttom-img{
+  width: 40rpx;
+  height: 40rpx;
+
+}
+
+
+
+.check-img{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.check{
+  width: 100%;
+  display: flex;
+  justify-content: left;
+}
+.name{
+  width: 400rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  
+}
+.check-img-box{
+  width: 60rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.check-img{
+  width: 50rpx;
+  height: 50rpx;
+}
+.check-text{
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-content: center;
+  flex-wrap: wrap;
+  margin-left: 32rpx;
+}
+.check-text-top{
+  width: 100%;
+  font-size: 24rpx;
+  margin-bottom: 7rpx;
+  display: flex;
+  justify-content:space-between;
+  overflow: hidden;
+}
+.check-text-top view{
+  margin :0 20rpx;
+  white-space:nowrap;
+
+}
+.check-text-buttom{
+  width: 100%;
+  font-size: 20rpx;
+  color: #ababab;
+  margin-top:7rpx;
+  display: flex;
+  justify-content: left;
+  
+}
+.check-text-buttom view{
+  margin-left: 14rpx;
+}
+
+.buttom-box{
+  position: absolute;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #FFF;
+  height: 120rpx;
+  display: flex;
+  justify-content: space-around;
+}
+.buttom-box button{
+  width: 300rpx;
+  height: 100rpx;
+  background-color: #FC943F;
+border-radius: 70rpx;
+color: #FFF;
+display: flex;
+justify-content: center;
+align-items: center;
+}

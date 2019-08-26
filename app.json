@@ -1,37 +1,53 @@
 {
   "pages": [
+    "pages/taskList/taskList",
     "pages/task/task",
     "pages/user/user",
-    "pages/taskList/taskList",
     "pages/taskDetails/taskDetails",
     "pages/MyReceipt/MyReceipt",
     "pages/MyRelease/MyRelease",
     "pages/Settlement/Settlement",
-    "pages/Success/Success"
+    "pages/Success/Success",
+    "pages/edit/edit",
+    "pages/binding/binding",
+    "pages/authorize/authorize",
+    "pages/newContent/newContent",
+    "pages/MyWallet/MyWallet",
+    "pages/news/news",
+    "pages/homePage/homePage",
+    "pages/shooping/shopping",
+    "pages/orderList/orderList",
+    "pages/aomunt/aomunt",
+    "pages/up/up",
+    "pages/trade/trade"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#f79505",
     "navigationBarTitleText": "CSP",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
   
   "tabBar": {
-    "color": "#fff",
+    "color":"#707070",
+    "selectedColor":"#f79505",
     "list": [{
         "pagePath": "pages/taskList/taskList",
-        "iconPath": "images/taskList.png",
-        "selectedIconPath": "images/taskList.png"
+        "iconPath": "images/InitaskList.png",
+        "selectedIconPath": "images/taskList.png",
+        "text":"主页"
       },{
       "pagePath": "pages/task/task",
-      "iconPath": "images/task.png",
-      "selectedIconPath": "images/task.png"
+      "iconPath": "images/Initask.png",
+      "selectedIconPath": "images/task.png",
+      "text": "发布"
     },
     {
       "pagePath": "pages/user/user",
-      "iconPath": "images/user.png",
-      "selectedIconPath": "images/user.png"
+      "iconPath": "images/Iniuser.png",
+      "selectedIconPath": "images/user.png",
+      "text": "我的"
     }]
   }
   

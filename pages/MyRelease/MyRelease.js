@@ -9,6 +9,7 @@ Page({
     long: 10,//渲染终止下标
     taskList: [],//构造的task任务列表
     num: 0,//
+    current: "",
     taskidList: [],
     originalData: [],
     user:{}
@@ -29,27 +30,60 @@ Page({
     var date = new Date();
     var taskList = [];
     var taskidList = [];
+    var publisherList = [];
     for (var i = that.data.start; i < that.data.long; i++) {
-      var task = { time: "", school: "", status: 0, title: "", express: [], remarks: "", taskReward: "", taskId: 0, taskPublisher: "" };
+      var task = { time: "", user: {}, status: 0, title: "", express: [], remarks: "", taskReward: "", taskId: 0, taskPublisher: "", taskType: 0, taskContext: "", images: "", orderId: "" };
       newDate = JSON.parse(that.data.originalData[i].publishTime);
       task.time = newDate.year + "-" + newDate.month + "-" + newDate.date + " " + newDate.hours + ":" + newDate.minutes;
-      task.school = "泉州信息工程学院2016级";
+      task.user = {};
       task.status = that.data.originalData[i].taskStatus;
       task.title = that.data.originalData[i].taskTitle;
       task.taskReward = that.data.originalData[i].taskReward;
       task.remarks = that.data.originalData[i].taskRemarks;
       task.taskId = that.data.originalData[i].taskId;
       task.taskPublisher = that.data.originalData[i].taskPublisher;
+      task.taskType = that.data.originalData[i].taskType;
+      task.taskContext = that.data.originalData[i].taskContext;
+      task.images = that.data.originalData[i].images;
+      task.orderId = that.data.originalData[i].orderId;
+      if (task.images) {
+        task.images = JSON.parse(task.images);
+      }
       taskList = taskList.concat(task);
       taskidList = taskidList.concat(that.data.originalData[i].taskId);
+
+      publisherList = publisherList.concat(that.data.originalData[i].taskPublisher);
       that.setData({
         taskList: taskList,
-        taskidList: taskidList
+        taskidList: taskidList,
+        publisherList: publisherList
       })
     }
-    console.log(taskidList)
     wx: wx.request({
-      url: 'http://244z00029g.zicp.vip/selectBySuperiortaskId',
+      url: 'http://92.68.50.32:8206/api/auth/bg/studentapi/selectStudentBatch',
+      data: {
+        "ids": JSON.stringify(publisherList)
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        if (res.data.length > 0) {
+          for (var i = 0; i < taskList.length; i++) {
+            taskList[i].user = res.data[i]
+          }
+          that.setData({
+            taskList: taskList
+          })
+        }
+      }
+    })
+
+    wx: wx.request({
+      url: 'https://244z00029g.zicp.vip/task/selectBySuperiortaskId',
       data: {
         "ids": JSON.stringify(taskidList)
       },
@@ -60,7 +94,7 @@ Page({
       dataType: 'json',
       responseType: 'text',
       success: function (res) {
-        console.log(taskList)
+
         for (var i = 0; i < taskList.length; i++) {
           taskList[i].express = res.data[i]
           if (res.data[i].length > 1) {
@@ -76,11 +110,11 @@ Page({
   //刷新/渲染页面
   refresh: function () {
     var that = this;
-    var userID = that.data.user.userID
+    var id = that.data.user.id
     wx: wx.request({
       url: 'http://244z00029g.zicp.vip/taskByPublisher',
       data: {
-        "taskByPublisher": userID
+        "taskByPublisher": id
       },
       header: {
         'content-type': 'application/x-www-form-urlencoded'
@@ -108,13 +142,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    var app=getApp();
-    that.setData({
-      user: app.globalData.user
-    })
-    var refresh = that.refresh();
-    refresh;
+   
   },
 
   /**
@@ -129,6 +157,10 @@ Page({
    */
   onShow: function () {
     var that = this;
+    var app = getApp();
+    that.setData({
+      user: app.globalData.user
+    })
     var refresh = that.refresh();
     refresh;
   },
@@ -186,27 +218,61 @@ Page({
       var newDate = {};
       var date = new Date();
       var taskidList = [];
+      var publisherList = [];
       for (var i = that.data.start; i < that.data.long; i++) {
-        var task = { time: "", school: "", status: 0, title: "", express: [], remarks: "", taskReward: "", taskId: 0, taskPublisher: "" };
+        var task = { time: "", user: {}, status: 0, title: "", express: [], remarks: "", taskReward: "", taskId: 0, taskPublisher: "", taskType: 0, taskContext: "", images: "", orderId: "" };
         newDate = JSON.parse(that.data.originalData[i].publishTime);
         task.time = newDate.year + "-" + newDate.month + "-" + newDate.date + " " + newDate.hours + ":" + newDate.minutes;
-        task.school = "泉州信息工程学院2016级";
+        task.user = {};
         task.status = that.data.originalData[i].taskStatus;
         task.title = that.data.originalData[i].taskTitle;
         task.taskReward = that.data.originalData[i].taskReward;
         task.remarks = that.data.originalData[i].taskRemarks;
         task.taskId = that.data.originalData[i].taskId;
         task.taskPublisher = that.data.originalData[i].taskPublisher;
+        task.taskType = that.data.originalData[i].taskType;
+        task.taskContext = that.data.originalData[i].taskContext;
+        task.images = that.data.originalData[i].images;
+        task.orderId = that.data.originalData[i].orderId;
+        if (task.images) {
+          task.images = JSON.parse(task.images);
+        }
         taskList = taskList.concat(task);
         taskidList = taskidList.concat(that.data.originalData[i].taskId);
+
+        publisherList = publisherList.concat(that.data.originalData[i].taskPublisher);
         that.setData({
           taskList: taskList,
-          taskidList: taskidList
+          taskidList: taskidList,
+          publisherList: publisherList
         })
       }
-      console.log(taskidList)
       wx: wx.request({
-        url: 'http://244z00029g.zicp.vip/selectBySuperiortaskId',
+        url: 'https://92.68.50.32:8206/api/auth/bg/studentapi/selectStudentBatch',
+        data: {
+          "ids": JSON.stringify(publisherList)
+        },
+        header: {
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'post',
+        dataType: 'json',
+        responseType: 'text',
+        success: function (res) {
+          if (res.data.length > 0) {
+            for (var i = that.data.start; i < that.data.long; i++) {
+              var j = 0;
+              taskList[i].user = res.data[j];
+              j = j + 1;
+            }
+            that.setData({
+              taskList: taskList
+            })
+          }
+        }
+      })
+      wx: wx.request({
+        url: 'https://244z00029g.zicp.vip/selectBySuperiortaskId',
         data: {
           "ids": JSON.stringify(taskidList)
         },
@@ -260,6 +326,29 @@ Page({
       success: function (res) {
         // 通过eventChannel向被打开页面传送数据
       }
+    })
+  },
+  lookImages: function (res) {
+    var that = this;
+    var urls = [res.currentTarget.dataset.hurl];
+    wx.previewImage({
+      urls: urls
+    })
+  },
+  lookContentImage: function (res) {
+    var that = this;
+    var urls = res.currentTarget.dataset.contentimages;
+    wx.previewImage({
+      current: that.data.current,
+      urls: urls
+    })
+  },
+  imagesItem: function (res) {
+    console.log(res.currentTarget.dataset.imagesitem)
+    var current = res.currentTarget.dataset.imagesitem
+    var that = this;
+    that.setData({
+      current: current
     })
   }
 })

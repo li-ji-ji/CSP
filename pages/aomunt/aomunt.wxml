@@ -1,0 +1,31 @@
+<!--pages/aomunt/aomunt.wxml-->
+<view class="aount-box">
+  <view class="choose-box" wx:for="{{upArray}}" wx:for-index="loc">
+    <view class="choose-buttom" bindtap="choose" data-type="{{loc}}">
+      <view class="choose-buttom-img-box">
+        <image class="choose-buttom-img" src="../../image/select.png" style="display:{{choose[loc].dis}}"></image>
+      </view>
+    </view>
+    <view class="check">
+      <view class="check-img-box">
+        <image src="{{item.suffix}}" class="check-img"></image>
+      </view>
+      <view class="check-text">
+        <view class="check-text-top">
+        <view class="name">{{item.fileName}}</view>
+        <view >共{{item.page}}页</view>
+        </view>
+        <view class="check-text-buttom">
+          <view>上传时间:{{item.time}}</view>
+          <view>文件大小:{{item.fileSize}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="buttom-box">
+    <button bindtap="remove">删除文件</button>
+    <button bindtap="order">添加打印</button>
+  </view>
+
+</view>

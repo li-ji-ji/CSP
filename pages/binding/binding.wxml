@@ -1,0 +1,41 @@
+<!-- user.wxml -->
+ <view class="tips-top flex-1 flex-wrap">
+        <image src="/images/medal.png" class="tipsIcon-top" />
+        <text class="flex-1">信息安全保护中,未经用户允许绝不对外提供</text>
+    </view>
+<form bind:submit="binding">
+  <input hidden="true" value="{{userInfo.avatarUrl}}"  name="hurl"/>
+  <input hidden="true" value="{{userInfo.nickName}}"  name="wxname"/>
+  <input hidden="true" value="{{userInfo.gender}}"  name="sex"/>
+  <input hidden="true" value=""  name="code"/>
+    <view class="flex-wrap user-list">
+  <view class="flex-1 flex-wrap user-text-wrap">
+    <image src="/images/name.png" class="userIcon" />
+    <text class="flex-1 user-text">姓名</text>
+   <input name="name" type="text" class="item-input" placeholder="请 输 入 姓 名" ></input>
+  </view>
+  <view class="flex-1 flex-wrap user-text-wrap">
+    <image src="/images/school.png" class="userIcon" />
+    <text class="flex-1 user-text">学校</text>
+    <input name="school" type="text" class="item-input" value="泉州信息工程学院" placeholder="请 输 入 学 校" disabled="{{true}}"></input>
+  </view>
+  <view class="flex-1 flex-wrap user-text-wrap">
+    <image src="/images/number.png" class="userIcon" />
+    <text class="flex-1 user-text">学号</text>
+    <input name="number" type="text" class="item-input" placeholder="请 输 入 学 号"></input>
+  </view>
+  <view class="flex-1 flex-wrap user-text-wrap">
+    <image src="/images/Professional.png" class="userIcon" />
+    <text class="flex-1 user-text">专业</text>
+    <input name="Professional" type="text" class="item-input" placeholder="请 输 入 专 业"></input>
+  </view>
+      <view class="tips flex-1 flex-wrap">
+        <image src="/images/tips.png" class="tipsIcon" />
+        <text class="flex-1">为了不影响在平台的使用,请保证你本人的信息真实有效</text>
+    </view>
+</view>
+<view class="form-submit flex-wrap">
+  <button class=" flex-1 submit" form-type="submit">绑定</button>
+  <button class=" flex-1 cancel" bind:tap="cancel">取消</button>
+</view>
+</form>

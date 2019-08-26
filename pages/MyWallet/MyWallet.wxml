@@ -1,0 +1,29 @@
+<view class="flex-wrap page">
+    <view class="flex-wrap page-top">
+        <text class="title ">钱包余额</text>
+        <text class="balance ">￥{{wallet.deposits/100}}</text>
+        <view class="flex-wrap withdrawal-wrap ">
+            <text class="left-tips">你已经在高校伐木累累计赚了{{wallet.total/100}}元啦!</text>
+            <view class="right-withdrawal" bind:tap="withdrawal">
+                <text class="withdrawal-text">提现</text>
+            </view>
+        </view>
+    </view>
+    <text class="bill">账户明细</text>
+    <view class="flex-wrap page-bottom">
+        <view class="flex-wrap bill-item">
+            <view class="item-left flex-wrap flex-1">
+                <text class="item-title">任务赏金</text>
+                <text class="item-time">2019-08-17 09:59:35</text>
+            </view>
+            <text class="fee">+3</text>
+        </view>
+        <view class="flex-wrap bill-item">
+            <view class="item-left flex-wrap flex-1">
+                <text class="item-title">提现到零钱</text>
+                <text class="item-time">2019-08-17 09:59:35</text>
+            </view>
+            <text class="fee">-3</text>
+        </view>
+    </view>
+</view>

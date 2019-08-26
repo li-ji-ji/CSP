@@ -67,6 +67,8 @@ page {
 .up-images{
 width: 150rpx;
 height: 150rpx;
+padding:10rpx;
+
 }
 .image-fluid{
     width: 100%;
@@ -154,17 +156,17 @@ height: 150rpx;
 .reward{
     border-bottom: none;
 }
-.tips-image{
-    width: 20rpx;
-    height: 20rpx;
-}
-.tips-warp{
-    font-size: 20rpx;
-    color: #C9C9C9;
-    background:none;
-    border-bottom: none;
-    padding: 20rpx 20rpx 20rpx 20rpx;
-}
+.tipsIcon{
+
+    height: 30rpx;
+    width: 30rpx;
+    margin-right: 30rpx;
+  }
+  .tips{
+    color: rgb(201, 201, 201);
+    font-size: 25rpx;
+    padding: 40rpx 0 40rpx 20rpx;
+  }
 
 
 

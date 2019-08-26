@@ -3,9 +3,65 @@
   justify-content: space-around;
   padding: 40rpx;
 }
-.user-text-wrap{
+.userInfo{
+padding-bottom: 50rpx;
+}
+.userInfo-left{
+  flex-direction: column;
+  justify-content: space-around;
+}
+.userInfo-left-top{
+  height: 50rpx;
+  font-size: 35rpx;
+  padding: 10rpx 0 10rpx 0rpx;
+}
+.sex{
+  width: 40rpx;
+  height: 40rpx;
+  padding: 0 0 0 20rpx;
+}
+.school{
+  color: rgb(201, 201, 201);
+  font-size: 25rpx;
   padding: 20rpx 0 20rpx 0rpx;
+}
+.edit{
+  background: #ffff06;
+  width: 120rpx;
+  border-radius: 10%;
+  padding: 10rpx 0 10rpx 0rpx;
+  font-size: 30rpx;
+}
+.editIcon{
+  padding-left: 8rpx;
+  height: 40rpx;
+  width: 40rpx;
+}
+.editText{
+  color: #707070;
+}
+.userHead{
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+}
+.user-text-wrap{
+  color: #2c2c2c;
+  font-size: 35rpx;
+  padding: 40rpx 0 40rpx 0rpx;
   border-bottom: #EFEFEF solid 2rpx;
+}
+.user-text-out{
+  color: #d81e06;
+}
+.userIcon{
+  height: 50rpx;
+  width: 50rpx;
+  margin-right: 30rpx;
+}
+.userIcon-right{
+  height: 50rpx;
+  width: 50rpx;
 }
 
 

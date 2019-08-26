@@ -1,0 +1,214 @@
+/* pages/trade/trade.wxss */
+page {
+	background-color: #f7f7f7;
+}
+
+.main-bg {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.choose-box {
+	width: 92%;
+	background-color: #FFF;
+	border-radius: 20rpx;
+	align-items: center;
+	margin: 15rpx;
+}
+
+.display {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.choose {
+	align-items: center;
+	margin: 24rpx 50rpx;
+}
+
+.onThis {
+	width: 240rpx;
+	height: 72rpx;
+	font-size: 36rpx;
+	color: #FFF;
+	background-color: #FC943F;
+	border-radius: 40rpx;
+}
+
+.noThis {
+	width: 210rpx;
+	height: 60rpx;
+	color: #FC943F;
+	background-color: #FFF;
+	border-radius: 40rpx;
+	border: 1rpx solid #000;
+}
+
+.delivery {
+	width: 100%;
+	margin-bottom: 20rpx;
+}
+
+.door {
+	width: 100%;
+	margin-bottom: 20rpx;
+}
+
+.positioning {
+	width: 82%;
+}
+
+.positioning view {}
+
+.name {
+	width: 100%;
+	display: flex;
+}
+
+.number {
+	width: 260rpx;
+	display: flex;
+}
+
+.location {
+	width: 100%;
+	display: flex;
+}
+
+.time {
+	width: 100%;
+	display: flex;
+}
+
+.information {
+	width: 100%;
+	display: flex;
+}
+
+.myOrder-box {
+	width: 92%;
+	background-color: #FFF;
+	border-radius: 20rpx;
+	align-items: center;
+	margin: 15rpx;
+	background-color: #fff;
+}
+
+.shoppingName {
+	margin: 6rpx;
+}
+
+.order {
+	width: 96%;
+	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin: 6rpx;
+}
+
+.check {
+	width: 100%;
+	display: flex;
+	justify-content: left;
+}
+
+.check-img-box {
+	width: 60rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.check-img {
+	width: 50rpx;
+	height: 50rpx;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.check-text {
+	width: 100%;
+	display: flex;
+	justify-content: left;
+	align-content: center;
+	flex-wrap: wrap;
+	margin-left: 32rpx;
+}
+
+.check-text-top {
+	width: 100%;
+	font-size: 24rpx;
+	margin-bottom: 7rpx;
+	display: flex;
+	justify-content: space-between;
+	overflow: hidden;
+}
+
+.check-text-top view {
+	margin: 0 20rpx;
+	white-space: nowrap;
+
+}
+
+.text {
+	width: 400rpx;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}
+
+.myDemand {
+	width: 96%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.demand {
+	width: 88%;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	color: #FC943F;
+}
+
+.demand view {
+	margin: 0 10rpx;
+}
+
+.buttom-box {
+	position: absolute;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	background-color: #FFF;
+	height: 110rpx;
+	display: flex;
+	justify-content: space-around;
+	z-index: 9;
+
+}
+
+.money {
+	font-size: 56rpx;
+	color: #FC943F;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.buttom-box button {
+	width: 250rpx;
+	height: 80rpx;
+	margin: 15rpx;
+	background-color: #FC943F;
+	border-radius: 70rpx;
+	color: #FFF;
+	align-items: center;
+}

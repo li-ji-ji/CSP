@@ -1,0 +1,28 @@
+<van-search
+  value="{{ value }}"
+  placeholder="请输入搜索关键词"
+  shape="round"
+  label="热搜"
+  use-action-slot
+  bind:search="onSearch"
+  background="#13227a"
+>
+  <view slot="action" bind:tap="onSearch" class="search" >搜索</view>
+</van-search>
+
+<van-tabs  active="{{ active }}" animated="true" bind:change="onChange">
+  <van-tab wx:for="{{category}}" wx:key="{{index}}" lazy-load="true" title="{{item.categorytype}}">
+    <van-card wx:for="{{newsList}}" wx:key="{{index}}" desc="{{item.newsPubdate}}" title="{{item.newsTitle}}"
+thumb="{{item.newsPicture}}" data-newsItem="{{item}}" bind:tap="item">
+      <view slot="footer">
+          <van-icon name="chat-o" custom-class="pinglun" size="1.5em"/>
+          <view class="pinglun">({{item.newsCommentCount}})</view>
+          <van-icon name="cross"  />
+          <view class="line"></view>
+      </view>
+    </van-card>
+    
+  </van-tab>
+</van-tabs>
+
+<view class="bottom" wx:if="{{isBottom}}">已经到底啦</view>

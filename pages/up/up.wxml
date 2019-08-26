@@ -1,0 +1,1 @@
+<web-view src="http://qzimp.cn/csp/wechat/upload" bindmessage="handleGetMessage" > </web-view>

@@ -1,0 +1,10 @@
+<view class="flex-wrap list">
+  
+ 
+    <image src="/images/school.png" class="Icon" />
+     <text class="flex-1 text">高校伐木累</text>
+  
+</view>
+<view class="button-wrap flex-wrap">
+    <button class="form-submit" open-type="getUserInfo" bindgetuserinfo="login">授权登录</button>
+</view>

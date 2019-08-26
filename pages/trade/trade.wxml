@@ -1,0 +1,73 @@
+<!--pages/trade/trade.wxml-->
+
+<view class="main-bg">
+	<view class="choose-box display">
+		<view class="display choose nav-item {{chooseId == loc ?'onThis':'noThis'}}" wx:for="{{choose}}" wx:for-index="loc"
+		 data-type="{{loc}}" bindtap="choose">
+			{{item}}
+		</view>
+		<view class="display delivery" wx:if="{{delivery}}">
+			<view class="positioning display">
+				<view class="name">
+					我的昵称:
+					<input value="{{user.name}}" type="text" maxlength="9" bindinput="name" /></view>
+				<view class="information">
+					我的联系方式:
+					<view class="number"><input value="{{user.nmber}}" type="number" maxlength="11" bindinput="number" /></view>
+				</view>
+				<view class="location">
+					送货地址:
+					<view class="number"><input value="{{user.address}}" bindinput="location" /></view>
+				</view>
+			</view>
+
+		</view>
+		<view class="display door" wx:if="{{door}}">
+			<view class="positioning display">
+				<view class="name">
+					我的昵称:
+					<input value="{{user.name}}" type="text" maxlength="9" bindinput="name" /></view>
+				<view class="information">
+					我的联系方式:
+					<view class="number"><input value="{{user.nmber}}" type="number" maxlength="11" bindinput="number" /></view>
+				</view>
+				<view class="location">我们的地址:{{location[Index].location}}</view>
+				<view class="time">工作时间：9.00~18.00</view>
+			</view>
+		</view>
+
+	</view>
+	
+	<view class="myOrder-box display">
+		<view class="myOrder display">
+			<view class="shoppingName">选择的店名:{{location[Index].name}}</view>
+			<view class="shoppingName">选择的打印机:{{location[Index].prints[printIndex].printName}}</view>
+			<view class="order" wx:for="{{order}}" wx:for-index="loc">
+				<view class="check">
+					<view class="check-img-box">
+						<image src="{{item.suffix}}" class="check-img"></image>
+					</view>
+					<view class="check-text">
+						<view class="check-text-top">
+							<view class="text">{{item.fileName}}</view>
+							<view>共{{item.page}}页</view>
+						</view>
+					</view>
+				</view>
+				<view class="myDemand">
+					<view class="demand">
+						<view>{{item.demand.color}}</view>
+						<view>{{item.demand.paper}}</view>
+						<view>{{item.demand.use}}</view>
+						<view>{{item.demand.number}}份</view>
+					</view>
+					<view class="demand">修正的页数:{{item.demand.userNumber}}</view>
+				</view>
+			</view>
+		</view>
+	</view>
+	<view class="buttom-box display">
+		<view class="money">¥{{money}}</view>
+		<button bindtap="payment" wx:if="{{payment}}">支付</button>
+	</view>
+</view>

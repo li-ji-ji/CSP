@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "van-search": "/wxcomponents/vant/dist/search/index",
+    "van-button": "/wxcomponents/vant/dist/button/index",
+    "van-tab": "/wxcomponents/vant/dist/tab/index",
+    "van-tabs": "/wxcomponents/vant/dist/tabs/index",
+    "van-card": "/wxcomponents/vant/dist/card/index",
+    "van-icon": "/wxcomponents/vant/dist/icon/index"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "新闻",
+  "backgroundColor": "#eeeeee"
+}

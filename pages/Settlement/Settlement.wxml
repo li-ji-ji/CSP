@@ -34,10 +34,17 @@
       </block>
     </block>
     <block wx:if="{{item.taskType==2}}">
-      <view class="task-text  flex-wrap">
+      <view class="task-text flex-wrap flex-1">
         <text class="content-title">内容:</text>
-        <text class="takeaddress-content flex-1">{{item.taskContext}}</text>
+        <text class="">{{item.taskContext}}</text>
       </view>
+
+      <view class="flex-wrap imagesContext">
+          <block wx:for="{{item.images}}" wx:key="*this">
+          <image src="{{item}}" class="imagesItem" bind:tap="preview"/>
+          </block>
+        </view>
+
     </block>
     <view class="task-text  flex-1 flex-wrap">
       <text class="takeaddress-title">赏金</text>

@@ -100,11 +100,9 @@
       <input type="number" class="flex-4 item-input-x2" placeholder="请 输 入 金 额" name="taskReward"></input>
       <text class="flex-1 padding-right20rpx">元</text>
     </view>
-    <view class="flex-wrap form-item margin-bottom10 tips-warp">
-    <view class="flex-1">
-      <image src="/images/tips.png" class="tips-image"/>
-      </view>
-      <text class="flex-12 tips-text">如涉及代购商品等任务,接单同学先垫付代购金额</text>
+    <view class="tips flex-1 flex-wrap">
+        <image src="/images/tips.png" class="tipsIcon" />
+        <text class="flex-1">如涉及代购商品等任务,接单同学先垫付代购金额</text>
     </view>
     <button class="form-submit" form-type="submit">下单</button>
   </form>

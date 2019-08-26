@@ -1,0 +1,16 @@
+<view class="flex-wrap contentList">
+    <view class="flex-wrap title-wrap">
+        <text class="title">{{newContent.newsTitle}}</text>
+    </view>
+    <view class="flex-wrap information">
+        <text class="flex-1 author">{{newContent.newsPublisher}}</text>
+        <text class="flex-1 time">{{newContent.newsPubdate}}</text>
+    </view>
+    <view class="flex-wrap content-wrap">
+        <rich-text space="ensp" nodes="{{newContent.newsContent}}"></rich-text>
+    </view>
+    <view class="flex-wrap information">
+        <text class="flex-1"></text>
+        <text class="flex-1 time">阅读量:{{newContent.newsHits}}</text>
+    </view>
+</view>

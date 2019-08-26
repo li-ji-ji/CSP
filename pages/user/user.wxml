@@ -1,9 +1,54 @@
-<!--user.wxml-->
+<!-- user.wxml -->
 <view class="flex-wrap user-list">
-  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="MyRelease" data-userId="{{user.userId}}">
-    <text class="flex-1 user-text">我的发布</text>
+  <view class="flex-wrap userInfo">
+    <view class="flex-wrap flex-5 userInfo-left">
+      <view class="flex-wrap userInfo-left-top flex-1">
+      <text class="name">{{user.wxname}}</text>
+      <block wx:if="{{user.sex==2}}">
+        <image class="sex" src="/images/woman.png"/>
+      </block>
+      <block wx:if="{{user.sex!=2}}">
+        <image class="sex" src="/images/man.png"/>
+      </block>
+      </view>
+      <view class="school flex-1">{{user.school}}{{user.grade}}级</view>
+      <view class="edit flex-1 flex-wrap">
+      <image src="/images/edit.png" class="editIcon" alt=""/>
+      <view class="editText" bind:tap="edit">编辑</view>
+      </view>
+    </view>
+    <view class="flex-2">
+      <image src="{{user.hurl}}" class="userHead" bind:tap="lookImages" />
+    </view>
   </view>
-  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="MyReceipt" data-userId="{{user.userId}}">
+  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="binding">
+    <image src="/images/Authentication.png" class="userIcon" />
+    <text class="flex-1 user-text">信息绑定</text>
+    <image src="/images/right.png" class="userIcon-right" />
+  </view>
+  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="MyRelease">
+    <image src="/images/MyRelease.png" class="userIcon" />
+    <text class="flex-1 user-text">我的发布</text>
+    <image src="/images/right.png" class="userIcon-right" />
+  </view>
+  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="MyReceipt">
+    <image src="/images/MyReceipt.png" class="userIcon" />
     <text class="flex-1 user-text">我的接单</text>
+    <image src="/images/right.png" class="userIcon-right" />
+  </view>
+  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="wallet">
+    <image src="/images/wallet.png" class="userIcon" />
+    <text class="flex-1 user-text">我的钱包</text>
+    <image src="/images/right.png" class="userIcon-right" />
+  </view>
+  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="contact">
+    <image src="/images/contact.png" class="userIcon" />
+    <text class="flex-1 user-text">联系我们</text>
+    <image src="/images/right.png" class="userIcon-right" />
+  </view>
+  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="out">
+    <image src="/images/out.png" class="userIcon" />
+    <text class="flex-1 user-text-out">退出登录</text>
+    <image src="/images/right.png" class="userIcon-right" />
   </view>
 </view>

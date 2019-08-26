@@ -1,0 +1,46 @@
+<view class="flex-wrap user-list">
+    <view class="flex-1 flex-wrap user-text-wrap" bind:tap="updataImage">
+        <text class="flex-1 user-text">头像</text>
+        <image src="{{user.hurl}}" alt="" class="userHead" catch:tap="lookImages" />
+        <image src="/images/right.png" class="userIcon-right" />
+    </view>
+    <view class="flex-1 flex-wrap user-text-wrap" bind:tap="input">
+        <text class="flex-1 user-text">昵称</text>
+        <block wx:if="{{inputKey==0}}">
+            <text class="user-text">{{user.wxname}}</text>
+            <image src="/images/right.png" class="userIcon-right" />
+        </block>
+        <block wx:if="{{inputKey==1}}">
+            <form class="flex-3 user-form" bindsubmit="updataWxName">
+                <view class="flex-wrap">
+                    <input hidden="true" value="{{user.id}}"  name="id"/>
+                    <input class="inputText flex-7" name="wxname" type="text" placeholder="最大长度12个字符" />
+                    <button class="form-button flex-2" form-type="submit">修改</button>
+                </view>
+            </form>
+        </block>
+    </view>
+    <view class="flex-1 flex-wrap user-text-wrap">
+        <text class="flex-1 user-text">性别</text>
+        <block wx:if="{{user.sex==2}}">
+            <image class="sex userIcon-right" src="/images/woman.png" />
+            <text class="disable">女生</text>
+        </block>
+        <block wx:if="{{user.sex!=2}}">
+            <image class="sex userIcon-right" src="/images/man.png" />
+            <text class="disable">男生</text>
+        </block>
+    </view>
+    <view class="flex-1 flex-wrap user-text-wrap">
+        <text class="flex-1 user-text">学校</text>
+        <text class="disable">{{user.school}}</text>
+    </view>
+    <view class="flex-1 flex-wrap user-text-wrap">
+        <text class="flex-1 user-text">年级</text>
+        <text class="disable">20{{user.grade}}</text>
+    </view>
+    <view class="tips flex-1 flex-wrap">
+        <image src="/images/tips.png" class="tipsIcon" />
+        <text class="flex-1">性别、学校、年级等信息若需要修改,请联系客服</text>
+    </view>
+</view>

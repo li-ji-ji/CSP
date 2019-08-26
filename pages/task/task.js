@@ -18,7 +18,6 @@ Page({
     newTime: "1",
     expresses: [],
     user: {
-      userId: 0
     },
     isLocation:""
   },
@@ -27,15 +26,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var app = getApp();
-    var that = this;
-    var user = app.globalData.user
-    that.setData({
-      user: user
-    })
-    if (JSON.stringify(options.isOk)!=null){
-      
-    }
   },
 
   /**
@@ -49,7 +39,19 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var app = getApp();
+    var that = this;
+    var user = app.globalData.user
+    if (user.id > 0) {
+      that.setData({
+        user: user
+      })
+      console.log(that.data.user);
+    } else {
+      wx.reLaunch({
+        url: '/pages/binding/binding',
+      })
+    }
   },
 
   /**
@@ -172,7 +174,7 @@ Page({
     var name = task.name;
     var title = task.title;
     var number = task.number;
-    var taskPublisher = that.data.user.userID;
+    var taskPublisher = that.data.user.id;
     console.log(taskPublisher)
     var taskStatus = task.taskStatus;
     var taskType = task.taskType;
@@ -202,7 +204,8 @@ Page({
         "taskPublisher": taskPublisher,
         "taskStatus": "0",
         "taskTitle": "取快递",
-        "taskType": "1",
+        "taskRemarks": "",
+        "taskType": taskType,
         "taskContext": textContent,
         "expresses": expresses
       };
@@ -210,10 +213,10 @@ Page({
       console.log(taskJson);
       taskJson = JSON.stringify(taskJson);
       wx.navigateTo({
-        url: '/pages/Settlement/Settlement?taskJson=' + taskJson+'&num='+num,
+        url: '/pages/Settlement/Settlement?taskJson=' + taskJson,
       })
       // wx: wx.request({
-      //   url: 'http://244z00029g.zicp.vip/PublishingTasks',
+      //   url: 'https://qzimp.cn/api/task/PublishingTasks',
       //   data: taskJson,
       //   header: { 'content-type': 'application/x-www-form-urlencoded' },
       //   method: 'post',
@@ -233,7 +236,7 @@ Page({
       //     }
       //     console.log(JSON.stringify({ "expresses": expresses }));
       //     wx: wx.request({
-      //       url: 'http://244z00029g.zicp.vip/insertExpressList',
+      //       url: 'https://qzimp.cn/api/task/insertExpressList',
       //       data: { "expresses": JSON.stringify({ "expresses": expresses }) },
       //       header: { 'content-type': 'application/x-www-form-urlencoded' },
       //       method: 'post',
@@ -273,15 +276,16 @@ Page({
     var that = this;
     var images = that.data.chooseImages
     var task = e.detail.value;
+    console.log(task)
     var name = task.name;
     var title = task.taskTitle;
     var number = task.number;
-    var taskPublisher = that.data.user.userId;
+    var taskPublisher = that.data.user.id;
     var taskStatus = task.taskStatus;
     var taskType = task.taskType;
-    var textContent = task.textContent;
+    var textContent = task.taskContext;
     var publishTime = task.publishTime;
-    var taskReward = task.taskReward;
+    var taskReward = task.taskReward*100;
     var getNewdate = that.getNewDate();
     var num = that.data.formMain.length;
     console.log(images.length)
@@ -290,54 +294,94 @@ Page({
       getNewdate;
       publishTime = that.data.newTime;
       var taskJson = {
-        "images": "",
+        "images":images,
         "publisherName": name,
         "publisherNumber": number,
         "publishTime": publishTime,
         "taskReward": taskReward,
         "taskPublisher": taskPublisher,
+        "taskRemarks":"",
         "taskStatus": "0",
         "taskTitle": title,
-        "taskType": "1",
+        "taskType": taskType,
         "taskContext": textContent      
       };
       console.log(taskJson);
-      if (images.length > 0) {
-        for (var i = 0; i < images.length; i++) {
-          uploadTask = wx.uploadFile({
-            url: 'http://192.168.1.121:8005/upload', //仅为示例，非真实的接口地址
-            filePath: images[i],
-            name: 'file',
-            success(res) {
-            }
-          })
-        }
-      } else {
-        wx: wx.request({
-          url: 'http://244z00029g.zicp.vip/PublishingTasks',
-          data: taskJson,
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          method: 'post',
-          dataType: 'json',
-          responseType: 'text',
-          success: function (res) {
-            if (res.data > 0) {
-              wx: wx.showToast({
-                title: '下单成功!',
-                icon: 'success',
-                duration: 1500,
-                mask: true,
-                success: function (res) { },
-                fail: function (res) { },
-                complete: function (res) { },
-              })
-            }
-          },
-          fail: function (res) { },
-          complete: function (res) { },
-        })
-      }
-
+      taskJson = JSON.stringify(taskJson);
+      wx.navigateTo({
+        url: '/pages/Settlement/Settlement?taskJson=' + taskJson,
+      })
+      // if (images.length > 0) {
+      //   var uploadImage=[];
+      //   var imageList=[];
+      //   for (var i = 0; i < images.length; i++) {
+      //     uploadImage[i] = new Promise(resolve =>{
+      //        wx.uploadFile({
+      //         url: 'https://qzimp.cn/api/file/file/upload', //仅为示例，非真实的接口地址
+      //         filePath: images[i],
+      //         name: 'file',
+      //         success(res) {
+      //           // console.log(res);
+      //           var objImages = JSON.parse(res.data).data;
+      //           // console.log(objImages.src);
+      //           resolve(objImages.src);
+      //         }
+      //       })
+      //     })
+      //   }
+      //   Promise.all(uploadImage).then(function (res) { 
+      //     taskJson.images='"'+JSON.stringify(res)+'"';
+      //     var taskJsonStr = JSON.stringify(taskJson);
+      //     wx: wx.request({
+      //       url: 'https://qzimp.cn/api/task/PublishingTasks',
+      //       data: taskJsonStr,
+      //       header: { 'content-type': 'application/json' },
+      //       method: 'post',
+      //       dataType: 'json',
+      //       responseType: 'text',
+      //       success: function (res) {
+      //         if (res.data > 0) {
+      //           wx: wx.showToast({
+      //             title: '下单成功!',
+      //             icon: 'success',
+      //             duration: 1500,
+      //             mask: true,
+      //             success: function (res) { },
+      //             fail: function (res) { },
+      //             complete: function (res) { },
+      //           })
+      //         }
+      //       },
+      //       fail: function (res) { },
+      //       complete: function (res) { },
+      //     })
+      //     });
+      // }else{
+      //   var taskJsonStr = JSON.stringify(taskJson);
+      //   wx: wx.request({
+      //     url: 'https://qzimp.cn/api/task/PublishingTasks',
+      //     data: taskJsonStr,
+      //     header: { 'content-type': 'application/json' },
+      //     method: 'post',
+      //     dataType: 'json',
+      //     responseType: 'text',
+      //     success: function (res) {
+      //       if (res.data > 0) {
+      //         wx: wx.showToast({
+      //           title: '下单成功!',
+      //           icon: 'success',
+      //           duration: 1500,
+      //           mask: true,
+      //           success: function (res) { },
+      //           fail: function (res) { },
+      //           complete: function (res) { },
+      //         })
+      //       }
+      //     },
+      //     fail: function (res) { },
+      //     complete: function (res) { },
+      //   })
+      // }
     }
   },
   getNewDate: function () {

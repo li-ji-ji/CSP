@@ -66,6 +66,15 @@ page {
 .task-text-bottom{
    border-bottom: #F6F6F6 solid 5rpx;
 }
+.imagesContext{
+   flex-wrap: wrap;
+}
+.imagesItem{
+   width:150rpx;
+   height:150rpx;
+   padding:20rpx;
+   
+}
 .remarks-title{
    padding: 10rpx 0 0 0rpx;
 }

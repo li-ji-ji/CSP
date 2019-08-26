@@ -4,13 +4,11 @@ page {
 }
 
 .list-item {
-   margin: 40rpx 40rpx 40rpx 40rpx;
-   height: 50%;
+   margin: 0rpx 40rpx 40rpx 40rpx;
    border-radius: 30rpx;
    background: white;
    flex-direction: column;
    justify-content: space-between;
-
 }
 
 .list-item-user {
@@ -24,13 +22,13 @@ page {
 .user-content-top {}
 
 .top-userName {
-   height: 100%;
+   font-size: 30rpx;
 }
 
 .user-sex {
-   margin: 20rpx 0 0 20rpx;
-   height: 30rpx;
-   width: 20rpx;
+   margin: 0 0 0 20rpx;
+   height: 40rpx;
+   width: 40rpx;
 }
 
 .user-bottom-time {
@@ -52,11 +50,11 @@ page {
 
 .user-content {
    flex-direction: column;
-   justify-content: space-around;
+   justify-content: space-between;
+   padding-bottom: 20rpx;
 }
 
 .task-status {
-   margin-top: 20rpx;
    height: 40rpx;
 }
 
@@ -64,8 +62,7 @@ page {
    padding: 40rpx 40rpx 40rpx 40rpx;
    flex-direction: column;
    justify-content: space-around;
-   margin-left: 40rpx;
-   margin-right: 40rpx;
+   margin: 0 40rpx 80rpx 40rpx;
    background: #FFFFE6;
 }
 
@@ -91,11 +88,24 @@ page {
 .task-content-remarks {
    padding-left: 70rpx;
 }
+.content-title{
+   margin-right: 20rpx;
+}
 
 .task-text {
    margin-top: 20rpx;
    font-size: 20rpx;
    color: #999999;
+}
+.imagesContext{
+   flex-wrap: wrap;
+   margin: 0 40rpx 0rpx 40rpx;
+}
+.imagesItem{
+   width:150rpx;
+   height:150rpx;
+   margin: 0 0 20px 40rpx;
+   border-radius: 10%;
 }
 
 

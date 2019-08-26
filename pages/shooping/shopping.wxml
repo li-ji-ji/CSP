@@ -1,0 +1,18 @@
+
+<view class="mian-bg">
+  <view class="title-box">
+    <view class="line"></view>
+    <view class="title-text">周边推荐</view>
+    <view class="line"></view>
+  </view>
+  <view class="storefront-box">
+    <view class="storefront" wx:for="{{location}}" wx:for-index="loc" bindtap="getHomeData" data-type="{{loc}}">
+      <view class="storefront-text-name">{{item.name}}</view>
+      <view class="storefront-text-location">{{item.location}}</view>
+    </view>
+    <!-- <view class="storefront">
+      <view class="storefront-text-name">111111</view>
+      <view class="storefront-text-location">222222</view>
+    </view> -->
+  </view>
+</view>

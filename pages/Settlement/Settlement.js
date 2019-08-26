@@ -5,7 +5,7 @@ Page({
    */
   data: {
     item: {},
-    num: 0
+    user:{}
   },
 
   /**
@@ -13,12 +13,12 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    var app=getApp();
     console.log(options)
     var item = JSON.parse(options.taskJson)
-    var num = JSON.parse(options.num)
     that.setData({
       item: item,
-      num: num
+      user: app.globalData.user
     })
     console.log(that.data.item)
   },
@@ -73,122 +73,222 @@ Page({
   },
   formPay: function (res) {
     var that = this;
+    var itemObj=that.data.item;
+    itemObj.taskRemarks = res.detail.value.remarks;
+    that.setData({
+      item:itemObj
+    })
+    if (that.data.item.taskType == 1) {
+      var publish = that.publish();
+       publish;
+    } else {
+      var taskPublish = that.taskPublish();
+      taskPublish;
+    }
     console.log(res.detail.value.remarks)
     wx.showLoading({
       title: '支付中',
     })
-    wx.login({
-      success(res) {
-        if (res.code) {
-          //发起网络请求
-          wx: wx.request({
-            url: 'http://244z00029g.zicp.vip/getOpenId',
-            data: {
-              code: res.code,
-              reward: that.data.item.taskReward
-            },
-            header: { 'content-type': 'application/x-www-form-urlencoded' },
-            method: 'post',
-            dataType: 'json',
-            responseType: 'text',
-            success: function (res) {
-              console.log(res);
-              if (res.data.code == "SUCCESS") {
-                wx.requestPayment({
-                  timeStamp: res.data.timeStamp,
-                  nonceStr: res.data.nonceStr,
-                  package: res.data.package,
-                  signType: res.data.signType,
-                  paySign: res.data.paySign,
-                  success: function (res) {
-                    console.log(res);
-                    if (res.errMsg=="requestPayment:ok"){
-                      wx.showToast({
-                        title: '支付成功!'
-                      })
-                      var publish = that.publish();
-                      publish;
-                    }
-                  },
-                  fail: function (res) {
-                    console.log(res)
-                    wx.showToast({
-                      title: '支付已取消!',
-                      icon: 'none',
-                    })
-                  },
-                  complete: function (res) {
-                    setTimeout(function () {
-                      wx.hideLoading()
-                    }, 2000)
-                  }
-                })
-              }
-            },
-            fail: function (res) { },
-            complete: function (res) { },
-          })
-        }
-      }
-    })
-    // wx.requestPayment({
-    //   timeStamp: '',
-    //   nonceStr: '',
-    //   package: '',
-    //   signType: 'MD5',
-    //   paySign: '',
-    //   success(res){
-    //     console.log(res)
-    //   }
-    // })
+   
   },
   publish: function () {
     var that = this;
     var taskJson = that.data.item;
-    console.log(taskJson)
+    console.log(taskJson);
+    var taskJsonStr = JSON.stringify(taskJson);
+    var wxPay=that.wxPay(taskJsonStr)
+    wxPay;
+    // wx: wx.request({
+    //   url: 'https://qzimp.cn/api/task/PublishingTasks',
+    //   data: taskJsonStr,
+    //   header: { 'content-type': 'application/json' },
+    //   method: 'post',
+    //   dataType: 'json',
+    //   responseType: 'text',
+    //   success: function (res) {
+    //     console.log(res.data)
+    //     var superiortaskId = res.data;
+    //     var expresses = that.data.item.expresses;
+    //     for (var i = 0; i < expresses.length; i++) {
+    //       expresses[i].superiortaskId = superiortaskId;
+    //     }
+    //     console.log(JSON.stringify({ "expresses": expresses }));
+    //     wx: wx.request({
+    //       url: 'https://qzimp.cn/api/task/insertExpressList',
+    //       data: { "expresses": JSON.stringify({ "expresses": expresses }) },
+    //       header: { 'content-type': 'application/x-www-form-urlencoded' },
+    //       method: 'post',
+    //       dataType: 'json',
+    //       responseType: 'text',
+    //       success: function (res) {
+    //         if (res.data > 0) {
+    //           wx: wx.showToast({
+    //             title: '下单成功!',
+    //             icon: 'success',
+    //             duration: 1500,
+    //             mask: true,
+    //             success: function (res) { },
+    //             fail: function (res) { },
+    //             complete: function (res) { },
+    //           })
+    //         }
+    //       },
+    //       fail: function (res) {
+
+    //       },
+    //       complete: function (res) {
+
+    //       },
+    //     })
+    //   },
+    //   fail: function (res) { },
+    //   complete: function (res) { },
+    // })
+  },
+  preview: function () {
+    var that = this;
+    wx.previewImage({
+      urls:that.data.item.images,
+    })
+  },
+  taskPublish:function(){
+    var that=this;
+    var taskJson = that.data.item;
+    var images = taskJson.images;
+    if (images.length > 0) {
+        var uploadImage=[];
+        var imageList=[];
+        for (var i = 0; i < images.length; i++) {
+          uploadImage[i] = new Promise(resolve =>{
+             wx.uploadFile({
+               url: 'https://qzimp.cn/api/file/uploadFile', //仅为示例，非真实的接口地址
+              filePath: images[i],
+              name: 'file',
+              success(res) {
+                // console.log(res);
+                var objImages = JSON.parse(res.data).data;
+                // console.log(objImages.src);
+                resolve(objImages.src);
+              }
+            })
+          })
+        }
+        Promise.all(uploadImage).then(function (res) { 
+          taskJson.images=JSON.stringify(res);
+          var taskJsonStr = JSON.stringify(taskJson);
+          var wxPay = that.wxPay(taskJsonStr)
+          wxPay;
+          // wx: wx.request({
+          //   url: 'https://qzimp.cn/api/task/PublishingTasks',
+          //   data: taskJsonStr,
+          //   header: { 'content-type': 'application/json' },
+          //   method: 'post',
+          //   dataType: 'json',
+          //   responseType: 'text',
+          //   success: function (res) {
+          //     if (res.data > 0) {
+          //       wx: wx.showToast({
+          //         title: '下单成功!',
+          //         icon: 'success',
+          //         duration: 1500,
+          //         mask: true,
+          //         success: function (res) { },
+          //         fail: function (res) { },
+          //         complete: function (res) { },
+          //       })
+          //     }
+          //   },
+          //   fail: function (res) { },
+          //   complete: function (res) { },
+          // })
+          });
+      }else{
+        var taskJsonStr = JSON.stringify(taskJson);
+        var wxPay = that.wxPay(taskJsonStr)
+        wxPay;
+        // wx: wx.request({
+        //   url: 'https://qzimp.cn/api/task/PublishingTasks',
+        //   data: taskJsonStr,
+        //   header: { 'content-type': 'application/json' },
+        //   method: 'post',
+        //   dataType: 'json',
+        //   responseType: 'text',
+        //   success: function (res) {
+        //     if (res.data > 0) {
+        //       wx: wx.showToast({
+        //         title: '下单成功!',
+        //         icon: 'success',
+        //         duration: 1500,
+        //         mask: true,
+        //         success: function (res) { },
+        //         fail: function (res) { },
+        //         complete: function (res) { },
+        //       })
+        //     }
+        //   },
+        //   fail: function (res) { },
+        //   complete: function (res) { },
+        // })
+      }
+  },
+  wxPay:function(res){
+    var that=this
+    var openid = that.data.user.wxopenid
     wx: wx.request({
-      url: 'http://244z00029g.zicp.vip/PublishingTasks',
-      data: taskJson,
+      url: 'http://244z00029g.zicp.vip/placeOrder',
+      data: {
+        "data": res,
+        "openid": openid,
+        "reward": that.data.item.taskReward
+      },
       header: { 'content-type': 'application/x-www-form-urlencoded' },
       method: 'post',
       dataType: 'json',
       responseType: 'text',
       success: function (res) {
-        console.log(res.data)
-        var superiortaskId = res.data;
-        var expresses = that.data.item.expresses;
-        for (var i = 0; i < expresses.length; i++) {
-          expresses[i].superiortaskId = superiortaskId;
-        }
-        console.log(JSON.stringify({ "expresses": expresses }));
-        wx: wx.request({
-          url: 'http://244z00029g.zicp.vip/insertExpressList',
-          data: { "expresses": JSON.stringify({ "expresses": expresses }) },
-          header: { 'content-type': 'application/x-www-form-urlencoded' },
-          method: 'post',
-          dataType: 'json',
-          responseType: 'text',
-          success: function (res) {
-            if (res.data > 0) {
-              wx: wx.showToast({
-                title: '下单成功!',
-                icon: 'success',
-                duration: 1500,
-                mask: true,
-                success: function (res) { },
-                fail: function (res) { },
-                complete: function (res) { },
+        console.log(res);
+        if (res.data.code == "SUCCESS") {
+          wx.requestPayment({
+            timeStamp: res.data.timeStamp,
+            nonceStr: res.data.nonceStr,
+            package: res.data.package,
+            signType: res.data.signType,
+            paySign: res.data.paySign,
+            success: function (res) {
+              console.log(res);
+              if (res.errMsg == "requestPayment:ok") {
+                wx.showToast({
+                  title: '支付成功!'
+                })
+                // if(that.data.item.taskType==1){
+                //   var publish = that.publish();
+                //   publish;
+                // }else{
+                //   var taskPublish = that.taskPublish();
+                //   taskPublish;
+                // }
+              }
+            },
+            fail: function (res) {
+              console.log(res)
+              wx.showToast({
+                title: '支付已取消!',
+                icon: 'none',
               })
+            },
+            complete: function (res) {
+              setTimeout(function () {
+                wx.hideLoading()
+              }, 2000)
             }
-
-          },
-          fail: function (res) {
-
-          },
-          complete: function (res) {
-
-          },
-        })
+          })
+        } else {
+          wx.hideLoading();
+          wx.showToast({
+            title: '支付异常!',
+            icon: 'none'
+          })
+        }
       },
       fail: function (res) { },
       complete: function (res) { },
