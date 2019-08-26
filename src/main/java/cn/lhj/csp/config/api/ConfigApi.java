@@ -46,6 +46,42 @@ public class ConfigApi {
 		return configService.selectAll();
 	}
 
+	@RequestMapping("/api/config/getWeChatPayAll")
+	public List<Config> getWeChatPayAll() {
+		String config = redisTemplateServiceImpl.getValue("wechatpay");
+		if (config == null) {
+			config = String.valueOf(JSONArray.fromObject(configService.selectByType("微信支付配置")));
+			redisTemplateServiceImpl.set("wechatpay", config);
+			return configService.selectByType("微信支付配置");
+		} else {
+			return AnalysisJsonArray(config);
+		}
+	}
+
+	@RequestMapping("/api/config/getTengXunYunAll")
+	public List<Config> getTengXunYunAll() {
+		String config = redisTemplateServiceImpl.getValue("tengxunyun");
+		if (config == null) {
+			config = String.valueOf(JSONArray.fromObject(configService.selectByType("腾讯云配置")));
+			redisTemplateServiceImpl.set("tengxunyun", config);
+			return configService.selectByType("腾讯云配置");
+		} else {
+			return AnalysisJsonArray(config);
+		}
+	}
+
+	@RequestMapping("/api/config/getSystemPicture")
+	public Config getSystemPicture() {
+		String config = redisTemplateServiceImpl.getValue("systempicture");
+		if (config == null) {
+			config = String.valueOf(JSONArray.fromObject(configService.findByConfigKey("系统图片")));
+			redisTemplateServiceImpl.set("systempicture", config);
+			return configService.findByConfigKey("系统图片");
+		} else {
+			return AnalysisOneJsonArray(config);
+		}
+	}
+
 	@ApiOperation(value = "获取layui所有配置详细信息")
 	@RequestMapping("/api/config/layuigetAll")
 	public Map<String, Object> layuigetAllConfig(@RequestParam(required = false, defaultValue = "1") int page,
@@ -94,26 +130,7 @@ public class ConfigApi {
 
 	@RequestMapping("/api/config/selectByType")
 	public List<Config> selectByType(@RequestParam("type") String type) {
-		String config = redisTemplateServiceImpl.getValue(type);
-		if (config == null) {
-			config = String.valueOf(JSONArray.fromObject(configService.selectByType(type)));
-			redisTemplateServiceImpl.set(type, config);
-			return configService.selectByType(type);
-		} else {
-			JSONArray json = JSONArray.fromObject(config);
-			List<Config> configs = new ArrayList<>();
-			if (json.size() > 0) {
-				for (int i = 0; i < json.size(); i++) {
-					Config configObject = null;
-					JSONObject job = json.getJSONObject(i); // 遍历 jsonarray 数组，把每一个对象转成 json 对象
-					configObject = new Config((Integer) job.get("id"), (String) job.get("configKey"),
-							(String) job.get("configValue"), (String) job.get("dataType"), (String) job.get("type"),
-							(String) job.get("enable"));
-					configs.add(configObject);
-				}
-			}
-			return configs;
-		}
+		return configService.selectByType(type);
 	}
 
 	@RequestMapping("/api/config/getTypes")
@@ -123,23 +140,7 @@ public class ConfigApi {
 
 	@RequestMapping("/api/config/findByConfigKey")
 	public Config findByConfigKey(String configKey) throws Exception {
-		String config = redisTemplateServiceImpl.getValue(configKey);
-		if (config == null) {
-			config = String.valueOf(JSONArray.fromObject(configService.findByConfigKey(configKey)));
-			redisTemplateServiceImpl.set(configKey, config);
-			return configService.findByConfigKey(configKey);
-		} else {
-			JSONArray json = JSONArray.fromObject(config);
-			Config configObject = null;
-			if (json.size() > 0) {
-				JSONObject job = json.getJSONObject(0);// 遍历 jsonarray 数组，把每一个对象转成 json 对象
-				configObject = new Config((Integer) job.get("id"), (String) job.get("configKey"),
-						(String) job.get("configValue"), (String) job.get("dataType"), (String) job.get("type"),
-						(String) job.get("enable"));
-			}
-			return configObject;
-		}
-
+		return configService.findByConfigKey(configKey);
 	}
 
 	@RequestMapping("/api/configCategory/getAll")
@@ -184,4 +185,38 @@ public class ConfigApi {
 		return configCategoryService.findById(id);
 	}
 
+	/*
+	 * 解析jsonArray字符串
+	 */
+	public List<Config> AnalysisJsonArray(String config) {
+		JSONArray json = JSONArray.fromObject(config);
+		List<Config> configs = new ArrayList<>();
+		if (json.size() > 0) {
+			for (int i = 0; i < json.size(); i++) {
+				Config configObject = null;
+				JSONObject job = json.getJSONObject(i); // 遍历 jsonarray 数组，把每一个对象转成 json 对象
+				configObject = new Config((Integer) job.get("id"), (String) job.get("configKey"),
+						(String) job.get("configValue"), (String) job.get("dataType"), (String) job.get("type"),
+						(String) job.get("enable"));
+				configs.add(configObject);
+			}
+		}
+		return configs;
+	}
+
+	/*
+	 * 解析一条jsonArray数据
+	 * 
+	 */
+	public Config AnalysisOneJsonArray(String config) {
+		JSONArray json = JSONArray.fromObject(config);
+		Config configObject = null;
+		if (json.size() > 0) {
+			JSONObject job = json.getJSONObject(0);// 遍历 jsonarray 数组，把每一个对象转成 json 对象
+			configObject = new Config((Integer) job.get("id"), (String) job.get("configKey"),
+					(String) job.get("configValue"), (String) job.get("dataType"), (String) job.get("type"),
+					(String) job.get("enable"));
+		}
+		return configObject;
+	}
 }
