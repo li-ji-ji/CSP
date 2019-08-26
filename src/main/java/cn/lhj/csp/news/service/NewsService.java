@@ -47,4 +47,7 @@ public interface NewsService {
 	//根据分类类型分页查询所有新闻
 	List<News> findAllByCategoryType(String categoryType, Integer page, Integer size);
 
+	
+	//根据新闻编号查询使新闻点击数+1
+	int updateNewsHits(String id);
 }

@@ -151,6 +151,18 @@ public class NewsServiceImpl implements NewsService {
 		Sort sort = new Sort(Sort.Direction.DESC,"newsPubdate");
 		return newsRepository.findByCategoryType(categoryType, sort);
 	}
+
+
+	@Override
+	//根据新闻编号查询使新闻点击数+1
+	public int updateNewsHits(String id) {
+		//根据新闻id查询单个新闻
+		News news = findOneNewsById(id);
+		int hits = news.getNewsHits();
+		news.setNewsHits(hits+1);
+		newsRepository.save(news);
+		return 1;
+	}
 	
 	
 }

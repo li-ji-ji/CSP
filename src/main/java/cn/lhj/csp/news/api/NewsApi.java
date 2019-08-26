@@ -113,4 +113,11 @@ public class NewsApi {
 		public List<News> findAllByCategoryType(@RequestParam("categoryType") String categoryType,@RequestParam("page") Integer page,@RequestParam("size") Integer size){
 			return newsService.findAllByCategoryType(categoryType, page, size);
 		}
+		
+		//根据新闻编号查询使新闻点击数+1
+		@RequestMapping("/updateNewsHits")
+		public int updateNewsHits(@RequestParam("id") String id) {
+			return newsService.updateNewsHits(id);
+		}
+		
 }
