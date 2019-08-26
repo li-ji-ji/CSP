@@ -1,119 +1,176 @@
 <#assign base=request.contextPath />
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
+<meta charset="UTF-8" />
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>文件上传</title>
+<link href="https://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.css"
+	rel="stylesheet">
 <link rel="stylesheet" href="${base}/css/upload.css" media="all">
-<link rel="stylesheet" href="${base}/js/plugins/layui/css/layui.css"
-	media="all">
-<title>上传文件</title>
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 </head>
-
-<body>
-	<div class="up-bg">
-		<div class="up-buttom" id="test3">上传文件</div>
+<body class="container">
+	<span id="time"></span>
+	<div>	
+		<div class="up-bg d-flex flex-column center">
+			<div>
+			<input class="btn btn-info btn-xs" type="file" name="file" /><br />
+			</div>
+			<br />
+			<div style="width:200px;">
+			<div class="progress progress-striped active" style="display:">
+				<div id="progressBar" class="progress-bar progress-bar-success"
+					role="progressbar" aria-valuemin="0" aria-valuenow="0"
+					aria-valuemax="100" style="width: 20%"></div>
+			</div>
+			<!-- 显示文件信息 -->
+	<div id="showFieInfo" class="row">
+		<label name="upfileName"></label><br /> <label name="upfileSize"></label><br />
+		<label name="upfileType"></label><br />
 	</div>
-	<script src="${request.contextPath}/js/plugins/layui/layui.all.js"></script>
-	<script src="${request.contextPath}/js/jquery-3.3.1.min.js"></script>
-	<script src="${request.contextPath}/js/plugins/layui/layui.js"></script>
-	<script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+	<div class="row">
+		<input class="btn btn-success btn-xs" type="button" name="upload"
+			value="上传" /> <input class="btn btn-success btn-xs" type="button"
+			name="cancelUpload" value="取消" />
+	</div>
+		</div>
+		<!-- 显示上传速度 -->
+		<div id="showInfo" class="col-lg-2">0KB/s</div>
+		</div>
+	</div>
+	
 </body>
 <script type="text/javascript">
-	layui.use('upload', function() {
-		var $ = layui.jquery, upload = layui.upload, layer = layui.layer;
-		var fileName;
-		var fileSize;
-		var status;
-		upload
-				.render({
-					elem : '#test3',
-					url : 'http://qzimp.cn/api/file/print/upload',
-					accept : 'file' //普通文件
-					,exts: 'png|jpg|doc|docx|ppt|pptx|pdf',
-					before : function(obj) {
-						obj.preview(function(index, file, result) {
-							fileName = file.name;
-							fileSize = file.size;
-							if (fileSize > 1048576) {
-								fileSize /= 1048576;
-								fileSize = fileSize.toFixed(2);
-								fileSize = fileSize + "mb";
-							} else if (fileSize > 1024) {
-								fileSize /= 1024;
-								fileSize = fileSize.toFixed(2);
-								fileSize = fileSize + "kb";
-							} else {
-								fileSize = fileSize.toFixed(2);
-								fileSize = fileSize + "b";
-							}
-						});
-						layer.load();
-					},
-					done : function(res) {
-						var time, year, month, date, hours, minutes, seconds;
-						time = new Date();
-						year = time.getFullYear();
+    var fileBtn = $("input[name=file]");
+    var processBar= $("#progressBar");
+    var uploadBtn=$("input[name=upload]");
+    var canelBtn=$("input[name=cancelUpload]");
+    var ot;//上传开始时间
+    var oloaded;//已上传文件大小
+    fileBtn.change(function() {
+        var fileObj = fileBtn.get(0).files[0]; //js获取文件对象
+        if (fileObj) {
+            var fileSize = getSize(fileObj.size);
+            $("label[name=upfileName]").text('文件名：' + fileObj.name);
+            $("label[name=upfileSize]").text('文件大小：' + fileSize);
+            uploadBtn.attr('disabled', false);
+        }
+    });
+    // 上传文件按钮点击的时候
+    uploadBtn.click(function(){
+        // 进度条归零
+        setProgress(0);
+        // 上传按钮禁用
+        $(this).attr('disabled', true);
+        // 进度条显示
+        showProgress();
+        // 上传文件
+        uploadFile();
+    });
+    function uploadFile(){
+        var url ="http://qzimp.cn/api/file/print/upload";
+        var fileObj = fileBtn.get(0).files[0];
+        if(fileObj==null){
+            alert("请选择文件");
+            return;
+        }
+        // FormData 对象
+        var form = new FormData();
+        form.append('file', fileObj); // 文件对象
+        // XMLHttpRequest 对象
+        var xhr = new XMLHttpRequest();
+        //true为异步处理
+        xhr.open('post', url, true);
+        //上传开始执行方法
+        xhr.onloadstart = function() {
+             console.log('开始上传')
+             ot = new Date().getTime();   //设置上传开始时间
+             oloaded = 0;//已上传的文件大小为0
+        };
+       
+        xhr.upload.addEventListener('progress', progressFunction, false);
+        xhr.addEventListener("load", uploadComplete, false);
+        xhr.addEventListener("error", uploadFailed, false);
+        xhr.addEventListener("abort", uploadCanceled, false);
+        xhr.send(form);
+        
+        function progressFunction(evt) {
+            if (evt.lengthComputable) {
+                var completePercent = Math.round(evt.loaded / evt.total * 100)
+                        + '%';
+                processBar.width(completePercent);
+                processBar.text(completePercent);
+                
+                var time = $("#time");
+                var nt = new Date().getTime();     //获取当前时间
+                var pertime = (nt-ot)/1000;        //计算出上次调用该方法时到现在的时间差，单位为s
+                ot = new Date().getTime();          //重新赋值时间，用于下次计算
+                
+                var perload = evt.loaded - oloaded; //计算该分段上传的文件大小，单位b       
+                oloaded = evt.loaded;               //重新赋值已上传文件大小
+            
+                //上传速度计算
+                var speed = perload/pertime;//单位b/s
+                var bspeed = speed;
+                var units = 'b/s';//单位名称
+                if(speed/1024>1){
+                    speed = speed/1024;
+                    units = 'k/s';
+                }
+                if(speed/1024>1){
+                    speed = speed/1024;
+                    units = 'M/s';
+                }
+                speed = speed.toFixed(1);
+                //剩余时间
+                var resttime = ((evt.total-evt.loaded)/bspeed).toFixed(1);
+                $("#showInfo").html(speed+units+'，剩余时间：'+resttime+'s');
+            }
+        }
 
-						//对日期进行处理,小于10的数在前面加上0
-						month = (time.getMonth() + 1) < 10 ? ("0" + (time
-								.getMonth() + 1)) : (time.getMonth() + 1);
-						date = time.getDate() < 10 ? ("0" + time.getDate())
-								: time.getDate();
-						hours = time.getHours() < 10 ? ("0" + time.getHours())
-								: time.getHours();
-						minutes = (time.getMinutes() < 10 ? ("0" + time
-								.getMinutes()) : time.getMinutes());
-						seconds = (time.getSeconds() < 10 ? ("0" + time
-								.getSeconds()) : time.getSeconds());
+        //上传成功后回调                                                                 
+        function uploadComplete(evt) {
+            uploadBtn.attr('disabled', false);
+            console.log('上传完成')
+        };
 
-						//拼格式，如：2018-01-15 14:32:57
-						time = year + "-" + month + "-" + date + " " + hours
-								+ ":" + minutes + ":" + seconds;
-						var path = res.data.src;
-						var page = res.data.page;
-						status = "true";
-						
-						var upArray = '[{"fileName":"' + fileName
-								+ '","path":"' + path + '","time":"' + time
-								+ '","fileSize":"' + fileSize + '","page":"'
-								+ page+'","status":"'+status+ '"}]';
-						var upJson = JSON.parse(upArray);
-						console.log(upArray);
-						console.log(typeof(upJson));
-						/* var fileinfo = encodeURIComponent(JSON
-								.stringify(upArray));
-						wx.miniProgram.navigateTo({
-							url : '/pages/homePage/homePage?fileinfo='
-									+ upArray
-						}); */
-						
-						  wx.miniProgram.postMessage({
-	                        	data:{
-	                        		fileName:upJson
-	                        	}
-	                        })
-	                    	wx.miniProgram.navigateBack({
-	                    	})
-					}, error: function (index, upload) {
-						status = "false";
-						var upArray = '[{"fileName":"' + fileName
-								+ '","path":"' + path + '","time":"' + time
-								+ '","fileSize":"' + fileSize + '","page":"'
-								+ page+'","status":"'+status+ '"}]';
-						var upJson = JSON.parse(upArray);
-						  wx.miniProgram.postMessage({
-	                        	data:{
-	                        		fileName:upJson
-	                        	}
-	                        })
-	                    	wx.miniProgram.navigateBack({
-	                    	})        
-				    }
-					
-				});
-	});
+        //上传失败回调            
+        function uploadFailed(evt) {
+            console.log('上传失败' + evt.target.responseText);
+        }
+
+        //终止上传      
+        function cancelUpload() {
+            xhr.abort();
+        }
+        
+        //上传取消后回调             
+        function uploadCanceled(evt) {
+            console.log('上传取消,上传被用户取消或者浏览器断开连接:' + evt.target.responseText);
+        }
+        
+        canelBtn.click(function(){
+            uploadBtn.attr('disabled', false);
+            cancelUpload();
+        })
+    }
+    function getSize(size) {
+        var fileSize = '0KB';
+        if (size > 1024 * 1024) {
+            fileSize = (Math.round(size / (1024 * 1024))).toString() + 'MB';
+        } else {
+            fileSize = (Math.round(size / 1024)).toString() + 'KB';
+        }
+        return fileSize;
+    }
+    function setProgress(w) {
+        processBar.width(w + '%');
+    }
+    function showProgress() {
+        processBar.parent().show();
+    }
+    function hideProgress() {
+        processBar.parent().hide();
+    }
 </script>
 </html>
