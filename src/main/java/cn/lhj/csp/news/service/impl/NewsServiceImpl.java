@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.ExampleMatcher.GenericPropertyMatchers;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -119,6 +123,24 @@ public class NewsServiceImpl implements NewsService {
 		Sort sort = new Sort(Sort.Direction.DESC,"newsPubdate");
 		Pageable pageable = new PageRequest(page-1,size,sort);
 		return newsRepository.findAll(pageable).getContent();
+	}
+	
+	@Override
+	//根据分类类型分页查询所有新闻
+	public List<News> findAllByCategoryType(String categoryType,Integer page, Integer size) {
+		
+		
+		News news=new News();
+		news.setCategoryType(categoryType);
+		ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("categoryType", GenericPropertyMatchers.contains());
+                
+		Example<News> example = Example.of(news, matcher); 
+		//按新闻发布时间排序
+		Sort sort = new Sort(Sort.Direction.DESC,"newsPubdate");
+		Pageable pageable = PageRequest.of(page-1,size,sort);
+		Page<News> pages = newsRepository.findAll(example,pageable);
+
+		return pages.getContent();
 	}
 
 

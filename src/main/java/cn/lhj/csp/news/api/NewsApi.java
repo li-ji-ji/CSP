@@ -107,4 +107,10 @@ public class NewsApi {
 		public List<News> findAllNewsByType(@RequestParam("categoryType") String categoryType){
 			return newsService.findAllNewsByType(categoryType);
 		}
+		
+		//根据分类类型分页查询所有新闻
+		@RequestMapping("/findAllByCategoryType")
+		public List<News> findAllByCategoryType(@RequestParam("categoryType") String categoryType,@RequestParam("page") Integer page,@RequestParam("size") Integer size){
+			return newsService.findAllByCategoryType(categoryType, page, size);
+		}
 }
