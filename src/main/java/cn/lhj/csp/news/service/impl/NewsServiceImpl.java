@@ -24,6 +24,7 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
     private NewsRepository newsRepository;
+	
 
 	@Override
 	//获得所有新闻

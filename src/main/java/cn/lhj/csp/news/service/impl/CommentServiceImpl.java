@@ -8,14 +8,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import cn.lhj.csp.news.po.Comment;
+import cn.lhj.csp.news.po.News;
 import cn.lhj.csp.news.repository.CommentRepository;
 import cn.lhj.csp.news.service.CommentService;
+import cn.lhj.csp.news.service.NewsService;
 
 @Service
 public class CommentServiceImpl implements CommentService {
 
 	@Autowired
     private CommentRepository commentRepository;
+	
+	@Autowired
+	private NewsService newsService;
 
 	@Override
 	//获取所有评论
@@ -58,6 +63,9 @@ public class CommentServiceImpl implements CommentService {
 	public int insertOneComment(Comment comment) {
 		comment = commentRepository.insert(comment);
 		if(comment.getId()!=null) {
+			News news = newsService.findOneNewsById(comment.getNewsId());
+			news.setNewsCommentCount(findAllCommentByNewsId(comment.getNewsId()).size());
+			newsService.updateOneEntity(news);
 			return 1;
 		}
 		return 0;
