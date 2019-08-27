@@ -56,8 +56,11 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	//添加一条评论
 	public int insertOneComment(Comment comment) {
-		commentRepository.insert(comment);
-		return 1;
+		comment = commentRepository.insert(comment);
+		if(comment.getId()!=null) {
+			return 1;
+		}
+		return 0;
 	}
 	
 	
