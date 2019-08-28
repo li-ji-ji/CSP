@@ -2,7 +2,6 @@ package cn.lhj.csp.assomanagement.po;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 public class CspAssoManagementExample {
@@ -104,32 +103,6 @@ public class CspAssoManagementExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andIdIsNull() {
@@ -803,52 +776,52 @@ public class CspAssoManagementExample {
         }
 
         public Criteria andAssoEstablishmentTimeEqualTo(Date value) {
-            addCriterionForJDBCDate("asso_establishment_time =", value, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time =", value, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeNotEqualTo(Date value) {
-            addCriterionForJDBCDate("asso_establishment_time <>", value, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time <>", value, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeGreaterThan(Date value) {
-            addCriterionForJDBCDate("asso_establishment_time >", value, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time >", value, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("asso_establishment_time >=", value, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time >=", value, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeLessThan(Date value) {
-            addCriterionForJDBCDate("asso_establishment_time <", value, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time <", value, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("asso_establishment_time <=", value, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time <=", value, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeIn(List<Date> values) {
-            addCriterionForJDBCDate("asso_establishment_time in", values, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time in", values, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeNotIn(List<Date> values) {
-            addCriterionForJDBCDate("asso_establishment_time not in", values, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time not in", values, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("asso_establishment_time between", value1, value2, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time between", value1, value2, "assoEstablishmentTime");
             return (Criteria) this;
         }
 
         public Criteria andAssoEstablishmentTimeNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("asso_establishment_time not between", value1, value2, "assoEstablishmentTime");
+            addCriterion("asso_establishment_time not between", value1, value2, "assoEstablishmentTime");
             return (Criteria) this;
         }
 

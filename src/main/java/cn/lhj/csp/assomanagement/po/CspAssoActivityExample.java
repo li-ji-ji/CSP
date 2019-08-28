@@ -435,6 +435,136 @@ public class CspAssoActivityExample {
             return (Criteria) this;
         }
 
+        public Criteria andActivityKindIdIsNull() {
+            addCriterion("activity_kind_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdIsNotNull() {
+            addCriterion("activity_kind_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdEqualTo(Integer value) {
+            addCriterion("activity_kind_id =", value, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdNotEqualTo(Integer value) {
+            addCriterion("activity_kind_id <>", value, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdGreaterThan(Integer value) {
+            addCriterion("activity_kind_id >", value, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("activity_kind_id >=", value, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdLessThan(Integer value) {
+            addCriterion("activity_kind_id <", value, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdLessThanOrEqualTo(Integer value) {
+            addCriterion("activity_kind_id <=", value, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdIn(List<Integer> values) {
+            addCriterion("activity_kind_id in", values, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdNotIn(List<Integer> values) {
+            addCriterion("activity_kind_id not in", values, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdBetween(Integer value1, Integer value2) {
+            addCriterion("activity_kind_id between", value1, value2, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("activity_kind_id not between", value1, value2, "activityKindId");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameIsNull() {
+            addCriterion("activity_kind_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameIsNotNull() {
+            addCriterion("activity_kind_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameEqualTo(String value) {
+            addCriterion("activity_kind_name =", value, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameNotEqualTo(String value) {
+            addCriterion("activity_kind_name <>", value, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameGreaterThan(String value) {
+            addCriterion("activity_kind_name >", value, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameGreaterThanOrEqualTo(String value) {
+            addCriterion("activity_kind_name >=", value, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameLessThan(String value) {
+            addCriterion("activity_kind_name <", value, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameLessThanOrEqualTo(String value) {
+            addCriterion("activity_kind_name <=", value, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameLike(String value) {
+            addCriterion("activity_kind_name like", value, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameNotLike(String value) {
+            addCriterion("activity_kind_name not like", value, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameIn(List<String> values) {
+            addCriterion("activity_kind_name in", values, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameNotIn(List<String> values) {
+            addCriterion("activity_kind_name not in", values, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameBetween(String value1, String value2) {
+            addCriterion("activity_kind_name between", value1, value2, "activityKindName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityKindNameNotBetween(String value1, String value2) {
+            addCriterion("activity_kind_name not between", value1, value2, "activityKindName");
+            return (Criteria) this;
+        }
+
         public Criteria andActivityAssoNameIsNull() {
             addCriterion("activity_asso_name is null");
             return (Criteria) this;
@@ -642,6 +772,66 @@ public class CspAssoActivityExample {
 
         public Criteria andActivityOrganizerNameNotBetween(String value1, String value2) {
             addCriterion("activity_organizer_name not between", value1, value2, "activityOrganizerName");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusIsNull() {
+            addCriterion("activity_part_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusIsNotNull() {
+            addCriterion("activity_part_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusEqualTo(Integer value) {
+            addCriterion("activity_part_status =", value, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusNotEqualTo(Integer value) {
+            addCriterion("activity_part_status <>", value, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusGreaterThan(Integer value) {
+            addCriterion("activity_part_status >", value, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("activity_part_status >=", value, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusLessThan(Integer value) {
+            addCriterion("activity_part_status <", value, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("activity_part_status <=", value, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusIn(List<Integer> values) {
+            addCriterion("activity_part_status in", values, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusNotIn(List<Integer> values) {
+            addCriterion("activity_part_status not in", values, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusBetween(Integer value1, Integer value2) {
+            addCriterion("activity_part_status between", value1, value2, "activityPartStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityPartStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("activity_part_status not between", value1, value2, "activityPartStatus");
             return (Criteria) this;
         }
 
@@ -952,6 +1142,146 @@ public class CspAssoActivityExample {
 
         public Criteria andActivityIntroNotBetween(String value1, String value2) {
             addCriterion("activity_intro not between", value1, value2, "activityIntro");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentIsNull() {
+            addCriterion("activity_content is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentIsNotNull() {
+            addCriterion("activity_content is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentEqualTo(String value) {
+            addCriterion("activity_content =", value, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentNotEqualTo(String value) {
+            addCriterion("activity_content <>", value, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentGreaterThan(String value) {
+            addCriterion("activity_content >", value, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentGreaterThanOrEqualTo(String value) {
+            addCriterion("activity_content >=", value, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentLessThan(String value) {
+            addCriterion("activity_content <", value, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentLessThanOrEqualTo(String value) {
+            addCriterion("activity_content <=", value, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentLike(String value) {
+            addCriterion("activity_content like", value, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentNotLike(String value) {
+            addCriterion("activity_content not like", value, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentIn(List<String> values) {
+            addCriterion("activity_content in", values, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentNotIn(List<String> values) {
+            addCriterion("activity_content not in", values, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentBetween(String value1, String value2) {
+            addCriterion("activity_content between", value1, value2, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityContentNotBetween(String value1, String value2) {
+            addCriterion("activity_content not between", value1, value2, "activityContent");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgIsNull() {
+            addCriterion("activity_img is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgIsNotNull() {
+            addCriterion("activity_img is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgEqualTo(String value) {
+            addCriterion("activity_img =", value, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgNotEqualTo(String value) {
+            addCriterion("activity_img <>", value, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgGreaterThan(String value) {
+            addCriterion("activity_img >", value, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgGreaterThanOrEqualTo(String value) {
+            addCriterion("activity_img >=", value, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgLessThan(String value) {
+            addCriterion("activity_img <", value, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgLessThanOrEqualTo(String value) {
+            addCriterion("activity_img <=", value, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgLike(String value) {
+            addCriterion("activity_img like", value, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgNotLike(String value) {
+            addCriterion("activity_img not like", value, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgIn(List<String> values) {
+            addCriterion("activity_img in", values, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgNotIn(List<String> values) {
+            addCriterion("activity_img not in", values, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgBetween(String value1, String value2) {
+            addCriterion("activity_img between", value1, value2, "activityImg");
+            return (Criteria) this;
+        }
+
+        public Criteria andActivityImgNotBetween(String value1, String value2) {
+            addCriterion("activity_img not between", value1, value2, "activityImg");
             return (Criteria) this;
         }
     }

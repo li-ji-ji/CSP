@@ -1,5 +1,6 @@
 package cn.lhj.csp.assomanagement.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -32,6 +33,25 @@ public interface CspAssoActivityService {
 	public List<CspAssoActivity> getActivityByAIdLimit(String assoId,Integer page,Integer count)throws Exception;
 	//根据活动负责人编号查询活动
 	public List<CspAssoActivity> getActivityByOId(String oId)throws Exception;
+	//根据时间以及报名状态查询未开始活动
+	public List<CspAssoActivity> getActByStartTime(Date startTime) throws Exception;
+	//根据时间以及报名状态查询查询未开始活动（分页）
+	public List<CspAssoActivity> getActByStartTimeLimit(Date startTime,Integer page,Integer count) throws Exception;
+
+	//根据时间以及报名状态查询未开始活动
+	public List<CspAssoActivity> getActByStartTimeAndPartStatus(Date startTime,Integer partStatus) throws Exception;
+	//根据时间以及报名状态查询查询未开始活动（分页）
+	public List<CspAssoActivity> getActByStartTimeAndPartStatusLimit(Date startTime,Integer partStatus,Integer page,Integer count) throws Exception;
+	//根据时间查询已结束活动
+	public List<CspAssoActivity> getActByFinishTime(Date finishTime) throws Exception;
+	//根据时间查询已结束活动（分页）
+	public List<CspAssoActivity> getActByFinishTimeLimit(Date finishTime,Integer page,Integer count) throws Exception;
+	//根据学生学号查询已参加进行中活动
+	public List<CspAssoActivity> getActByStuIdStarted(String stuId)throws Exception;
+	//根据学生学号查询已报名未开始活动
+	public List<CspAssoActivity> getActByStuIdSigned(String stuId)throws Exception;
+	//根据学生学号查询已报名已结束活动
+	public List<CspAssoActivity> getActByStuIdFinished(String stuId)throws Exception;
 	//添加活动
 	public int insertActicity(CspAssoActivity act)throws Exception;
 	//根据ID删除单个活动

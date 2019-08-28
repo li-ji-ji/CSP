@@ -1,5 +1,6 @@
 package cn.lhj.csp.assomanagement.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -12,9 +13,11 @@ import com.github.pagehelper.PageHelper;
 import cn.lhj.csp.assomanagement.dto.AssoActivityFormDto;
 import cn.lhj.csp.assomanagement.mapper.AssoActivityMapper;
 import cn.lhj.csp.assomanagement.mapper.CspAssoManagementMapper;
+import cn.lhj.csp.assomanagement.po.CspActStuRelation;
 import cn.lhj.csp.assomanagement.po.CspAssoActivity;
 import cn.lhj.csp.assomanagement.po.CspAssoActivityExample;
 import cn.lhj.csp.assomanagement.po.CspAssoManagement;
+import cn.lhj.csp.assomanagement.service.CspActStuRelationService;
 import cn.lhj.csp.assomanagement.service.CspAssoActivityService;
 import cn.lhj.csp.assomanagement.service.CspAssoManagementService;
 import cn.lhj.csp.assomanagement.service.CspAssoStudentService;
@@ -29,6 +32,8 @@ public class CspAssoActivityServiceImpl implements CspAssoActivityService {
 	private CspAssoManagementService assoService;
 	@Autowired
 	private CspAssoStudentService assoStuService;
+	@Autowired
+	private CspActStuRelationService actStuRelation;
 	
 	
 	//查询所有活动条数
@@ -120,7 +125,107 @@ public class CspAssoActivityServiceImpl implements CspAssoActivityService {
 		criteria.andActivityOrganizerIdEqualTo(oId);
 		return assoActivityMapper.selectByExample(example);
 	}
+	//根据时间以及报名状态查询未开始活动
+	@Override
+	public List<CspAssoActivity> getActByStartTime(Date startTime) throws Exception{
+		CspAssoActivityExample example=new CspAssoActivityExample();
+		CspAssoActivityExample.Criteria criteria=example.createCriteria();
+		criteria.andActivityStartTimeGreaterThan(startTime);
+		return assoActivityMapper.selectByExample(example);
+	}
+	//根据时间查询未开始活动（分页）
+	@Override
+	public List<CspAssoActivity> getActByStartTimeLimit(Date startTime,Integer page,Integer count) throws Exception{
+		PageHelper.startPage(page,count);
+		CspAssoActivityExample example=new CspAssoActivityExample();
+		CspAssoActivityExample.Criteria criteria=example.createCriteria();
+		criteria.andActivityStartTimeGreaterThan(startTime);
+		return assoActivityMapper.selectByExample(example);
+	}
+	//根据时间以及报名状态查询未开始活动
+	@Override
+	public List<CspAssoActivity> getActByStartTimeAndPartStatus(Date startTime,Integer partStatus) throws Exception{
+		CspAssoActivityExample example=new CspAssoActivityExample();
+		CspAssoActivityExample.Criteria criteria=example.createCriteria();
+		criteria.andActivityStartTimeGreaterThan(startTime);
+		criteria.andActivityPartStatusEqualTo(partStatus);
+		return assoActivityMapper.selectByExample(example);
+	}
+	//根据时间以及报名状态查询未开始活动（分页）
+	@Override
+	public List<CspAssoActivity> getActByStartTimeAndPartStatusLimit(Date startTime,Integer partStatus,Integer page,Integer count) throws Exception{
+		PageHelper.startPage(page,count);
+		CspAssoActivityExample example=new CspAssoActivityExample();
+		CspAssoActivityExample.Criteria criteria=example.createCriteria();
+		criteria.andActivityStartTimeGreaterThan(startTime);
+		criteria.andActivityPartStatusEqualTo(partStatus);
+		return assoActivityMapper.selectByExample(example);
+	}
+	//根据时间查询已结束活动
+	@Override
+	public List<CspAssoActivity> getActByFinishTime(Date finishTime) throws Exception{
+		CspAssoActivityExample example=new CspAssoActivityExample();
+		CspAssoActivityExample.Criteria criteria=example.createCriteria();
+		criteria.andActivityFinishTimeLessThan(finishTime);
+		return assoActivityMapper.selectByExample(example);
+	}
+	//根据时间查询已结束活动（分页）
+	@Override
+	public List<CspAssoActivity> getActByFinishTimeLimit(Date finishTime,Integer page,Integer count) throws Exception{
+		PageHelper.startPage(page,count);
+		CspAssoActivityExample example=new CspAssoActivityExample();
+		CspAssoActivityExample.Criteria criteria=example.createCriteria();
+		criteria.andActivityFinishTimeLessThan(finishTime);
+		return assoActivityMapper.selectByExample(example);
+	}
+	//根据学生学号查询已报名进行中活动
+	@Override
+	public List<CspAssoActivity> getActByStuIdStarted(String stuId)throws Exception{
+		List<CspActStuRelation> relations=actStuRelation.getActStuRelationByStuId(stuId);
+		List<CspAssoActivity> actList=new ArrayList();
+		Date now=new Date();
+		for(CspActStuRelation relation:relations) {
+			CspAssoActivity act=getActivityByActId(relation.getActId());
+//			System.out.println("--------------------------------------------------");
+//			System.out.println(act.getActivityStartTime());
+//			System.out.println(act.getActivityFinishTime());
+//			System.out.println(now);
+//			System.out.println("--------------------------------------------------");
+			if(act.getActivityStartTime().before(now)&&act.getActivityFinishTime().after(now)) {
+				actList.add(act);
+			}
+		}
+		return actList;
+	}
+	//根据学生学号查询已报名未开始活动
+	@Override
+	public List<CspAssoActivity> getActByStuIdSigned(String stuId) throws Exception {
+		List<CspActStuRelation> relations=actStuRelation.getActStuRelationByStuId(stuId);
+		List<CspAssoActivity> actList=new ArrayList();
+		Date now=new Date();
+		for(CspActStuRelation relation:relations) {
+			CspAssoActivity act=getActivityByActId(relation.getActId());
+			if(act.getActivityStartTime().after(now)) {
+				actList.add(act);
+			}
+		}
+		return actList;
+	}
 
+	//根据学生学号查询已报名已结束活动
+	@Override
+	public List<CspAssoActivity> getActByStuIdFinished(String stuId) throws Exception {
+		List<CspActStuRelation> relations=actStuRelation.getActStuRelationByStuId(stuId);
+		List<CspAssoActivity> actList=new ArrayList();
+		Date now=new Date();
+		for(CspActStuRelation relation:relations) {
+			CspAssoActivity act=getActivityByActId(relation.getActId());
+			if(act.getActivityFinishTime().before(now)) {
+				actList.add(act);
+			}
+		}
+		return actList;
+	}
 	//添加活动
 	@Override
 	public int insertActicity(CspAssoActivity act) throws Exception {
@@ -239,4 +344,5 @@ public class CspAssoActivityServiceImpl implements CspAssoActivityService {
 		System.out.println(actFormData.toString());
 		return actFormData;
 	}
+	
 }

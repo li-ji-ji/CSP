@@ -12,7 +12,7 @@
     <result column="asso_guider_id" property="assoGuiderId" jdbcType="INTEGER" />
     <result column="asso_guider_name" property="assoGuiderName" jdbcType="VARCHAR" />
     <result column="asso_leader" property="assoLeader" jdbcType="VARCHAR" />
-    <result column="asso_establishment_time" property="assoEstablishmentTime" jdbcType="DATE" />
+    <result column="asso_establishment_time" property="assoEstablishmentTime" jdbcType="TIMESTAMP" />
     <result column="asso_modify_time" property="assoModifyTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -116,7 +116,7 @@
     values (#{id,jdbcType=INTEGER}, #{assoId,jdbcType=VARCHAR}, #{assoName,jdbcType=VARCHAR}, 
       #{assoStatus,jdbcType=INTEGER}, #{assoAffiliateNo,jdbcType=VARCHAR}, #{assoAffiliateName,jdbcType=VARCHAR}, 
       #{assoExamined,jdbcType=INTEGER}, #{assoGuiderId,jdbcType=INTEGER}, #{assoGuiderName,jdbcType=VARCHAR}, 
-      #{assoLeader,jdbcType=VARCHAR}, #{assoEstablishmentTime,jdbcType=DATE}, #{assoModifyTime,jdbcType=TIMESTAMP}
+      #{assoLeader,jdbcType=VARCHAR}, #{assoEstablishmentTime,jdbcType=TIMESTAMP}, #{assoModifyTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.lhj.csp.assomanagement.po.CspAssoManagement" >
@@ -191,7 +191,7 @@
         #{assoLeader,jdbcType=VARCHAR},
       </if>
       <if test="assoEstablishmentTime != null" >
-        #{assoEstablishmentTime,jdbcType=DATE},
+        #{assoEstablishmentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="assoModifyTime != null" >
         #{assoModifyTime,jdbcType=TIMESTAMP},
@@ -238,7 +238,7 @@
         asso_leader = #{record.assoLeader,jdbcType=VARCHAR},
       </if>
       <if test="record.assoEstablishmentTime != null" >
-        asso_establishment_time = #{record.assoEstablishmentTime,jdbcType=DATE},
+        asso_establishment_time = #{record.assoEstablishmentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.assoModifyTime != null" >
         asso_modify_time = #{record.assoModifyTime,jdbcType=TIMESTAMP},
@@ -260,7 +260,7 @@
       asso_guider_id = #{record.assoGuiderId,jdbcType=INTEGER},
       asso_guider_name = #{record.assoGuiderName,jdbcType=VARCHAR},
       asso_leader = #{record.assoLeader,jdbcType=VARCHAR},
-      asso_establishment_time = #{record.assoEstablishmentTime,jdbcType=DATE},
+      asso_establishment_time = #{record.assoEstablishmentTime,jdbcType=TIMESTAMP},
       asso_modify_time = #{record.assoModifyTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -297,7 +297,7 @@
         asso_leader = #{assoLeader,jdbcType=VARCHAR},
       </if>
       <if test="assoEstablishmentTime != null" >
-        asso_establishment_time = #{assoEstablishmentTime,jdbcType=DATE},
+        asso_establishment_time = #{assoEstablishmentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="assoModifyTime != null" >
         asso_modify_time = #{assoModifyTime,jdbcType=TIMESTAMP},
@@ -316,7 +316,7 @@
       asso_guider_id = #{assoGuiderId,jdbcType=INTEGER},
       asso_guider_name = #{assoGuiderName,jdbcType=VARCHAR},
       asso_leader = #{assoLeader,jdbcType=VARCHAR},
-      asso_establishment_time = #{assoEstablishmentTime,jdbcType=DATE},
+      asso_establishment_time = #{assoEstablishmentTime,jdbcType=TIMESTAMP},
       asso_modify_time = #{assoModifyTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

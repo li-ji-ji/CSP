@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.lhj.csp.assomanagement.mapper.AssoStuRelationMapper;
+import cn.lhj.csp.assomanagement.po.CspAssoManagement;
 import cn.lhj.csp.assomanagement.po.CspAssoStuRelation;
 import cn.lhj.csp.assomanagement.po.CspAssoStuRelationExample;
+import cn.lhj.csp.assomanagement.service.CspAssoManagementService;
 import cn.lhj.csp.assomanagement.service.CspAssoStuRelationService;
 
 @Service
@@ -15,6 +17,8 @@ public class CspAssoStuRelationServiceImpl implements CspAssoStuRelationService 
 
 	@Autowired
 	private AssoStuRelationMapper cspAssoStuRelationMapper;
+	@Autowired
+	private CspAssoManagementService assoManagement;
 	
 	//查询所有学生与社团关系
 	@Override
@@ -50,6 +54,8 @@ public class CspAssoStuRelationServiceImpl implements CspAssoStuRelationService 
 	@Override
 	public int insertRelationOne(CspAssoStuRelation relation) throws Exception {
 		try {
+			CspAssoManagement asso=assoManagement.getAssoByAssoId(relation.getAssoId());
+			relation.setAssoName(asso.getAssoName());
 			cspAssoStuRelationMapper.insertSelective(relation);
 			return 1;
 		} catch (Exception e) {

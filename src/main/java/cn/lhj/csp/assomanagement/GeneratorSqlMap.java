@@ -28,11 +28,23 @@ public class GeneratorSqlMap {
 	
 	
 	
+	
+	
+	
+	
+	
+	
 	/*
 	 * public static void main(String[] args) throws Exception { try{
 	 * GeneratorSqlMap generatorSqlMap=new GeneratorSqlMap();
-	 * generatorSqlMap.generator(); }catch(Exception e){ e.printStackTrace(); } }
-	 * 
+	 * generatorSqlMap.generator(); System.out.println("搞定");}catch(Exception e){
+	 * e.printStackTrace(); } }
 	 */
+	 
+	  
+	 
+	 
+	 
+	 
 	 
 }

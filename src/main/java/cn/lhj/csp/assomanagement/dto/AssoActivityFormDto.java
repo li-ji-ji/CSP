@@ -16,21 +16,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AssoActivityFormDto implements Serializable {
+public class AssoActivityFormDto extends CspAssoActivity implements Serializable  {
 	
-    private Integer id;
-    private String activityId;
-    private String activityName;
-    private Integer activityStatus;
-    private String activityAssoId;
-    private String activityAssoName;
-    private String activityOrganizerId;
-    private String activityOrganizerName;
-    private Integer activityNum;
-    private Integer activityPartNum;
-    private Date activityStartTime;
-    private Date activityFinishTime;
-    private String activityIntro;
+   
     
     private List<CspAssoStudent> assoStuList;
     private List<CspAssoManagement> assoList;

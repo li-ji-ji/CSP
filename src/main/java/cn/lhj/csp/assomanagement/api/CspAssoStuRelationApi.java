@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,6 +61,13 @@ public class CspAssoStuRelationApi {
 		return assoStuService.countRelationBySId(stuId);
 	}
 
+
+	//增加单个关系
+	@RequestMapping("/insertRelationOne")
+	public int insertRelationOne(@RequestBody CspAssoStuRelation relation)throws Exception{
+		return assoStuService.insertRelationOne(relation);
+	}
+	
 	//根据社团编号和学生编号删除关系
 	@RequestMapping("/deleteRelationByASId")
 	public int deleteRelationByASId(@RequestParam("assoId")String assoId,@RequestParam("stuId")String stuId)throws Exception{

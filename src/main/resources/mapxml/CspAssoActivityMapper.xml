@@ -7,14 +7,19 @@
     <result column="activity_name" property="activityName" jdbcType="VARCHAR" />
     <result column="activity_status" property="activityStatus" jdbcType="INTEGER" />
     <result column="activity_asso_id" property="activityAssoId" jdbcType="VARCHAR" />
+    <result column="activity_kind_id" property="activityKindId" jdbcType="INTEGER" />
+    <result column="activity_kind_name" property="activityKindName" jdbcType="VARCHAR" />
     <result column="activity_asso_name" property="activityAssoName" jdbcType="VARCHAR" />
     <result column="activity_organizer_id" property="activityOrganizerId" jdbcType="VARCHAR" />
     <result column="activity_organizer_name" property="activityOrganizerName" jdbcType="VARCHAR" />
+    <result column="activity_part_status" property="activityPartStatus" jdbcType="INTEGER" />
     <result column="activity_num" property="activityNum" jdbcType="INTEGER" />
     <result column="activity_part_num" property="activityPartNum" jdbcType="INTEGER" />
     <result column="activity_start_time" property="activityStartTime" jdbcType="TIMESTAMP" />
     <result column="activity_finish_time" property="activityFinishTime" jdbcType="TIMESTAMP" />
     <result column="activity_intro" property="activityIntro" jdbcType="VARCHAR" />
+    <result column="activity_content" property="activityContent" jdbcType="VARCHAR" />
+    <result column="activity_img" property="activityImg" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,9 +80,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, activity_id, activity_name, activity_status, activity_asso_id, activity_asso_name, 
-    activity_organizer_id, activity_organizer_name, activity_num, activity_part_num, 
-    activity_start_time, activity_finish_time, activity_intro
+    id, activity_id, activity_name, activity_status, activity_asso_id, activity_kind_id, 
+    activity_kind_name, activity_asso_name, activity_organizer_id, activity_organizer_name, 
+    activity_part_status, activity_num, activity_part_num, activity_start_time, activity_finish_time, 
+    activity_intro, activity_content, activity_img
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.lhj.csp.assomanagement.po.CspAssoActivityExample" >
     select
@@ -111,15 +117,19 @@
   </delete>
   <insert id="insert" parameterType="cn.lhj.csp.assomanagement.po.CspAssoActivity" >
     insert into csp_asso_activity (id, activity_id, activity_name, 
-      activity_status, activity_asso_id, activity_asso_name, 
-      activity_organizer_id, activity_organizer_name, 
+      activity_status, activity_asso_id, activity_kind_id, 
+      activity_kind_name, activity_asso_name, activity_organizer_id, 
+      activity_organizer_name, activity_part_status, 
       activity_num, activity_part_num, activity_start_time, 
-      activity_finish_time, activity_intro)
+      activity_finish_time, activity_intro, activity_content, 
+      activity_img)
     values (#{id,jdbcType=INTEGER}, #{activityId,jdbcType=VARCHAR}, #{activityName,jdbcType=VARCHAR}, 
-      #{activityStatus,jdbcType=INTEGER}, #{activityAssoId,jdbcType=VARCHAR}, #{activityAssoName,jdbcType=VARCHAR}, 
-      #{activityOrganizerId,jdbcType=VARCHAR}, #{activityOrganizerName,jdbcType=VARCHAR}, 
+      #{activityStatus,jdbcType=INTEGER}, #{activityAssoId,jdbcType=VARCHAR}, #{activityKindId,jdbcType=INTEGER}, 
+      #{activityKindName,jdbcType=VARCHAR}, #{activityAssoName,jdbcType=VARCHAR}, #{activityOrganizerId,jdbcType=VARCHAR}, 
+      #{activityOrganizerName,jdbcType=VARCHAR}, #{activityPartStatus,jdbcType=INTEGER}, 
       #{activityNum,jdbcType=INTEGER}, #{activityPartNum,jdbcType=INTEGER}, #{activityStartTime,jdbcType=TIMESTAMP}, 
-      #{activityFinishTime,jdbcType=TIMESTAMP}, #{activityIntro,jdbcType=VARCHAR})
+      #{activityFinishTime,jdbcType=TIMESTAMP}, #{activityIntro,jdbcType=VARCHAR}, #{activityContent,jdbcType=VARCHAR}, 
+      #{activityImg,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.lhj.csp.assomanagement.po.CspAssoActivity" >
     insert into csp_asso_activity
@@ -139,6 +149,12 @@
       <if test="activityAssoId != null" >
         activity_asso_id,
       </if>
+      <if test="activityKindId != null" >
+        activity_kind_id,
+      </if>
+      <if test="activityKindName != null" >
+        activity_kind_name,
+      </if>
       <if test="activityAssoName != null" >
         activity_asso_name,
       </if>
@@ -147,6 +163,9 @@
       </if>
       <if test="activityOrganizerName != null" >
         activity_organizer_name,
+      </if>
+      <if test="activityPartStatus != null" >
+        activity_part_status,
       </if>
       <if test="activityNum != null" >
         activity_num,
@@ -162,6 +181,12 @@
       </if>
       <if test="activityIntro != null" >
         activity_intro,
+      </if>
+      <if test="activityContent != null" >
+        activity_content,
+      </if>
+      <if test="activityImg != null" >
+        activity_img,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -180,6 +205,12 @@
       <if test="activityAssoId != null" >
         #{activityAssoId,jdbcType=VARCHAR},
       </if>
+      <if test="activityKindId != null" >
+        #{activityKindId,jdbcType=INTEGER},
+      </if>
+      <if test="activityKindName != null" >
+        #{activityKindName,jdbcType=VARCHAR},
+      </if>
       <if test="activityAssoName != null" >
         #{activityAssoName,jdbcType=VARCHAR},
       </if>
@@ -188,6 +219,9 @@
       </if>
       <if test="activityOrganizerName != null" >
         #{activityOrganizerName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityPartStatus != null" >
+        #{activityPartStatus,jdbcType=INTEGER},
       </if>
       <if test="activityNum != null" >
         #{activityNum,jdbcType=INTEGER},
@@ -203,6 +237,12 @@
       </if>
       <if test="activityIntro != null" >
         #{activityIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="activityContent != null" >
+        #{activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="activityImg != null" >
+        #{activityImg,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -230,6 +270,12 @@
       <if test="record.activityAssoId != null" >
         activity_asso_id = #{record.activityAssoId,jdbcType=VARCHAR},
       </if>
+      <if test="record.activityKindId != null" >
+        activity_kind_id = #{record.activityKindId,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityKindName != null" >
+        activity_kind_name = #{record.activityKindName,jdbcType=VARCHAR},
+      </if>
       <if test="record.activityAssoName != null" >
         activity_asso_name = #{record.activityAssoName,jdbcType=VARCHAR},
       </if>
@@ -238,6 +284,9 @@
       </if>
       <if test="record.activityOrganizerName != null" >
         activity_organizer_name = #{record.activityOrganizerName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityPartStatus != null" >
+        activity_part_status = #{record.activityPartStatus,jdbcType=INTEGER},
       </if>
       <if test="record.activityNum != null" >
         activity_num = #{record.activityNum,jdbcType=INTEGER},
@@ -254,6 +303,12 @@
       <if test="record.activityIntro != null" >
         activity_intro = #{record.activityIntro,jdbcType=VARCHAR},
       </if>
+      <if test="record.activityContent != null" >
+        activity_content = #{record.activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activityImg != null" >
+        activity_img = #{record.activityImg,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -266,14 +321,19 @@
       activity_name = #{record.activityName,jdbcType=VARCHAR},
       activity_status = #{record.activityStatus,jdbcType=INTEGER},
       activity_asso_id = #{record.activityAssoId,jdbcType=VARCHAR},
+      activity_kind_id = #{record.activityKindId,jdbcType=INTEGER},
+      activity_kind_name = #{record.activityKindName,jdbcType=VARCHAR},
       activity_asso_name = #{record.activityAssoName,jdbcType=VARCHAR},
       activity_organizer_id = #{record.activityOrganizerId,jdbcType=VARCHAR},
       activity_organizer_name = #{record.activityOrganizerName,jdbcType=VARCHAR},
+      activity_part_status = #{record.activityPartStatus,jdbcType=INTEGER},
       activity_num = #{record.activityNum,jdbcType=INTEGER},
       activity_part_num = #{record.activityPartNum,jdbcType=INTEGER},
       activity_start_time = #{record.activityStartTime,jdbcType=TIMESTAMP},
       activity_finish_time = #{record.activityFinishTime,jdbcType=TIMESTAMP},
-      activity_intro = #{record.activityIntro,jdbcType=VARCHAR}
+      activity_intro = #{record.activityIntro,jdbcType=VARCHAR},
+      activity_content = #{record.activityContent,jdbcType=VARCHAR},
+      activity_img = #{record.activityImg,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,6 +353,12 @@
       <if test="activityAssoId != null" >
         activity_asso_id = #{activityAssoId,jdbcType=VARCHAR},
       </if>
+      <if test="activityKindId != null" >
+        activity_kind_id = #{activityKindId,jdbcType=INTEGER},
+      </if>
+      <if test="activityKindName != null" >
+        activity_kind_name = #{activityKindName,jdbcType=VARCHAR},
+      </if>
       <if test="activityAssoName != null" >
         activity_asso_name = #{activityAssoName,jdbcType=VARCHAR},
       </if>
@@ -301,6 +367,9 @@
       </if>
       <if test="activityOrganizerName != null" >
         activity_organizer_name = #{activityOrganizerName,jdbcType=VARCHAR},
+      </if>
+      <if test="activityPartStatus != null" >
+        activity_part_status = #{activityPartStatus,jdbcType=INTEGER},
       </if>
       <if test="activityNum != null" >
         activity_num = #{activityNum,jdbcType=INTEGER},
@@ -317,6 +386,12 @@
       <if test="activityIntro != null" >
         activity_intro = #{activityIntro,jdbcType=VARCHAR},
       </if>
+      <if test="activityContent != null" >
+        activity_content = #{activityContent,jdbcType=VARCHAR},
+      </if>
+      <if test="activityImg != null" >
+        activity_img = #{activityImg,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -326,14 +401,19 @@
       activity_name = #{activityName,jdbcType=VARCHAR},
       activity_status = #{activityStatus,jdbcType=INTEGER},
       activity_asso_id = #{activityAssoId,jdbcType=VARCHAR},
+      activity_kind_id = #{activityKindId,jdbcType=INTEGER},
+      activity_kind_name = #{activityKindName,jdbcType=VARCHAR},
       activity_asso_name = #{activityAssoName,jdbcType=VARCHAR},
       activity_organizer_id = #{activityOrganizerId,jdbcType=VARCHAR},
       activity_organizer_name = #{activityOrganizerName,jdbcType=VARCHAR},
+      activity_part_status = #{activityPartStatus,jdbcType=INTEGER},
       activity_num = #{activityNum,jdbcType=INTEGER},
       activity_part_num = #{activityPartNum,jdbcType=INTEGER},
       activity_start_time = #{activityStartTime,jdbcType=TIMESTAMP},
       activity_finish_time = #{activityFinishTime,jdbcType=TIMESTAMP},
-      activity_intro = #{activityIntro,jdbcType=VARCHAR}
+      activity_intro = #{activityIntro,jdbcType=VARCHAR},
+      activity_content = #{activityContent,jdbcType=VARCHAR},
+      activity_img = #{activityImg,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

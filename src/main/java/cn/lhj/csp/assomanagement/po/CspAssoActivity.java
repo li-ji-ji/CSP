@@ -13,11 +13,17 @@ public class CspAssoActivity {
 
     private String activityAssoId;
 
+    private Integer activityKindId;
+
+    private String activityKindName;
+
     private String activityAssoName;
 
     private String activityOrganizerId;
 
     private String activityOrganizerName;
+
+    private Integer activityPartStatus;
 
     private Integer activityNum;
 
@@ -28,6 +34,10 @@ public class CspAssoActivity {
     private Date activityFinishTime;
 
     private String activityIntro;
+
+    private String activityContent;
+
+    private String activityImg;
 
     public Integer getId() {
         return id;
@@ -69,6 +79,22 @@ public class CspAssoActivity {
         this.activityAssoId = activityAssoId == null ? null : activityAssoId.trim();
     }
 
+    public Integer getActivityKindId() {
+        return activityKindId;
+    }
+
+    public void setActivityKindId(Integer activityKindId) {
+        this.activityKindId = activityKindId;
+    }
+
+    public String getActivityKindName() {
+        return activityKindName;
+    }
+
+    public void setActivityKindName(String activityKindName) {
+        this.activityKindName = activityKindName == null ? null : activityKindName.trim();
+    }
+
     public String getActivityAssoName() {
         return activityAssoName;
     }
@@ -91,6 +117,14 @@ public class CspAssoActivity {
 
     public void setActivityOrganizerName(String activityOrganizerName) {
         this.activityOrganizerName = activityOrganizerName == null ? null : activityOrganizerName.trim();
+    }
+
+    public Integer getActivityPartStatus() {
+        return activityPartStatus;
+    }
+
+    public void setActivityPartStatus(Integer activityPartStatus) {
+        this.activityPartStatus = activityPartStatus;
     }
 
     public Integer getActivityNum() {
@@ -131,5 +165,21 @@ public class CspAssoActivity {
 
     public void setActivityIntro(String activityIntro) {
         this.activityIntro = activityIntro == null ? null : activityIntro.trim();
+    }
+
+    public String getActivityContent() {
+        return activityContent;
+    }
+
+    public void setActivityContent(String activityContent) {
+        this.activityContent = activityContent == null ? null : activityContent.trim();
+    }
+
+    public String getActivityImg() {
+        return activityImg;
+    }
+
+    public void setActivityImg(String activityImg) {
+        this.activityImg = activityImg == null ? null : activityImg.trim();
     }
 }
