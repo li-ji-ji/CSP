@@ -2,16 +2,8 @@ package cn.lhj.csp.news.po;
 
 import java.io.Serializable;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-@Document(collection="news")
 public class News implements Serializable{
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@Field("_id")
 	private String id;//新闻编号
 	
 	private String newsTitle;//新闻标题

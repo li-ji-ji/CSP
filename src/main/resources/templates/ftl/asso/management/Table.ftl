@@ -90,7 +90,7 @@
 	layui.use(['laypage','table'],function(){
 		  var table = layui.table;
 		  table.init('AssoTable',{
-			  height:450,
+			  height:500,
 			  toolbar: '#toolbar',
 			  page:true,
 			  limit:10

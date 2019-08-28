@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.lhj.csp.admin.dto.AssoSchoolDto;
 import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
+import cn.lhj.csp.admin.po.asso.CspAssoSchool;
 
 @Controller
 @RequestMapping("/assoSchool")
@@ -21,7 +22,7 @@ public class CspAssoSchoolController {
 	//跳转到学校列表
 	@RequestMapping("/toSchoolTbale")
 	public String toSchoolTbale(Model model)throws Exception{
-		List<Object> schoolList=assoSchool.getAssoSchoolAll();
+		List<CspAssoSchool> schoolList=assoSchool.getAssoSchoolAll();
 		model.addAttribute("schoolList",schoolList);
 		return "ftl/asso/school/Table";
 	}

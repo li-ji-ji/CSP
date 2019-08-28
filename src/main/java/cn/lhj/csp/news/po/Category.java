@@ -2,38 +2,25 @@ package cn.lhj.csp.news.po;
 
 import java.io.Serializable;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
-@Document(collection="category")
 public class Category implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@Field("_id")
 	private String id;//分类编号
 	
-	@Field("category_type")
 	private String categorytype;//分类类型
 	
-	@Field("category_pid")
 	private String categorypid;//分类父编号
 	
 	private Integer isleaf;//是否为叶子结点
 	
-	@Field("category_icon")
 	private String categoryicon;//分类图标
 	
-	@Field("category_status")
 	private Integer categorystatus;//分类状态
 	
-	@Field("category_level")
 	private Integer categorylevel;//分类等级
 
-	@Transient
 	private String category_pname;//分类父名字
 
 	

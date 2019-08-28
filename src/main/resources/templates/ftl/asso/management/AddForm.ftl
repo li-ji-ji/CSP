@@ -77,20 +77,26 @@
       <input type="text" name="assoLeader" placeholder="请输入社团负责人名称" autocomplete="off" class="layui-input" style="width: 50%;">
     </div>
   </div>
+   <div class="layui-form-item">
+    <label class="layui-form-label" style="width: 150px;">成立日期</label>
+    <div class="layui-input-block">
+      <input type="text" name="assoEstablishmentTime" id="DateTimeInput"   autocomplete="off" class="layui-input" style="width: 50%;">
+    </div>
+  </div>
  <div class="layui-form-item">
     <label class="layui-form-label" style="width: 150px;">成立日期</label>
     <div class="layui-input-block">
       <input type="text" name="assoEstablishmentTime" readonly placeholder="系统自动分配" autocomplete="off" class="layui-input" style="width: 50%;">
     </div>
   </div>
-  <div class="layui-form-item">
+  <!-- <div class="layui-form-item">
     <label class="layui-form-label" style="width: 150px;">申请理由</label>
     <div class="layui-input-block" style="float:left;width:80%;">
       <button type="button" class="layui-btn" id="imageUpload">
   		<i class="layui-icon">&#xe67c;</i>上传图片
 	  </button>
     </div>
-  </div>
+  </div> -->
   <div class="layui-form-item">
     <div class="layui-input-block">
       <button  class="layui-btn" type="submit" lay-submit="" lay-filter="MsgSubmit">立即提交</button>
@@ -111,6 +117,15 @@ layui.use(['upload','form', 'layedit', 'laydate'], function(){
   form.on('select(parentSelect)',function(data){
 	  $("#pId").attr("value",data.value)
   });
+
+  laydate.render({
+	    elem: '#DateTimeInput' //指定元素
+		,position: 'absolute'
+		,value: new Date()
+		,isInitValue: false
+	    ,type: 'datetime'
+	    ,format: 'yyyy-MM-dd HH:mm:ss'
+	  });
   //执行实例
   var uploadInst = upload.render({
     elem: '#imageUpload' //绑定元素

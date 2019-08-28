@@ -12,7 +12,11 @@ import cn.lhj.csp.admin.dto.AssoManagemrntDto;
 import cn.lhj.csp.admin.dto.AssoSchoolDto;
 import cn.lhj.csp.admin.dto.AssoSchoolUnitDto;
 import cn.lhj.csp.admin.po.asso.CspAssoActivity;
+import cn.lhj.csp.admin.po.asso.CspAssoGuider;
 import cn.lhj.csp.admin.po.asso.CspAssoManagement;
+import cn.lhj.csp.admin.po.asso.CspAssoSchool;
+import cn.lhj.csp.admin.po.asso.CspAssoSchoolUnit;
+import cn.lhj.csp.admin.po.asso.CspAssoStuRelation;
 import cn.lhj.csp.admin.po.asso.CspAssoStudent;
 
 
@@ -38,10 +42,10 @@ public interface AssoManagementApiInterface {
 	public List<CspAssoManagement> getCheckingAssoLimit(@RequestParam("page")Integer page,@RequestParam("count")Integer count) throws Exception;
 	//根据社团ID查询社团信息
 	@RequestMapping(value="/getAssoById")
-	public Object getAssoById(@RequestParam("id")Integer id)throws Exception;
+	public CspAssoManagement getAssoById(@RequestParam("id")Integer id)throws Exception;
 	//根据社团编号查询社团
 	@RequestMapping(value="/getAssoByAssoId")
-	public Object getAssoByAssoId(@RequestParam("assoId")String assoId)throws Exception;
+	public CspAssoManagement getAssoByAssoId(@RequestParam("assoId")String assoId)throws Exception;
 	//添加社团
 	@RequestMapping(value="/insertOne")
 	public int insertOne(@RequestBody AssoManagemrntDto asso)throws Exception;
@@ -64,19 +68,19 @@ public interface AssoManagementApiInterface {
 	
 	//查询所有指导老师
 	@RequestMapping("/getGuiderAll")
-	public List<Object> getGuiderAll() throws Exception;
+	public List<CspAssoGuider> getGuiderAll() throws Exception;
 	//根据ID查询指导老师
 	@RequestMapping("/getGuiderById")
-	public Object getGuiderById(@RequestParam("id")Integer id)throws Exception;
+	public CspAssoGuider getGuiderById(@RequestParam("id")Integer id)throws Exception;
 	//根据工号查询指导老师 
 	@RequestMapping("/getGuiderByTid")
-	public Object getGuiderByTid(@RequestParam("tId")String tId) throws Exception;
+	public CspAssoGuider getGuiderByTid(@RequestParam("tId")String tId) throws Exception;
 	//根据姓名查询指导老师
 	@RequestMapping("/getGuiderByName")
-	public List<Object> getGuiderByName(@RequestParam("tName")String tName)throws Exception;
+	public List<CspAssoGuider> getGuiderByName(@RequestParam("tName")String tName)throws Exception;
 	//添加指导老师
 	@RequestMapping("/insertGuiderOne")
-	public int insertGuiderOne(@RequestBody Object guider)throws Exception;
+	public int insertGuiderOne(@RequestBody CspAssoGuider guider)throws Exception;
 	//根据ID删除指导老师
 	@RequestMapping("/deleteGuiderOneById")
 	public int deleteGuiderOneById(@RequestParam("id")Integer id)throws Exception;
@@ -95,22 +99,22 @@ public interface AssoManagementApiInterface {
 	 * */
 	//查询所有学校
 	@RequestMapping("/getAssoSchoolAll")
-	public List<Object> getAssoSchoolAll() throws Exception;
+	public List<CspAssoSchool> getAssoSchoolAll() throws Exception;
 	//根据ID查询学校
 	@RequestMapping("/getAssoSchoolById")
-	public Object getAssoSchoolById(@RequestParam("id")Integer id) throws Exception;
+	public CspAssoSchool getAssoSchoolById(@RequestParam("id")Integer id) throws Exception;
 	//根据学校编号查询学校
 	@RequestMapping("/getAssoSchoolBySNo")
-	public Object getAssoSchoolBySNo(@RequestParam("sno")String sno) throws Exception;
+	public CspAssoSchool getAssoSchoolBySNo(@RequestParam("sno")String sno) throws Exception;
 	//根据省份编号查询学校
 	@RequestMapping("/getAssoSchoolByProId")
-	public List<Object> getAssoSchoolByProId(@RequestParam("proId")Integer proId) throws Exception;
+	public List<CspAssoSchool> getAssoSchoolByProId(@RequestParam("proId")Integer proId) throws Exception;
 	//根据城市编号查询学校
 	@RequestMapping("/getAssoSchoolByCityId")
-	public List<Object> getAssoSchoolByCityId(@RequestParam("cityId")Integer cityId) throws Exception;
+	public List<CspAssoSchool> getAssoSchoolByCityId(@RequestParam("cityId")Integer cityId) throws Exception;
 	//根据学校名称查询学校
 	@RequestMapping("/getAssoSchoolByName")
-	public List<Object> getAssoSchoolByName(@RequestParam("name")String name) throws Exception;
+	public List<CspAssoSchool> getAssoSchoolByName(@RequestParam("name")String name) throws Exception;
 	//增加一个学校
 	@RequestMapping("/insertAssoSchoolOne")
 	public int insertAssoSchoolOne(@RequestBody AssoSchoolDto school) throws Exception;
@@ -138,16 +142,16 @@ public interface AssoManagementApiInterface {
 	
 	//查询所有学校单位
 	@RequestMapping("/getUnitAll")
-	public List<Object> getUnitAll()throws Exception;
+	public List<CspAssoSchoolUnit> getUnitAll()throws Exception;
 	//根据ID查询学校单位
 	@RequestMapping("/getUnitById")
-	public Object getUnitById(@RequestParam("id")Integer id) throws Exception;
+	public CspAssoSchoolUnit getUnitById(@RequestParam("id")Integer id) throws Exception;
 	//根据单位编号查询学校单位
 	@RequestMapping("/getUnitByNo")
-	public Object getUnitByNo(@RequestParam("no")String no) throws Exception;
+	public CspAssoSchoolUnit getUnitByNo(@RequestParam("no")String no) throws Exception;
 	//根据上级单位查询学校单位
 	@RequestMapping("/getUnitByPNo")
-	public List<Object> getUnitByPNo(@RequestParam("pno")String pno) throws Exception;
+	public List<CspAssoSchoolUnit> getUnitByPNo(@RequestParam("pno")String pno) throws Exception;
 	//删除单个学校部门
 	@RequestMapping("/deleteUnitOne")
 	public int deleteUnitOne(@RequestParam("id") Integer id)throws Exception;
@@ -209,19 +213,19 @@ public interface AssoManagementApiInterface {
 	 */	
 	//查询所有关系
 	@RequestMapping("/getRelationAll")
-	public List<Object> getRelationAll()throws Exception;
+	public List<CspAssoStuRelation> getRelationAll()throws Exception;
 	//根据社团编号查询关系
 	@RequestMapping("/getRelationByAId")
-	public List<Object> getRelationByAId(@RequestParam("assoId") String assoId)throws Exception;	
+	public List<CspAssoStuRelation> getRelationByAId(@RequestParam("assoId") String assoId)throws Exception;	
 	//根据学生学号查询关系
 	@RequestMapping("/getRelationBySId")
-	public List<Object> getRelationBySId(@RequestParam("stuId") Integer stuId)throws Exception;
+	public List<CspAssoStuRelation> getRelationBySId(@RequestParam("stuId") Integer stuId)throws Exception;
 	//根据关系ID查询关系
 	@RequestMapping("/getRelationById")
-	public Object getRelationById(@RequestParam("id") Integer id)throws Exception;
+	public CspAssoStuRelation getRelationById(@RequestParam("id") Integer id)throws Exception;
 	//根据社团编号和学生编号查询关系
 	@RequestMapping("/getRelationByASId")
-	public Object selectRelationByASId(@RequestParam("assoId")String assoId,@RequestParam("stuId")Integer stuId)throws Exception;
+	public CspAssoStuRelation selectRelationByASId(@RequestParam("assoId")String assoId,@RequestParam("stuId")Integer stuId)throws Exception;
 	//根据社团编号和学生编号删除关系
 	@RequestMapping("/deleteRelationByASId")
 	public int deleteRelationByASId(@RequestParam("assoId")String assoId,@RequestParam("stuId")Integer stuId)throws Exception;
@@ -235,27 +239,39 @@ public interface AssoManagementApiInterface {
 	/*
 	 * 	 活动管理
 	 */
+	//查询所有活动条数
+	@RequestMapping("/countActivityAll")
+	public int countActivityAll()throws Exception;
 	// 查询所有活动
 	@RequestMapping("/getActivityAll")
-	public List<Object> getActivityAll() throws Exception;
+	public List<CspAssoActivity> getActivityAll() throws Exception;
+	//查询所有活动（分页）
+	@RequestMapping("/getActivityAllLimit")
+	public List<CspAssoActivity> getActivityAllLimit(@RequestParam("page")Integer page,@RequestParam("count")Integer count)throws Exception;
 	// 根据活动状态查询活动
-	@RequestMapping("/getActivityNotStart")
-	public List<Object> getActivityNotStart(@RequestParam("status") Integer status) throws Exception;
+	@RequestMapping("/getActivityByStatus")
+	public List<CspAssoActivity> getActivityByStatus(@RequestParam("status") Integer status) throws Exception;
+	//根据活动状态查询活动（分页）
+	@RequestMapping("/getActivityByStatusLimit")
+	public List<CspAssoActivity> getActivityByStatusLimit(@RequestParam("status")Integer status,@RequestParam("page")Integer page,@RequestParam("count")Integer count)throws Exception;
 	// 根据活动ID查询活动
 	@RequestMapping("/getActivityById")
-	public Object getActivityById(@RequestParam("id") Integer id) throws Exception;
+	public CspAssoActivity getActivityById(@RequestParam("id") Integer id) throws Exception;
 	// 根据活动名称查询活动
 	@RequestMapping("/getActivityByName")
-	public List<Object> getActivityByName(@RequestParam("name") String name) throws Exception;
+	public List<CspAssoActivity> getActivityByName(@RequestParam("name") String name) throws Exception;
 	// 根据活动编号查询活动
-	@RequestMapping("/getActicityByActId")
-	public Object getActicityByActId(@RequestParam("actId") String actId) throws Exception;
+	@RequestMapping("/getActivityByActId")
+	public CspAssoActivity getActicityByActId(@RequestParam("actId") String actId) throws Exception;
 	// 根据社团编号查询活动
 	@RequestMapping("/getActivityByAId")
-	public List<Object> getActivityByAId(@RequestParam("assoId") String assoId) throws Exception;
+	public List<CspAssoActivity> getActivityByAId(@RequestParam("assoId") String assoId) throws Exception;
+	//根据社团编号查询活动（分页）
+	@RequestMapping("/getActivityByAIdLimit")
+	public List<CspAssoActivity> getActivityByAIdLimit(@RequestParam("assoId")String assoId,@RequestParam("page")Integer page,@RequestParam("count")Integer count)throws Exception;
 	// 根据活动负责人编号查询活动
 	@RequestMapping("/getActivityByOId")
-	public List<Object> getActivityByOId(@RequestParam("oId") String oId) throws Exception;
+	public List<CspAssoActivity> getActivityByOId(@RequestParam("oId") String oId) throws Exception;
 	// 添加活动
 	@RequestMapping("/insertActivity")
 	public int insertActicity(@RequestBody AssoActivityFormDto act) throws Exception;

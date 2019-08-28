@@ -2,16 +2,9 @@ package cn.lhj.csp.news.po;
 
 import java.io.Serializable;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
-
-@Document(collection="comment")
 public class Comment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@Field("_id")
 	private String id;//评论编号
 	
 	private String newsId;//新闻编号

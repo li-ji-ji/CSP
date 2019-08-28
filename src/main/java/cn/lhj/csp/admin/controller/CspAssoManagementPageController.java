@@ -15,7 +15,11 @@ import com.alibaba.fastjson.JSON;
 import cn.lhj.csp.admin.dto.AssoManagemrntDto;
 import cn.lhj.csp.admin.dto.AssoSchoolDto;
 import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
+import cn.lhj.csp.admin.po.asso.CspAssoGuider;
 import cn.lhj.csp.admin.po.asso.CspAssoManagement;
+import cn.lhj.csp.admin.po.asso.CspAssoSchool;
+import cn.lhj.csp.admin.po.asso.CspAssoSchoolUnit;
+import cn.lhj.csp.admin.po.asso.CspAssoStuRelation;
 
 @Controller
 @RequestMapping("/asso")
@@ -55,9 +59,9 @@ public class CspAssoManagementPageController {
 	//跳转到添加表单
 	@RequestMapping("/toAdd")
 	public String toAdd(AssoManagemrntDto asso,Model model) throws Exception{
-		List<Object> assoGuiders=assoManagementApiInterface.getGuiderAll();
+		List<CspAssoGuider> assoGuiders=assoManagementApiInterface.getGuiderAll();
 		model.addAttribute("assoGuiders",assoGuiders);
-		List<Object> schoolUnit=assoManagementApiInterface.getUnitAll();
+		List<CspAssoSchoolUnit> schoolUnit=assoManagementApiInterface.getUnitAll();
 		model.addAttribute("schoolUnit",schoolUnit);
 		return "ftl/asso/management/AddForm";
 	}
@@ -65,11 +69,11 @@ public class CspAssoManagementPageController {
 	//跳转到社团修改表单
 	@RequestMapping("/toEdit")
 	public String toedit(@RequestParam("id") Integer getMsg,Model model)throws Exception{
-		Object asso=assoManagementApiInterface.getAssoById(getMsg);
+		CspAssoManagement asso=assoManagementApiInterface.getAssoById(getMsg);
 		model.addAttribute("asso", asso);
-		List<Object> assoGuiders=assoManagementApiInterface.getGuiderAll();
+		List<CspAssoGuider> assoGuiders=assoManagementApiInterface.getGuiderAll();
 		model.addAttribute("assoGuiders",assoGuiders);
-		List<Object> schoolUnit=assoManagementApiInterface.getUnitAll();
+		List<CspAssoSchoolUnit> schoolUnit=assoManagementApiInterface.getUnitAll();
 		model.addAttribute("schoolUnit",schoolUnit);
 		return "ftl/asso/management/EditForm";
 	}
@@ -126,7 +130,7 @@ public class CspAssoManagementPageController {
 		//System.out.println(asso.toString());
 		int memberNum=assoManagementApiInterface.countRelationByAId(asso.getAssoId());//获取社团成员数目
 		//System.out.println(memberNum);
-		List<Object> memberList=assoManagementApiInterface.getRelationByAId(asso.getAssoId());
+		List<CspAssoStuRelation> memberList=assoManagementApiInterface.getRelationByAId(asso.getAssoId());
 		
 		return null;
 	}

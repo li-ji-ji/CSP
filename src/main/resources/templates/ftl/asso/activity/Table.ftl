@@ -35,11 +35,11 @@
 						<td>${act.activityId}</td>
 						<td>${act.activityName}</td>
 						<td>
-							<#if act.activityStatus==0>
+							<#if act.activityStartTime?datetime gt .now?datetime>
 								招募中
-							<#elseif act.activityStatus==1 >
+							<#elseif (act.activityStartTime?datetime lt .now?datetime)&&(act.activityFinishTime?datetime gt .now?datetime) >
 								进行中
-							<#else>
+							<#elseif act.activityFinishTime?datetime lt .now?datetime>
 								已结束
 							</#if>
 						</td>
@@ -47,8 +47,8 @@
 						<td>${act.activityOrganizerName}</td>
 						<td>${act.activityNum?c}</td>
 						<td>${act.activityPartNum?c}</td>
-						<td>${act.activityStartTime}</td>
-						<td>${act.activityFinishTime}</td>
+						<td>${act.activityStartTime?date}</td>
+						<td>${act.activityFinishTime?date}</td>
 						<td>${act.activityIntro}</td>
 						<td>
 							<#if act.activityStatus==0>

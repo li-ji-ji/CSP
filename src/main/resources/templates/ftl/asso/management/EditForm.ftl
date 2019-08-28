@@ -87,7 +87,7 @@
  <div class="layui-form-item">
     <label class="layui-form-label" style="width: 150px;">成立日期</label>
     <div class="layui-input-block">
-      <input type="text" name="assoEstablishmentTime" readonly value="${asso.assoEstablishmentTime?date}" autocomplete="off" class="layui-input" style="width: 50%;">
+      <input type="text" name="assoEstablishmentTime" id="DateTimeInput"  value="${asso.assoEstablishmentTime?datetime}" autocomplete="off" class="layui-input" style="width: 50%;">
     </div>
   </div>
   <div class="layui-form-item">
@@ -107,6 +107,13 @@ layui.use(['form', 'layedit', 'laydate'], function(){
   form.on('select(parentSelect)',function(data){
 	  $("#pId").attr("value",data.value)
   });
+  laydate.render({
+	    elem: '#DateTimeInput' //指定元素
+	    ,type: 'datetime'
+	    ,format: 'yyyy-MM-dd HH:mm:ss'
+		,value: new Date()
+		,isInitValue: false
+	  });
 });
 </script>
 </body>

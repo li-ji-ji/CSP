@@ -1,13 +1,13 @@
 package cn.lhj.csp.admin.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
-public class AssoManagemrntDto implements Serializable {
+import cn.lhj.csp.admin.po.asso.CspAssoManagement;
+
+public class AssoManagemrntDto extends CspAssoManagement implements Serializable {
 	private Integer id;
 	private String assoId;
 	private String assoName;
@@ -16,7 +16,10 @@ public class AssoManagemrntDto implements Serializable {
 	private Integer assoGuiderId;
 	private String assoLeader;
 	private String assoAffiliateNo;
-	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+    private Date assoEstablishmentTime;
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
+    private Date assoModifyTime;
 	
 	public AssoManagemrntDto() {
 		super();

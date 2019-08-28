@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.lhj.csp.admin.dto.AssoSchoolUnitDto;
 import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
+import cn.lhj.csp.admin.po.asso.CspAssoSchoolUnit;
 
 @Controller
 @RequestMapping("/schoolUnit")
@@ -21,7 +22,7 @@ public class CspAssoSchoolUnitController {
 	//跳转到所有部门列表
 	@RequestMapping("/toSchoolUnitTable")
 	public String toSchoolUnitTable(Model model)throws Exception{
-		List<Object> schoolUnit=assoSchoolUnit.getUnitAll();
+		List<CspAssoSchoolUnit> schoolUnit=assoSchoolUnit.getUnitAll();
 		model.addAttribute("schoolUnit",schoolUnit);
 		return "ftl/asso/schoolUnit/Table";
 	}
@@ -29,7 +30,7 @@ public class CspAssoSchoolUnitController {
 	//根据学校跳转到附属部门列表
 	@RequestMapping("/toUnitOfSchoolTable")
 	public String toUnitOfSchoolTable(@RequestParam("schoolNo") String schoolNo,Model model)throws Exception{
-		List<Object> schoolUnit=assoSchoolUnit.getUnitByPNo(schoolNo);
+		List<CspAssoSchoolUnit> schoolUnit=assoSchoolUnit.getUnitByPNo(schoolNo);
 		model.addAttribute("schoolUnit",schoolUnit);
 		return "ftl/asso/schoolUnit/Table";
 	}
