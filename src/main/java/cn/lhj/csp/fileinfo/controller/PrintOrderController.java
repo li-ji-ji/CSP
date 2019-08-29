@@ -47,7 +47,7 @@ public class PrintOrderController {
 				map.addAttribute("operation", "update");
 			}
 			else if(operation.equals("insert")) {
-				printOrder=new PrintOrder(0,"","","","","",0,"",(float) 0.0, "","","","","","","");
+				printOrder=new PrintOrder(0,"",0,"","","","","","","","",0,"",(float) 0.0, "","","","","","","");
 				map.addAttribute("printOrder", printOrder);
 				map.addAttribute("operation", "insert");
 			}

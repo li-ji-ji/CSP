@@ -16,7 +16,7 @@
 			<legend>编辑打印订单信息</legend>
 		</fieldset>
 
-		<form class="layui-form" name="PrintOrder" action=""
+		<form class="layui-form" name="printOrder" action=""
 			lay-filter="example">
 
 			<div class="layui-form-item">
@@ -29,13 +29,54 @@
 					</div>
 					</#if>
 				</div>
-			</div>
-			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">订单号</label>
+					<div class="layui-input-inline">
+						<input type="tel" name="orderNo" value="${printOrder.orderNo }"
+							lay-verify="title" autocomplete="off" class="layui-input"
+							placeholder="请输入订单号">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">学生ID</label>
+					<div class="layui-input-inline">
+						<input type="tel" name="studentId" value="${printOrder.studentId}"
+							lay-verify="title" autocomplete="off" class="layui-input"
+							placeholder="请输入学生Id">
+					</div>
+				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">文件名字</label>
 					<div class="layui-input-inline">
 						<input type="tel" name="fileName" value="${printOrder.fileName }"
-							lay-verify="title" autocomplete="off" class="layui-input" placeholder="请输入文件名字">
+							lay-verify="title" autocomplete="off" class="layui-input"
+							placeholder="请输入文件名字">
+					</div>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-inline">
+					<label class="layui-form-label">颜色</label>
+					<div class="layui-input-inline">
+						<input type="tel" name="color" value="${printOrder.color }"
+							lay-verify="title" autocomplete="off" class="layui-input"
+							placeholder="请输入打印颜色">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">纸张尺寸</label>
+					<div class="layui-input-inline">
+						<input type="tel" name="paper" value="${printOrder.paper }"
+							lay-verify="title" autocomplete="off" class="layui-input"
+							placeholder="请输入纸张尺寸">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">单双面</label>
+					<div class="layui-input-inline">
+						<input type="tel" name="side" value="${printOrder.side }"
+							lay-verify="title" autocomplete="off" class="layui-input"
+							placeholder="请输入单双面">
 					</div>
 				</div>
 				<div class="layui-inline">
@@ -48,6 +89,8 @@
 						</select>
 					</div>
 				</div>
+			</div>
+			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">打印份数</label>
 					<div class="layui-input-inline">
@@ -56,8 +99,6 @@
 							autocomplete="off" class="layui-input" placeholder="请输入打印份数">
 					</div>
 				</div>
-			</div>
-			<div class="layui-form-item">
 				<div class="layui-inline">
 					<label class="layui-form-label">送达方式</label>
 					<div class="layui-input-inline" value="">
@@ -128,7 +169,7 @@
 							value="${printOrder.storeAddress}" autocomplete="off"
 							placeholder="请输入商家地址" class="layui-input">
 					</div>
-				</div>	
+				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">文件入径</label>
 					<div class="layui-input-block">
@@ -155,7 +196,18 @@
 				</div>
 				<div class="layui-inline">
 					<label class="layui-form-label">状态</label>
-					<div class="layui-input-block">
+					<div class="layui-input-inline" value="">
+						<select name="status" lay-verify="required" lay-search="">
+							<option value="${printOrder.status}">${printOrder.status}</option>
+							<option value="未支付">未支付</option>
+							<option value="已支付">已支付</option>
+							<option value="退款中">退款中</option>
+							<option value="退款成功">退款成功</option>
+							<option value="正在打印">正在打印</option>
+							<option value="完成打印">完成打印</option>
+						</select>
+					</div>
+					<!-- <div class="layui-input-block">
 						<#if printOrder.status=='正在进行中'> <input type="radio" name="status"
 							value="正在进行中" title="正在进行中" checked=""> <input
 							type="radio" name="status" value="已确认收货" title="已确认收货">
@@ -165,8 +217,8 @@
 						<#else> <input type="radio" name="status" value="正在进行中"
 							title="正在进行中" checked=""> <input type="radio"
 							name="status" value="已确认收货" title="已确认收货"> </#if>
-					</div>
-				</div>			
+					</div> -->
+				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">备注</label>
@@ -223,7 +275,7 @@
 																					data : data.field,
 																					dataType : 'JSON'
 																				});
-																		var link = '${base}/printOrder/list';
+																		var link = "${base}/printOrder/list";
 																		window.location.href = link;
 																	});
 													return false;

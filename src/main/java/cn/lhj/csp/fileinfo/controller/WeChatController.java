@@ -11,5 +11,10 @@ public class WeChatController {
 	public String upload() {
 		return "ftl/wxupload/upload";
 	}
+	
+	@RequestMapping("/printupload")
+	public String printupload() {
+		return "ftl/wxupload/printupload";
+	}
 
 }

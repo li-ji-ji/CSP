@@ -27,6 +27,7 @@ import cn.lhj.csp.fileinfo.po.FolderInfo;
 import cn.lhj.csp.fileinfo.po.PrintOrder;
 import cn.lhj.csp.fileinfo.po.PrintShop;
 import cn.lhj.csp.fileinfo.po.Printer;
+import cn.lhj.csp.fileinfo.po.PersonFileinfo;
 import feign.Headers;
 import feign.RequestLine;
 import feign.codec.Encoder;
@@ -79,7 +80,7 @@ public interface FileInfoApiInterface {
 	@RequestMapping("/api/printOrder/delete")
 	public void deletePrintOrder(@RequestParam(value = "id") Integer id);
 
-	@RequestMapping("/printOrder/update")
+	@RequestMapping("/api/printOrder/update")
 	public void updatePrintOrder(@RequestBody PrintOrder printOrder);
 
 	@RequestMapping("/api/printOrder/findById")
@@ -117,4 +118,26 @@ public interface FileInfoApiInterface {
 	
 	@RequestMapping("/api/printShop/findById")
 	public PrintShop findByIdPrintShop(@RequestParam(value = "id") Integer id);
+	
+	/**
+	 * 个人文件信息
+	 */
+	
+	@RequestMapping("/api/personFileInfo/getAll")
+	public List<PersonFileinfo> getAllPersonFileInfo();
+	
+	@RequestMapping("/api/personFileInfo/insert")
+	public String insertPersonFileInfo(@RequestBody PersonFileinfo personFileinfo);
+	
+	@RequestMapping("/api/personFileInfo/delete")
+	public String deletePersonFileInfo(@RequestParam("id") Integer id);
+	
+	@RequestMapping("/api/personFileInfo/update")
+	public String updatePersonFileInfo(@RequestBody PersonFileinfo personFileinfo);
+	
+	@RequestMapping("/api/personFileInfo/findById")
+	public PersonFileinfo findByIdPersonFileInfo(@RequestParam("id") Integer id);
+	
+	@RequestMapping("/api/personFileInfo/findByStudentId")
+	public List<PersonFileinfo> findByStudentIdPersonFileInfo(@RequestParam("studentId") Integer studentId);
 }

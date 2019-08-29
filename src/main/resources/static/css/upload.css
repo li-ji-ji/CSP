@@ -6,8 +6,7 @@ body {
 .up-bg {
 	position: absolute;
 	width: 100%;
-	top: 280px;
-	display: flex;
+	top: 100px;
 	justify-content: center;
 }
 

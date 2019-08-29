@@ -3,7 +3,17 @@ package cn.lhj.csp.fileinfo.po;
 public class PrintOrder {
     private Integer id;
 
+    private String orderNo;
+
+    private Integer studentId;
+
     private String fileName;
+
+    private String color;
+
+    private String paper;
+
+    private String side;
 
     private String printMode;
 
@@ -32,13 +42,23 @@ public class PrintOrder {
     private String status;
 
     private String filePath;
-    
-    public PrintOrder(Integer id, String fileName, String printMode, String printCopy, String deliveryMode,
-			String orderTime, Integer page, String isUrgent, Float price, String note, String contact, String mobile,
-			String storeAddress, String deliveryAddress, String status, String filePath) {
+
+    public PrintOrder() {
+		super();
+	}
+
+	public PrintOrder(Integer id, String orderNo, Integer studentId, String fileName, String color, String paper,
+			String side, String printMode, String printCopy, String deliveryMode, String orderTime, Integer page,
+			String isUrgent, Float price, String note, String contact, String mobile, String storeAddress,
+			String deliveryAddress, String status, String filePath) {
 		super();
 		this.id = id;
+		this.orderNo = orderNo;
+		this.studentId = studentId;
 		this.fileName = fileName;
+		this.color = color;
+		this.paper = paper;
+		this.side = side;
 		this.printMode = printMode;
 		this.printCopy = printCopy;
 		this.deliveryMode = deliveryMode;
@@ -63,12 +83,52 @@ public class PrintOrder {
         this.id = id;
     }
 
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo == null ? null : orderNo.trim();
+    }
+
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
     public String getFileName() {
         return fileName;
     }
 
     public void setFileName(String fileName) {
         this.fileName = fileName == null ? null : fileName.trim();
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color == null ? null : color.trim();
+    }
+
+    public String getPaper() {
+        return paper;
+    }
+
+    public void setPaper(String paper) {
+        this.paper = paper == null ? null : paper.trim();
+    }
+
+    public String getSide() {
+        return side;
+    }
+
+    public void setSide(String side) {
+        this.side = side == null ? null : side.trim();
     }
 
     public String getPrintMode() {
@@ -185,11 +245,12 @@ public class PrintOrder {
 
 	@Override
 	public String toString() {
-		return "PrintOrder [id=" + id + ", fileName=" + fileName + ", printMode=" + printMode + ", printCopy="
-				+ printCopy + ", deliveryMode=" + deliveryMode + ", orderTime=" + orderTime + ", page=" + page
-				+ ", isUrgent=" + isUrgent + ", price=" + price + ", note=" + note + ", contact=" + contact
+		return "PrintOrder [id=" + id + ", orderNo=" + orderNo + ", studentId=" + studentId + ", fileName=" + fileName
+				+ ", color=" + color + ", paper=" + paper + ", side=" + side + ", printMode=" + printMode
+				+ ", printCopy=" + printCopy + ", deliveryMode=" + deliveryMode + ", orderTime=" + orderTime + ", page="
+				+ page + ", isUrgent=" + isUrgent + ", price=" + price + ", note=" + note + ", contact=" + contact
 				+ ", mobile=" + mobile + ", storeAddress=" + storeAddress + ", deliveryAddress=" + deliveryAddress
 				+ ", status=" + status + ", filePath=" + filePath + "]";
 	}
-	
+
 }
