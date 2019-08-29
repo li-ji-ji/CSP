@@ -31,6 +31,7 @@
 								<th lay-data="{field:'orderNo', width:80}">订单号</th>
 								<th lay-data="{field:'studentId', width:80, sort:true}">学生ID</th>
 								<th lay-data="{field:'status', width:100}">状态</th>
+								<th lay-data="{field:'orderImage', width:100}">订单图片</th>
 								<th lay-data="{field:'fileName', width:100}">文件名字</th>
 								<th lay-data="{field:'color', width:100}">颜色</th>
 								<th lay-data="{field:'paper', width:100}">纸尺寸</th>
@@ -61,6 +62,7 @@
 								<td>${printOrder.orderNo}</td>
 								<td>${printOrder.studentId}</td>
 								<td>${printOrder.status}</td>
+								<td>${printOrder.orderImage}</td>
 								<td>${printOrder.fileName}</td>
 								<td>${printOrder.color}</td>
 								<td>${printOrder.paper}</td>

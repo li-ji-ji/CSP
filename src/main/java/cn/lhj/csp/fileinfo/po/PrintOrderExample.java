@@ -294,6 +294,76 @@ public class PrintOrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andOrderImageIsNull() {
+            addCriterion("order_image is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageIsNotNull() {
+            addCriterion("order_image is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageEqualTo(String value) {
+            addCriterion("order_image =", value, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageNotEqualTo(String value) {
+            addCriterion("order_image <>", value, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageGreaterThan(String value) {
+            addCriterion("order_image >", value, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageGreaterThanOrEqualTo(String value) {
+            addCriterion("order_image >=", value, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageLessThan(String value) {
+            addCriterion("order_image <", value, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageLessThanOrEqualTo(String value) {
+            addCriterion("order_image <=", value, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageLike(String value) {
+            addCriterion("order_image like", value, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageNotLike(String value) {
+            addCriterion("order_image not like", value, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageIn(List<String> values) {
+            addCriterion("order_image in", values, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageNotIn(List<String> values) {
+            addCriterion("order_image not in", values, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageBetween(String value1, String value2) {
+            addCriterion("order_image between", value1, value2, "orderImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderImageNotBetween(String value1, String value2) {
+            addCriterion("order_image not between", value1, value2, "orderImage");
+            return (Criteria) this;
+        }
+
         public Criteria andFileNameIsNull() {
             addCriterion("file_name is null");
             return (Criteria) this;

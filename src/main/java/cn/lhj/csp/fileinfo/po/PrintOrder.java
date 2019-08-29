@@ -7,6 +7,8 @@ public class PrintOrder {
 
     private Integer studentId;
 
+    private String orderImage;
+
     private String fileName;
 
     private String color;
@@ -47,14 +49,15 @@ public class PrintOrder {
 		super();
 	}
 
-	public PrintOrder(Integer id, String orderNo, Integer studentId, String fileName, String color, String paper,
-			String side, String printMode, String printCopy, String deliveryMode, String orderTime, Integer page,
-			String isUrgent, Float price, String note, String contact, String mobile, String storeAddress,
+	public PrintOrder(Integer id, String orderNo, Integer studentId, String orderImage, String fileName, String color,
+			String paper, String side, String printMode, String printCopy, String deliveryMode, String orderTime,
+			Integer page, String isUrgent, Float price, String note, String contact, String mobile, String storeAddress,
 			String deliveryAddress, String status, String filePath) {
 		super();
 		this.id = id;
 		this.orderNo = orderNo;
 		this.studentId = studentId;
+		this.orderImage = orderImage;
 		this.fileName = fileName;
 		this.color = color;
 		this.paper = paper;
@@ -97,6 +100,14 @@ public class PrintOrder {
 
     public void setStudentId(Integer studentId) {
         this.studentId = studentId;
+    }
+
+    public String getOrderImage() {
+        return orderImage;
+    }
+
+    public void setOrderImage(String orderImage) {
+        this.orderImage = orderImage == null ? null : orderImage.trim();
     }
 
     public String getFileName() {
@@ -245,12 +256,12 @@ public class PrintOrder {
 
 	@Override
 	public String toString() {
-		return "PrintOrder [id=" + id + ", orderNo=" + orderNo + ", studentId=" + studentId + ", fileName=" + fileName
-				+ ", color=" + color + ", paper=" + paper + ", side=" + side + ", printMode=" + printMode
-				+ ", printCopy=" + printCopy + ", deliveryMode=" + deliveryMode + ", orderTime=" + orderTime + ", page="
-				+ page + ", isUrgent=" + isUrgent + ", price=" + price + ", note=" + note + ", contact=" + contact
-				+ ", mobile=" + mobile + ", storeAddress=" + storeAddress + ", deliveryAddress=" + deliveryAddress
-				+ ", status=" + status + ", filePath=" + filePath + "]";
+		return "PrintOrder [id=" + id + ", orderNo=" + orderNo + ", studentId=" + studentId + ", orderImage="
+				+ orderImage + ", fileName=" + fileName + ", color=" + color + ", paper=" + paper + ", side=" + side
+				+ ", printMode=" + printMode + ", printCopy=" + printCopy + ", deliveryMode=" + deliveryMode
+				+ ", orderTime=" + orderTime + ", page=" + page + ", isUrgent=" + isUrgent + ", price=" + price
+				+ ", note=" + note + ", contact=" + contact + ", mobile=" + mobile + ", storeAddress=" + storeAddress
+				+ ", deliveryAddress=" + deliveryAddress + ", status=" + status + ", filePath=" + filePath + "]";
 	}
 
 }

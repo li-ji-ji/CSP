@@ -75,13 +75,13 @@ public interface FileInfoApiInterface {
 	public List<PrintOrder> getAllPrintOrder();
 
 	@RequestMapping("/api/printOrder/insert")
-	public void insertPrintOrder(@RequestBody PrintOrder printOrder);
+	public String insertPrintOrder(@RequestBody PrintOrder printOrder);
 
 	@RequestMapping("/api/printOrder/delete")
-	public void deletePrintOrder(@RequestParam(value = "id") Integer id);
+	public String deletePrintOrder(@RequestParam(value = "id") Integer id);
 
 	@RequestMapping("/api/printOrder/update")
-	public void updatePrintOrder(@RequestBody PrintOrder printOrder);
+	public String updatePrintOrder(@RequestBody PrintOrder printOrder);
 
 	@RequestMapping("/api/printOrder/findById")
 	public PrintOrder findByIdPrintOrder(@RequestParam(value = "id") Integer id);
