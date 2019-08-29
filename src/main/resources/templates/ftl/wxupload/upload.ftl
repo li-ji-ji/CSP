@@ -160,7 +160,7 @@
     		seconds = (time.getSeconds() < 10 ? ("0" + time
     				.getSeconds())
     				: time.getSeconds());
-        	var fileImage;
+        	var fileImage = "";
         	var index = fileName.lastIndexOf(".");
         	var suffix = fileName.substr(index+1);
         	console.log(suffix);
@@ -183,6 +183,9 @@
         		case 'docx':
         			fileImage='../../images/doc.png';
             		break;
+        		case 'pdf':
+            		fileImage='../../images/pdf.png';
+            		break;
         	}
     		//拼格式，如：2018-01-15 14:32:57
     		time = year + "-" + month + "-" + date
@@ -191,8 +194,8 @@
             var returnString = evt.srcElement.response;
             var returnObject = JSON.parse(returnString);
             var path = returnObject.data.src;
-            var page = returnObject.data.page;
-            if(page==0&&fileSize>0){
+            var page = Number(returnObject.data.page);
+            if(page==0&&fileSize!='0KB'){
 				page=1;
                 }
             status = 'true';
@@ -204,9 +207,9 @@
 				+ '","status":"' + status
 				+ '"}]';
         	var upJson = JSON.parse(upArray);
+        	console.log(upArray);
             uploadBtn.attr('disabled', false);
             console.log('上传完成');
-            console.log(upArray);
             wx.miniProgram.postMessage({
 											data : {
 												fileName : upJson
