@@ -1,0 +1,9 @@
+<van-card wx:for="{{newsList}}" lazy-load="true" wx:key="{{index}}" desc="{{item.newsPubdate}}" title="{{item.newsTitle}}"
+thumb="{{item.newsPicture}}" data-newsItem="{{item}}" bind:tap="item">
+      <view slot="footer">
+          <van-icon name="chat-o" custom-class="pinglun" size="1.5em"/>
+          <view class="pinglun">({{item.newsCommentCount}})</view>
+          <van-icon name="cross"  />
+          <view class="line"></view>
+      </view>
+    </van-card>

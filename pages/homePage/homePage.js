@@ -102,7 +102,7 @@ Page({
 		// 获得服务器上的数据
 		var that = this
 		wx.request({
-			url: "http://92.68.50.32:8206/api/file/api/printShop/getAll",
+			url: "https://qzimp.cn/api/file/api/printShop/getAll",
 			method: "GET",
 			header: {
 				'content-type': 'application/json' // 默认值

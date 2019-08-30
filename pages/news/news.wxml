@@ -5,14 +5,15 @@
   label="热搜"
   use-action-slot
   bind:search="onSearch"
+  bind:change="getValues"
   background="#13227a"
 >
-  <view slot="action" bind:tap="onSearch" class="search" >搜索</view>
+  <view slot="action" bind:tap="onSearchButton" class="search" >搜索</view>
 </van-search>
 
 <van-tabs  active="{{ active }}" animated="true" bind:change="onChange">
-  <van-tab wx:for="{{category}}" wx:key="{{index}}" lazy-load="true" title="{{item.categorytype}}">
-    <van-card wx:for="{{newsList}}" wx:key="{{index}}" desc="{{item.newsPubdate}}" title="{{item.newsTitle}}"
+  <van-tab wx:for="{{category}}" wx:key="{{index}}"  title="{{item.categorytype}}">
+    <van-card wx:for="{{newsList}}" lazy-load="true" wx:key="{{index}}" desc="{{item.newsPubdate}}" title="{{item.newsTitle}}"
 thumb="{{item.newsPicture}}" data-newsItem="{{item}}" bind:tap="item">
       <view slot="footer">
           <van-icon name="chat-o" custom-class="pinglun" size="1.5em"/>

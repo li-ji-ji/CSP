@@ -112,5 +112,14 @@
         </view>
       </view>
     </block>
+    <block wx:if="{{item.status==0}}">
+      <view class="flex-1">
+        <view class="flex-wrap detailsButton">
+          <button class="button-style flex-1" bind:tap="payAgain" data-orderId="{{item.orderId}}" data-status="{{item.status}}">
+            完成支付
+          </button>
+        </view>
+      </view>
+    </block>
   </block>
 </view>

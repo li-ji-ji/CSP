@@ -82,46 +82,77 @@ Page({
       content: '接单后如因您主观原因取消订单,则2小时内不能接单,如对方主观原因友好协商,让对方主动取消订单。此订单您可以赚到抽佣后的' + taskreward / 100 + '元,是否确定接单?',
       success: function (res) {
         if (res.confirm) {
-          var receiverid = that.data.user.id
           wx: wx.request({
-            url: 'http://244z00029g.zicp.vip/acceptTask',
+            url: 'https://qzimp.cn/api/task/getWallet',
             data: {
-              "taskid": taskid,
-              "receiverid": receiverid
+              "openid": that.data.user.wxopenid,
+              "id": that.data.user.id,
+              "name": that.data.user.name
             },
-            header: {
-              'content-type': 'application/x-www-form-urlencoded'
-            },
+            header: { 'content-type': 'application/x-www-form-urlencoded' },
             method: 'post',
             dataType: 'json',
             responseType: 'text',
             success: function (res) {
-              console.log(res.data)
-              if (res.data == true) {
-                wx: wx.showToast({
-                  title: '接单成功',
-                  icon: 'success',
-                  duration: 1500,
-                  mask: true,
+              console.log(res);
+              if (res.data != "fail") {
+                var receiverid = that.data.user.id
+                wx: wx.request({
+                  url: 'https://qzimp.cn/api/task/acceptTask',
+                  data: {
+                    "taskid": taskid,
+                    "receiverid": receiverid
+                  },
+                  header: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                  },
+                  method: 'post',
+                  dataType: 'json',
+                  responseType: 'text',
+                  success: function (res) {
+                    console.log(res.data)
+                    if (res.data == true) {
+                      wx: wx.showToast({
+                        title: '接单成功',
+                        icon: 'success',
+                        duration: 1500,
+                        mask: true,
+                      })
+                    } else {
+                      wx: wx.showToast({
+                        title: '您下手太慢',
+                        icon: 'none',
+                        duration: 1500,
+                        mask: true,
+                      })
+                    }
+                  },
+                  fail: function (res) {
+
+                  },
+                  complete: function (res) {
+
+                  },
+                })
+                wx.navigateBack({
+                  delta: 1
                 })
               } else {
-                wx: wx.showToast({
-                  title: '您下手太慢',
-                  icon: 'none',
-                  duration: 1500,
-                  mask: true,
+                wx.showToast({
+                  title: '接单失败,请重试!',
+                  icon: 'none'
                 })
               }
             },
             fail: function (res) {
-
+              wx.showToast({
+                title: '请求异常!',
+                icon: 'none'
+              })
             },
             complete: function (res) {
 
             },
-          })
-          wx.navigateBack({
-            delta: 1
           })
         } else if (res.cancel) {
           wx: wx.showToast({
@@ -162,7 +193,7 @@ Page({
   more: function (res) {
     var that = this;
     var taskStatus = res.currentTarget.dataset.status;
-    var status = res.currentTarget.dataset.status;//任务状态: 0 准备状态,1 发布状态, 2 被接单状态,3 已完成状态,4 已结算状态 5 取消状态
+    var status = res.currentTarget.dataset.status;//任务状态: 0 未付款状态,1 发布状态, 2 被接单状态,3 已完成状态,4 已结算状态 5 取消状态
     var identity = res.currentTarget.dataset.identity;//是否是发布者:false 接受者,true 发布者
     if (status == 1) { //发布状态
       if (identity) {
@@ -174,7 +205,7 @@ Page({
                 var orderNo = that.data.item.orderId
                 var refundFee = that.data.item.taskReward;
                 wx: wx.request({
-                  url: 'http://244z00029g.zicp.vip/cancelTask',
+                  url: 'https://qzimp.cn/api/task/cancelTask',
                   data: {
                     "orderNo": orderNo,
                     "refundFee": refundFee
@@ -186,8 +217,8 @@ Page({
                   dataType: 'json',
                   responseType: 'text',
                   success: function (res) {
-                    console.log(res)
-                    if (res.data.code == "SUCCESS") {
+                    console.log(res.data)
+                    if (res.data == "{code:SUCCESS}") {
                       wx: wx.showToast({
                         title: '订单取消成功',
                         icon: 'success',
@@ -265,7 +296,7 @@ Page({
                 var orderNo = that.data.item.orderId
                 var refundFee = that.data.item.taskReward;
                 wx: wx.request({
-                  url: 'http://244z00029g.zicp.vip/cancelTask',
+                  url: 'https://qzimp.cn/api/task/cancelTask',
                   data: {
                     "orderNo": orderNo,
                     "refundFee": refundFee
@@ -278,7 +309,7 @@ Page({
                   responseType: 'text',
                   success: function (res) {
                     console.log(res)
-                    if (res.data.code == "SUCCESS") {
+                    if (res.data == "{code:SUCCESS}") {
                       wx: wx.showToast({
                         title: '订单取消成功',
                         icon: 'success',
@@ -337,7 +368,7 @@ Page({
                 var orderNo = that.data.item.orderId
                 var refundFee = that.data.item.taskReward;
                 wx: wx.request({
-                  url: 'http://244z00029g.zicp.vip/cancelTask',
+                  url: 'https://qzimp.cn/api/task/cancelTask',
                   data: {
                     "orderNo": orderNo,
                     "refundFee": refundFee
@@ -349,8 +380,8 @@ Page({
                   dataType: 'json',
                   responseType: 'text',
                   success: function (res) {
-                    console.log(res)
-                    if (res.data.code == "SUCCESS") {
+                    console.log(res.data.code)
+                    if (res.data == "{code:SUCCESS}") {
                       wx: wx.showToast({
                         title: '订单取消成功',
                         icon: 'success',
@@ -421,7 +452,7 @@ Page({
       })
     } if (status == 4) { //结算状态
 
-    } if (status == 5) {
+    } if (status == 5 || status == 0) {
       wx.showActionSheet({
         itemList: ["联系客服"],
         success(res) {
@@ -452,7 +483,7 @@ Page({
       success(res) {
         if (res.confirm) {
           wx: wx.request({
-            url: 'http://244z00029g.zicp.vip/finishTask',
+            url: 'https://qzimp.cn/api/task/finishTask',
             data: {
               "taskId": taskid,
               "taskStatus": status,
@@ -508,7 +539,7 @@ Page({
       }
     })
   },
-  confirm:function(res){
+  confirm: function (res) {
     var that = this;
     var taskid = res.currentTarget.dataset.taskid
     wx.showModal({
@@ -571,5 +602,101 @@ Page({
       }
     })
 
+  },
+  payAgain: function (res) {
+    var that = this;
+    var orderId = res.currentTarget.dataset.orderid;
+    console.log(orderId)
+    wx.showModal({
+      title: '完成支付',
+      content: '是否支付改订单',
+      success(res) {
+        if (res.confirm) {
+          wx: wx.request({
+            url: 'https://qzimp.cn/api/task/payAgain',
+            data: {
+              "orderNo": orderId,
+            },
+            header: {
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'post',
+            dataType: 'json',
+            responseType: 'text',
+            success: function (res) {
+              if (res.data != "fail" && res.data != "订单超时,请重新下单") {
+                wx.requestPayment({
+                  timeStamp: res.data.timeStamp,
+                  nonceStr: res.data.nonceStr,
+                  package: res.data.package,
+                  signType: res.data.signType,
+                  paySign: res.data.paySign,
+                  success: function (res) {
+                    console.log(res);
+                    if (res.errMsg == "requestPayment:ok") {
+                      wx.navigateBack({
+                        delta: 1,
+                        success(res) {
+                          wx: wx.showToast({
+                            title: '支付完成',
+                            icon: 'success',
+                            duration: 1500,
+                            mask: true,
+                          })
+                        }
+                      })
+                    }
+                  },
+                  fail: function (res) {
+                    console.log(res)
+                    wx.showToast({
+                      title: '支付已取消!',
+                      image: '/images/Tpis.png',
+                    })
+                  },
+                  complete: function (res) {
+                    setTimeout(function () {
+                      wx.hideLoading()
+                    }, 2000)
+                  }
+                })
+              } else {
+                if (res.data =="订单超时,请重新下单"){
+                wx: wx.showToast({
+                  title: '订单已过期',
+                  image: '/images/Tpis.png',
+                  duration: 1500,
+                  mask: true,
+                })
+                }else{
+                  wx: wx.showToast({
+                    title: '支付失败!',
+                    image: '/images/Tpis.png',
+                    duration: 1500,
+                    mask: true,
+                  })
+                }
+              }
+            },
+            fail: function (res) {
+              wx: wx.showToast({
+                title: '请求异常,稍后再试',
+                image: '/images/Tpis.png',
+                duration: 1500,
+                mask: true,
+              })
+            },
+            complete: function (res) {
+
+            },
+          })
+        } else if (res.cancel) {
+          wx.showToast({
+            title: '取消支付!',
+            icon: "none"
+          })
+        }
+      }
+    })
   }
 })

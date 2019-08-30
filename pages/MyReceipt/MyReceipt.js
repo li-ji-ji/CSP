@@ -26,15 +26,13 @@ Page({
         long: that.data.originalData.length
       })
     }
-    var newDate = {};
-    var date = new Date();
     var taskList = [];
     var taskidList = [];
     var publisherList = [];
     for (var i = that.data.start; i < that.data.long; i++) {
       var task = { time: "", user: {}, status: 0, title: "", express: [], remarks: "", taskReward: "", taskId: 0, taskPublisher: "", taskType: 0, taskContext: "", images: "", orderId: "" };
-      newDate = JSON.parse(that.data.originalData[i].publishTime);
-      task.time = newDate.year + "-" + newDate.month + "-" + newDate.date + " " + newDate.hours + ":" + newDate.minutes;
+    
+      task.time = that.data.originalData[i].publishTime;
       task.user = {};
       task.status = that.data.originalData[i].taskStatus;
       task.title = that.data.originalData[i].taskTitle;
@@ -60,7 +58,7 @@ Page({
       })
     }
     wx: wx.request({
-      url: 'http://92.68.50.32:8206/api/auth/bg/studentapi/selectStudentBatch',
+      url: 'https://qzimp.cn/api/auth/bg/studentapi/selectStudentBatch',
       data: {
         "ids": JSON.stringify(publisherList)
       },
@@ -83,7 +81,7 @@ Page({
     })
 
     wx: wx.request({
-      url: 'http://244z00029g.zicp.vip/selectBySuperiortaskId',
+      url: 'https://qzimp.cn/api/task/selectBySuperiortaskId',
       data: {
         "ids": JSON.stringify(taskidList)
       },
@@ -112,7 +110,7 @@ Page({
     var that = this;
     var id = that.data.user.id
     wx: wx.request({
-      url: 'http://244z00029g.zicp.vip/taskByReceiver',
+      url: 'https://qzimp.cn/api/task/taskByReceiver',
       data: {
         "taskByReceiver": id
       },
@@ -213,14 +211,13 @@ Page({
       console.log(that.data.originalData)
 
 
-      var newDate = {};
-      var date = new Date();
+      
       var taskidList = [];
       var publisherList = [];
       for (var i = that.data.start; i < that.data.long; i++) {
         var task = { time: "", user: {}, status: 0, title: "", express: [], remarks: "", taskReward: "", taskId: 0, taskPublisher: "", taskType: 0, taskContext: "", images: "", orderId: "" };
-        newDate = JSON.parse(that.data.originalData[i].publishTime);
-        task.time = newDate.year + "-" + newDate.month + "-" + newDate.date + " " + newDate.hours + ":" + newDate.minutes;
+      
+        task.time = that.data.originalData[i].publishTime;
         task.user = {};
         task.status = that.data.originalData[i].taskStatus;
         task.title = that.data.originalData[i].taskTitle;
@@ -246,7 +243,7 @@ Page({
         })
       }
       wx: wx.request({
-        url: 'http://92.68.50.32:8206/api/auth/bg/studentapi/selectStudentBatch',
+        url: 'https://qzimp.cn/api/auth/bg/studentapi/selectStudentBatch',
         data: {
           "ids": JSON.stringify(publisherList)
         },
@@ -270,7 +267,7 @@ Page({
         }
       })
       wx: wx.request({
-        url: 'http://244z00029g.zicp.vip/selectBySuperiortaskId',
+        url: 'https://qzimp.cn/api/task/selectBySuperiortaskId',
         data: {
           "ids": JSON.stringify(taskidList)
         },

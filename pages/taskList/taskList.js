@@ -14,7 +14,7 @@ Page({
     taskidList: [],
     originalData: [],
     publisherList:[],
-    defaultImage:"https://csp-1257312123.cos.ap-guangzhou.myqcloud.com/1565868165413.png",
+    defaultImage:"",
     newData: [
     ],
     pptConfig: {
@@ -39,8 +39,6 @@ Page({
         long: that.data.originalData.length
       })
     }
-    var newDate = {};
-    var date = new Date();
     var taskList = [];
     var taskidList = [];
     var publisherList=[];
@@ -73,8 +71,7 @@ Page({
     })
     for (var i = that.data.start; i < that.data.long; i++) {
       var task = { time: "", user: {}, status: 0, title: "", express: [], remarks: "", taskReward: "", taskId: 0, taskPublisher: "", taskType: 0, taskContext: "", images: "", orderId:"" };
-      newDate = JSON.parse(that.data.originalData[i].publishTime);
-      task.time = newDate.year + "-" + newDate.month + "-" + newDate.date + " " + newDate.hours + ":" + newDate.minutes;
+      task.time = that.data.originalData[i].publishTime;
       task.user = {};
       task.status = that.data.originalData[i].taskStatus;
       task.title = that.data.originalData[i].taskTitle;
@@ -270,17 +267,11 @@ Page({
           long: that.data.originalData.length
         })
       }
-   
-
-
-      var newDate = {};
-      var date = new Date();
       var taskidList = [];
       var publisherList = [];
       for (var i = that.data.start; i < that.data.long; i++) {
         var task = { time: "", user: {}, status: 0, title: "", express: [], remarks: "", taskReward: "", taskId: 0, taskPublisher: "", taskType: 0, taskContext: "", images: "", orderId: "" };
-        newDate = JSON.parse(that.data.originalData[i].publishTime);
-        task.time = newDate.year + "-" + newDate.month + "-" + newDate.date + " " + newDate.hours + ":" + newDate.minutes;
+        task.time = that.data.originalData[i].publishTime;
         task.user = {};
         task.status = that.data.originalData[i].taskStatus;
         task.title = that.data.originalData[i].taskTitle;
@@ -398,7 +389,7 @@ Page({
   getNews: function () {
     var that = this;
     wx: wx.request({
-      url: 'http://qzimp.cn/api/assist/findAllNewsByType',
+      url: 'https://qzimp.cn/api/assist/findAllNewsByType',
       data: {
         "categoryType": "移动公告"
       },
@@ -462,7 +453,7 @@ Page({
   getDefaultImage:function() {
     var that = this;
     wx: wx.request({
-      url: 'http://qzimp.cn/api/assist/api/config/getSystemPicture',
+      url: 'https://qzimp.cn/api/assist/api/config/getSystemPicture',
       data: {
         "configKey":"系统图片"
       },

@@ -19,7 +19,8 @@
     "pages/orderList/orderList",
     "pages/aomunt/aomunt",
     "pages/up/up",
-    "pages/trade/trade"
+    "pages/trade/trade",
+    "pages/searchList/searchList"
   ],
   "window": {
     "backgroundTextStyle": "light",

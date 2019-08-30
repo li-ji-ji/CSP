@@ -16,28 +16,28 @@
     <view class="form-main ">
       <view class="flex-wrap form-item">
         <text class="flex-1 item-text">姓名</text>
-        <input name="name" type="text" class="flex-6 item-input" placeholder="请 输 入 姓 名"></input>
+        <input name="name" value="{{user.name}}" type="text" class="flex-6 item-input" placeholder="请 输 入 姓 名"></input>
       </view>
       <view class="flex-wrap form-item">
         <text class="flex-1 item-text">电话</text>
-        <input name="number" type="number" class="flex-6 item-input" placeholder="请 输 入 电 话"></input>
+        <input name="number" type="number" value="{{user.phone}}" class="flex-6 item-input" placeholder="请 输 入 电 话"></input>
       </view>
     </view>
     <block wx:for="{{formMain}}" wx:key="*this">
       <view class="form-main">
         <view class="flex-wrap form-item">
           <text class="flex-5 item-text">取件地址</text>
-          <input name="takeAddress{{index}}" type="text" class="flex-8 item-input-x1" placeholder="请 输 入 文 字"></input>
-          <picker mode="selector" class="flex-1">
+          <input name="takeAddress{{index}}" type="text" class="flex-8 item-input" placeholder="请 输 入 文 字"></input>
+          <!-- <picker mode="selector" class="flex-1">
             <image src="/images/down.png" class="image-20rx20r" />
-          </picker>
+          </picker> -->
         </view>
         <view class="flex-wrap form-item">
           <text class="flex-5 item-text">送达地点</text>
-          <input name="targetAddress{{index}}" type="text" value="{{isLocation}}" class="flex-8 item-input-x1" placeholder="请 输 入 文 字"></input>
-          <view mode="selector" class="flex-1" bind:tap="chooseLocation">
+          <input name="targetAddress{{index}}" value="{{user.dormitoryAdd}}" type="text"  class="flex-8 item-input" placeholder="请 输 入 文 字"></input>
+          <!-- <view mode="selector" class="flex-1" bind:tap="chooseLocation">
             <image class="flex-1" src="/images/down.png" class="image-20rx20r" />
-          </view>
+          </view> -->
         </view>
         <view class="accessInformation">
           <view class="flex-wrap form-item accessInformation-top">
@@ -72,11 +72,11 @@
     <view class="form-main ">
       <view class="flex-wrap form-item">
         <text class="flex-1 item-text">姓名</text>
-        <input name="name" type="text" class="flex-6 item-input" placeholder="请 输 入 姓 名"></input>
+        <input name="name" type="text" value="{{user.name}}" class="flex-6 item-input" placeholder="请 输 入 姓 名"></input>
       </view>
       <view class="flex-wrap form-item">
         <text class="flex-1 item-text">电话</text>
-        <input  name="number" type="number" class="flex-6 item-input" placeholder="请 输 入 电 话"></input>
+        <input  name="number" type="number"  value="{{user.phone}}" class="flex-6 item-input" placeholder="请 输 入 电 话"></input>
       </view>
     </view>
     <view class="form-main">

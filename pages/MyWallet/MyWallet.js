@@ -18,40 +18,8 @@ Page({
     that.setData({
       user:user
     })
-    wx: wx.request({
-      url: 'http://244z00029g.zicp.vip/getWallet',
-      data: {
-        "openid": that.data.user.wxopenid,
-        "id":that.data.user.id,
-        "name": that.data.user.name
-      },
-      header: { 'content-type': 'application/x-www-form-urlencoded' },
-      method: 'post',
-      dataType: 'json',
-      responseType: 'text',
-      success: function (res) {
-        console.log(res);
-        if(res.data!="fail"){
-          that.setData({
-            wallet: res.data
-          })
-        }else{
-          wx.showToast({
-            title: '找不到钱包,稍后再试',
-            icon: 'none'
-          })
-        }
-      },
-      fail: function (res) {
-        wx.showToast({
-          title: '请求异常!',
-          icon: 'none'
-        })
-      },
-      complete: function (res) {
-
-      },
-    })
+    var refresh=that.refresh();
+    refresh;
   },
 
   /**
@@ -86,7 +54,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+    var that=this;
+    var refresh = that.refresh();
+    refresh;
   },
 
   /**
@@ -101,6 +71,43 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  refresh:function(){
+    var that=this;
+    wx: wx.request({
+      url: 'https://qzimp.cn/api/task/getWallet',
+      data: {
+        "openid": that.data.user.wxopenid,
+        "id": that.data.user.id,
+        "name": that.data.user.name
+      },
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res);
+        if (res.data != "fail") {
+          that.setData({
+            wallet: res.data
+          })
+        } else {
+          wx.showToast({
+            title: '找不到钱包,稍后再试',
+            icon: 'none'
+          })
+        }
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '请求异常!',
+          icon: 'none'
+        })
+      },
+      complete: function (res) {
+
+      },
+    })
   }
 
 })

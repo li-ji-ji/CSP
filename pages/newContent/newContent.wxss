@@ -3,6 +3,7 @@
     justify-content: space-around;
 
 }
+
 .title-wrap{
     padding: 50rpx;
     text-align: center;
@@ -10,9 +11,15 @@
     font-size: 40rpx;
 }
 .information{
-    padding: 50rpx;
+    padding: 30rpx;
     color: #c0c0c0;
     font-size: 28rpx;
+}
+.comment{
+   flex-direction: column;
+    justify-content: space-around;
+   border-top: #efefef solid 10rpx;
+   margin-bottom: 150rpx;
 }
 .author{
     text-align: left;
@@ -21,9 +28,89 @@
     text-align:right;
 }
 
-.one-p{
-    width: 78%;
+.list-item-user {
+   padding: 40rpx 40rpx 20rpx 40rpx;
 }
+.comment-wrap{
+   justify-content: space-between;
+}
+.user-content {
+   margin: 0 0 0 40rpx;
+}
+
+.user-content-top {
+
+}
+.user-content-bottom{
+   margin: 5rpx 0 5rpx 0;
+}
+
+.top-userName {
+   font-weight: bold;
+   font-size: 28rpx;
+}
+
+.user-sex {
+   margin: 0 0 0 20rpx;
+   height: 40rpx;
+   width: 40rpx;
+}
+
+.user-bottom-time {
+   font-size: 23rpx;
+   color: rgb(201, 201, 201);
+}
+
+.user-bottom-school {
+   font-size: 23rpx;
+   color: rgb(201, 201, 201);
+}
+
+.icon {
+   width: 100rpx;
+   height: 110rpx;
+   border-radius: 50%;
+   overflow: hidden;
+}
+.user-content {
+   flex-direction: column;
+   justify-content: space-between;
+}
+.comment-text{
+   width: 100%;
+   font-size: 28rpx;
+}
+.form-comment{
+   font-size: 31rpx;
+   position: fixed;
+   width: 100%;
+   bottom: 0rpx;
+   z-index: 100;
+ }
+ .comment-warp{
+    padding: 20rpx 40rpx 20rpx 40rpx;
+    background: #ffffff;
+ }
+ .comment-input{
+    border-radius: 30rpx;
+    font-size: 23rpx;
+    padding: 10rpx;
+    background: #efefef;
+    margin-right: 40rpx;
+ }
+ .submit{
+   border-radius: 30rpx;
+    font-size: 23rpx;
+   background-color: #FFFF00;
+   border: #F4C400 solid 1rpx;
+ }
+ .comment-tips{
+    margin-top: 20rpx;
+    text-align: center;
+ }
+
+
+
 
 
 

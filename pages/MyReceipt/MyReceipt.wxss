@@ -57,6 +57,9 @@ page {
 .task-status {
    height: 40rpx;
 }
+.task-status-noPay{
+   height: 93rpx;
+}
 
 .list-item-task {
    padding: 40rpx 40rpx 40rpx 40rpx;

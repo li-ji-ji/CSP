@@ -10,7 +10,51 @@
         <rich-text space="ensp" nodes="{{newContent.newsContent}}"></rich-text>
     </view>
     <view class="flex-wrap information">
-        <text class="flex-1"></text>
+        <text class="flex-1">评论数:{{comments.length}}</text>
         <text class="flex-1 time">阅读量:{{newContent.newsHits}}</text>
     </view>
+    <view class="comment">
+        <block wx:for="{{commentors}}" wx:key="{{index}}">
+            <view class="flex-wrap list-item-user flex-1">
+                <image src="{{item.hurl}}" class="icon flex-1" data-hurl="{{item.hurl}}" catch:tap="lookImages" />
+                <view class="user-content flex-wrap flex-5">
+                    <view class="user-content-top flex-wrap">
+                        <text class="top-userName">{{item.wxname}}</text>
+                        <block wx:if="{{user.sex==2}}">
+                            <image src="/images/woman.png" class="user-sex" />
+                        </block>
+                        <block wx:if="{{user.sex!=2}}">
+                            <image src="/images/man.png" class="user-sex" />
+                        </block>
+                    </view>
+                    <view class="user-content-bottom flex-wrap">
+                        <text class="user-bottom-time flex-1">{{comments[index].commentTime}}</text>
+                        <text class="user-bottom-school flex-1">
+                            {{item.school}}20{{item.grade}}级
+                        </text>
+                    </view>
+                    <view class="commentContent flex-wrap">
+                        <text class="comment-text">{{comments[index].commentContent}}</text>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:if="{{comments.length<=0}}">
+            <view class="commentContent flex-wrap">
+                <text class="comment-tips flex-1">暂无评论</text>
+            </view>
+        </block>
+    </view>
+    <form class="form-comment" bindsubmit="commentSumbmit">
+        <view class="comment-warp flex-wrap">
+            <input hidden="true" value="{{newContent.id}}"  name="newsId"/>
+            <input hidden="true" value="{{user.id}}"  name="commentorId"/>
+            <input hidden="true" value="{{user.name}}"  name="commentorName"/>
+            <input hidden="true" value=""  name="commentTime"/>
+            <input hidden="true" value="1"  name="commentStatus"/>
+            <input hidden="true" value="0"  name="commentLikenum"/>
+            <input class="flex-5 comment-input" type="text" name="commentContent" value="{{detail}}" placeholder="评论内容不能为空,最长不超过25个字"></input>
+            <button class="flex-1 submit" form-type="submit">评论</button>
+        </view>
+    </form>
 </view>

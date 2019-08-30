@@ -1,20 +1,67 @@
 <swiper class="ppt" indicator-dots="{{pptConfig.indicatordots}}" autoplay="{{pptConfig.autoplay}}" interval="{{pptConfig.interval}}" duration="{{pptConfig.duration}}">
-  <block wx:for="{{newData}}" wx:if="{{index<6}}" wx:key="index" >
+  <block wx:for="{{newData}}" wx:if="{{index<6}}" wx:key="index">
     <swiper-item class="ppt-item">
-        <image wx:if="{{item.newsPicture}}" src="{{item.newsPicture}}" class="ppt-image" bind:tap="details" data-index="index" data-new="{{item}}"/>
+    <block wx:if="{{item.newsPicture}}">
+    <image src="{{item.newsPicture}}" class="ppt-image" bind:tap="details" data-index="index" data-new="{{item}}" />
+    </block>
+    <block wx:if="{{item.newsPicture.length<=0}}">
+    <image src="{{defaultImage}}" class="ppt-image" bind:tap="details" data-index="index" data-new="{{item}}" />
+    </block>
     </swiper-item>
   </block>
 </swiper>
 <view class="flex-wrap-column topNav-wrap">
   <view class="flex-wrap topNav flex-1">
-    <text class="topNav-item flex-1" bind:tap="printCenter">打印中心</text>
-    <text class="topNav-item flex-1" bind:tap="newsCenter">新闻中心</text>
-    <text class="topNav-item flex-1">知识产权中心</text>
+    <view class="topNav-item flex-wrap flex-1" bind:tap="printCenter">
+      <view class="flex-wrap topNav-icon-wrap">
+        <image class="topNav-icon" src="/images/printCenter.png" />
+      </view>
+      <view class="flex-wrap topNav-icon-wrap">
+        <text class="topNav-text">打印中心</text>
+      </view>
+    </view>
+    <view class="topNav-item flex-wrap flex-1" bind:tap="newsCenter">
+      <view class="flex-wrap topNav-icon-wrap">
+        <image class="topNav-icon" src="/images/newsCenter.png" />
+      </view>
+      <view class="flex-wrap topNav-icon-wrap">
+        <text class="topNav-text">新闻中心</text>
+      </view>
+    </view>
+    <view class="topNav-item flex-wrap flex-1">
+      <view class="flex-wrap topNav-icon-wrap">
+        <image class="topNav-icon" src="/images/intellectualCenter.png" />
+      </view>
+      <view class="flex-wrap topNav-icon-wrap">
+        <text class="topNav-text">知识产权中心</text>
+      </view>
+    </view>
   </view>
   <view class="flex-wrap topNav flex-1">
-    <text class="topNav-item flex-1">学生服务中心</text>
-    <text class="topNav-item flex-1">教师中心</text>
-    <text class="topNav-item flex-1">开发中心</text>
+    <view class="topNav-item flex-wrap flex-1">
+      <view class="flex-wrap topNav-icon-wrap">
+        <image class="topNav-icon" src="/images/studentCenter.png" />
+      </view>
+      <view class="flex-wrap topNav-icon-wrap">
+        <text class="topNav-text">学生服务中心</text>
+      </view>
+    </view>
+    <view class="topNav-item flex-wrap flex-1">
+      <view class="flex-wrap topNav-icon-wrap">
+        <image class="topNav-icon" src="/images/teacherCenter.png" />
+      </view>
+      <view class="flex-wrap topNav-icon-wrap">
+        <text class="topNav-text">教师中心</text>
+      </view>
+    </view>
+    <view class="topNav-item flex-wrap flex-1">
+      <view class="flex-wrap topNav-icon-wrap">
+        <image class="topNav-icon" src="/images/DevelopmentCenter.png" />
+      </view>
+      <view class="flex-wrap topNav-icon-wrap">
+        <text class="topNav-text">开发中心</text>
+      </view>
+    </view>
   </view>
 </view>
 <block wx:for="{{taskList}}" wx:key="index">
@@ -24,7 +71,12 @@
       <view class="user-content flex-wrap flex-5">
         <view class="user-content-top flex-wrap">
           <text class="top-userName">{{item.user.wxname}}</text>
-          <image src="/images/man.png" class="user-sex" />
+          <block wx:if="{{user.sex==2}}">
+            <image src="/images/woman.png" class="user-sex" />
+          </block>
+          <block wx:if="{{user.sex!=2}}">
+            <image src="/images/man.png" class="user-sex" />
+          </block>
         </view>
         <view class="user-content-bottom flex-wrap">
           <text class="user-bottom-time flex-1">{{item.time}}</text>
@@ -50,7 +102,7 @@
     <block wx:if="{{item.taskType==2}}">
       <view class="flex-wrap imagesContext" catch:tap="lookContentImage" data-contentImages="{{item.images}}">
         <block wx:for="{{item.images}}" wx:key="index">
-          <image src="{{item}}" class="imagesItem" bind:tap="imagesItem" data-imagesItem="{{item}}"/>
+          <image src="{{item}}" class="imagesItem" bind:tap="imagesItem" data-imagesItem="{{item}}" />
         </block>
       </view>
     </block>

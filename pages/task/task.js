@@ -291,97 +291,66 @@ Page({
     console.log(images.length)
     var superiortaskId = 0;
     if (number != "" && name != "" && taskPublisher != "" && title != "" && taskStatus != "" && textContent != "") {
-      getNewdate;
-      publishTime = that.data.newTime;
-      var taskJson = {
-        "images":images,
-        "publisherName": name,
-        "publisherNumber": number,
-        "publishTime": publishTime,
-        "taskReward": taskReward,
-        "taskPublisher": taskPublisher,
-        "taskRemarks":"",
-        "taskStatus": "0",
-        "taskTitle": title,
-        "taskType": taskType,
-        "taskContext": textContent      
-      };
-      console.log(taskJson);
-      taskJson = JSON.stringify(taskJson);
-      wx.navigateTo({
-        url: '/pages/Settlement/Settlement?taskJson=' + taskJson,
-      })
-      // if (images.length > 0) {
-      //   var uploadImage=[];
-      //   var imageList=[];
-      //   for (var i = 0; i < images.length; i++) {
-      //     uploadImage[i] = new Promise(resolve =>{
-      //        wx.uploadFile({
-      //         url: 'https://qzimp.cn/api/file/file/upload', //仅为示例，非真实的接口地址
-      //         filePath: images[i],
-      //         name: 'file',
-      //         success(res) {
-      //           // console.log(res);
-      //           var objImages = JSON.parse(res.data).data;
-      //           // console.log(objImages.src);
-      //           resolve(objImages.src);
-      //         }
-      //       })
-      //     })
-      //   }
-      //   Promise.all(uploadImage).then(function (res) { 
-      //     taskJson.images='"'+JSON.stringify(res)+'"';
-      //     var taskJsonStr = JSON.stringify(taskJson);
-      //     wx: wx.request({
-      //       url: 'https://qzimp.cn/api/task/PublishingTasks',
-      //       data: taskJsonStr,
-      //       header: { 'content-type': 'application/json' },
-      //       method: 'post',
-      //       dataType: 'json',
-      //       responseType: 'text',
-      //       success: function (res) {
-      //         if (res.data > 0) {
-      //           wx: wx.showToast({
-      //             title: '下单成功!',
-      //             icon: 'success',
-      //             duration: 1500,
-      //             mask: true,
-      //             success: function (res) { },
-      //             fail: function (res) { },
-      //             complete: function (res) { },
-      //           })
-      //         }
-      //       },
-      //       fail: function (res) { },
-      //       complete: function (res) { },
-      //     })
-      //     });
-      // }else{
-      //   var taskJsonStr = JSON.stringify(taskJson);
-      //   wx: wx.request({
-      //     url: 'https://qzimp.cn/api/task/PublishingTasks',
-      //     data: taskJsonStr,
-      //     header: { 'content-type': 'application/json' },
-      //     method: 'post',
-      //     dataType: 'json',
-      //     responseType: 'text',
-      //     success: function (res) {
-      //       if (res.data > 0) {
-      //         wx: wx.showToast({
-      //           title: '下单成功!',
-      //           icon: 'success',
-      //           duration: 1500,
-      //           mask: true,
-      //           success: function (res) { },
-      //           fail: function (res) { },
-      //           complete: function (res) { },
-      //         })
-      //       }
-      //     },
-      //     fail: function (res) { },
-      //     complete: function (res) { },
-      //   })
-      // }
+      if(images.length>0){
+        var uploadImage = [];
+        var imageList=[];
+        for (var i = 0; i < images.length; i++) {
+          uploadImage[i] = new Promise(resolve =>{
+             wx.uploadFile({
+               url: 'https://qzimp.cn/api/file/uploadFile', //仅为示例，非真实的接口地址
+              filePath: images[i],
+              name: 'file',
+              success(res) {
+                // console.log(res);
+                var objImages = JSON.parse(res.data).data;
+                // console.log(objImages.src);
+                resolve(objImages.src);
+              }
+            })
+          })
+        }
+        Promise.all(uploadImage).then(function (res) {
+          getNewdate;
+          publishTime = that.data.newTime;
+          var taskJson = {
+            "images": images,
+            "publisherName": name,
+            "publisherNumber": number,
+            "publishTime": publishTime,
+            "taskReward": taskReward,
+            "taskPublisher": taskPublisher,
+            "taskRemarks": "",
+            "taskStatus": "0",
+            "taskTitle": title,
+            "taskType": taskType,
+            "taskContext": textContent
+          };
+          console.log(taskJson);
+          taskJson.images=res;
+          var taskJson = JSON.stringify(taskJson);
+          wx.navigateTo({
+            url: '/pages/Settlement/Settlement?taskJson=' + taskJson,
+          })
+          });
+      }else{
+        var taskJson = {
+          "images": images,
+          "publisherName": name,
+          "publisherNumber": number,
+          "publishTime": publishTime,
+          "taskReward": taskReward,
+          "taskPublisher": taskPublisher,
+          "taskRemarks": "",
+          "taskStatus": "0",
+          "taskTitle": title,
+          "taskType": taskType,
+          "taskContext": textContent
+        };
+        taskJson = JSON.stringify(taskJson);
+        wx.navigateTo({
+          url: '/pages/Settlement/Settlement?taskJson=' + taskJson,
+        })
+      }
     }
   },
   getNewDate: function () {

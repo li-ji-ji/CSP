@@ -5,6 +5,7 @@ const app = getApp()
 Page({
   data: {
     active:0,
+    value:'',
     category:[],
     newsList:[],
     type:'',
@@ -215,6 +216,85 @@ Page({
         }
       })
     }
+  },
+  onSearch(event){
+    console.log(event);
+    if (event.detail.length > 0 && event.detail!=""){
+      wx: wx.request({
+        url: 'http://qzimp.cn/api/assist/findAllNewsByNewsKeywordLike',
+        data: {
+          newsKeyword: event.detail
+        },
+        header: { 'content-type': 'application/x-www-form-urlencoded' },
+        method: 'post',
+        dataType: 'json',
+        responseType: 'text',
+        success: function (res) {
+          console.log(res)
+          wx.showToast({
+            title: '搜索成功',
+            image: '/images/success.png',
+          })
+          var newList = res.data
+          wx.setStorage({
+            key: 'newsList',
+            data: newList,
+          })
+          wx.navigateTo({
+            url: '/pages/searchList/searchList'
+          })
+        },
+      })
+    }else{
+      wx.showToast({
+        title: '搜索错误!',
+        image:'/images/Tpis.png'
+      })
+    }
+  },
+  getValues:function(res){
+    var that=this;
+    that.setData({
+      value: res.detail
+    })
+  },
+  onSearchButton(){
+    var that=this;
+    var values=that.data.value;
+    console.log(values)
+    if (values.length > 0 && values != "") {
+    wx: wx.request({
+      url: 'http://qzimp.cn/api/assist/findAllNewsByNewsKeywordLike',
+      data: {
+        newsKeyword: values
+      },
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
+      method: 'post',
+      dataType: 'json',
+      responseType: 'text',
+      success: function (res) {
+        console.log(res)
+        wx.showToast({
+          title: '搜索成功',
+          image: '/images/success.png',
+        })
+        var newList = res.data
+        wx.setStorage({
+          key: 'newsList',
+          data: newList,
+        })
+        wx.navigateTo({
+          url: '/pages/searchList/searchList'
+        })
+      },
+    })
+    } else {
+      wx.showToast({
+        title: '搜索错误!',
+        image: '/images/Tpis.png'
+      })
+    }
+
   }
 
 })

@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+      "van-card": "/wxcomponents/vant/dist/card/index",
+      "van-icon": "/wxcomponents/vant/dist/icon/index"
+  },
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "搜索列表",
+  "navigationBarTextStyle": "black"
+}
