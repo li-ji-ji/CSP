@@ -18,7 +18,6 @@
 
 		<form class="layui-form" name="printOrder" action=""
 			lay-filter="example">
-
 			<div class="layui-form-item">
 				<div class="layui-inline">
 					<#if printOrder.id != 0> <label class="layui-form-label">id</label>
@@ -150,6 +149,14 @@
 						<input type="text" name="price" lay-verify="title"
 							value="${printOrder.price}" autocomplete="off"
 							placeholder="请输入价格" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-inline">
+					<label class="layui-form-label">订单图片</label>
+					<div class="layui-input-block">
+						<input type="text" name="orderImage" lay-verify="title"
+							value="${printOrder.orderImage}" autocomplete="off"
+							placeholder="请输入订单图片" class="layui-input">
 					</div>
 				</div>
 			</div>

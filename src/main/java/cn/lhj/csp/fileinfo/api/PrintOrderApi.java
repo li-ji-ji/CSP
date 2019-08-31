@@ -45,5 +45,10 @@ public class PrintOrderApi {
 		public PrintOrder findById(Integer id) {
 			return fileInfoApiInterface.findByIdPrintOrder(id);
 		}
+		
+		@RequestMapping("/api/printOrder/selectByOrderNo")
+		public PrintOrder selectByOrderNoPrintOrder(String orderNo) {
+			return fileInfoApiInterface.selectByOrderNoPrintOrder(orderNo);
+		}
 
 }

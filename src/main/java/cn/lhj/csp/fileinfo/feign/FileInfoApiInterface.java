@@ -84,8 +84,11 @@ public interface FileInfoApiInterface {
 	public String updatePrintOrder(@RequestBody PrintOrder printOrder);
 
 	@RequestMapping("/api/printOrder/findById")
-	public PrintOrder findByIdPrintOrder(@RequestParam(value = "id") Integer id);
-
+	public PrintOrder findByIdPrintOrder(@RequestParam("id") Integer id);
+	
+	@RequestMapping("/api/printOrder/selectByOrderNo")
+	public PrintOrder selectByOrderNoPrintOrder(@RequestParam("orderNo")String orderNo);
+	
 	@RequestMapping("/api/printer/getAll")
 	public List<Printer> getAllPrinter();
 	

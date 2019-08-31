@@ -11,9 +11,19 @@
 </head>
 
 <body>
-	<div class="layui-btn-group demoTable" style="margin: 1% 0 0 1.1%;">
-		<!-- <button class="layui-btn" data-type="insert">添加打印订单信息</button> -->
-	</div>
+	<!-- <div class="layui-btn-group demoTable" style="margin: 1% 0 0 1.1%;">
+		<button class="layui-btn" data-type="insert">添加打印订单信息</button>
+	</div> -->
+		<div class="layui-form-item" style="margin: 1% 0 0 1.1%;">
+			<div class="layui-input-inline">
+				<input id="orderNo" type="text" name="title" lay-verify="title"
+					autocomplete="off" placeholder="请输入订单号" class="layui-input">
+			</div>
+			<div class="demoTable">
+				<button class="layui-btn" data-type="selectOrder">查询订单号</button>
+				<button class="layui-btn" data-type="bulkDelete">批量删除</button>
+			</div>
+		</div>
 	<div class="layui-tab layui-tab-card">
 		<ul class="layui-tab-title">
 			<li class="layui-this">打印订单信息</li>
@@ -22,7 +32,7 @@
 			<!--打印订单信息 -->
 			<div class="layui-tab-item layui-show">
 				<div class="layui-card-body" style="margin: -30px 0px 0px -25px;">
-					<table class="layui-table" lay-data="{height:472, page:true}"
+					<table id="idTest" class="layui-table" lay-data="{height:472, page:true}"
 						lay-filter="demo">
 						<thead>
 							<tr>
@@ -47,7 +57,7 @@
 								<th lay-data="{field:'contact', width:100}">联系方式</th>
 								<th lay-data="{field:'mobile', width:100}">商家电话</th>
 								<th lay-data="{field:'storeAddress', width:100}">商家地址</th>
-								<th lay-data="{field:'deliveryAddress', width:100}">送达地址</th>								
+								<th lay-data="{field:'deliveryAddress', width:100}">送达地址</th>
 								<th lay-data="{field:'filePath', width:100}">文件入径</th>
 								<th
 									lay-data="{field:'操作栏',fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">
@@ -88,7 +98,7 @@
 			</div>
 		</div>
 	</div>
-<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="${base}/js/jquery-3.3.1.js"></script>
 	<script src="${base}/js/plugins/layui/layui.all.js"></script>
 	<script src="${base}/js/plugins/layui/layui.js"></script>
 	<script type="text/html" id="barDemo">
@@ -99,60 +109,66 @@
 
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 	<script>
-		layui
-				.use(
-						'table',
-						function() {
-							var table = layui.table, form = layui.form;
-							//监听表格复选框选择
-							table.on('checkbox(demo)', function(obj) {
-								console.log(obj)
-							});
-							//监听工具条
-							table
-									.on(
-											'tool(demo)',
-											function(obj) {
-												var data = obj.data;
-												if (obj.event === 'del') {
-													var id = data['id'];
-													layer
-															.confirm(
-																	'真的删除行么',
-																	function(
-																			index) {
-																		obj
-																				.del();
-																		layer
-																				.close(index);
-																		var link = "${base}/fileinfo/list?operation=delete&id="
-																				+ id;
-																		window.location.href = link;
-																	});
-												} else if (obj.event === 'edit') {
-													var id = data['id'];
-													var link = "${base}/printOrder/edit?operation=update&id="
-															+ id;
-													window.location.href = link;
-												}else if (obj.event === 'download') {
-													var filePath = data['filePath'];
-													var link = filePath;
-													window.location.href = link;
-												}
-											});
+		layui.use('table', function() {
+			var table = layui.table, form = layui.form;
+			//监听表格复选框选择
+			table.on('checkbox(demo)', function(obj) {
+				console.log(obj)
+			});
+			//监听工具条
+			table.on('tool(demo)', function(obj) {
+				var data = obj.data;
+				if (obj.event === 'del') {
+					var id = data['id'];
+					layer.confirm('真的删除行么', function(index) {
+						obj.del();
+						layer.close(index);
+						var link = "${base}/fileinfo/list?operation=delete&id="
+								+ id;
+						window.location.href = link;
+					});
+				} else if (obj.event === 'edit') {
+					var id = data['id'];
+					var link = "${base}/printOrder/edit?operation=update&id="
+							+ id;
+					window.location.href = link;
+				} else if (obj.event === 'download') {
+					var filePath = data['filePath'];
+					var link = filePath;
+					window.location.href = link;
+				}
+			});
 
-							var $ = layui.$, active = {
-								insert : function() { //获取选中数据
-									var link = "${base}/printOrder/edit?operation=insert";
-									window.location.href = link;
-								}
-							};
-
-							$('.demoTable .layui-btn').on('click', function() {
-								var type = $(this).data('type');
-								active[type] ? active[type].call(this) : '';
-							});
+			var $ = layui.$, active = {
+				insert : function() { //获取选中数据
+					var link = "${base}/printOrder/edit?operation=insert";
+					window.location.href = link;
+				},
+				selectOrder : function() {
+					var orderNo=document.getElementById('orderNo').value;
+					var link = "${base}/printOrder/list?orderNo="+orderNo;
+					window.location.href = link;
+				},
+				bulkDelete : function(){
+					var checkStatus = table.checkStatus('idTest'),data = checkStatus.data;
+					for(var i = 0;i<data.length;i++){		
+						var id = parseInt(data[i].id);
+						$
+						.ajax({
+							url : '${base}/api/printOrder/delete?id='+id,
+							method : 'get',
 						});
+					}
+					var link = "${base}/printOrder/list";
+					window.location.href = link;
+					}
+			};
+
+			$('.demoTable .layui-btn').on('click', function() {
+				var type = $(this).data('type');
+				active[type] ? active[type].call(this) : '';
+			});
+		});
 	</script>
 </body>
 </html>
