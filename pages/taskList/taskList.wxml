@@ -67,7 +67,7 @@
 <block wx:for="{{taskList}}" wx:key="index">
   <view class="list-item flex-wrap" bind:tap="taskDetails" data-task="{{item}}">
     <view class="flex-wrap list-item-user flex-1">
-      <image src="{{item.user.hurl}}" class="icon flex-1" data-hurl="{{item.user.hurl}}" catch:tap="lookImages" />
+      <image wx:if="{{item.user.hurl}}" src="{{item.user.hurl}}" class="icon flex-1" data-hurl="{{item.user.hurl}}" catch:tap="lookImages" />
       <view class="user-content flex-wrap flex-5">
         <view class="user-content-top flex-wrap">
           <text class="top-userName">{{item.user.wxname}}</text>
