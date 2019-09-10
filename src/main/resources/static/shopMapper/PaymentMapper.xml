@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yzj.shop.mapper.PaymentMapper" >
+  <resultMap id="BaseResultMap" type="cn.yzj.shop.po.Payment" >
+    <id column="pay_id" property="payId" jdbcType="TINYINT" />
+    <result column="pay_code" property="payCode" jdbcType="VARCHAR" />
+    <result column="pay_name" property="payName" jdbcType="VARCHAR" />
+    <result column="pay_fee" property="payFee" jdbcType="VARCHAR" />
+    <result column="pay_order" property="payOrder" jdbcType="TINYINT" />
+    <result column="enabled" property="enabled" jdbcType="BIT" />
+    <result column="is_cod" property="isCod" jdbcType="BIT" />
+    <result column="is_online" property="isOnline" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.yzj.shop.po.PaymentWithBLOBs" extends="BaseResultMap" >
+    <result column="pay_desc" property="payDesc" jdbcType="LONGVARCHAR" />
+    <result column="pay_config" property="payConfig" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pay_id, pay_code, pay_name, pay_fee, pay_order, enabled, is_cod, is_online
+  </sql>
+  <sql id="Blob_Column_List" >
+    pay_desc, pay_config
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.yzj.shop.po.PaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yzj.shop.po.PaymentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Byte" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from payment
+    where pay_id = #{payId,jdbcType=TINYINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Byte" >
+    delete from payment
+    where pay_id = #{payId,jdbcType=TINYINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yzj.shop.po.PaymentExample" >
+    delete from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yzj.shop.po.PaymentWithBLOBs" >
+    insert into payment (pay_id, pay_code, pay_name, 
+      pay_fee, pay_order, enabled, 
+      is_cod, is_online, pay_desc, 
+      pay_config)
+    values (#{payId,jdbcType=TINYINT}, #{payCode,jdbcType=VARCHAR}, #{payName,jdbcType=VARCHAR}, 
+      #{payFee,jdbcType=VARCHAR}, #{payOrder,jdbcType=TINYINT}, #{enabled,jdbcType=BIT}, 
+      #{isCod,jdbcType=BIT}, #{isOnline,jdbcType=BIT}, #{payDesc,jdbcType=LONGVARCHAR}, 
+      #{payConfig,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yzj.shop.po.PaymentWithBLOBs" >
+    insert into payment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        pay_id,
+      </if>
+      <if test="payCode != null" >
+        pay_code,
+      </if>
+      <if test="payName != null" >
+        pay_name,
+      </if>
+      <if test="payFee != null" >
+        pay_fee,
+      </if>
+      <if test="payOrder != null" >
+        pay_order,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="isCod != null" >
+        is_cod,
+      </if>
+      <if test="isOnline != null" >
+        is_online,
+      </if>
+      <if test="payDesc != null" >
+        pay_desc,
+      </if>
+      <if test="payConfig != null" >
+        pay_config,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payId != null" >
+        #{payId,jdbcType=TINYINT},
+      </if>
+      <if test="payCode != null" >
+        #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payName != null" >
+        #{payName,jdbcType=VARCHAR},
+      </if>
+      <if test="payFee != null" >
+        #{payFee,jdbcType=VARCHAR},
+      </if>
+      <if test="payOrder != null" >
+        #{payOrder,jdbcType=TINYINT},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="isCod != null" >
+        #{isCod,jdbcType=BIT},
+      </if>
+      <if test="isOnline != null" >
+        #{isOnline,jdbcType=BIT},
+      </if>
+      <if test="payDesc != null" >
+        #{payDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="payConfig != null" >
+        #{payConfig,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yzj.shop.po.PaymentExample" resultType="java.lang.Integer" >
+    select count(*) from payment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update payment
+    <set >
+      <if test="record.payId != null" >
+        pay_id = #{record.payId,jdbcType=TINYINT},
+      </if>
+      <if test="record.payCode != null" >
+        pay_code = #{record.payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payName != null" >
+        pay_name = #{record.payName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payFee != null" >
+        pay_fee = #{record.payFee,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payOrder != null" >
+        pay_order = #{record.payOrder,jdbcType=TINYINT},
+      </if>
+      <if test="record.enabled != null" >
+        enabled = #{record.enabled,jdbcType=BIT},
+      </if>
+      <if test="record.isCod != null" >
+        is_cod = #{record.isCod,jdbcType=BIT},
+      </if>
+      <if test="record.isOnline != null" >
+        is_online = #{record.isOnline,jdbcType=BIT},
+      </if>
+      <if test="record.payDesc != null" >
+        pay_desc = #{record.payDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.payConfig != null" >
+        pay_config = #{record.payConfig,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update payment
+    set pay_id = #{record.payId,jdbcType=TINYINT},
+      pay_code = #{record.payCode,jdbcType=VARCHAR},
+      pay_name = #{record.payName,jdbcType=VARCHAR},
+      pay_fee = #{record.payFee,jdbcType=VARCHAR},
+      pay_order = #{record.payOrder,jdbcType=TINYINT},
+      enabled = #{record.enabled,jdbcType=BIT},
+      is_cod = #{record.isCod,jdbcType=BIT},
+      is_online = #{record.isOnline,jdbcType=BIT},
+      pay_desc = #{record.payDesc,jdbcType=LONGVARCHAR},
+      pay_config = #{record.payConfig,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update payment
+    set pay_id = #{record.payId,jdbcType=TINYINT},
+      pay_code = #{record.payCode,jdbcType=VARCHAR},
+      pay_name = #{record.payName,jdbcType=VARCHAR},
+      pay_fee = #{record.payFee,jdbcType=VARCHAR},
+      pay_order = #{record.payOrder,jdbcType=TINYINT},
+      enabled = #{record.enabled,jdbcType=BIT},
+      is_cod = #{record.isCod,jdbcType=BIT},
+      is_online = #{record.isOnline,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yzj.shop.po.PaymentWithBLOBs" >
+    update payment
+    <set >
+      <if test="payCode != null" >
+        pay_code = #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payName != null" >
+        pay_name = #{payName,jdbcType=VARCHAR},
+      </if>
+      <if test="payFee != null" >
+        pay_fee = #{payFee,jdbcType=VARCHAR},
+      </if>
+      <if test="payOrder != null" >
+        pay_order = #{payOrder,jdbcType=TINYINT},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="isCod != null" >
+        is_cod = #{isCod,jdbcType=BIT},
+      </if>
+      <if test="isOnline != null" >
+        is_online = #{isOnline,jdbcType=BIT},
+      </if>
+      <if test="payDesc != null" >
+        pay_desc = #{payDesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="payConfig != null" >
+        pay_config = #{payConfig,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where pay_id = #{payId,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.yzj.shop.po.PaymentWithBLOBs" >
+    update payment
+    set pay_code = #{payCode,jdbcType=VARCHAR},
+      pay_name = #{payName,jdbcType=VARCHAR},
+      pay_fee = #{payFee,jdbcType=VARCHAR},
+      pay_order = #{payOrder,jdbcType=TINYINT},
+      enabled = #{enabled,jdbcType=BIT},
+      is_cod = #{isCod,jdbcType=BIT},
+      is_online = #{isOnline,jdbcType=BIT},
+      pay_desc = #{payDesc,jdbcType=LONGVARCHAR},
+      pay_config = #{payConfig,jdbcType=LONGVARCHAR}
+    where pay_id = #{payId,jdbcType=TINYINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yzj.shop.po.Payment" >
+    update payment
+    set pay_code = #{payCode,jdbcType=VARCHAR},
+      pay_name = #{payName,jdbcType=VARCHAR},
+      pay_fee = #{payFee,jdbcType=VARCHAR},
+      pay_order = #{payOrder,jdbcType=TINYINT},
+      enabled = #{enabled,jdbcType=BIT},
+      is_cod = #{isCod,jdbcType=BIT},
+      is_online = #{isOnline,jdbcType=BIT}
+    where pay_id = #{payId,jdbcType=TINYINT}
+  </update>
+</mapper>
