@@ -1,0 +1,101 @@
+/* pages/historicalOrder/historicalOrder.wxss */
+
+.background {
+  background: #f8f8ff;
+  padding: 20rpx;
+}
+
+.shopCart-box {
+  margin: 15rpx;
+  background: #fff;
+}
+
+.shopCart-box-one {
+  display: flex;
+  justify-content: space-between;
+  height: 100rpx;
+}
+
+.order-box {
+  width: 600rpx;
+  height: 50rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.printShopImage-box {
+  height: 50rpx;
+  width: 50rpx;
+  margin: 20rpx;
+}
+
+.printShopImage-box-name {
+  padding-top: 20rpx;
+}
+
+.printShopImage-box-status {
+  width: 300rpx;
+  height: 50rpx;
+  padding-top: 20rpx;
+  text-align: right;
+  font-size: 30rpx;
+  color: red;
+}
+
+.orderInfo-box {
+  background: #fff;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.orderInfo-box-one {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.orderInfo-box-one-image {
+  height: 150rpx;
+  margin: 5rpx 0rpx;
+}
+
+.orderInfo-box-one-fileName {
+  width: 1000rpx;
+}
+
+.orderInfo-box-one-pp {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderInfo-box-one-price {
+  margin-right: 10rpx;
+}
+
+.orderInfo-box-one-printCopy {
+  color: #c1cdcd;
+  margin-left: 40rpx;
+}
+
+.orderInfo-box-one-totalFee {
+  height: 100rpx;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20rpx;
+}
+
+.orderInfo-box-one-operation {
+  height: 100rpx;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.orderInfo-box-one-operation-button {
+  background: #fff;
+  width: 200rpx;
+  font-size: 35rpx;
+  height: 90rpx;
+}

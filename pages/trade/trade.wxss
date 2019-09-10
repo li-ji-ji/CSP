@@ -10,13 +10,7 @@ page {
 	align-items: center;
 }
 
-.choose-box {
-	width: 92%;
-	background-color: #FFF;
-	border-radius: 20rpx;
-	align-items: center;
-	margin: 15rpx;
-}
+
 
 .display {
 	display: flex;
@@ -24,69 +18,9 @@ page {
 	flex-wrap: wrap;
 }
 
-.choose {
-	align-items: center;
-	margin: 24rpx 50rpx;
-}
 
-.onThis {
-	width: 240rpx;
-	height: 72rpx;
-	font-size: 36rpx;
-	color: #FFF;
-	background-color: #FC943F;
-	border-radius: 40rpx;
-}
 
-.noThis {
-	width: 210rpx;
-	height: 60rpx;
-	color: #FC943F;
-	background-color: #FFF;
-	border-radius: 40rpx;
-	border: 1rpx solid #000;
-}
 
-.delivery {
-	width: 100%;
-	margin-bottom: 20rpx;
-}
-
-.door {
-	width: 100%;
-	margin-bottom: 20rpx;
-}
-
-.positioning {
-	width: 82%;
-}
-
-.positioning view {}
-
-.name {
-	width: 100%;
-	display: flex;
-}
-
-.number {
-	width: 260rpx;
-	display: flex;
-}
-
-.location {
-	width: 100%;
-	display: flex;
-}
-
-.time {
-	width: 100%;
-	display: flex;
-}
-
-.information {
-	width: 100%;
-	display: flex;
-}
 
 .myOrder-box {
 	width: 92%;
@@ -196,7 +130,7 @@ page {
 }
 
 .money {
-	font-size: 56rpx;
+	font-size: 36rpx;
 	color: #FC943F;
 	display: flex;
 	justify-content: center;

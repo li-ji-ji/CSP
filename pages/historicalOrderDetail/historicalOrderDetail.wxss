@@ -1,0 +1,61 @@
+/* pages/historicalOrderDetail/historicalOrderDetail.wxss */
+
+.userAddress {
+  height: 200rpx;
+  display: flex;
+  flex-direction: row;
+}
+
+.userAddress-image-box {
+  display: flex;
+  align-items: center;
+  width: 15%;
+}
+
+.userAddress-image {
+  height: 90rpx;
+  width: 90rpx;
+}
+.userAddress-nickName-box{
+  height:200rpx;
+  width:85%;
+}
+.userNickName {
+  height: 75rpx;
+  margin-top: 25rpx;
+  display: flex;
+  flex-direction: row;
+}
+.userContact{
+  font-size:30rpx;
+  margin-left:30rpx;
+  margin-top:-30rpx;
+}
+.orderInfo-box-one {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.orderInfo-box-one-image {
+  height: 150rpx;
+  margin: 5rpx 0rpx;
+}
+
+.orderInfo-box-one-fileName {
+  width: 1000rpx;
+}
+
+.orderInfo-box-one-pp {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderInfo-box-one-price {
+  margin-right: 10rpx;
+}
+
+.orderInfo-box-one-printCopy {
+  color: #c1cdcd;
+  margin-left: 40rpx;
+}

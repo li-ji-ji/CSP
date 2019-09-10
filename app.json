@@ -20,7 +20,9 @@
     "pages/aomunt/aomunt",
     "pages/up/up",
     "pages/trade/trade",
-    "pages/searchList/searchList"
+    "pages/searchList/searchList",
+    "pages/historicalOrder/historicalOrder",
+    "pages/historicalOrderDetail/historicalOrderDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -29,27 +31,28 @@
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",
-  
   "tabBar": {
-    "color":"#707070",
-    "selectedColor":"#f79505",
-    "list": [{
+    "color": "#707070",
+    "selectedColor": "#f79505",
+    "list": [
+      {
         "pagePath": "pages/taskList/taskList",
         "iconPath": "images/InitaskList.png",
         "selectedIconPath": "images/taskList.png",
-        "text":"主页"
-      },{
-      "pagePath": "pages/task/task",
-      "iconPath": "images/Initask.png",
-      "selectedIconPath": "images/task.png",
-      "text": "发布"
-    },
-    {
-      "pagePath": "pages/user/user",
-      "iconPath": "images/Iniuser.png",
-      "selectedIconPath": "images/user.png",
-      "text": "我的"
-    }]
+        "text": "主页"
+      },
+      {
+        "pagePath": "pages/task/task",
+        "iconPath": "images/Initask.png",
+        "selectedIconPath": "images/task.png",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "images/Iniuser.png",
+        "selectedIconPath": "images/user.png",
+        "text": "我的"
+      }
+    ]
   }
-  
 }

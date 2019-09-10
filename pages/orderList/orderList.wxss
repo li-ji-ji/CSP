@@ -17,7 +17,7 @@ page {
 
 .order-main-box {
 	width: 92%;
-	height: 300rpx;
+	height: 400rpx;
 	margin-top: 30rpx;
 	border-radius: 40rpx;
 	display: flex;
@@ -168,7 +168,7 @@ page {
 }
 
 .demand view {
-	width: 22%;
+
 	height: 65rpx;
 	border: 1rpx solid#000;
 	border-radius: 20rpx;
@@ -178,17 +178,19 @@ page {
 }
 
 .color {
-	width: 100rpx;
+	width: 135rpx;
 }
 
 .paper {
-	width: 85rpx;
+	width: 110rpx;
 }
 
 .use {
-	width: 100rpx;
+	width: 135rpx;
 }
-
+.printMode{
+  width: 180rpx;
+}
 .onThis {
 	color: #FFF;
 	background-color: #FC943F;
@@ -238,4 +240,135 @@ page {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+.window-box-error {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(75, 73, 73, 0.747);
+  z-index: 99;
+}
+
+
+.window-error {
+  width: 100%;
+  height: 350rpx;
+  margin-top: 400rpx;
+  display: flex;
+  justify-content: center;
+
+  position: relative;
+}
+
+.window-box {
+  width: 400rpx;
+  height: 260rpx;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+.window-error-top {
+  width: 100%;
+  height: 200rpx;
+  background-color: rgb(19, 203, 228);
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+.window-error-top view{
+  width: 92%;
+  height: 30rpx;
+  text-align: center;
+  margin-top: 20rpx;
+}
+.window-error-button {
+  width: 100%;
+  height: 60rpx;
+  border-top: 1rpx solid #000;
+  background-color: #FC943F;
+  color: #FFF;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+.choose-box {
+	width: 92%;
+	background-color: #FFF;
+	border-radius: 20rpx;
+	align-items: center;
+	margin: 15rpx;
+}
+.display {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+.choose {
+	align-items: center;
+	margin: 24rpx 50rpx;
+}
+
+.onThis-choose {
+	width: 240rpx;
+	height: 72rpx;
+	font-size: 36rpx;
+	color: #FFF;
+	background-color: #FC943F;
+	border-radius: 40rpx;
+}
+
+.noThis-choose {
+	width: 210rpx;
+	height: 60rpx;
+	color: #FC943F;
+	background-color: #FFF;
+	border-radius: 40rpx;
+	border: 1rpx solid #000;
+}
+.delivery {
+	width: 100%;
+	margin-bottom: 20rpx;
+}
+
+.door {
+	width: 100%;
+	margin-bottom: 20rpx;
+}
+
+.positioning {
+	width: 82%;
+}
+
+.positioning view {}
+
+.name {
+	width: 100%;
+	display: flex;
+}
+
+.number {
+	width: 260rpx;
+	display: flex;
+}
+
+.location {
+	width: 100%;
+	display: flex;
+}
+
+.time {
+	width: 100%;
+	display: flex;
+}
+
+.information {
+	width: 100%;
+	display: flex;
 }

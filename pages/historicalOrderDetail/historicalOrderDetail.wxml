@@ -1,0 +1,64 @@
+<view class='userAddress'>
+  <view class='userAddress-image-box'>
+    <image src="../../images/address.png" class="userAddress-image" />
+  </view>
+  <view class='userAddress-nickName-box'>
+    <view class='userNickName'>
+      <text>{{shopCart.printOrders[0].nickName}}</text>
+      <text class='userContact'>
+        {{shopCart.printOrders[0].contact}}
+      </text>
+    </view>
+    <view style='height:100rpx;'>
+      <text>{{shopCart.printOrders[0].deliveryAddress}}</text>
+    </view>
+  </view>
+</view>
+<view style='background:#DDD;height:30rpx;'></view>
+<view style="">
+  <view style='display:flex;flex-direction:row;'>
+    <view style='width:70rpx;'>
+      <image src='../../images/shop.png' style='height:50rpx;width:50rpx;margin-left:10rpx;'></image>
+    </view>
+    <view style="height:50rpx;font-size:37rpx;">
+      <text style=''>泉州</text>
+    </view>
+    <view style='margin-top:-30rpx;font-size:30rpx;margin-left:30rpx;height:50rpx;'>
+      <text style=''>
+        联系商家:{{shopCart.printOrders[0].mobile}}
+      </text>
+    </view>
+  </view>
+  <view>
+    <text style="font-size:20rpx;margin-left:20rpx;">订单号:{{shopCart.orderNo}}</text>
+    <text style="font-size:30rpx;margin-left:20rpx;">{{shopCart.printOrders[0].isUrgent}}</text>
+    <text style="font-size:30rpx;margin-left:20rpx;">{{shopCart.printOrders[0].printMode}}</text>
+  </view>
+  <!-- 循环订单详情 -->
+  <view wx:for="{{shopCart.printOrders}}" wx:for-index="index" wx:for-item="shopCart" wx:key="shopCart" class='orderInfo-box-one'>
+    <image src='{{shopCart.orderImage}}' class='orderInfo-box-one-image' mode="aspectFit"></image>
+    <view class='orderInfo-box-one-fileName'>
+      <view>
+        <text style="font-size:30rpx;">{{shopCart.fileName}}</text>
+      </view>
+      <view style="font-size:30rpx;display: flex;flex-direction: row;">
+        <text>{{shopCart.color}}</text>
+        <text>{{shopCart.side}}</text>
+        <text>{{shopCart.deliveryMode}}</text>
+      </view>
+    </view>
+    <view class='orderInfo-box-one-pp'>
+      <text class='orderInfo-box-one-price'>￥{{shopCart.price}}</text>
+      <text class='orderInfo-box-one-printCopy'>×{{shopCart.printCopy}}</text>
+    </view>
+  </view>
+  <!-- 循环订单结束 -->
+  <view style='display:flex;justify-content:space-between;'>
+    <view>
+      <text>订单总价:</text>
+    </view>
+    <view>
+      <text>￥{{shopCart.totalFee}}</text>
+    </view>
+  </view>
+</view>

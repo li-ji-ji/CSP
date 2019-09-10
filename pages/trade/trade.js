@@ -4,209 +4,160 @@ Page({
 	/**
 	 * 页面的初始数据
 	 */
-	data: {
-		choose: ["送货上门", "上门取货"],
-		chooseId: 0,
-		delivery: true,
-		door: false,
-		user: {
-			"name": "点我输入",
-			"nmber": "点我输入",
-			"address": "点我输入",
-		},
-		money: 0,
-		payment: false
-	},
-	name: function(e) {
-		console.log(e);
-		var x = e.detail.value
-		var y = this.data.user
-		if (x == undefined) {
-			return 0
-			console.log("11111")
-		} else if (x == "") {
-			console.log("22222")
-			y.name = null
-			this.setData({
-				user: y
-			})
-		} else {
-			y.name = x
-			this.setData({
-				user: y
-			})
-
-		}
-	},
-	number: function(e) {
-		console.log(e);
-		var x = e.detail.value
-		var y = this.data.user
-		if (x == undefined) {
-			return 0
-			console.log("11111")
-		} else if (x == "") {
-			console.log("22222")
-			y.number = null
-			this.setData({
-				user: y
-			})
-		} else {
-			y.number = x
-			this.setData({
-				orderDemand: y
-			})
-
-		}
-	},
-	address: function(e) {
-		console.log(e);
-		var x = e.detail.value
-		var y = this.data.user
-		if (x == undefined) {
-			return 0
-			console.log("11111")
-		} else if (x == "") {
-			console.log("22222")
-			y.address = null
-			this.setData({
-				user: y
-			})
-		} else {
-			y.address = x
-			this.setData({
-				orderDemand: y
-			})
-
-		}
-	},
-	choose: function(e) {
-		var n = parseInt(e.currentTarget.dataset.type);
-		if (n == 0) {
-			this.setData({
-				delivery: true,
-				door: false
-			})
-		} else {
-			this.setData({
-				delivery: false,
-				door: true
-			})
-		}
-		this.setData({
-			chooseId: n
-		})
-	},
-	money: function() {
-		var that = this
-		console.log(that.data.order.length)
-		var x = that.data.order
-		var money = 0
-		for (var i = 0; i < that.data.order.length; i++) {
-			if (x[i].page <= 0 && x[i].demand.userPage <= 0) {
-				that.setData({
-					money: "系统判断您文件的页数有问题，麻烦手动输入",
-					payment: false
-				})
-				break
-			} else {
-				if (x[i].page < x[i].demand.userPage) {
-					money = money+Number(x[i].demand.userPage)*Number(x[i].demand.number)
-				} else {
-					money = money+Number(x[i].page)*Number(x[i].demand.number)
-				}
-			}
-		}
-		money = money * 0.5
-		console.log(money)
-		that.setData({
-			money: money,
-			payment: true
-		})
-	},
-	payment: function() {
-
-	},
+  data: {
+    money: 0,
+    payment: true,
+    error: true,
+    user: {
+    },
+  },
+  money: function () {
+    var that = this
+    var x = that.data.order
+    var money = 0.0
+    for (var i = 0; i < that.data.order.length; i++) {
+      money = money + that.data.order[i].price
+    }
+    money = money / 100
+    that.setData({
+      money: money
+    })
+  },
+  payment: function () {
+    var that = this
+    var App = getApp()
+    var openid = that.data.user.wxopenid;
+    var orderNo = that.data.order[0].orderNo
+    wx.request({
+      url: 'http://qzimp.cn/api/file/api/wechatPay/placeOrder',
+      method: "POST",
+      data: {
+        openid: openid,
+        //reward: Number(that.data.money) * 100,
+        reward: 1,
+        orderNo: orderNo
+      },
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' // 默认值
+      },
+      success: function (res) {
+        wx.requestPayment({
+          timeStamp: res.data.timeStamp,
+          nonceStr: res.data.nonceStr,
+          package: res.data.package,
+          signType: res.data.signType,
+          paySign: res.data.paySign,
+          success(res) {
+            wx.showToast({
+              title: '支付成功',
+              icon: 'success',
+              duration: 2000
+            })
+            wx.navigateTo({
+              url: "../historicalOrder/historicalOrder",
+            })
+          },
+          fail(res) {
+            wx.showToast({
+              title: '支付失败',
+              icon: 'success',
+              duration: 2000
+            })
+            wx.navigateTo({
+              url: "../historicalOrder/historicalOrder",
+            })
+          }
+        })
+      }
+    })
+  },
 	/**
 	 * 生命周期函数--监听页面加载
 	 */
-	onLoad: function(options) {
-		var that = this
-		that.setData({
-			Index: options.Index,
-			printIndex: options.printIndex
-		})
-		wx.request({
-			url: "https://qzimp.cn/api/file/api/printShop/getAll",
-			method: "GET",
-			header: {
-				'content-type': 'application/json' // 默认值
-			},
-			success: function(res) {
-				that.setData({
-					location: res.data,
-				})
-			}
-		})
-		console.log(options.order)
-		var order = decodeURIComponent(options.order)
-		console.log(order)
-		order = JSON.parse(order)
-		console.log(order)
-		that.setData({
-			order: order,
-			money: 0,
-		})
-		that.money()
-
-	},
+  onLoad: function (options) {
+    var that = this
+    var App = getApp()
+    that.setData({
+      sign: options.sign,
+      printIndex: options.printIndex,
+      user: App.globalData.user,
+    })
+    wx.request({
+      url: "http://qzimp.cn/api/file/api/printShop/getAll",
+      method: "GET",
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success: function (res) {
+        that.setData({
+          location: res.data,
+        })
+      }
+    })
+    var order = decodeURIComponent(options.order)
+    order = JSON.parse(order)
+    that.setData({
+      order: order,
+      money: 0,
+    })
+    that.money()
+    var App = getApp()
+    var name = App.globalData.user.name
+    var phone = App.globalData.user.phone
+    var dormitoryAdd = App.globalData.user.dormitoryAdd
+    that.setData({
+      name: name,
+      phone: phone,
+      dormitoryAdd: dormitoryAdd,
+    })
+  },
 
 	/**
 	 * 生命周期函数--监听页面初次渲染完成
 	 */
-	onReady: function() {
+  onReady: function () {
 
-	},
+  },
 
 	/**
 	 * 生命周期函数--监听页面显示
 	 */
-	onShow: function() {
+  onShow: function () {
 
-	},
+  },
 
 	/**
 	 * 生命周期函数--监听页面隐藏
 	 */
-	onHide: function() {
+  onHide: function () {
 
-	},
+  },
 
 	/**
 	 * 生命周期函数--监听页面卸载
 	 */
-	onUnload: function() {
+  onUnload: function () {
 
-	},
+  },
 
 	/**
 	 * 页面相关事件处理函数--监听用户下拉动作
 	 */
-	onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
-	},
+  },
 
 	/**
 	 * 页面上拉触底事件的处理函数
 	 */
-	onReachBottom: function() {
+  onReachBottom: function () {
 
-	},
+  },
 
 	/**
 	 * 用户点击右上角分享
 	 */
-	onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
-	}
+  }
 })

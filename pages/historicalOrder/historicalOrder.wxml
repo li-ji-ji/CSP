@@ -1,0 +1,49 @@
+<!-- pages/historicalOrder/historicalOrder.wxml -->
+<view class="background">
+  <!-- 循环出打印购物车 -->
+  <view wx:for="{{shopCartArray}}" wx:for-index="index" wx:for-item="shopCartArray" class='shopCart-box'>
+    <!-- 购物车开始 -->
+    <view class='shopCart-box-one'>
+      <!-- 订单开始 -->
+      <view class='order-box'>
+        <image src='../../images/shop.png' class='printShopImage-box'></image>
+        <view class='printShopImage-box-name'>
+          <text>{{printShopName}}</text>
+        </view>
+      </view>
+      <!-- 订单结束 -->
+      <view class='printShopImage-box-status'>
+        <text>{{shopCartArray.status}}</text>
+      </view>
+    </view>
+    <view bindtap='tohistoricalOrderDetail' data-index='{{shopCartArray}}'>
+      <view class='orderInfo-box'>
+        <!-- 循环订单信息开始 -->
+        <view wx:for="{{shopCartArray.printOrders}}" wx:for-index="index" wx:for-item="printOrder" wx:key="printOrder" class='orderInfo-box-one'>
+          <image src='{{printOrder.orderImage}}' class='orderInfo-box-one-image' mode="aspectFit"></image>
+          <view class='orderInfo-box-one-fileName'>
+            <text>{{printOrder.fileName}}</text>
+          </view>
+          <view class='orderInfo-box-one-pp'>
+            <text class='orderInfo-box-one-price'>￥{{printOrder.price}}</text>
+            <text class='orderInfo-box-one-printCopy'>×{{printOrder.printCopy}}</text>
+          </view>
+        </view>
+        <!-- 循环订单信息结束 -->
+      </view>
+      <!-- 结算开始 -->
+      <view class='orderInfo-box-one-totalFee'>
+        <text>共计:￥{{shopCartArray.totalFee}}</text>
+      </view>
+    </view>
+    <!-- 结算结束 -->
+    <!-- 购物车操作开始 -->
+    <view class='orderInfo-box-one-operation'>
+      <button bindtap='deleteOrder' class='orderInfo-box-one-operation-button' data-index="{{shopCartArray.id}}">删除订单</button>
+      <button bindtap='{{operationbindtap[index]}}' class='orderInfo-box-one-operation-button' data-index="{{shopCartArray}}" style='{{operationTextDisplay[index]}}'>{{operationText[index]}}</button>
+    </view>
+    <!-- 购物车操作结束 -->
+
+    <!-- 购物车结束 -->
+  </view>
+</view>

@@ -1,33 +1,32 @@
-<!--pages/homePage/homePage.wxml-->
+<!-- pages/homePage/homePage.wxml -->
 <view class="main">
   <view class="choice-gap-2"></view>
   <view class="positioning-box">
     <view class="positioning">
-      <image src="../../image/positioning.png" class="positioning-img"></image>
+      <image src="../../images/positioning.png" class="positioning-img"></image>
     </view>
     <view class="choice-box">
       <view class="choice">
         <view class="choice-gap"></view>
         <view class="region">
           <view class="choice-text">当前门店:</view>
-          <view class="choice-text orange" bindtap="goShopping">「{{location[Index].name}}」</view>
+          <view class="choice-text orange" bindtap="goShopping">「{{location[sign].name}}」</view>
         </view>
         <view class="choice-gap-2"></view>
         <view class="region">
           <view class="choice-text">选择打印机:</view>
           <!-- <view class="choice-text orange">「{{location[index].printName[printIndex].print}}」</view> -->
-
           <picker bindchange="bindPickerChange" value="{{index}}" range="{{printname}}" class="choice-text orange">
-            「{{location[Index].prints[printIndex].printName}}」
+            「{{location[sign].prints[printIndex].printName}}」
           </picker>
         </view>
         <view class="choice-gap-2"></view>
         <view class="region">
           <view class="choice-text">打印机状态:</view>
-          <view class="choice-text orange">「{{location[Index].prints[printIndex].status}}」</view>
+          <view class="choice-text orange">「{{location[sign].prints[printIndex].status}}」</view>
         </view>
         <view class="choice-gap-2"></view>
-        <view class="inform">{{location[Index].inform}}</view>
+        <view class="inform">{{location[sign].inform}}</view>
         <view class="choice-gap-2"></view>
         <view class="choice-gap"></view>
       </view>
@@ -36,18 +35,16 @@
   <view class="choice-gap-2"></view>
   <view class="button">
     <view class="button-box">
-
       <view class="button-text-box" bindtap="goAomunt">
-        <image class="button-img" src="../../image/order2.png"></image>
+        <image class="button-img" src="../../images/order2.png"></image>
         <view class="button-text">我的文件</view>
       </view>
-      <view class="button-text frame"  bindtap="goAomunt">{{orderNumber}}</view>
+      <view class="button-text frame" bindtap="goAomunt">{{orderNumber}}</view>
     </view>
     <view class="button-box">
-
       <view class="button-text-box">
-        <image class="button-img" src="../../image/order.png"></image>
-        <view class="button-text" bindtap="goorderList">我的购物</view>
+        <image class="button-img" src="../../images/order.png"></image>
+        <view class="button-text" bindtap="gohistoricalOrder">我的购物</view>
       </view>
       <view class="button-text frame" bindtap="goorderList">{{frameNumber}}</view>
     </view>
@@ -57,32 +54,28 @@
   <view class="tap-box">
     <view class="tap">
       <view class="main-tap-box">
-
         <view class="main-tap">
-          <image src="../../image/weight.png"></image>
+          <image src="../../images/weight.png"></image>
           <view>上传文件大小{{char_lt}}50M</view>
         </view>
         <view class="main-tap">
-          <image src="../../image/A4.png"></image>
+          <image src="../../images/A4.png"></image>
           <view>支持A4打印</view>
         </view>
         <view class="main-tap">
-          <image src="../../image/time.png"></image>
+          <image src="../../images/time.png"></image>
           <view>营业时间00.00至23.00</view>
         </view>
-
       </view>
     </view>
-
   </view>
   <view class="choice-gap-2"></view>
 </view>
-
 <view class="bottom">
   <view class="bottom-box" bindtap="getImg">
     <view>上传文件</view>
     <view>doc/ppt/pdf/jpg</view>
-    <image src="../../image/upload.png"></image>
+    <image src="../../images/upload.png"></image>
   </view>
 </view>
 <!-- <view class="bottom-img">
@@ -94,18 +87,14 @@
     <image src="../../image/d.png" class="window-img"></image>
   </view>
 </view> -->
-
 <view class="window-box-error" style="display:{{error_dis}}">
   <view class="window-error">
     <view class="window-box">
       <view class="window-error-top">
         <view>错误</view>
-        <view>
-          请上传正确格式的文件
-        </view>
+        <view>请上传正确格式的文件</view>
       </view>
-      <view class="window-error-button" bind:tap="display_error">我知道了
-      </view>
+      <view class="window-error-button" bind:tap="display_error">我知道了</view>
     </view>
   </view>
 </view>
@@ -114,14 +103,10 @@
     <view class="window-box">
       <view class="window-error-top">
         <view>上传成功</view>
-        <view>
-          是否继续上传
-        </view>
+        <view>是否继续上传</view>
       </view>
-      <view class="window-error-button" bind:tap="goAomunt">选择打印
-      </view>
-      <view class="window-error-button" bind:tap="getImg">继续上传
-      </view>
+      <view class="window-error-button" bind:tap="goAomunt">选择打印</view>
+      <view class="window-error-button" bind:tap="getImg">继续上传</view>
     </view>
   </view>
 </view>

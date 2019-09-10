@@ -1,104 +1,160 @@
 <!--pages/orderList/orderList.wxml-->
 <view class="main-bg">
-	<view class="text">一张XXX元</view>
-	<view class="order-main-box" wx:for="{{order}}" wx:for-index="loc">
-		<view class="oreder-top">
-			<view class="oreder-top-box">
-				<image src="{{item.suffix}}" class="check-img"></image>
-				<view>{{item.fileName}}</view>
-			</view>
-			<view class="right">
-				<view></view>
-				<view bindtap="remove" data-type="{{loc}}">删除</view>
-			</view>
-		</view>
-		<view class="oreder-bottom">
-			<view class="oreder-information">
-				<view>共{{item.page}}面</view>
-				<view>{{location[Index].prints[printIndex].printName}}</view>
-			</view>
-			<view class="oreder-information">
-				<view>打印设置：</view>
-				<view class="demand-widows" bindtap="chooseSezi" data-type="{{loc}}">
-					<view>{{item.demand.color}}</view>
-					<view>{{item.demand.paper}}</view>
-					<view>{{item.demand.use}}</view>
-					<view>{{item.demand.number}}份</view>
-				</view>
-			</view>
-		</view>
-	</view>
-	<view class="buttom-box">
-		<button bindtap="goTrade">我要支付</button>
-	</view>
+
+  <view class="text">黑白每张{{parse.black}}元，彩色每张{{parse.color}}元，加急额外{{parse.urgent}}元</view>
+  <view class="choose-box display">
+    <view class="display choose nav-item {{chooseId == loc ?'onThis-choose':'noThis-choose'}}" wx:for="{{choose}}" wx:for-index="loc" data-type="{{loc}}" bindtap="choose">
+      {{item}}
+    </view>
+    <view class="display delivery" wx:if="{{delivery}}">
+      <view class="positioning display">
+        <view class="name">
+          我的昵称:
+          <text bindinput="name">{{user.wxname}}</text>
+        </view>
+        <view class="information">
+          我的联系方式:
+          <view class="number">
+            <input value="{{user.phone}}" type="number" maxlength="11" bindinput="number" />
+          </view>
+        </view>
+        <view class="location">
+          送货地址:
+          <view class="number">
+            <input value="{{user.dormitoryAdd}}" bindinput="address" />
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="display door" wx:if="{{door}}">
+      <view class="positioning display">
+        <view class="name">
+          我的昵称:
+          <text bindinput="name">{{user.wxname}}</text>
+        </view>
+        <view class="information">
+          我的联系方式:
+          <view class="number">
+            <input value="{{user.phone}}" type="number" maxlength="11" bindinput="number" />
+          </view>
+        </view>
+        <view class="location">我们的地址:{{location[Index].location}}</view>
+        <view class="time">工作时间：9.00~18.00</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="order-main-box" wx:for="{{order}}" wx:for-index="loc">
+    <view class="oreder-top">
+      <view class="oreder-top-box">
+        <image src="{{item.orderImage}}" class="check-img"></image>
+        <view>{{item.fileName}}</view>
+      </view>
+      <view class="right">
+        <view></view>
+        <view bindtap="remove" data-type="{{loc}}">删除</view>
+      </view>
+    </view>
+    <view class="oreder-bottom">
+      <view class="oreder-information">
+        <view>共{{item.page}}面</view>
+        <view>{{location[sign].prints[printIndex].printName}}</view>
+      </view>
+      <view class="oreder-information">
+        <view>打印设置：</view>
+        <view class="demand-widows" bindtap="chooseSezi" data-type="{{loc}}">
+          <view>{{item.color}}</view>
+          <view>{{item.paper}}</view>
+          <view>{{item.side}}</view>
+          <view>{{item.printCopy}}份</view>
+        </view>
+      </view>
+      <view class="oreder-information">
+        <view>特殊要求：</view>
+        <view class="demand-widows" bindtap="chooseSezi" data-type="{{loc}}">
+          <view>{{item.isUrgent}}</view>
+          <view>{{item.printMode}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view style='height:200rpx;'>
+  </view>
+  <view class="buttom-box">
+    <button bindtap="goTrade">我要打印</button>
+  </view>
 </view>
 
 
 <!-- 这是设置界面的代码 -->
 <view class='maskLayer' wx:if="{{chooseSize}}" bindtap='hideModal'></view>
 <view class='demandChoose' wx:if="{{chooseSize}}" animation='{{animationData}}'>
-	<view class="demand-choose">
-		<view class="demand-box">
-			<view class="demand-name">黑白/彩色:</view>
-			<view class="demand">
-				<view class="color nav-item {{onColor == loc ?'onThis':'noThis'}}" wx:for="{{color}}" wx:for-index="loc" data-type="{{loc}}"
-				 bindtap="chooseColor">
-					{{item}}
-				</view>
-			</view>
-		</view>
-		<view class="demand-box">
-			<view class="demand-name">纸张类型:</view>
-			<view class="demand">
-				<view class="paper  nav-item {{onPaper == loc ?'onThis':'noThis'}}" wx:for="{{paper}}" wx:for-index="loc" data-type="{{loc}}"
-				 bindtap="choosePaper">
-					{{item}}
-				</view>
-			</view>
-		</view>
-		<view class="demand-box">
-			<view class="demand-name">单/双面:</view>
-			<view class="demand">
-				<view class="use  nav-item {{onUse == loc ?'onThis':'noThis'}}" wx:for="{{use}}" wx:for-index="loc" data-type="{{loc}}"
-				 bindtap="chooseUse">
-					{{item}}
-				</view>
-			</view>
-		</view>
-		<view class="demand-box" bindtap="printNumber">
-			<view>打印:</view>
-			<!-- <input value="{{demand[index].number}}" type="number"  maxlength="3" /> -->
-			<view class="demand-text"><input value="{{order[orderIndex].demand.number}}" type="number" maxlength="3" bindinput="printNumber" /></view>
-			<view>份</view>
-		</view>
-		<view class="tap">
-			请确认当前打印页数是否正确
-		</view>
-		<view class="tap">(当前系统认为您的文档页数为{{order[orderIndex].page}}页)</view>
-		<view class="tap">
-			最终支付以实际为准(有回退)
-		</view>
-		如果页数错误请此修改
-		<view class="demand-box" bindtap="printUserPage">
-			<view>正确页数:</view>
-			<!-- <input value="{{demand[index].number}}" type="number"  maxlength="3" /> -->
-			<view class="demand-text"><input type="number" maxlength="3" bindinput="printUserPage" /></view>
-			<view>份</view>
-		</view>
-		<!-- <view class="tap">您想从第几页打印到第几页</view> -->
-		<!-- <view class="demand-box" bindtap="printNumber"> -->
-		<!-- <view>从</view> -->
-		<!-- <input value="{{demand[index].number}}" type="number"  maxlength="3" /> -->
-		<!-- <view class="demand-text"><input value="{{order[index].demand.number}}" -->
-		<!-- type="number" maxlength="3" bindinput="" /></view> -->
-		<!-- <view>到</view> -->
-		<!-- <view class="demand-text"><input value="{{order[index].demand.number}}" -->
-		<!-- type="number" maxlength="3" bindinput="" /></view> -->
-		<!-- <view>页</view> -->
-		<!-- </view> -->
-		<view class="go-back">
-			<view class="confirm" bindtap="goback_confirm">确认</view>
-		</view>
-	</view>
+  <view class="demand-choose">
+    <view class="demand-box">
+      <view class="demand-name">黑白/彩色:</view>
+      <view class="demand">
+        <view class="color nav-item {{onColor == loc ?'onThis':'noThis'}}" wx:for="{{color}}" wx:for-index="loc" data-type="{{loc}}" bindtap="chooseColor">
+          {{item}}
+        </view>
+      </view>
+    </view>
+    <view class="demand-box">
+      <view class="demand-name">纸张类型:</view>
+      <view class="demand">
+        <view class="paper  nav-item {{onPaper == loc ?'onThis':'noThis'}}" wx:for="{{paper}}" wx:for-index="loc" data-type="{{loc}}" bindtap="choosePaper">
+          {{item}}
+        </view>
+      </view>
+    </view>
+    <view class="demand-box">
+      <view class="demand-name">单/双面:</view>
+      <view class="demand">
+        <view class="use  nav-item {{onUse == loc ?'onThis':'noThis'}}" wx:for="{{side}}" wx:for-index="loc" data-type="{{loc}}" bindtap="chooseUse">
+          {{item}}
+        </view>
+      </view>
+    </view>
+    <view class="demand-box" bindtap="printNumber">
+      <view>打印:</view>
+      <!-- <input value="{{demand[index].number}}" type="number"  maxlength="3" /> -->
+      <view class="demand-text">
+        <input value="{{order[orderIndex].printCopy}}" type="number" maxlength="3" bindinput="printNumber" />
+      </view>
+      <view>份</view>
+    </view>
+    <view class="demand-box">
+      <view class="demand-name">加急:</view>
+      <view class="demand">
+        <view class="use  nav-item {{onIsUrgent == loc ?'onThis':'noThis'}}" wx:for="{{isUrgent}}" wx:for-index="loc" data-type="{{loc}}" bindtap="chooseUrgent">
+          {{item}}
+        </view>
+      </view>
+    </view>
+    <view class="demand-box">
+      <view class="demand-name">打印方式:</view>
+      <view class="demand">
+        <view class="printMode  nav-item {{onPrintMode == loc ?'onThis':'noThis'}}" wx:for="{{printMode}}" wx:for-index="loc" data-type="{{loc}}" bindtap="choosePrintMode">
+          {{item}}
+        </view>
+      </view>
+    </view>
+    <view class="go-back">
+      <view class="confirm" bindtap="goback_confirm">确认</view>
+    </view>
+  </view>
 
+</view>
+<view class="window-box-error" style="display:{{display}}">
+  <view class="window-error">
+    <view class="window-box">
+      <view class="window-error-top">
+        <view>错误</view>
+        <view>
+          {{error_cause}}
+        </view>
+      </view>
+      <view class="window-error-button" bind:tap="display">确定
+      </view>
+    </view>
+  </view>
 </view>

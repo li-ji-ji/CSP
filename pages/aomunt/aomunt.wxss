@@ -38,8 +38,6 @@ align-items: center;
 
 }
 
-
-
 .check-img{
   
   display: flex;
