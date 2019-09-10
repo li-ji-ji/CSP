@@ -33,8 +33,8 @@ Page({
       method: "POST",
       data: {
         openid: openid,
-        //reward: Number(that.data.money) * 100,
-        reward: 1,
+        reward: Number(that.data.money) * 100,
+        //reward: 1,
         orderNo: orderNo
       },
       header: {

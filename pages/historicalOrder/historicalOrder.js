@@ -148,7 +148,7 @@ Page({
     var that = this;
     var shopCart = event.target.dataset.index;
     var out_trade_no = shopCart.orderNo;
-    var total_fee = shopCart.totalFee;
+    var total_fee = shopCart.totalFee*100;
     wx.showModal({
       title: '提示',
       content: '确认要退款嘛?',
@@ -159,7 +159,7 @@ Page({
             method: "POST",
             data: {
               out_trade_no: out_trade_no,
-              total_fee: total_fee
+              total_fee: 1
             },
             header: {
               'content-type': 'application/x-www-form-urlencoded'
