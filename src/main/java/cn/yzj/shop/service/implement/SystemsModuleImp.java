@@ -48,9 +48,7 @@ public Msg updata(Serializable id) {
 	return null;
 }
 /**
- * 通过pid查询子菜单
- * 
- * 
+ * 通过pid查询子菜单模型
  */
 @Override
 public Serializable find(Serializable pid) {
