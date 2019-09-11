@@ -1,12 +1,19 @@
 package cn.yzj.shop.po;
 
+import java.io.Serializable;
+
 /**
  * 地区2
  * @author syf
  *
  */
-public class Region2 {
-    private Integer id;
+public class Region2 implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String name;
 

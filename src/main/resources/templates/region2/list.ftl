@@ -55,8 +55,10 @@
 	<script src="${base}/admin/lib/layui/layui.all.js"></script>
 	<script src="${base}/admin/lib/layui/layui.js"></script>
 	<script type="text/html" id="barDemo">
+ <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="subregion">查看子地区</a>
    <a class="layui-btn layui-btn-xs" lay-event="edit">编  辑</a>
-  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删  除</a>
+   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删  除</a>
+  
 </script>
 
 	<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
@@ -87,29 +89,27 @@
 																				.del();
 																		layer
 																				.close(index);
-																		var link = "http://192.168.1.121:8005/config/list?operation=delete&id="
+																		var link = "${base}/region2/list&id="
 																				+ id;
 																		window.location.href = link;
-																		/* $
-																			.ajax({
-																				url: 'http://192.168.1.121:8005/api/config/edit?operation=delete&id='
-																					+ id,
-																				method: 'post',
-																				data: data.field,
-																				dataType: 'JSON'
-																			}); */
 																	});
 												} else if (obj.event === 'edit') {
 													var id = data['id'];
-													var link = "http://192.168.1.121:8010/fileinfo/edit?operation=update&id="
+													var link = "${base}/region2/toedit?id="
 															+ id;
 													window.location.href = link;
+												} else if(obj.event === 'subregion'){
+													var id = data['id'];
+													var link = "${base}/region2/subregion?id="
+														+ id;
+													window.location.href = link;
+													layer.alert(id);
 												}
 											});
 
 							var $ = layui.$, active = {
 								insert : function() { //获取选中数据
-									var link = "http://192.168.1.121:8010/fileinfo/edit?operation=insert";
+									var link = "${base}/region2/toinsert";
 									window.location.href = link;
 								}
 							};

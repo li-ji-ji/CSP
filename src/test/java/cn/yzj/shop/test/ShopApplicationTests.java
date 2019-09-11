@@ -8,6 +8,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import cn.yzj.shop.mapper.GoodsMapper;
 import cn.yzj.shop.mapper.SuppliersMapper;
+import cn.yzj.shop.po.Region2;
+import cn.yzj.shop.service.Region2Service;
 import cn.yzj.shop.systemclass.Code;
 
 @RunWith(SpringRunner.class)
@@ -17,10 +19,13 @@ public class ShopApplicationTests {
 	private GoodsMapper goodsMapper;
 	@Autowired
 	private SuppliersMapper suppMapper;
+	@Autowired
+	private Region2Service region2Service;
 
 	@Test
 	public void contextLoads() {
-	System.out.println(Code.SUCCESS.getCode());
+		System.out.println(Code.SUCCESS.getCode());
+		System.out.println(region2Service.find(1));
 	}
 
 }

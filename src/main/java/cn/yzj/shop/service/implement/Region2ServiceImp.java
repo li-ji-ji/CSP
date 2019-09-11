@@ -57,9 +57,12 @@ public class Region2ServiceImp implements Region2Service {
 	}
 
 	@Override
-	public Serializable find(Serializable pid) {
+	public Serializable find(Serializable id) {
 		// TODO Auto-generated method stub
-		List<Region2> region2s = region2Mapper.selectByParentId((Integer)pid);
+		Region2Example example = new Region2Example();
+		Region2Example.Criteria criteria = example.createCriteria();
+		criteria.andIdEqualTo((Integer) id);
+		List<Region2> region2s = region2Mapper.selectByExample(example);
 		return (Serializable) region2s;
 	}
 
@@ -99,6 +102,12 @@ public class Region2ServiceImp implements Region2Service {
 	public Serializable dataPage(int limit, int page) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<Region2> selectByPid(Integer pid) {
+		// TODO Auto-generated method stub
+		return region2Mapper.selectByParentId(pid);
 	}
 
 }
