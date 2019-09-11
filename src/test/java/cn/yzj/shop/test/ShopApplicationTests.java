@@ -8,6 +8,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import cn.yzj.shop.mapper.GoodsMapper;
 import cn.yzj.shop.mapper.SuppliersMapper;
+import cn.yzj.shop.systemclass.Code;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -19,9 +20,7 @@ public class ShopApplicationTests {
 
 	@Test
 	public void contextLoads() {
-		System.out.println(goodsMapper.selectByPrimaryKey(1).getGoodsName());
-		Short short1=1;
-		System.out.println(suppMapper.selectByPrimaryKey(short1).getSuppliersName());
+	System.out.println(Code.SUCCESS.getCode());
 	}
 
 }

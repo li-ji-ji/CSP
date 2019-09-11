@@ -3,13 +3,13 @@ package cn.yzj.shop.po;
 import cn.yzj.shop.systemclass.Code;
 
 public class Msg {
-	private static Code code=Code.FAIL;
-	private static String msg;
+	private static int code=Code.FAIL.getCode();
+	private static String msg=Code.FAIL.getMsg();
 	private static String jsonData;
-	public static Code getCode() {
+	public static int getCode() {
 		return code;
 	}
-	public void setCode(Code code) {
+	public void setCode(int code) {
 		Msg.code = code;
 	}
 	public  String getMsg() {

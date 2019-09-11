@@ -7,8 +7,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import cn.yzj.shop.mapper.SystemModuleMapper;
+import cn.yzj.shop.po.LayUIJSON;
 import cn.yzj.shop.po.Msg;
+import cn.yzj.shop.po.SelectChildren;
+import cn.yzj.shop.po.SelectTreeDTO;
 import cn.yzj.shop.po.SystemModule;
 import cn.yzj.shop.po.SystemModuleDTO;
 import cn.yzj.shop.po.SystemModuleExample;
@@ -20,21 +26,18 @@ public class SystemsModuleImp implements SystemsModule {
 @Autowired 
 private SystemModuleMapper systemModuleMapper;
 
-@Override
-public boolean addSystemModule(SystemModule systemModule) throws Exception {
-	boolean isok=false;
-	if(systemModuleMapper.insertSelective(systemModule)>0) {
-		isok=true;
-	}
-	return isok;
-}
+/**
+ * 添加菜单
+* @param systemModule
+* @return
+* @throws Exception
+*/
 @Override
 public Msg add(Serializable id) {
 	Msg msg=new Msg();
 	if(systemModuleMapper.insertSelective((SystemModule) id)>0) {
-		msg.setCode(Code.SUCCESS);
+		
 	}
-	System.out.println(msg);
 	return msg;
 }
 @Override
@@ -58,16 +61,23 @@ public Serializable find(Serializable pid) {
 	systemModules=systemModuleMapper.selectByExample(example);
 	return (Serializable) systemModules;
 }
+/**
+ * 数据表分页查询
+ */
 @Override
 public Serializable dataPage(int limit, int page, Serializable id) {
-	// TODO 自动生成的方法存根
-	return null;
+	PageHelper.startPage(page, limit);
+	SystemModuleExample example=new SystemModuleExample();
+	example.createCriteria().andParentIdEqualTo((Short) id);
+	List<SystemModule> modules =systemModuleMapper.selectByExample(example)   ;
+	PageInfo<SystemModule> pageInfo = new PageInfo<SystemModule>(modules);
+	long count = pageInfo.getTotal();
+	LayUIJSON uijson = new LayUIJSON();
+	uijson.setCount(count);
+	uijson.setData(modules);
+	return uijson;
 }
-@Override
-public Serializable dataPage(int limit, int page) {
-	// TODO 自动生成的方法存根
-	return null;
-}
+
 /**
  * 获取所有后台级菜单菜单模型
  * return List<SystemModule>
@@ -138,5 +148,51 @@ public Serializable find() {
 	}
 	return (Serializable) model;
 }
+/**
+ *   获取下拉树模型
+* @return
+* @throws Exception
+*/
+@Override
+public List<SelectTreeDTO> getSelectTree() throws Exception {
+	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
+	SystemModuleExample example=new SystemModuleExample();
+	example.setOrderByClause("orderby ASC");
+	example.createCriteria().andVisibleEqualTo(true);
+	systemsModules=systemModuleMapper.selectByExample(example);
+	List<SelectTreeDTO> selectTreeDTOs=new ArrayList<SelectTreeDTO>(); 
+	for (SystemModule systemModule : systemsModules) {
+		if(systemModule.getParentId()==0) {
+			SelectTreeDTO item =new SelectTreeDTO();
+			item.setId(systemModule.getModId());
+			item.setName(systemModule.getTitle());
+			for (SystemModule systemModule2 : systemsModules) {
+				if(systemModule2.getParentId()==item.getId()) {
+					SelectTreeDTO secondItem=new SelectTreeDTO();
+					secondItem.setId(systemModule2.getModId());
+					secondItem.setName(systemModule2.getTitle());
+					item.getChildren().add(secondItem);
+					for (SystemModule systemModule3 : systemsModules) {
+						if(systemModule3.getParentId()==secondItem.getId()) {
+							
+							SelectChildren thirdItem=new SelectChildren();
+							thirdItem.setId(systemModule3.getModId());
+							thirdItem.setName(systemModule3.getTitle());
+							secondItem.getChildren().add(thirdItem);
+						}
+					}
+				}
+			}
+			selectTreeDTOs.add(item);
+		}
+	}
+	return selectTreeDTOs;
+}
+@Override
+public Serializable dataPage(int limit, int page) {
+	// TODO 自动生成的方法存根
+	return null;
+}
+
 
 }

@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="../lib/layui/css/layui.css"
 	media="all">
 <link rel="stylesheet" href="../css/font.css">
+<script src="../lib/layui/layui.js"></script>
+<script src="../lib/module/common.js"></script>
 
 </head>
 
@@ -60,8 +62,6 @@
 		</table>
 	</div>
 
-
-	<script src="../lib/layui/layui.js"></script>
 	<script>
     //主页面菜单数据表的事件监听
     layui.use('table', function () {
@@ -400,6 +400,7 @@ layui.use('laypage', function(){
 			</div>
 		</div>
 
+		<!-- 普通下拉选择
 		<div class="layui-form-item">
 			<label class="layui-form-label">上级菜单:</label>
 			<div class="layui-input-block chooseNav">
@@ -407,46 +408,41 @@ layui.use('laypage', function(){
 					lay-verify="required" lay-search>
 				</select>
 			</div>
-		</div>
+		</div> -->
 		
 		
-
+       <div class="layui-form-item">
+           <label for="" class="layui-form-label">上级菜单:</label>
+           <div class="layui-input-block">
+               <input type="number" name="parentId" id="selectPNav" lay-filter="tree" class="layui-input">
+           </div>
+       </div>
+  	
 		
-		
-		<div class="layui-form-item">
-			<label class="layui-form-label">排序:</label>
-			<div class="layui-input-block">
-				<input type="number" name="title" min="0" max="50" required=""
-					lay-verify="required" placeholder="越小排序越靠前" autocomplete="off"
-					class="layui-input layui-form-danger">
-			</div>
-		</div>
+	
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">请选择图标:</label>
-			<div class="layui-input-block">
-				<select name="icon" lay-verify="required">
+			<div class="layui-input-block layui-icon">
+			<input type="hidden" id="selectIcon" " class="layui-input">
+				<select name="icon" lay-verify="required" lay-filter="selectIcon">
 					<option value=""></option>
 					<option value="&#xe665;"><i>&#xe665;</i></option>
 					<option value="&#xe716;"><i>&#xe716;</i></option>
 					<option value="&#xe770;"><i>&#xe770;</i></option>
 				</select>
-				<div class="layui-unselect layui-form-select">
-					<div class="layui-select-title">
-						<input type="text" placeholder="请选择" value="" readonly=""
-							class="layui-input layui-unselect"><i class="layui-edge"></i>
-					</div>
-					<dl class="layui-anim layui-anim-upbit">
-						<dd lay-value="" class="layui-select-tips">请选择</dd>
-						<dd lay-value="0" class="">北京</dd>
-						<dd lay-value="1" class="">上海</dd>
-						<dd lay-value="2" class="">广州</dd>
-						<dd lay-value="3" class="">深圳</dd>
-						<dd lay-value="4" class="">杭州</dd>
-					</dl>
-				</div>
 			</div>
 		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">排序:</label>
+			<div class="layui-input-block">
+				<input type="number" name="orderby" min="0" max="50" required=""
+					lay-verify="required" placeholder="越小排序越靠前" autocomplete="off"
+					class="layui-input layui-form-danger">
+			</div>
+		</div>
+		
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单路径:</label>
 			<div class="layui-input-block">
@@ -472,12 +468,13 @@ layui.use('laypage', function(){
       var $ = layui.jquery;
       //监听提交
       form.on('submit(formDemo)', function (data) {
-      //  data.field.taskReward=(data.field.taskReward)*100;
-        $.ajax({
+    	  console.log(data.field);
+       $.ajax({
           type: 'post',
-          url: '/api/add',
+          url: '/api/addSystemModule',
           data: data.field,
           success: function (obj) {
+        	  console.log(obj);
             if (obj > 0) {
               layer.msg(obj + "号任务,添加成功!")
             } else {
@@ -493,8 +490,15 @@ layui.use('laypage', function(){
         });
         return false;
       })
+      //图标选择下拉事件监听
+      form.on('select(selectIcon)',function(data){
+    	  console.log(data.value);
+    	  var selectIcon=document.getElementById("selectIcon");
+    	  selectIcon.setAttribute("value",data.value);
+    	  console.log(selectIcon)
+      })
     //点击事件绑定
-      	$(document).on('click','.chooseNav',function(){
+    /*  	$(document).on('click','.chooseNav',function(){
 	        	var role = document.getElementById("selectPNav");
       		if (role.children.length<=0) {
       			 $.ajax({
@@ -518,10 +522,86 @@ layui.use('laypage', function(){
          	        });
       			 return false;
       		}
-      	});
+      	});*/
     });
   </script>
 
+
+
+  <script>
+  //下拉树事件选择上级导航栏
+    layui.use(['treeSelect','form'], function () {
+        var treeSelect= layui.treeSelect;
+
+        treeSelect.render({
+            // 选择器
+            elem: '#selectPNav',
+            // 数据
+            data: '/api/getSelectTree',
+            // 异步加载方式：get/post，默认get
+            type: 'get',
+            // 占位符
+            placeholder: '请选择',
+            // 是否开启搜索功能：true/false，默认false
+            search: true,
+            // 点击回调
+            click: function(d){
+                var selectPNav= document.getElementById("selectPNav");
+                selectPNav.setAttribute('value',d.current.id)   
+            },
+            // 加载完成后的回调函数
+            success: function (d) {
+                console.log(d);
+//                选中节点，根据id筛选
+//                treeSelect.checkNode('tree', 3);
+
+//                获取zTree对象，可以调用zTree方法
+//                var treeObj = treeSelect.zTree('tree');
+//                console.log(treeObj);
+
+//                刷新树结构
+//                treeSelect.refresh();
+            }
+        });
+
+     /*   treeSelect.render({
+            // 选择器
+            elem: '#tree2',
+            // 数据
+            data: '../lib/data3.json',
+            // 异步加载方式：get/post，默认get
+            type: 'get',
+            // 占位符
+            placeholder: '占位符',
+            // 是否开启搜索功能：true/false，默认false
+            search: true,
+            // 点击回调
+            click: function(d){
+                console.log(d);
+            },
+            // 加载完成后的回调函数
+            success: function (d) {
+                console.log(d);
+//                选中节点，根据id筛选
+//                treeSelect.checkNode('tree', 3);
+
+//                获取zTree对象，可以调用zTree方法
+//                var treeObj = treeSelect.zTree('tree');
+//                console.log(treeObj);
+
+//                刷新树结构
+//                treeSelect.refresh();
+            }
+        });*/
+
+
+
+        
+    });
+    </script>
+
+   
+   
 </body>
 
 </html>

@@ -1,6 +1,8 @@
 package cn.yzj.shop.po;
 
-public class SystemModule {
+import java.io.Serializable;
+
+public class SystemModule implements Serializable{
     private Short modId;
 
     private String module;

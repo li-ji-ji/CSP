@@ -1,6 +1,8 @@
 package cn.yzj.shop.po;
 
-public class LayUIJSON<Object> {
+import java.io.Serializable;
+
+public class LayUIJSON implements Serializable{
 		 
 	    private int code=0;
 	    private String msg="";
