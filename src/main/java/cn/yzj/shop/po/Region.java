@@ -1,5 +1,11 @@
 package cn.yzj.shop.po;
 
+/**
+ * 地区1
+ * @author syf
+ *
+ */
+
 public class Region {
     private Integer id;
 

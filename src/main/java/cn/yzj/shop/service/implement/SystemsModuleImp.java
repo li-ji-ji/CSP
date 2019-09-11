@@ -59,12 +59,12 @@ public Serializable find(Serializable pid) {
 	return (Serializable) systemModules;
 }
 @Override
-public Serializable dataPage(int limti, int page, Serializable id) {
+public Serializable dataPage(int limit, int page, Serializable id) {
 	// TODO 自动生成的方法存根
 	return null;
 }
 @Override
-public Serializable dataPage(int limti, int page) {
+public Serializable dataPage(int limit, int page) {
 	// TODO 自动生成的方法存根
 	return null;
 }

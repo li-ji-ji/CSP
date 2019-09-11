@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yzj.shop.mapper.AdminMapper" >
+  <resultMap id="BaseResultMap" type="cn.yzj.shop.po.Admin" >
+    <id column="admin_id" property="adminId" jdbcType="SMALLINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="ec_salt" property="ecSalt" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="INTEGER" />
+    <result column="last_login" property="lastLogin" jdbcType="INTEGER" />
+    <result column="last_ip" property="lastIp" jdbcType="VARCHAR" />
+    <result column="lang_type" property="langType" jdbcType="VARCHAR" />
+    <result column="agency_id" property="agencyId" jdbcType="SMALLINT" />
+    <result column="suppliers_id" property="suppliersId" jdbcType="SMALLINT" />
+    <result column="role_id" property="roleId" jdbcType="SMALLINT" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="district_id" property="districtId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.yzj.shop.po.AdminWithBLOBs" extends="BaseResultMap" >
+    <result column="nav_list" property="navList" jdbcType="LONGVARCHAR" />
+    <result column="todolist" property="todolist" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    admin_id, user_name, email, password, ec_salt, add_time, last_login, last_ip, lang_type, 
+    agency_id, suppliers_id, role_id, province_id, city_id, district_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    nav_list, todolist
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.yzj.shop.po.AdminExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yzj.shop.po.AdminExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from admin
+    where admin_id = #{adminId,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from admin
+    where admin_id = #{adminId,jdbcType=SMALLINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yzj.shop.po.AdminExample" >
+    delete from admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yzj.shop.po.AdminWithBLOBs" >
+    insert into admin (admin_id, user_name, email, 
+      password, ec_salt, add_time, 
+      last_login, last_ip, lang_type, 
+      agency_id, suppliers_id, role_id, 
+      province_id, city_id, district_id, 
+      nav_list, todolist)
+    values (#{adminId,jdbcType=SMALLINT}, #{userName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{ecSalt,jdbcType=VARCHAR}, #{addTime,jdbcType=INTEGER}, 
+      #{lastLogin,jdbcType=INTEGER}, #{lastIp,jdbcType=VARCHAR}, #{langType,jdbcType=VARCHAR}, 
+      #{agencyId,jdbcType=SMALLINT}, #{suppliersId,jdbcType=SMALLINT}, #{roleId,jdbcType=SMALLINT}, 
+      #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{districtId,jdbcType=INTEGER}, 
+      #{navList,jdbcType=LONGVARCHAR}, #{todolist,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yzj.shop.po.AdminWithBLOBs" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="ecSalt != null" >
+        ec_salt,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="lastLogin != null" >
+        last_login,
+      </if>
+      <if test="lastIp != null" >
+        last_ip,
+      </if>
+      <if test="langType != null" >
+        lang_type,
+      </if>
+      <if test="agencyId != null" >
+        agency_id,
+      </if>
+      <if test="suppliersId != null" >
+        suppliers_id,
+      </if>
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="districtId != null" >
+        district_id,
+      </if>
+      <if test="navList != null" >
+        nav_list,
+      </if>
+      <if test="todolist != null" >
+        todolist,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminId != null" >
+        #{adminId,jdbcType=SMALLINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="ecSalt != null" >
+        #{ecSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=INTEGER},
+      </if>
+      <if test="lastLogin != null" >
+        #{lastLogin,jdbcType=INTEGER},
+      </if>
+      <if test="lastIp != null" >
+        #{lastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="langType != null" >
+        #{langType,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyId != null" >
+        #{agencyId,jdbcType=SMALLINT},
+      </if>
+      <if test="suppliersId != null" >
+        #{suppliersId,jdbcType=SMALLINT},
+      </if>
+      <if test="roleId != null" >
+        #{roleId,jdbcType=SMALLINT},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null" >
+        #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="navList != null" >
+        #{navList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="todolist != null" >
+        #{todolist,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yzj.shop.po.AdminExample" resultType="java.lang.Integer" >
+    select count(*) from admin
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update admin
+    <set >
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ecSalt != null" >
+        ec_salt = #{record.ecSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addTime != null" >
+        add_time = #{record.addTime,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastLogin != null" >
+        last_login = #{record.lastLogin,jdbcType=INTEGER},
+      </if>
+      <if test="record.lastIp != null" >
+        last_ip = #{record.lastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.langType != null" >
+        lang_type = #{record.langType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agencyId != null" >
+        agency_id = #{record.agencyId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.suppliersId != null" >
+        suppliers_id = #{record.suppliersId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.districtId != null" >
+        district_id = #{record.districtId,jdbcType=INTEGER},
+      </if>
+      <if test="record.navList != null" >
+        nav_list = #{record.navList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.todolist != null" >
+        todolist = #{record.todolist,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update admin
+    set admin_id = #{record.adminId,jdbcType=SMALLINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      ec_salt = #{record.ecSalt,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=INTEGER},
+      last_login = #{record.lastLogin,jdbcType=INTEGER},
+      last_ip = #{record.lastIp,jdbcType=VARCHAR},
+      lang_type = #{record.langType,jdbcType=VARCHAR},
+      agency_id = #{record.agencyId,jdbcType=SMALLINT},
+      suppliers_id = #{record.suppliersId,jdbcType=SMALLINT},
+      role_id = #{record.roleId,jdbcType=SMALLINT},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      district_id = #{record.districtId,jdbcType=INTEGER},
+      nav_list = #{record.navList,jdbcType=LONGVARCHAR},
+      todolist = #{record.todolist,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update admin
+    set admin_id = #{record.adminId,jdbcType=SMALLINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      ec_salt = #{record.ecSalt,jdbcType=VARCHAR},
+      add_time = #{record.addTime,jdbcType=INTEGER},
+      last_login = #{record.lastLogin,jdbcType=INTEGER},
+      last_ip = #{record.lastIp,jdbcType=VARCHAR},
+      lang_type = #{record.langType,jdbcType=VARCHAR},
+      agency_id = #{record.agencyId,jdbcType=SMALLINT},
+      suppliers_id = #{record.suppliersId,jdbcType=SMALLINT},
+      role_id = #{record.roleId,jdbcType=SMALLINT},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      district_id = #{record.districtId,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yzj.shop.po.AdminWithBLOBs" >
+    update admin
+    <set >
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="ecSalt != null" >
+        ec_salt = #{ecSalt,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=INTEGER},
+      </if>
+      <if test="lastLogin != null" >
+        last_login = #{lastLogin,jdbcType=INTEGER},
+      </if>
+      <if test="lastIp != null" >
+        last_ip = #{lastIp,jdbcType=VARCHAR},
+      </if>
+      <if test="langType != null" >
+        lang_type = #{langType,jdbcType=VARCHAR},
+      </if>
+      <if test="agencyId != null" >
+        agency_id = #{agencyId,jdbcType=SMALLINT},
+      </if>
+      <if test="suppliersId != null" >
+        suppliers_id = #{suppliersId,jdbcType=SMALLINT},
+      </if>
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=SMALLINT},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="districtId != null" >
+        district_id = #{districtId,jdbcType=INTEGER},
+      </if>
+      <if test="navList != null" >
+        nav_list = #{navList,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="todolist != null" >
+        todolist = #{todolist,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where admin_id = #{adminId,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.yzj.shop.po.AdminWithBLOBs" >
+    update admin
+    set user_name = #{userName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      ec_salt = #{ecSalt,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=INTEGER},
+      last_login = #{lastLogin,jdbcType=INTEGER},
+      last_ip = #{lastIp,jdbcType=VARCHAR},
+      lang_type = #{langType,jdbcType=VARCHAR},
+      agency_id = #{agencyId,jdbcType=SMALLINT},
+      suppliers_id = #{suppliersId,jdbcType=SMALLINT},
+      role_id = #{roleId,jdbcType=SMALLINT},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      district_id = #{districtId,jdbcType=INTEGER},
+      nav_list = #{navList,jdbcType=LONGVARCHAR},
+      todolist = #{todolist,jdbcType=LONGVARCHAR}
+    where admin_id = #{adminId,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yzj.shop.po.Admin" >
+    update admin
+    set user_name = #{userName,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      ec_salt = #{ecSalt,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=INTEGER},
+      last_login = #{lastLogin,jdbcType=INTEGER},
+      last_ip = #{lastIp,jdbcType=VARCHAR},
+      lang_type = #{langType,jdbcType=VARCHAR},
+      agency_id = #{agencyId,jdbcType=SMALLINT},
+      suppliers_id = #{suppliersId,jdbcType=SMALLINT},
+      role_id = #{roleId,jdbcType=SMALLINT},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      city_id = #{cityId,jdbcType=INTEGER},
+      district_id = #{districtId,jdbcType=INTEGER}
+    where admin_id = #{adminId,jdbcType=SMALLINT}
+  </update>
+</mapper>

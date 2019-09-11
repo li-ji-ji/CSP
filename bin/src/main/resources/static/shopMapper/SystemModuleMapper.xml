@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yzj.shop.mapper.SystemModuleMapper" >
+  <resultMap id="BaseResultMap" type="cn.yzj.shop.po.SystemModule" >
+    <id column="mod_id" property="modId" jdbcType="SMALLINT" />
+    <result column="module" property="module" jdbcType="CHAR" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="ctl" property="ctl" jdbcType="VARCHAR" />
+    <result column="act" property="act" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="visible" property="visible" jdbcType="BIT" />
+    <result column="parent_id" property="parentId" jdbcType="SMALLINT" />
+    <result column="orderby" property="orderby" jdbcType="SMALLINT" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    mod_id, module, level, ctl, act, title, visible, parent_id, orderby, icon, url
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yzj.shop.po.SystemModuleExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from system_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Short" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_module
+    where mod_id = #{modId,jdbcType=SMALLINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short" >
+    delete from system_module
+    where mod_id = #{modId,jdbcType=SMALLINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yzj.shop.po.SystemModuleExample" >
+    delete from system_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yzj.shop.po.SystemModule" >
+    insert into system_module (mod_id, module, level, 
+      ctl, act, title, visible, 
+      parent_id, orderby, icon, 
+      url)
+    values (#{modId,jdbcType=SMALLINT}, #{module,jdbcType=CHAR}, #{level,jdbcType=INTEGER}, 
+      #{ctl,jdbcType=VARCHAR}, #{act,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{visible,jdbcType=BIT}, 
+      #{parentId,jdbcType=SMALLINT}, #{orderby,jdbcType=SMALLINT}, #{icon,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yzj.shop.po.SystemModule" >
+    insert into system_module
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="modId != null" >
+        mod_id,
+      </if>
+      <if test="module != null" >
+        module,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="ctl != null" >
+        ctl,
+      </if>
+      <if test="act != null" >
+        act,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="visible != null" >
+        visible,
+      </if>
+      <if test="parentId != null" >
+        parent_id,
+      </if>
+      <if test="orderby != null" >
+        orderby,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="modId != null" >
+        #{modId,jdbcType=SMALLINT},
+      </if>
+      <if test="module != null" >
+        #{module,jdbcType=CHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="ctl != null" >
+        #{ctl,jdbcType=VARCHAR},
+      </if>
+      <if test="act != null" >
+        #{act,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null" >
+        #{visible,jdbcType=BIT},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=SMALLINT},
+      </if>
+      <if test="orderby != null" >
+        #{orderby,jdbcType=SMALLINT},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yzj.shop.po.SystemModuleExample" resultType="java.lang.Integer" >
+    select count(*) from system_module
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update system_module
+    <set >
+      <if test="record.modId != null" >
+        mod_id = #{record.modId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.module != null" >
+        module = #{record.module,jdbcType=CHAR},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
+      <if test="record.ctl != null" >
+        ctl = #{record.ctl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.act != null" >
+        act = #{record.act,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.visible != null" >
+        visible = #{record.visible,jdbcType=BIT},
+      </if>
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=SMALLINT},
+      </if>
+      <if test="record.orderby != null" >
+        orderby = #{record.orderby,jdbcType=SMALLINT},
+      </if>
+      <if test="record.icon != null" >
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update system_module
+    set mod_id = #{record.modId,jdbcType=SMALLINT},
+      module = #{record.module,jdbcType=CHAR},
+      level = #{record.level,jdbcType=INTEGER},
+      ctl = #{record.ctl,jdbcType=VARCHAR},
+      act = #{record.act,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      visible = #{record.visible,jdbcType=BIT},
+      parent_id = #{record.parentId,jdbcType=SMALLINT},
+      orderby = #{record.orderby,jdbcType=SMALLINT},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      url = #{record.url,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yzj.shop.po.SystemModule" >
+    update system_module
+    <set >
+      <if test="module != null" >
+        module = #{module,jdbcType=CHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="ctl != null" >
+        ctl = #{ctl,jdbcType=VARCHAR},
+      </if>
+      <if test="act != null" >
+        act = #{act,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="visible != null" >
+        visible = #{visible,jdbcType=BIT},
+      </if>
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=SMALLINT},
+      </if>
+      <if test="orderby != null" >
+        orderby = #{orderby,jdbcType=SMALLINT},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mod_id = #{modId,jdbcType=SMALLINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yzj.shop.po.SystemModule" >
+    update system_module
+    set module = #{module,jdbcType=CHAR},
+      level = #{level,jdbcType=INTEGER},
+      ctl = #{ctl,jdbcType=VARCHAR},
+      act = #{act,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      visible = #{visible,jdbcType=BIT},
+      parent_id = #{parentId,jdbcType=SMALLINT},
+      orderby = #{orderby,jdbcType=SMALLINT},
+      icon = #{icon,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR}
+    where mod_id = #{modId,jdbcType=SMALLINT}
+  </update>
+</mapper>

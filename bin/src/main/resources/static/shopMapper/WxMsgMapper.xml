@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yzj.shop.mapper.WxMsgMapper" >
+  <resultMap id="BaseResultMap" type="cn.yzj.shop.po.WxMsg" >
+    <id column="msgid" property="msgid" jdbcType="INTEGER" />
+    <result column="admin_id" property="adminId" jdbcType="INTEGER" />
+    <result column="titile" property="titile" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="INTEGER" />
+    <result column="sendtime" property="sendtime" jdbcType="INTEGER" />
+    <result column="issend" property="issend" jdbcType="BIT" />
+    <result column="sendtype" property="sendtype" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.yzj.shop.po.WxMsg" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    msgid, admin_id, titile, createtime, sendtime, issend, sendtype
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.yzj.shop.po.WxMsgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wx_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yzj.shop.po.WxMsgExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from wx_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wx_msg
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from wx_msg
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yzj.shop.po.WxMsgExample" >
+    delete from wx_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yzj.shop.po.WxMsg" >
+    insert into wx_msg (msgid, admin_id, titile, 
+      createtime, sendtime, issend, 
+      sendtype, content)
+    values (#{msgid,jdbcType=INTEGER}, #{adminId,jdbcType=INTEGER}, #{titile,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=INTEGER}, #{sendtime,jdbcType=INTEGER}, #{issend,jdbcType=BIT}, 
+      #{sendtype,jdbcType=BIT}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yzj.shop.po.WxMsg" >
+    insert into wx_msg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="msgid != null" >
+        msgid,
+      </if>
+      <if test="adminId != null" >
+        admin_id,
+      </if>
+      <if test="titile != null" >
+        titile,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="sendtime != null" >
+        sendtime,
+      </if>
+      <if test="issend != null" >
+        issend,
+      </if>
+      <if test="sendtype != null" >
+        sendtype,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="msgid != null" >
+        #{msgid,jdbcType=INTEGER},
+      </if>
+      <if test="adminId != null" >
+        #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="titile != null" >
+        #{titile,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=INTEGER},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=INTEGER},
+      </if>
+      <if test="issend != null" >
+        #{issend,jdbcType=BIT},
+      </if>
+      <if test="sendtype != null" >
+        #{sendtype,jdbcType=BIT},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yzj.shop.po.WxMsgExample" resultType="java.lang.Integer" >
+    select count(*) from wx_msg
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update wx_msg
+    <set >
+      <if test="record.msgid != null" >
+        msgid = #{record.msgid,jdbcType=INTEGER},
+      </if>
+      <if test="record.adminId != null" >
+        admin_id = #{record.adminId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titile != null" >
+        titile = #{record.titile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null" >
+        createtime = #{record.createtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.sendtime != null" >
+        sendtime = #{record.sendtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.issend != null" >
+        issend = #{record.issend,jdbcType=BIT},
+      </if>
+      <if test="record.sendtype != null" >
+        sendtype = #{record.sendtype,jdbcType=BIT},
+      </if>
+      <if test="record.content != null" >
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update wx_msg
+    set msgid = #{record.msgid,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      titile = #{record.titile,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=INTEGER},
+      sendtime = #{record.sendtime,jdbcType=INTEGER},
+      issend = #{record.issend,jdbcType=BIT},
+      sendtype = #{record.sendtype,jdbcType=BIT},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update wx_msg
+    set msgid = #{record.msgid,jdbcType=INTEGER},
+      admin_id = #{record.adminId,jdbcType=INTEGER},
+      titile = #{record.titile,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=INTEGER},
+      sendtime = #{record.sendtime,jdbcType=INTEGER},
+      issend = #{record.issend,jdbcType=BIT},
+      sendtype = #{record.sendtype,jdbcType=BIT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yzj.shop.po.WxMsg" >
+    update wx_msg
+    <set >
+      <if test="adminId != null" >
+        admin_id = #{adminId,jdbcType=INTEGER},
+      </if>
+      <if test="titile != null" >
+        titile = #{titile,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=INTEGER},
+      </if>
+      <if test="sendtime != null" >
+        sendtime = #{sendtime,jdbcType=INTEGER},
+      </if>
+      <if test="issend != null" >
+        issend = #{issend,jdbcType=BIT},
+      </if>
+      <if test="sendtype != null" >
+        sendtype = #{sendtype,jdbcType=BIT},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.yzj.shop.po.WxMsg" >
+    update wx_msg
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      titile = #{titile,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=INTEGER},
+      sendtime = #{sendtime,jdbcType=INTEGER},
+      issend = #{issend,jdbcType=BIT},
+      sendtype = #{sendtype,jdbcType=BIT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yzj.shop.po.WxMsg" >
+    update wx_msg
+    set admin_id = #{adminId,jdbcType=INTEGER},
+      titile = #{titile,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=INTEGER},
+      sendtime = #{sendtime,jdbcType=INTEGER},
+      issend = #{issend,jdbcType=BIT},
+      sendtype = #{sendtype,jdbcType=BIT}
+    where msgid = #{msgid,jdbcType=INTEGER}
+  </update>
+</mapper>
