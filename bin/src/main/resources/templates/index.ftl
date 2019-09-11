@@ -97,7 +97,7 @@
                                 <ul class="sub-menu">
                                     <#list secondItem.systemModuleDTOs as thirdItem>
                                         <li>
-                                        <a onclick="xadmin.add_tab('会员删除','${base}${thirdItem.url}')">
+                                        <a onclick="xadmin.add_tab('${thirdItem.title}','${base}${thirdItem.url}')">
                                             <i class="iconfont">&#xe6a7;</i>
                                             <cite>${thirdItem.title}</cite></a>
                                         </li>                                    

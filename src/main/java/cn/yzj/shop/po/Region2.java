@@ -12,7 +12,7 @@ public class Region2 {
 
     private Integer parentId;
 
-    private Boolean level;
+    private Integer level;
 
     public Integer getId() {
         return id;
@@ -38,11 +38,17 @@ public class Region2 {
         this.parentId = parentId;
     }
 
-    public Boolean getLevel() {
-        return level;
-    }
+	public Integer getLevel() {
+		return level;
+	}
 
-    public void setLevel(Boolean level) {
-        this.level = level;
-    }
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+
+	@Override
+	public String toString() {
+		return "Region2 [id=" + id + ", name=" + name + ", parentId=" + parentId + ", level=" + level + "]";
+	}
+
 }

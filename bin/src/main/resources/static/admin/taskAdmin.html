@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <title>任务订单后台管理列表</title>
-<link rel="stylesheet" href="../admin/lib/layui/css/layui.css"
+<link rel="stylesheet" href="../../admin/lib/layui/css/layui.css"
 	media="all">
 <link rel="stylesheet" href="./css/font.css">
 
@@ -27,6 +27,7 @@
 				<!-- <th lay-data="{field:'isloop', sort: true,align:'center'}">是否循环发布</th> -->
 				<th
 					lay-data="{field:'icon', sort: true,templet:'#icon',align:'center'}">菜单图标</th>
+					<th lay-data="{field:'url',edit: 'text',align:'center'}">菜单路径</th>
 				<th
 					lay-data="{fixed: 'right', width:300, align:'center', toolbar: '#barDemo',align:'center'}">操作</th>
 			</tr>
@@ -51,6 +52,7 @@
 					<th lay-data="{field:'orderby'}">排序</th>
 					<!-- <th lay-data="{field:'isloop', sort: true}">是否循环发布</th> -->
 					<th lay-data="{field:'icon', sort: true}">菜单图标</th>
+					<th lay-data="{field:'url',edit: 'text'}">菜单路径</th>
 					<th
 						lay-data="{fixed: 'right', width:300, align:'center', toolbar: '#secondList'}">操作</th>
 				</tr>
@@ -79,7 +81,7 @@
                 type: 1 //此处以iframe举例
                   ,
                 title: '添加任务',
-                area: ['500px'],
+                area: ['1000px','500px'],
                 shade: 0,
                 maxmin: true,
                 content: $('#formAdd'),
@@ -141,7 +143,7 @@
             var id = data.modId
             var nav=data.title
           table.reload('SecondWindow',{
-            url:'../api/find',
+            url:'../api/getSystemModuleByPid',
             where:{
             	pid:id
             },
@@ -215,7 +217,7 @@
             var nav=data.title
             var level=data
           table.reload('SecondWindow',{
-            url:'../api/find',
+            url:'../api/getSystemModuleByPid',
             where:{
             	pid:id
             },
@@ -403,14 +405,14 @@ layui.use('laypage', function(){
 			<div class="layui-input-block chooseNav">
 				<select name="parentId" lay-filter="choosePnav" id="selectPNav"
 					lay-verify="required" lay-search>
-					<option value=""></option>
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
 				</select>
 			</div>
 		</div>
+		
+		
 
+		
+		
 		<div class="layui-form-item">
 			<label class="layui-form-label">排序:</label>
 			<div class="layui-input-block">
@@ -493,27 +495,29 @@ layui.use('laypage', function(){
       })
     //点击事件绑定
       	$(document).on('click','.chooseNav',function(){
-      		 $.ajax({
-      	          type: 'post',
-      	          url: '../api/getSystemModuleByPid',
-      	          success: function (obj) {
-      	        	var role = document.getElementById("selectPNav");
-      	      		var list=obj.data
-      	      		for(var i=0;i<list.length;i++){
-      	      			                            var option = document.createElement("option");    // 创建添加option属性
-      	      			                            option.setAttribute("value",list[i].modId);                  // 给option的value添加值
-      	      			                            option.innerText=list[i].title;             // 打印option对应的纯文本 （超级管理员、管理员）
-      	      			                            role.appendChild(option);                          // 给select 添加option子标签
-      	      			                  }
-      	      		console.log(role)
-      	          },
-      	          error: function (obj) {
-      	            layer.msg("请求异常");
-      	          },
-      	          complete: function () {
-      	            tableRefresh();
-      	          }
-      	        });
+	        	var role = document.getElementById("selectPNav");
+      		if (role.children.length<=0) {
+      			 $.ajax({
+         	          type: 'post',
+         	          url: '../api/getSystemModuleByPid',
+         	          success: function (obj) {
+         	      		var list=obj.data
+         	      		for(var i=0;i<list.length;i++){
+         	      			                            var option = document.createElement("option");    // 创建添加option属性
+         	      			                            option.setAttribute("value",list[i].modId);                  // 给option的value添加值
+         	      			                            option.innerText=list[i].title;             // 打印option对应的纯文本 （超级管理员、管理员）
+         	      			                            role.appendChild(option);                          // 给select 添加option子标签
+         	      			                  }
+         	          },
+         	          error: function (obj) {
+         	            layer.msg("请求异常");
+         	          },
+         	          complete: function () {
+         	        	  form.render('select');
+         	          }
+         	        });
+      			 return false;
+      		}
       	});
     });
   </script>

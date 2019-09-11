@@ -8,9 +8,18 @@ import java.util.List;
  * @author syf
  *
  */
-public class Region2DTO extends Region2{
+public class Region2DTO{
 		
+		private Region2 region2;
 		private List<Region2> region2s = new ArrayList<Region2>();
+
+		public Region2 getRegion2() {
+			return region2;
+		}
+
+		public void setRegion2(Region2 region2) {
+			this.region2 = region2;
+		}
 
 		public List<Region2> getRegion2s() {
 			return region2s;
@@ -22,7 +31,7 @@ public class Region2DTO extends Region2{
 
 		@Override
 		public String toString() {
-			return "Region2DTO [region2s=" + region2s + "]";
+			return "Region2DTO [region2=" + region2 + ", region2s=" + region2s + "]";
 		}
-		
+
 }
