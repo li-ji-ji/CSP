@@ -3,7 +3,12 @@ package cn.yzj.shop.po;
 import java.io.Serializable;
 
 public class SystemModule implements Serializable{
-    private Short modId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Short modId;
 
     private String module;
 

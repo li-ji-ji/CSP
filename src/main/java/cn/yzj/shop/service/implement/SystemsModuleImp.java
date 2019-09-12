@@ -36,7 +36,8 @@ private SystemModuleMapper systemModuleMapper;
 public Msg add(Serializable id) {
 	Msg msg=new Msg();
 	if(systemModuleMapper.insertSelective((SystemModule) id)>0) {
-		
+		msg.setCode(Code.SUCCESS.getCode());
+		msg.setMsg("菜单添加"+Code.SUCCESS.getMsg());
 	}
 	return msg;
 }
@@ -92,10 +93,9 @@ public Serializable find() {
 	List<Object> model=new ArrayList<Object>();
 	for (SystemModule systemModule : systemsModules) {
 		if(systemModule.getParentId()==0) {
+
 			SystemModuleDTO item=new SystemModuleDTO();
 			item.setModId(systemModule.getModId());
-			item.setAct(systemModule.getAct());
-			item.setCtl(systemModule.getCtl());
 			item.setIcon(systemModule.getIcon());
 			item.setLevel(systemModule.getLevel());
 			item.setModule(systemModule.getModule());
@@ -107,10 +107,7 @@ public Serializable find() {
 			for (SystemModule systemModule2 : systemsModules) {
 				if(systemModule2.getParentId()==item.getModId()) {
 					SystemModuleDTO secondItem=new SystemModuleDTO();
-
 					secondItem.setModId(systemModule2.getModId());
-					secondItem.setAct(systemModule2.getAct());
-					secondItem.setCtl(systemModule2.getCtl());
 					secondItem.setIcon(systemModule2.getIcon());
 					secondItem.setLevel(systemModule2.getLevel());
 					secondItem.setModule(systemModule2.getModule());
@@ -119,17 +116,14 @@ public Serializable find() {
 					secondItem.setTitle(systemModule2.getTitle());
 					secondItem.setVisible(systemModule2.getVisible());
 					secondItem.setUrl(systemModule2.getUrl());
-					
-					
 					item.getSystemModuleDTOs().add(secondItem);
+					
 					for (SystemModule systemModule3 : systemsModules) {
 						SystemModuleDTO thirdItem=new SystemModuleDTO();
 						if(systemModule3.getParentId()==secondItem.getModId()) {
 
 							
 							thirdItem.setModId(systemModule3.getModId());
-							thirdItem.setAct(systemModule3.getAct());
-							thirdItem.setCtl(systemModule3.getCtl());
 							thirdItem.setIcon(systemModule3.getIcon());
 							thirdItem.setLevel(systemModule3.getLevel());
 							thirdItem.setModule(systemModule3.getModule());
@@ -166,18 +160,23 @@ public List<SelectTreeDTO> getSelectTree() throws Exception {
 			SelectTreeDTO item =new SelectTreeDTO();
 			item.setId(systemModule.getModId());
 			item.setName(systemModule.getTitle());
+			item.setUrl(systemModule.getUrl());
+			item.setIcon(systemModule.getIcon());
 			for (SystemModule systemModule2 : systemsModules) {
 				if(systemModule2.getParentId()==item.getId()) {
 					SelectTreeDTO secondItem=new SelectTreeDTO();
 					secondItem.setId(systemModule2.getModId());
 					secondItem.setName(systemModule2.getTitle());
+					secondItem.setIcon(systemModule2.getIcon());
+					secondItem.setUrl(systemModule2.getUrl());
 					item.getChildren().add(secondItem);
 					for (SystemModule systemModule3 : systemsModules) {
 						if(systemModule3.getParentId()==secondItem.getId()) {
-							
 							SelectChildren thirdItem=new SelectChildren();
 							thirdItem.setId(systemModule3.getModId());
 							thirdItem.setName(systemModule3.getTitle());
+							thirdItem.setIcon(systemModule3.getIcon());
+							thirdItem.setUrl(systemModule3.getUrl());
 							secondItem.getChildren().add(thirdItem);
 						}
 					}

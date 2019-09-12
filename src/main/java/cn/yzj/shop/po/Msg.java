@@ -6,7 +6,7 @@ public class Msg {
 	private static int code=Code.FAIL.getCode();
 	private static String msg=Code.FAIL.getMsg();
 	private static String jsonData;
-	public static int getCode() {
+	public  int getCode() {
 		return code;
 	}
 	public void setCode(int code) {

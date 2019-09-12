@@ -78,44 +78,45 @@
             <div id="side-nav">
                 <ul id="nav">
                     <#list model as item>
-                    <#if (item.parentId==0)>
                     <li>
                         <a href="javascript:;">
-                            <i class="iconfont layui-icon left-nav-li" lay-tips="${item.title}">${item.icon}</i>
-                            <cite>${item.title}</cite>
+                            <i class="iconfont layui-icon left-nav-li" lay-tips="${item.name}">${item.icon}</i>
+                            <cite>${item.name}</cite>
                             <i class="iconfont nav_right">&#xe697;</i></a>
                             
-                        <ul class="sub-menu">
+                          <ul class="sub-menu">
+                          <#list item.children as secondItem>
+                          <#if (secondItem.children?size>0)>
                        
-                        <#list item.systemModuleDTOs as secondItem>
-                        <#if (secondItem.systemModuleDTOs?size>0)>
                             <li>
                                 <a href="javascript:;">
-                                    <i class="iconfont">&#xe70b;</i>
-                                    <cite>${secondItem.title}</cite>
+                                    <i class="iconfont layui-icon">${secondItem.icon}</i>
+                                    <cite>${secondItem.name}</cite>
                                     <i class="iconfont nav_right">&#xe697;</i></a>
+                                
                                 <ul class="sub-menu">
-                                    <#list secondItem.systemModuleDTOs as thirdItem>
-                                        <li>
-                                        <a onclick="xadmin.add_tab('${thirdItem.title}','${base}${thirdItem.url}')">
+                                <#list secondItem.children as thirdItem>
+                                    <li>
+                                        <a onclick="xadmin.add_tab('${thirdItem.name}','${thirdItem.url}')">
                                             <i class="iconfont">&#xe6a7;</i>
-                                            <cite>${thirdItem.title}</cite></a>
-                                        </li>                                    
+                                            <cite>${thirdItem.name}</cite></a>
+                                    </li>
                                     </#list>
-                                    <#else>
-                            <li>
-                                <a onclick="xadmin.add_tab('${secondItem.title})','${base}${secondItem.url}')">
-                                    <i class="iconfont">&#xe6a7;</i>
-                                    <cite>${secondItem.title}</cite></a>
-                            </li>
-                                    
-                        </#if>
                                 </ul>
+                                
                             </li>
-                        </#list>
+                            <#else>
+                            <li>
+                                <a onclick="xadmin.add_tab('${secondItem.name}',${secondItem.url}')">
+                                    <i class="iconfont">&#xe6a7;</i>
+                                    <cite>${secondItem.name}</cite></a>
+                            </li>
+                            
+                            </#if>
+                            </#list>
                         </ul>
+                        
                     </li>
-                    </#if>
                     </#list>
                 </ul>
             </div>

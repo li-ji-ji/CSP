@@ -6,6 +6,20 @@ import java.util.List;
 public class SelectTreeDTO {
 	private int id;
 	private String name;
+	private String icon;
+	private String url;
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	private boolean open=false;
 	private List<Object> children=new ArrayList<Object>();
 	private boolean checked=true;

@@ -374,14 +374,7 @@ layui.use('laypage', function(){
 </script> -->
 	<form class="layui-form" action="" id="formAdd"
 		style="display: none; padding: 50px 75px 50px 50px;">
-		<div class="layui-form-item">
-			<label class="layui-form-label">菜单类型:</label>
-			<div class="layui-input-block">
-				<input type="text" name="module" required="" lay-verify="required"
-					placeholder="请输入菜单类型" autocomplete="off"
-					class="layui-input layui-form-danger">
-			</div>
-		</div>
+		
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">菜单名称:</label>
@@ -391,6 +384,21 @@ layui.use('laypage', function(){
 					class="layui-input layui-form-danger">
 			</div>
 		</div>
+		
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">菜单类型:</label>
+			<div class="layui-input-block layui-icon">
+			<input type="hidden" id="selectModule" name="module" class="layui-input">
+				<select name="icon" lay-verify="required" lay-filter="selectModule">
+					<option value=""></option>
+					<option value="0"><i>top</i></option>
+					<option value="1"><i>menu</i></option>
+					<option value="2"><i>module</i></option>
+				</select>
+			</div>
+		</div>
+		
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">是否显示:</label>
@@ -424,7 +432,7 @@ layui.use('laypage', function(){
 		<div class="layui-form-item">
 			<label class="layui-form-label">请选择图标:</label>
 			<div class="layui-input-block layui-icon">
-			<input type="hidden" id="selectIcon" " class="layui-input">
+			<input type="hidden" id="selectIcon" name="icon" class="layui-input">
 				<select name="icon" lay-verify="required" lay-filter="selectIcon">
 					<option value=""></option>
 					<option value="&#xe665;"><i>&#xe665;</i></option>
@@ -475,17 +483,16 @@ layui.use('laypage', function(){
           data: data.field,
           success: function (obj) {
         	  console.log(obj);
-            if (obj > 0) {
-              layer.msg(obj + "号任务,添加成功!")
+            if (obj.code != 0) {
+              layer.msg(obj.msg)
             } else {
-              layer.msg("添加失败!")
+              layer.msg("添加失败!"+obj.msg)
             }
           },
           error: function (obj) {
             layer.msg("请求异常");
           },
           complete: function () {
-            tableRefresh();
           }
         });
         return false;
@@ -494,6 +501,13 @@ layui.use('laypage', function(){
       form.on('select(selectIcon)',function(data){
     	  console.log(data.value);
     	  var selectIcon=document.getElementById("selectIcon");
+    	  selectIcon.setAttribute("value",data.value);
+    	  console.log(selectIcon)
+      })
+      
+      //菜单类型选择下拉事件监听
+      form.on('select(selectModule)',function(data){
+    	  var selectIcon=document.getElementById("selectModule");
     	  selectIcon.setAttribute("value",data.value);
     	  console.log(selectIcon)
       })

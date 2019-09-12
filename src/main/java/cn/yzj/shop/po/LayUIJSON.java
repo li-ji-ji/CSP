@@ -4,7 +4,11 @@ import java.io.Serializable;
 
 public class LayUIJSON implements Serializable{
 		 
-	    private int code=0;
+	    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+		private int code=0;
 	    private String msg="";
 	    private Long count; //总条数
 	    private Object data; //装前台当前页的数据

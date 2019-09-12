@@ -37,7 +37,7 @@ public class AdminApi {
 	 */
 	@RequestMapping("/addSystemModule")
 	public Msg addSystemModule(SystemModule module) throws Exception {
-		return systemsModule.add((Serializable) module);
+		return systemsModule.add(module);
 	}
 	/**
 	 *   获取下拉树模型

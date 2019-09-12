@@ -13,6 +13,8 @@ public class Navigation {
 
     private String url;
 
+    private String position;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class Navigation {
 
     public void setUrl(String url) {
         this.url = url == null ? null : url.trim();
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position == null ? null : position.trim();
     }
 }

@@ -8,6 +8,7 @@
     <result column="is_new" property="isNew" jdbcType="BIT" />
     <result column="sort" property="sort" jdbcType="SMALLINT" />
     <result column="url" property="url" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, is_show, is_new, sort, url
+    id, name, is_show, is_new, sort, url, position
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yzj.shop.po.NavigationExample" >
     select
@@ -102,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="cn.yzj.shop.po.Navigation" >
     insert into navigation (id, name, is_show, 
-      is_new, sort, url)
+      is_new, sort, url, position
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{isShow,jdbcType=BIT}, 
-      #{isNew,jdbcType=BIT}, #{sort,jdbcType=SMALLINT}, #{url,jdbcType=VARCHAR})
+      #{isNew,jdbcType=BIT}, #{sort,jdbcType=SMALLINT}, #{url,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.yzj.shop.po.Navigation" >
     insert into navigation
@@ -127,6 +130,9 @@
       <if test="url != null" >
         url,
       </if>
+      <if test="position != null" >
+        position,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -146,6 +152,9 @@
       </if>
       <if test="url != null" >
         #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -176,6 +185,9 @@
       <if test="record.url != null" >
         url = #{record.url,jdbcType=VARCHAR},
       </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -188,7 +200,8 @@
       is_show = #{record.isShow,jdbcType=BIT},
       is_new = #{record.isNew,jdbcType=BIT},
       sort = #{record.sort,jdbcType=SMALLINT},
-      url = #{record.url,jdbcType=VARCHAR}
+      url = #{record.url,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -211,6 +224,9 @@
       <if test="url != null" >
         url = #{url,jdbcType=VARCHAR},
       </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -220,7 +236,8 @@
       is_show = #{isShow,jdbcType=BIT},
       is_new = #{isNew,jdbcType=BIT},
       sort = #{sort,jdbcType=SMALLINT},
-      url = #{url,jdbcType=VARCHAR}
+      url = #{url,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
