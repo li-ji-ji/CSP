@@ -1,11 +1,14 @@
 package cn.yzj.shop.po;
 
 import java.io.Serializable;
-
+/*
+ * 
+ *yzj
+ *2019
+ *2019年9月12日
+ */
 public class SystemModule implements Serializable{
-    /**
-	 * 
-	 */
+    
 	private static final long serialVersionUID = 1L;
 
 	private Short modId;

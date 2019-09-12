@@ -8,7 +8,12 @@ import org.springframework.web.servlet.ModelAndView;
 import cn.yzj.shop.po.SystemModule;
 import cn.yzj.shop.service.SystemsModule;
 import cn.yzj.shop.util.WXPayUtil;
-
+/*
+ * 
+ *yzj
+ *2019
+ *2019年9月12日
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminControler {
@@ -19,7 +24,7 @@ public class AdminControler {
 	@RequestMapping("/index")
 	public ModelAndView index(ModelAndView modelAndView) throws Exception {
 		modelAndView.setViewName("index");
-		modelAndView.addObject("model",systemsModule.find());
+		modelAndView.addObject("model",systemsModule.getSelectTree());
 		return modelAndView;
 	}
 	

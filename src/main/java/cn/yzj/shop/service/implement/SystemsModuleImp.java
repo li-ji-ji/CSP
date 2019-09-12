@@ -6,7 +6,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -20,6 +22,12 @@ import cn.yzj.shop.po.SystemModuleDTO;
 import cn.yzj.shop.po.SystemModuleExample;
 import cn.yzj.shop.service.SystemsModule;
 import cn.yzj.shop.systemclass.Code;
+/*
+ * 
+ *yzj
+ *2019
+ *2019年9月12日
+ */
 @Service
 public class SystemsModuleImp implements SystemsModule {
 
@@ -41,15 +49,46 @@ public Msg add(Serializable id) {
 	}
 	return msg;
 }
+/**
+ * 删除菜单
+ * param List[short]
+ * return msg
+ */
 @Override
+@Transactional
 public Msg delete(Serializable id) {
-	// TODO 自动生成的方法存根
-	return null;
+	Msg msg=new Msg();
+	JSONArray array=JSONArray.parseArray((String) id);
+	ArrayList<Short> ids=new ArrayList<Short>();
+	for (Object item : array) {
+		final int number=(int) item;
+		ids.add((short) number);
+		SystemModuleExample example=new SystemModuleExample();
+		example.createCriteria().andParentIdEqualTo((short) number);
+		List<SystemModule> systemModules=systemModuleMapper.selectByExample(example);
+		if(systemModules.size()>0) {
+			for (SystemModule seconditem : systemModules) {
+				ids.add(seconditem.getModId());
+			}
+		}
+	}
+	SystemModuleExample example=new SystemModuleExample();
+	example.createCriteria().andModIdIn(ids);
+	
+	if(systemModuleMapper.deleteByExample(example)>0) {
+		msg.setCode(Code.SUCCESS.getCode());
+		msg.setMsg(Code.SUCCESS.getMsg());
+	}
+	return msg;
 }
 @Override
 public Msg updata(Serializable id) {
-	// TODO 自动生成的方法存根
-	return null;
+	Msg msg=new Msg();
+	if(systemModuleMapper.updateByPrimaryKeySelective((SystemModule) id)>0) {
+		msg.setCode(Code.SUCCESS.getCode());
+		msg.setMsg(Code.SUCCESS.getMsg());
+	}
+	return msg;
 }
 /**
  * 通过pid查询子菜单模型
@@ -180,6 +219,51 @@ public List<SelectTreeDTO> getSelectTree() throws Exception {
 							secondItem.getChildren().add(thirdItem);
 						}
 					}
+				}
+			}
+			selectTreeDTOs.add(item);
+		}
+	}
+	return selectTreeDTOs;
+}
+/**
+ *   获取下拉树模型没有url
+* @return
+* @throws Exception
+*/
+@Override
+public List<SelectTreeDTO> getSelectTreeNo() throws Exception {
+	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
+	SystemModuleExample example=new SystemModuleExample();
+	example.setOrderByClause("orderby ASC");
+	example.createCriteria().andVisibleEqualTo(true);
+	systemsModules=systemModuleMapper.selectByExample(example);
+	List<SelectTreeDTO> selectTreeDTOs=new ArrayList<SelectTreeDTO>(); 
+	for (SystemModule systemModule : systemsModules) {
+		if(systemModule.getParentId()==0) {
+			SelectTreeDTO item =new SelectTreeDTO();
+			item.setId(systemModule.getModId());
+			item.setName(systemModule.getTitle());
+
+			item.setIcon(systemModule.getIcon());
+			for (SystemModule systemModule2 : systemsModules) {
+				if(systemModule2.getParentId()==item.getId()) {
+					SelectTreeDTO secondItem=new SelectTreeDTO();
+					secondItem.setId(systemModule2.getModId());
+					secondItem.setName(systemModule2.getTitle());
+					secondItem.setIcon(systemModule2.getIcon());
+
+					item.getChildren().add(secondItem);
+//					for (SystemModule systemModule3 : systemsModules) {
+//						if(systemModule3.getParentId()==secondItem.getId()) {
+//							SelectChildren thirdItem=new SelectChildren();
+//							thirdItem.setId(systemModule3.getModId());
+//							thirdItem.setName(systemModule3.getTitle());
+//							thirdItem.setIcon(systemModule3.getIcon());
+//
+//							secondItem.getChildren().add(thirdItem);
+//						}
+//					}
 				}
 			}
 			selectTreeDTOs.add(item);

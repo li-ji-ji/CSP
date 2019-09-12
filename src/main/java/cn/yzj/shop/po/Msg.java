@@ -1,8 +1,15 @@
 package cn.yzj.shop.po;
 
-import cn.yzj.shop.systemclass.Code;
+import java.io.Serializable;
 
-public class Msg {
+import cn.yzj.shop.systemclass.Code;
+/*
+ * 
+ *yzj
+ *2019
+ *2019年9月12日
+ */
+public class Msg{
 	private static int code=Code.FAIL.getCode();
 	private static String msg=Code.FAIL.getMsg();
 	private static String jsonData;

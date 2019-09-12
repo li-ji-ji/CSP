@@ -1,6 +1,5 @@
 package cn.yzj.shop.api;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,12 @@ import cn.yzj.shop.po.Msg;
 import cn.yzj.shop.po.SelectTreeDTO;
 import cn.yzj.shop.po.SystemModule;
 import cn.yzj.shop.service.SystemsModule;
-
+/*
+ * 
+ *yzj
+ *2019
+ *2019年9月12日
+ */
 @RestController
 @RequestMapping("/api")
 public class AdminApi {
@@ -40,7 +44,7 @@ public class AdminApi {
 		return systemsModule.add(module);
 	}
 	/**
-	 *   获取下拉树模型
+	 *   获取下拉树模型有url
 	* @return
 	* @throws Exception
 	*/
@@ -48,4 +52,27 @@ public class AdminApi {
 	public List<SelectTreeDTO> getSelectTree() throws Exception {
 		return systemsModule.getSelectTree();
 	}
+	/**
+	 *   获取下拉树模型没有url
+	* @return
+	* @throws Exception
+	*/
+	@RequestMapping("/getSelectTreeNo")
+	public List<SelectTreeDTO> getSelectTreeNo() throws Exception {
+		return systemsModule.getSelectTreeNo();
+	}
+	/**
+	 * 删除菜单
+	 * param String
+	 * return msg
+	 */
+	@RequestMapping("/deleteMenu")
+	public Msg deleteMenu(@RequestParam("ids")String ids) {
+		return systemsModule.delete(ids);
+	}
+	@RequestMapping("/updataMenu")
+	public Msg updataMenu(SystemModule systemModules) {
+		return systemsModule.updata(systemModules);
+	}
+	
 }

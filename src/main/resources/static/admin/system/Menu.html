@@ -23,7 +23,7 @@
 				<th lay-data="{field:'module',edit: 'text',align:'center'}">菜单类型</th>
 				<th lay-data="{field:'title', sort: true,align:'center'}">菜单名称</th>
 				<!-- <th lay-data="{field:'finishTime',align:'center'}">完成时间</th> -->
-				<th lay-data="{field:'visible',align:'center'}">是否显示</th>
+				<th lay-data="{field:'visible',align:'center',templet:'#disPlayMenu'}">是否显示</th>
 				<th lay-data="{field:'parentId', sort: true,align:'center'}">上级菜单</th>
 				<th lay-data="{field:'orderby',align:'center'}">排序</th>
 				<!-- <th lay-data="{field:'isloop', sort: true,align:'center'}">是否循环发布</th> -->
@@ -31,7 +31,7 @@
 					lay-data="{field:'icon', sort: true,templet:'#icon',align:'center'}">菜单图标</th>
 					<th lay-data="{field:'url',edit: 'text',align:'center'}">菜单路径</th>
 				<th
-					lay-data="{fixed: 'right', width:300, align:'center', toolbar: '#barDemo',align:'center'}">操作</th>
+					lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo',align:'center'}">操作</th>
 			</tr>
 		</thead>
 	</table>
@@ -49,14 +49,14 @@
 					<th lay-data="{field:'module',edit: 'text'}">菜单类型</th>
 					<th lay-data="{field:'title', sort: true}">菜单名称</th>
 					<!-- <th lay-data="{field:'finishTime'}">完成时间</th> -->
-					<th lay-data="{field:'visible'}">是否隐藏</th>
+					<th lay-data="{field:'visible',templet:'#disPlayMenu'}">是否显示</th>
 					<th lay-data="{field:'parentId', sort: true}">上级菜单</th>
 					<th lay-data="{field:'orderby'}">排序</th>
 					<!-- <th lay-data="{field:'isloop', sort: true}">是否循环发布</th> -->
 					<th lay-data="{field:'icon', sort: true}">菜单图标</th>
 					<th lay-data="{field:'url',edit: 'text'}">菜单路径</th>
 					<th
-						lay-data="{fixed: 'right', width:300, align:'center', toolbar: '#secondList'}">操作</th>
+						lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#secondList'}">操作</th>
 				</tr>
 			</thead>
 		</table>
@@ -68,6 +68,7 @@
 
       var table = layui.table;
       var $ = layui.jquery;
+      var form=layui.form;
       //头工具栏事件
       table.on('toolbar(test)', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
@@ -85,7 +86,7 @@
                 shade: 0,
                 maxmin: true,
                 content: $('#formAdd'),
-                zIndex: layer.zIndex //重点      
+                zIndex:1000 //重点      
               });
             });
             break;
@@ -95,39 +96,39 @@
               layer.confirm('确定删除选中行么?', function (index) {
                 var idList = []
                 data.forEach(element => {
-                  idList = idList.concat(element.taskId);
+                  idList = idList.concat(element.modId);
                 });
                 var idListStr = JSON.stringify(idList);
                 layer.close(index);
                 //向服务端发送删除指令
                 $.ajax({
-                  type: 'post',
-                  url: '/taskAdmin/delete',
-                  data: {
-                    taskId: idListStr
-                  },
-                  success: function (obj) {
-                    if (obj == true) {
-                      layer.msg("删除成功!")
-                    } else {
-                      layer.msg("删除失败!")
+                    type: 'post',
+                    url: '/api/deleteMenu',
+                    data: {
+                      ids: idList
+                    },
+                    success: function (obj) {
+                  	  console.log(obj);
+                      if (obj.code != 0) {
+                        layer.msg(obj.msg)
+                      } else {
+                        layer.msg("删除菜单"+obj.msg)
+                      }
+                    },
+                    error: function (obj) {
+                      layer.msg("请求异常");
+                    },
+                    complete: function () {
                     }
-                  },
-                  error: function (obj) {
-                    layer.msg("请求异常");
-                  },
-                  complete: function () {
-                    tableRefresh();
-                  }
-                });
-                return false;
+                  });
+                  return false;
               });
             } else {
               layer.msg("最少选中一行!");
             }
             break;
           case 'Refresh':
-            tableRefresh()
+            tableRefresh('item')
             break;
         };
       });
@@ -166,29 +167,29 @@
         } else if (layEvent === 'del') { //删除
           layer.confirm('真的删除行么', function (index) {
             var id = [];
-            id = id.concat(data.taskId);
+            id = id.concat(data.modId);
             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
             layer.close(index);
             idList = JSON.stringify(id)
             //向服务端发送删除指令
             $.ajax({
               type: 'post',
-              url: '/taskAdmin/delete',
+              url: '/api/deleteMenu',
               data: {
-                taskId: idList
+                ids: idList
               },
               success: function (obj) {
-                if (obj == true) {
-                  layer.msg("删除成功!")
+            	  console.log(obj);
+                if (obj.code != 0) {
+                  layer.msg(obj.msg)
                 } else {
-                  layer.msg("删除失败!")
+                  layer.msg("删除菜单"+obj.msg)
                 }
               },
               error: function (obj) {
                 layer.msg("请求异常");
               },
               complete: function () {
-                tableRefresh();
               }
             });
             return false;
@@ -204,7 +205,7 @@
         }
       });
       
-    //监听工具条
+    //监听弹窗工具条
       table.on('tool(SecondWindow)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
@@ -231,38 +232,38 @@
                 shade: 0,
                 maxmin: true,
                 content: $('#SecondWindow'),
-                zIndex:100 //重点      
+                zIndex:1 //重点      
               });
             });
           }else{
-            layer.msg("终极菜单没有子菜单!")
+        	  parent.layer.msg("终极菜单没有子菜单!")
           }
         } else if (layEvent === 'del') { //删除
-          layer.confirm('真的删除行么', function (index) {
+        	parent.layer.confirm('真的删除行么', function (index) {
             var id = [];
-            id = id.concat(data.taskId);
+            id = id.concat(data.modId);
             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
             layer.close(index);
             idList = JSON.stringify(id)
             //向服务端发送删除指令
             $.ajax({
               type: 'post',
-              url: '/taskAdmin/delete',
+              url: '/api/deleteMenu',
               data: {
-                taskId: idList
+                ids: idList
               },
               success: function (obj) {
-                if (obj == true) {
-                  layer.msg("删除成功!")
+            	  console.log(obj);
+                if (obj.code != 0) {
+                  layer.msg(obj.msg)
                 } else {
-                  layer.msg("删除失败!")
+                	parent.layer.msg("删除菜单"+obj.msg)
                 }
               },
               error: function (obj) {
-                layer.msg("请求异常");
+            	  parent.layer.msg("请求异常");
               },
               complete: function () {
-                tableRefresh();
               }
             });
             return false;
@@ -271,7 +272,7 @@
           //do something
 
           //同步更新缓存对应的值
-          obj.update({
+          obj.update({ff
             username: '123',
             title: 'xxx'
           });
@@ -290,53 +291,97 @@
         var upTask = JSON.parse(strTask);
         $.ajax({
           type: 'post',
-          url: '/taskAdmin/updata',
+          url: '/api/updataMenu',
           data: upTask,
           success: function (obj) {
-            if (obj == true) {
-              layer.msg("修改成功!")
+        	  console.log(obj);
+            if (obj.code != 0) {
+              layer.msg("修改"+obj.msg)
             } else {
-              layer.msg("修改失败!")
+            	parent.layer.msg("修改"+obj.msg)
             }
           },
           error: function (obj) {
-            layer.msg("请求异常");
+        	  parent.layer.msg("请求异常");
           },
           complete: function () {
-            tableRefresh();
           }
         });
         return false;
       });
+      
+    //监听switch开关
+      form.on('checkbox(disPlayMenu)', function (obj) {
+        var modId = obj.elem.attributes.modId.value;
+        var visible = obj.elem.value;
+        if (visible=="true") {
+        	visible=false;
+        } else {
+        	visible =true;
 
+        }
+        console.log(visible)
+      $.ajax({
+          type: 'post',
+          url: '/api/updataMenu',
+          data: {
+        	  modId: modId,
+            visible: visible
+          },
+          success: function (obj) {
+        	  console.log(obj);
+            if (obj.code != 0) {
+              layer.msg(obj.msg)
+            } else {
+            	parent.layer.msg("删除菜单"+obj.msg)
+            }
+          },
+          error: function (obj) {
+        	  parent.layer.msg("请求异常");
+          },
+          complete: function () {
+        	  tableRefresh('SecondWindow')
+        	  tableRefresh('item')
+          }
+
+        });
+        return false;
+      });
 
     });
     //局部刷新数据表
-    function tableRefresh() {
+    function tableRefresh(obj) {
       var table = layui.table;
-      table.refresh('item');
+      table.refresh(obj);
     }
     
     </script>
+    
 	<!--自定义表单图标-->
 	<script type="text/html" id="icon">
        <i class="layui-icon">{{d.icon}}</i>
     </script>
+    
+     <!-- checked 选中按钮  -->
+  <script type="text/html" id="disPlayMenu">
+    <input type="checkbox" modId="{{d.modId}}" name="visible" value="{{d.visible}}" title="显示"
+      lay-filter="disPlayMenu" {{ d.visible==1 ? 'checked' : '' }}>
+  </script>
 
 	</script>
-	<!--工具条事件 task任务主表-->
+	<!--工具条事件菜单主表-->
 	<script type="text/html" id="barDemo">
      <button  lay-event="detail" {{d.level==3?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-xs"'}}><i class="layui-icon">&#xe615;</i>下级菜单</button>
-     <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="add">添加子菜单</a>
+    <!-- <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="add">添加子菜单</a>-->
 
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
 
 	</script>
-	<!--工具条事件 task任务主表-->
+	<!--工具条事件菜单弹窗表-->
 	<script type="text/html" id="secondList">
      <button  lay-event="detail" {{d.level==3?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-xs"'}}><i class="layui-icon">&#xe615;</i>下级菜单</button>
-     <a  lay-event="add" {{d.level==3?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-warm layui-btn-xs"'}}>添加子菜单</a>
+     <!--<a  lay-event="add" {{d.level==3?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-warm layui-btn-xs"'}}>添加子菜单</a>-->
 
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
@@ -484,18 +529,20 @@ layui.use('laypage', function(){
           success: function (obj) {
         	  console.log(obj);
             if (obj.code != 0) {
-              layer.msg(obj.msg)
+            	parent.layer.msg(obj.msg)
             } else {
-              layer.msg("添加失败!"+obj.msg)
+            	parent.layer.msg("添加失败!"+obj.msg)
             }
           },
           error: function (obj) {
-            layer.msg("请求异常");
+        	  parent.layer.msg("请求异常");
           },
           complete: function () {
+        	  refresh('item');
           }
         });
         return false;
+        
       })
       //图标选择下拉事件监听
       form.on('select(selectIcon)',function(data){
@@ -551,7 +598,7 @@ layui.use('laypage', function(){
             // 选择器
             elem: '#selectPNav',
             // 数据
-            data: '/api/getSelectTree',
+            data: '/api/getSelectTreeNo',
             // 异步加载方式：get/post，默认get
             type: 'get',
             // 占位符
