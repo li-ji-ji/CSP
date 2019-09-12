@@ -8,7 +8,7 @@ Page({
     choose: [],
     // 选择操作可视化  选中项数组
     sign: 0,
-    url: "http://qzimp.cn/api/file/api/personFileInfo/findByStudentId?studentId=",
+    url: "https://qzimp.cn/api/file/api/personFileInfo/findByStudentId?studentId=",
     userId:0
   },
   choose_img: function() {
@@ -64,7 +64,7 @@ Page({
     for (var i = 0; i < x; i++) {
       if (y[i].choose == "in") {
         wx.request({
-          url: "http://qzimp.cn/api/file/api/personFileInfo/delete",
+          url: "https://qzimp.cn/api/file/api/personFileInfo/delete",
           // method: "POST",
           data: {
             id: y[i].fileId
@@ -191,7 +191,7 @@ Page({
     })
     this.choose_img()
     wx.request({
-      url: "http://qzimp.cn/api/file/api/printShop/getAll",
+      url: "https://qzimp.cn/api/file/api/printShop/getAll",
       method: "GET",
       header: {
         'content-type': 'application/json' // 默认值

@@ -252,8 +252,10 @@ Page({
     var that = this
     var App = getApp()
     var studentId = App.globalData.user.id;
-    that.shopCart();
-    that.printShopName();
+    if(that.data.studentId!=undefined){
+      that.shopCart();
+      that.printShopName();
+    }
   },
 
   /**

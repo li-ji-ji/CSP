@@ -411,7 +411,7 @@ Page({
       })
     }
     wx.request({
-      url: "http://qzimp.cn/api/file/api/shopCart/insert",
+      url: "https://qzimp.cn/api/file/api/shopCart/insert",
       method: "POST",
       header: {
         'content-type': 'application/json' // 默认值
@@ -426,7 +426,7 @@ Page({
         }
         for (var i = 0; i < that.data.order.length; i++) {
           wx.request({
-            url: "http://qzimp.cn/api/file/api/printOrder/insert",
+            url: "https://qzimp.cn/api/file/api/printOrder/insert",
             method: "POST",
             header: {
               'content-type': 'application/json' // 默认值
@@ -464,7 +464,7 @@ Page({
     })
     //打印机信息的获得
     wx.request({
-      url: "http://qzimp.cn/api/file/api/printShop/getAll",
+      url: "https://qzimp.cn/api/file/api/printShop/getAll",
       method: "GET",
       header: {
         'content-type': 'application/json' // 默认值

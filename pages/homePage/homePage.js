@@ -20,8 +20,8 @@ Page({
     location: [], //店面数据
     array: {},
     ican: null,
-    url: "http://qzimp.cn/api/file/api/personFileInfo/findByStudentId?studentId=",
-    shopCartUrl: "http://qzimp.cn/api/file/api/shopCart/findByStudentId?studentId=",
+    url: "https://qzimp.cn/api/file/api/personFileInfo/findByStudentId?studentId=",
+    shopCartUrl: "https://qzimp.cn/api/file/api/shopCart/findByStudentId?studentId=",
   },
 
   display_error: function () {
@@ -46,9 +46,24 @@ Page({
     // })
     var upArray = JSON.stringify(this.data.upArray)
     // 数据传输
-    wx.navigateTo({
-      url: "../aomunt/aomunt?sign=" + this.data.sign + "&printIndex=" + this.data.printIndex + "&upArray=" + JSON.stringify(that.data.upArray),
-    })
+    if(that.userId==undefined){
+      wx.showModal({
+        title: '提示',
+        content: '请先去用户中心绑定信息',
+        success: function (res) {
+          if (res.confirm) {
+            wx.reLaunch({
+              url: '/pages/user/user'
+            })
+          } else if (res.cancel) {
+          }
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: "../aomunt/aomunt?sign=" + this.data.sign + "&printIndex=" + this.data.printIndex + "&upArray=" + JSON.stringify(that.data.upArray),
+      })
+    }
   },
   goorderList: function () {
     //我的购物
@@ -68,6 +83,7 @@ Page({
 
   },
   gohistoricalOrder: function () {
+
     wx.navigateTo({
       url: '../historicalOrder/historicalOrder',
     })
@@ -76,9 +92,24 @@ Page({
     // 跳转到up页面上传文件
     var that = this
     // 跳转到up页面
-    wx.navigateTo({
-      url: '../up/up',
-    })
+    if (that.userId == undefined) {
+      wx.showModal({
+        title: '提示',
+        content: '请先去用户中心绑定信息',
+        success: function (res) {
+          if (res.confirm) {
+            wx.reLaunch({
+              url: '/pages/user/user'
+            })
+          } else if (res.cancel) {
+          }
+        }
+      })
+    }else{
+      wx.navigateTo({
+        url: '../up/up',
+      })
+    }
   },
   bindPickerChange: function (e) {
     this.setData({
@@ -150,13 +181,17 @@ Page({
     that.setData({
       userId: App.globalData.user.id
     })
+    if(that.data.userId != undefined){
+      that.userFile()
+      that.printOrder()
+    }
     if (options.sign != undefined) {
       that.setData({
         sign: options.sign
       })
     }
     wx.request({
-      url: "http://qzimp.cn/api/file/api/printShop/getAll",
+      url: "https://qzimp.cn/api/file/api/printShop/getAll",
       method: "GET",
       header: {
         'content-type': 'application/json' // 默认值
@@ -168,8 +203,7 @@ Page({
         that.printArray()
       }
     })
-    that.userFile()
-    that.printOrder()
+    
     wx.getStorage({
       key: 'ican',
       success(res) {
@@ -190,7 +224,7 @@ Page({
   onShow: function () {
     var that = this
     wx.request({
-      url: "http://qzimp.cn/api/file/api/printShop/getAll",
+      url: "https://qzimp.cn/api/file/api/printShop/getAll",
       method: "GET",
       header: {
         'content-type': 'application/json' // 默认值
@@ -202,7 +236,9 @@ Page({
         that.printArray()
       }
     })
-    that.userFile()
+    if(that.data.userId!=undefined){
+      that.userFile()
+    }
     //获得数据
     wx.getStorage({
       // 从up中获得数据，ican判断这个数据是否储存
@@ -215,7 +251,7 @@ Page({
             success: function (res) {
               var array = JSON.stringify(res.data)
               wx.request({
-                url: "http://qzimp.cn/api/file/api/personFileInfo/insert",
+                url: "https://qzimp.cn/api/file/api/personFileInfo/insert",
                 method: "POST",
                 header: {
                   'content-type': 'application/json' // 默认值

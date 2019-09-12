@@ -33,10 +33,7 @@ Page({
 			location: location
 		})
 	},
-
-
-
-
+  
 	onShow: function() {
 
 	},

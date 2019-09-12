@@ -29,7 +29,7 @@ Page({
     var openid = that.data.user.wxopenid;
     var orderNo = that.data.order[0].orderNo
     wx.request({
-      url: 'http://qzimp.cn/api/file/api/wechatPay/placeOrder',
+      url: 'https://qzimp.cn/api/file/api/wechatPay/placeOrder',
       method: "POST",
       data: {
         openid: openid,
@@ -83,7 +83,7 @@ Page({
       user: App.globalData.user,
     })
     wx.request({
-      url: "http://qzimp.cn/api/file/api/printShop/getAll",
+      url: "https://qzimp.cn/api/file/api/printShop/getAll",
       method: "GET",
       header: {
         'content-type': 'application/json' // 默认值
