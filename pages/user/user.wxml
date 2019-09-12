@@ -3,19 +3,26 @@
   <view class="flex-wrap userInfo">
     <view class="flex-wrap flex-5 userInfo-left">
       <view class="flex-wrap userInfo-left-top flex-1">
-      <text class="name">{{user.wxname}}</text>
-      <block wx:if="{{user.sex==2}}">
-        <image class="sex" src="/images/woman.png"/>
-      </block>
-      <block wx:if="{{user.sex!=2}}">
-        <image class="sex" src="/images/man.png"/>
-      </block>
+        <text class="name">{{user.wxname}}</text>
+        <block wx:if="{{user.sex==2}}">
+          <image class="sex" src="/images/woman.png" />
+        </block>
+        <block wx:if="{{user.sex!=2}}">
+          <image class="sex" src="/images/man.png" />
+        </block>
       </view>
-      <view class="school flex-1">{{user.school}}{{user.grade}}级</view>
-      <view class="edit flex-1 flex-wrap">
-      <image src="/images/edit.png" class="editIcon" alt=""/>
-      <view class="editText" bind:tap="edit">编辑</view>
-      </view>
+      <view class="school flex-1">{{user.school}}{{user.grade}}</view>
+      <block wx:if="{{user.isAuthorized}}">
+        <view class="edit flex-1 flex-wrap">
+          <image src="/images/edit.png" class="editIcon" alt="" />
+          <view class="editText" bind:tap="edit">编辑</view>
+        </view>
+      </block>
+      <block wx:if="{{!user.isAuthorized}}">
+        <view class="toAuthorize flex-1 flex-wrap">
+          <view class="editText" bind:tap="toAuthorize">授权登录</view>
+        </view>
+      </block>
     </view>
     <view class="flex-2">
       <image src="{{user.hurl}}" class="userHead" bind:tap="lookImages" />
@@ -46,9 +53,11 @@
     <text class="flex-1 user-text">联系我们</text>
     <image src="/images/right.png" class="userIcon-right" />
   </view>
-  <view class="flex-1 flex-wrap user-text-wrap" bind:tap="out">
-    <image src="/images/out.png" class="userIcon" />
-    <text class="flex-1 user-text-out">退出登录</text>
-    <image src="/images/right.png" class="userIcon-right" />
-  </view>
+  <block wx:if="{{user.isAuthorized}}">
+    <view class="flex-1 flex-wrap user-text-wrap" bind:tap="out">
+      <image src="/images/out.png" class="userIcon" />
+      <text class="flex-1 user-text-out">退出登录</text>
+      <image src="/images/right.png" class="userIcon-right" />
+    </view>
+  </block>
 </view>

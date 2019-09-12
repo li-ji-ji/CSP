@@ -193,6 +193,57 @@ Page({
     var that=this;
     var getNews = that.getNews();
     getNews;
+    var that = this;
+    var app = getApp();
+    if (app.globalData.user.isAuthorized) {
+      wx.login({
+        success(res) {
+          if (res.code) {
+            //发起网络请求
+            wx: wx.request({
+              url: 'https://qzimp.cn/api/auth/bg/studentapi/login',
+              data: {
+                code: res.code
+              },
+              header: { 'content-type': 'application/x-www-form-urlencoded' },
+              method: 'post',
+              dataType: 'json',
+              responseType: 'text',
+              success: function (res) {
+                var user = {
+                  dormitoryAdd: res.data.dormitoryAdd,
+                  famillyAdd: res.data.famillyAdd,
+                  grade: res.data.grade,
+                  hurl: res.data.hurl,
+                  id: res.data.id,
+                  major: res.data.major,
+                  name: res.data.name,
+                  phone: res.data.phone,
+                  school: res.data.school,
+                  sex: res.data.sex,
+                  sn: res.data.sn,
+                  wxname: res.data.wxname,
+                  wxopenid: res.data.wxopenid,
+                  isAuthorized: true
+                }
+                app.globalData.user = user;
+                that.setData({
+                  user: app.globalData.user
+                })
+              },
+              fail: function (res) {
+                wx.showToast({
+                  title: '绑定失败!',
+                  icon: 'none'
+                })
+              },
+              complete: function (res) {
+              },
+            })
+          }
+        }
+      })
+    }
   },
 
   /**
@@ -215,7 +266,6 @@ Page({
     that.setData({
       user:user
     })
-    console.log(that.data.user)
     refresh;
   },
 
@@ -465,7 +515,6 @@ Page({
       responseType: 'text',
       success: function (res) {
         var defaultImage = res.data.configValue;
-        console.log(defaultImage);
         that.setData({
           defaultImage: defaultImage
         })

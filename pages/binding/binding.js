@@ -106,7 +106,23 @@ Page({
               success: function (res) {
                 console.log(res.data);
                 if(res.data.id>0){
-                  app.globalData.user = res.data;
+                  var user={
+                    dormitoryAdd:res.data.dormitoryAdd,
+                    famillyAdd: res.data.famillyAdd,
+                    grade: res.data.grade,
+                    hurl: res.data.hurl,
+                    id: res.data.id,
+                    major: res.data.major,
+                    name: res.data.name,
+                    phone: res.data.phone,
+                    school: res.data.school,
+                    sex: res.data.sex,
+                    sn: res.data.sn,
+                    wxname: res.data.wxname,
+                    wxopenid: res.data.wxopenid,
+                    isAuthorized: true
+                  }
+                  app.globalData.user =user;
                   wx.reLaunch({
                     url: '/pages/user/user',
                   })
