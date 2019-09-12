@@ -252,7 +252,7 @@ Page({
     var that = this
     var App = getApp()
     var studentId = App.globalData.user.id;
-    if(that.data.studentId!=undefined){
+    if(studentId!=undefined){
       that.shopCart();
       that.printShopName();
     }

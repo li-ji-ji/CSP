@@ -41,12 +41,14 @@ Page({
   goAomunt: function () {
     //跳转到订单页面
     var that = this
+    var App = getApp()
     // that.setData({
     //   aheadUp_dis: "none"
     // })
     var upArray = JSON.stringify(this.data.upArray)
     // 数据传输
-    if(that.userId==undefined){
+    var userId = App.globalData.user.id
+    if(userId==undefined){
       wx.showModal({
         title: '提示',
         content: '请先去用户中心绑定信息',
@@ -92,7 +94,9 @@ Page({
     // 跳转到up页面上传文件
     var that = this
     // 跳转到up页面
-    if (that.userId == undefined) {
+    var App = getApp()
+    var userId = App.globalData.user.id;
+    if (userId == undefined) {
       wx.showModal({
         title: '提示',
         content: '请先去用户中心绑定信息',
