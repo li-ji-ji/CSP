@@ -1,4 +1,9 @@
 package cn.yzj.shop.service;
+
+import java.util.List;
+
+import cn.yzj.shop.po.Msg;
+
 /**
  * 
  * @author jhj
@@ -6,5 +11,6 @@ package cn.yzj.shop.service;
  *
  */
 public interface NavigationService extends ShopService {
-
+	//批量删除导航
+	public Msg batchDeleteNavigation(List<Integer> idList)throws Exception;
 }

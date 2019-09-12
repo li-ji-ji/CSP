@@ -62,9 +62,39 @@ public class NavigationController {
 	
 	//跳到导航添加
 	@RequestMapping("/toNavAdd")
-	public String addNavigation(ModelMap modelmap) {
+	public String toNavAdd(ModelMap modelmap) {
 		
 		return "navigation/navigationadd";
 	}
-
+	
+	//导航添加
+	@RequestMapping("/addNavigation")
+	public String addNavigation(Navigation navigation) {
+		if(navigation.getIsShow()==null) {
+			navigation.setIsShow(false);
+		}
+		else {
+			navigation.setIsShow(true);
+		}
+		
+		if(navigation.getIsNew()==null) {
+			navigation.setIsNew(false);
+		}
+		else {
+			navigation.setIsNew(true);
+		}
+		
+		Msg msg = navigationService.add(navigation);
+		System.out.println(msg.getCode()+"---"+msg.getMsg());
+		
+		return "redirect:toNavList";
+	}
+	
+	//根据导航ID删除一条导航
+	@RequestMapping("/deleteNavigation")
+	public String deleteNavigation(@RequestParam("id") Integer id) {
+		Msg msg = navigationService.delete(id);
+		System.out.println(msg.getCode()+"---"+msg.getMsg());
+		return "redirect:toNavList";
+	}
 }

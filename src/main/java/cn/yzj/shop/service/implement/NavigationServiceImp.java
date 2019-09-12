@@ -25,14 +25,29 @@ public class NavigationServiceImp implements NavigationService {
 	
 	@Override
 	public Msg add(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		//添加导航
+		if (navigationMapper.insertSelective((Navigation) id) >0 ) {
+			msg.setCode(Code.SUCCESS.getCode());
+			msg.setMsg(Code.SUCCESS.getMsg());
+		}else {
+			msg.setCode(Code.FAIL.getCode());
+			msg.setMsg(Code.FAIL.getMsg());
+		}
+		return msg;
 	}
 
 	@Override
 	public Msg delete(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		// 根据ID删除一条导航
+		if(navigationMapper.deleteByPrimaryKey((Integer) id)>0) {
+			msg.setCode(Code.SUCCESS.getCode());
+			msg.setMsg(Code.SUCCESS.getMsg());
+		}else {
+			msg.setCode(Code.FAIL.getCode());
+			msg.setMsg(Code.FAIL.getMsg());
+		}
+		
+		return msg;
 	}
 
 	@Override
@@ -57,7 +72,7 @@ public class NavigationServiceImp implements NavigationService {
 
 	@Override
 	public Serializable find() {
-		//根据导航ID和排序升序进行查询
+		//查询所有导航
 		NavigationExample example = new NavigationExample();
 		example.setOrderByClause("id ASC,sort ASC");
 		List<Navigation> navigations = navigationMapper.selectByExample(example);
@@ -74,6 +89,22 @@ public class NavigationServiceImp implements NavigationService {
 	public Serializable dataPage(int limit, int page) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public Msg batchDeleteNavigation(List<Integer> idList) throws Exception {
+		//批量删除导航
+		NavigationExample example = new NavigationExample();
+		example.createCriteria().andIdIn(idList);
+		if(navigationMapper.deleteByExample(example) > 0) {
+			msg.setCode(Code.SUCCESS.getCode());
+			msg.setMsg(Code.SUCCESS.getMsg());
+		}else {
+			msg.setCode(Code.FAIL.getCode());
+			msg.setMsg(Code.FAIL.getMsg());
+		}
+		
+		return msg;
 	}
 
 }

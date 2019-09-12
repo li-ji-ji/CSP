@@ -8,15 +8,16 @@
 <script type="text/javascript" src="${base}/admin/js/jquery.min.js"></script>
 </head>
 <body class="layui-layout-body">
-	<table class="layui-table" id="NavTable" lay-filter="NavTable">
+	<table class="layui-table"  id="NavTable" lay-filter="NavTable">
 		<!-- 表头 -->
 		
 		<thead>
 			<tr>
 				<th lay-data="{field:'id',checkbox:true,fixed:'left',align:'center'}"></th>
 				<th lay-data="{field:'id',width:'100',fixed:'left',align:'center',sort:'true'}">导航ID</th>
-				<th lay-data="{field:'url',width:'250',align:'center'}">链接地址</th>
-				<th lay-data="{field:'name',width:'150',align:'center'}">导航名称</th>
+				<th lay-data="{field:'url',width:'250',align:'center',edit:'true'}">链接地址</th>
+				<th lay-data="{field:'position',width:'150',align:'center'}">位置</th>
+				<th lay-data="{field:'name',width:'150',align:'center',edit:'true'}">导航名称</th>
 				<th lay-data="{field:'isShow',width:'100',align:'center'}">显示</th>
 				<th lay-data="{field:'isNew',width:'100',align:'center'}">新窗口打开</th>
 				<th lay-data="{field:'sort',width:'100',align:'center',sort:'true',edit:'true'}">排序</th>
@@ -28,6 +29,7 @@
 						<td  lay-data="{checkbox:true,fixed:'left',align:'center'}"></td>
 						<td>${navigation.id}</td>
 						<td>${navigation.url}</td>
+						<td>${navigation.position}</td>
 						<td>${navigation.name}</td>
 						<td>
 							<#if navigation.isShow==true>
@@ -46,8 +48,8 @@
 						</td>
 						<td>${navigation.sort}</td>
 						<td>
-		  					<a href="/navigation/toNavEdit?id=${navigation.id}" class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-		  					<a href="" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delInRecycle">删除</a>
+		  					<a href="/navigation/toNavEdit?id=${navigation.id}" class="layui-btn layui-btn-xs" ><i class="layui-icon " >&#xe642;</i>编辑</a>
+		  					<a href="/navigation/deleteNavigation?id=${navigation.id}" onClick="return confirm('确认删除？') " class="layui-btn layui-btn-danger layui-btn-xs" ><i class="layui-icon " >&#xe640;</i>删除</a>
 						</td>
 					</tr>
 				</#list>
@@ -59,12 +61,9 @@
 	
 	<script type="text/html" id="toolbar">
   		<div class="layui-btn-container">
-			<a href="/news/toNewsAdd"><button type="button" class="layui-btn layui-btn-radius layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe61f;</i> 新增导航</button></a>
-    		<a href="/news/toNewsList?operation=isAudit"><button class="layui-btn layui-btn-sm" >查看已审核新闻</button></a>
-			<a href="/news/toNewsList?operation=isNotAudit"><button class="layui-btn layui-btn-sm" >查看待审核新闻</button></a>
-			<button class="layui-btn layui-btn-danger layui-btn-sm" lay-event="getDeleteList">删除选中数据</button>
-			<a href="/news/toNewsList?operation=isDelete"><button class="layui-btn layui-btn-sm" >新闻回收站</button></a>
-			<a href="/news/toNewsList"><i class="layui-icon layui-icon-refresh-3" style="font-size: 20px;"></i></a>
+			<a href="/navigation/toNavAdd"><button type="button" class="layui-btn layui-btn-radius layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe61f;</i> 新增导航</button></a>
+			<button class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" lay-event="getDeleteList"><i class="layui-icon " >&#xe640;</i>删除选中数据</button>
+			<a href="/navigation/toNavList"><i class="layui-icon " style="color: #3CB371;">&#xe9aa;</i></a>
   		</div>
 	</script>
 	<script>
@@ -77,11 +76,44 @@
 			  limit:10
 		  });
 		  
-		  table.on('edit(NavTable)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+		  /* table.on('edit(NavTable)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
 	    	  console.log(obj.value); //得到修改后的值
 	    	  console.log(obj.field); //当前编辑的字段名
 	    	  console.log(obj.data); //所在行的所有相关数据  
-	    });
+	      }); */
+		  
+		  //监听单元格编辑
+	      table.on('edit(NavTable)', function (obj) {
+	        var value = obj.value //得到修改后的值
+	          ,
+	          data = obj.data //得到所在行所有键值
+	          ,
+	          field = obj.field; //得到字段
+	          console.log(field)
+	        var strData = '{"id":' + data.id + ',"' + field + '":"' + value + '"}';
+	        var upData = JSON.parse(strData);
+	        $.ajax({
+	          type: 'post',
+	          url: '/api/updateNavigation',
+	          data: upData,
+	          success: function (obj) {
+	        	  console.log(obj);
+	            if (obj.code != 0) {
+	              layer.msg("修改"+obj.msg)
+	            } else {
+	            	parent.layer.msg("修改"+obj.msg)
+	            }
+	          },
+	          error: function (obj) {
+	        	  parent.layer.msg("请求异常");
+	          },
+	          complete: function () {
+	          }
+	        });
+	        return false;
+	      });
+		  
+		  
 		  
 		  
 		  table.on('toolbar(NavTable)', function(obj){
@@ -99,48 +131,32 @@
 			        else{
 			        layer.confirm('确认删除选中数据', function(index){
 			        	$.ajax({
-					    	  "url" : "/news/deleteNewsListInRecycle",
+					    	  "url" : "/api/batchDeleteNavigation",
 					    	  "data" : "idList="+idList,
 					    	  "type" : "post",
-					    	  "dataType" : "json",
-					    	  "success"	: function (resultMsg) {
-					    		  if(resultMsg==1){
-					    			  layer.open({
-					    				    type: 1 //不显示标题栏   title : false/标题
-					    				    ,title: "删除成功"
-					    				    ,btn: ['好的']
-					    				    ,btnAlign: 'c'
-					    				    ,success: function(layero){
-					    				         var btn = layero.find('.layui-layer-btn');
-					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '/news/toNewsList'
-					    				            ,target: '_self'
-					    				        });
-					    				    }
-					    				});
-					    		  }else{
-					    			  layer.open({
-					    				    type: 1 //不显示标题栏   title : false/标题
-					    				    ,title: "删除失败"
-					    				    ,btn: ['好的']
-					    				    ,btnAlign: 'c'
-					    				    ,success: function(layero){
-					    				         var btn = layero.find('.layui-layer-btn');
-					    				            btn.find('.layui-layer-btn0').attr({
-					    				                 href: '/news/toNewsList'
-					    				            ,target: '_self'
-					    				        });
-					    				    }
-					    				});
-					    		  }
+					    	  "success"	: function (obj) {
+					    		  if (obj.code != 0) {
+						              layer.msg("删除"+obj.msg)
+						              setTimeout(function () {
+						            	  window.location.reload();
+									}, 500);
+						          }else {
+						              parent.layer.msg("删除"+obj.msg)
+						          }
 			    			  
-							}
+							},
+							  error: function (obj) {
+					        	  parent.layer.msg("请求异常");
+					          },
+					          
 					      });
 			          });
 			    	}
 			      break;
 			    };
 			  });
+		  
+		  
 		  
 	})
 	
