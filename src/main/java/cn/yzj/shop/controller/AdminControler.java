@@ -12,7 +12,7 @@ import cn.yzj.shop.util.WXPayUtil;
  * 
  *yzj
  *2019
- *2019年9月12日
+ *2019年9月15日
  */
 @Controller
 @RequestMapping("/admin")
