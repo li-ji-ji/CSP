@@ -33,17 +33,21 @@
 						<td>${navigation.name}</td>
 						<td>
 							<#if navigation.isShow==true>
-								<i class="layui-icon layui-icon-ok-circle" style="color: #008B45;"> 是</i>
+								<!-- <i class="layui-icon layui-icon-ok-circle" style="color: #008B45;"> 是</i> -->
+								<input type="checkbox" name="isShow" data-id="${navigation.id}" lay-skin="switch" lay-text="是|否" lay-filter="switchTest" checked>
 							<#else>
-								<i class="layui-icon layui-icon-close" style="color: #8B8B7A;"> 否</i>
+								<!-- <i class="layui-icon layui-icon-close" style="color: #8B8B7A;"> 否</i> -->
+								<input type="checkbox" name="isShow" data-id="${navigation.id}" lay-skin="switch" lay-text="是|否" lay-filter="switchTest">
 							</#if>
 						</td>
 						
 						<td>
 							<#if navigation.isNew==true>
-								<i class="layui-icon layui-icon-ok-circle" style="color: #008B45;"> 是</i>
+								<!-- <i class="layui-icon layui-icon-ok-circle" style="color: #008B45;"> 是</i> -->
+								<input type="checkbox" name="isNew" data-id="${navigation.id}" lay-skin="switch" lay-text="是|否" lay-filter="switchTest" checked>
 							<#else>
-								<i class="layui-icon layui-icon-close" style="color: #8B8B7A;"> 否</i>
+								<!-- <i class="layui-icon layui-icon-close" style="color: #8B8B7A;"> 否</i> -->
+								<input type="checkbox" name="isNew" data-id="${navigation.id}" lay-skin="switch" lay-text="是|否" lay-filter="switchTest" >
 							</#if>
 						</td>
 						<td>${navigation.sort}</td>
@@ -62,13 +66,15 @@
 	<script type="text/html" id="toolbar">
   		<div class="layui-btn-container">
 			<a href="/navigation/toNavAdd"><button type="button" class="layui-btn layui-btn-radius layui-btn-primary layui-btn-sm"><i class="layui-icon">&#xe61f;</i> 新增导航</button></a>
+			<a href="/navigation/toNavList?position=top"><button type="button" class="layui-btn layui-btn-radius  layui-btn-sm"><i class="layui-icon">&#xe615;</i> 顶部导航</button></a>
+			<a href="/navigation/toNavList?position=bottom"><button type="button" class="layui-btn layui-btn-radius  layui-btn-sm"><i class="layui-icon">&#xe615;</i> 底部导航</button></a>
 			<button class="layui-btn layui-btn-danger layui-btn-radius layui-btn-sm" lay-event="getDeleteList"><i class="layui-icon " >&#xe640;</i>删除选中数据</button>
 			<a href="/navigation/toNavList"><i class="layui-icon " style="color: #3CB371;">&#xe9aa;</i></a>
   		</div>
 	</script>
 	<script>
 	layui.use(['laypage','table'],function(){
-		  var table = layui.table;
+		  var table = layui.table,form = layui.form;
 		  table.init('NavTable',{
 			  height:500,
 			  toolbar: '#toolbar',
@@ -89,7 +95,7 @@
 	          data = obj.data //得到所在行所有键值
 	          ,
 	          field = obj.field; //得到字段
-	          console.log(field)
+	          
 	        var strData = '{"id":' + data.id + ',"' + field + '":"' + value + '"}';
 	        var upData = JSON.parse(strData);
 	        $.ajax({
@@ -97,7 +103,7 @@
 	          url: '/api/updateNavigation',
 	          data: upData,
 	          success: function (obj) {
-	        	  console.log(obj);
+	        	  //console.log(obj);
 	            if (obj.code != 0) {
 	              layer.msg("修改"+obj.msg)
 	            } else {
@@ -112,7 +118,38 @@
 	        });
 	        return false;
 	      });
-		  
+	      
+	      
+	      //监听复选框选择
+		  form.on('switch(switchTest)', function (data) {
+	        
+	          var id = $(this).attr('data-id') //当前行ID
+	          var field = $(this).attr('name') //得到字段
+	          var value = this.checked		   //得到选中状态
+	          //console.log(id+"---"+value+"---"+field)
+	          var strData = '{"id":' + id + ',"' + field + '":"' + value + '"}';
+	          var upData = JSON.parse(strData);
+	          $.ajax({
+		          type: 'post',
+		          url: '/api/updateNavigation',
+		          data: upData,
+		          success: function (obj) {
+		        	  //console.log(obj);
+		            if (obj.code != 0) {
+		              layer.msg("修改"+obj.msg)
+		            } else {
+		            	parent.layer.msg("修改"+obj.msg)
+		            }
+		          },
+		          error: function (obj) {
+		        	  parent.layer.msg("请求异常");
+		          },
+		          complete: function () {
+		          }
+		        });
+		        return false;
+	        
+	      });
 		  
 		  
 		  

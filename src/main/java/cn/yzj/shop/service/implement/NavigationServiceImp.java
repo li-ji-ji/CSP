@@ -107,4 +107,16 @@ public class NavigationServiceImp implements NavigationService {
 		return msg;
 	}
 
+	@Override
+	public List<Navigation> findNavByPosition(String position) throws Exception {
+		//根据位置查询导航
+		NavigationExample example = new NavigationExample();
+		example.createCriteria().andPositionEqualTo(position);
+		List<Navigation> navigations = navigationMapper.selectByExample(example);
+		return navigations;
+	}
+
+	
+	
+
 }

@@ -20,15 +20,28 @@ public class NavigationController {
 	
 	//跳到导航列表
 	@RequestMapping("/toNavList")
-	public String toNavList(ModelMap modelmap) {
-		List<Navigation> navigations = (List<Navigation>) navigationService.find();
-		modelmap.addAttribute("navigations", navigations);
+	public String toNavList(ModelMap modelmap,@RequestParam(value = "position", required = false) String position) throws Exception {	
+		if (position != null && position.equals("top")) {//获取所有顶部导航
+			List<Navigation> navigations = navigationService.findNavByPosition(position);
+			modelmap.addAttribute("navigations", navigations);
+		}
+		
+		else if(position != null && position.equals("bottom")) {//获取所有底部导航
+			List<Navigation> navigations = navigationService.findNavByPosition(position);
+			modelmap.addAttribute("navigations", navigations);
+		}
+		
+		else {//获取所有导航
+			List<Navigation> navigations = (List<Navigation>) navigationService.find();
+			modelmap.addAttribute("navigations", navigations);
+		}
 		return "navigation/navigationlist";
+		
 	}
 	
 	//跳到导航编辑
 	@RequestMapping("/toNavEdit")
-	public String toNavEdit(ModelMap modelmap,@RequestParam("id") Integer id) {
+	public String toNavEdit(ModelMap modelmap,@RequestParam("id") Integer id) throws Exception {
 		//根据导航ID查询一条导航信息
 		Navigation navigation = (Navigation) navigationService.find(id);
 		modelmap.addAttribute("navigation",navigation);
@@ -37,7 +50,7 @@ public class NavigationController {
 	
 	//导航修改
 	@RequestMapping("/updateNavigation")
-	public String updateNavigation(Navigation navigation) {
+	public String updateNavigation(Navigation navigation) throws Exception {
 		
 		if(navigation.getIsShow()==null) {
 			navigation.setIsShow(false);
@@ -69,7 +82,7 @@ public class NavigationController {
 	
 	//导航添加
 	@RequestMapping("/addNavigation")
-	public String addNavigation(Navigation navigation) {
+	public String addNavigation(Navigation navigation) throws Exception {
 		if(navigation.getIsShow()==null) {
 			navigation.setIsShow(false);
 		}
@@ -92,7 +105,7 @@ public class NavigationController {
 	
 	//根据导航ID删除一条导航
 	@RequestMapping("/deleteNavigation")
-	public String deleteNavigation(@RequestParam("id") Integer id) {
+	public String deleteNavigation(@RequestParam("id") Integer id) throws Exception {
 		Msg msg = navigationService.delete(id);
 		System.out.println(msg.getCode()+"---"+msg.getMsg());
 		return "redirect:toNavList";
