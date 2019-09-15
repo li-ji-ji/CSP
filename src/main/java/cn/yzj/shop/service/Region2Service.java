@@ -12,4 +12,6 @@ import cn.yzj.shop.po.Region2;
 public interface Region2Service extends ShopService{
 		
 		public List<Region2> selectByPid(Integer pid);
+		
+		public List<Region2> selectByName(String name);
 }

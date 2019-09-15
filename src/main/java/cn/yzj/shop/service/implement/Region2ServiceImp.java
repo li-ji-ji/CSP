@@ -59,11 +59,8 @@ public class Region2ServiceImp implements Region2Service {
 	@Override
 	public Serializable find(Serializable id) {
 		// TODO Auto-generated method stub
-		Region2Example example = new Region2Example();
-		Region2Example.Criteria criteria = example.createCriteria();
-		criteria.andIdEqualTo((Integer) id);
-		List<Region2> region2s = region2Mapper.selectByExample(example);
-		return (Serializable) region2s;
+		Region2 region2 = region2Mapper.selectByPrimaryKey((Integer) id);
+		return (Serializable) region2;
 	}
 
 	@Override
@@ -108,6 +105,15 @@ public class Region2ServiceImp implements Region2Service {
 	public List<Region2> selectByPid(Integer pid) {
 		// TODO Auto-generated method stub
 		return region2Mapper.selectByParentId(pid);
+	}
+
+	@Override
+	public List<Region2> selectByName(String name) {
+		// TODO Auto-generated method stub
+		Region2Example example = new Region2Example();
+		Region2Example.Criteria criteria = example.createCriteria();
+		criteria.andNameLike("%"+name+"%");
+		return region2Mapper.selectByExample(example);
 	}
 
 }

@@ -1,6 +1,7 @@
 package cn.yzj.shop.api;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,27 +21,33 @@ public class Region2Api {
 	private Region2Service region2Service;
 
 	@RequestMapping("/api/region2/getAll")
-	public Serializable getAll() {
+	public Serializable getAll() throws Exception {
 		return region2Service.find();
 	}
 
 	@RequestMapping("/api/region2/insert")
-	public Msg insert(@RequestBody Region2 region2) {
+	public Msg insert(@RequestBody Region2 region2) throws Exception {
 		return region2Service.add((Serializable) region2);
 	}
 
 	@RequestMapping("/api/region2/delete")
-	public Msg delete(@RequestParam("id") Integer id) {
+	public Msg delete(@RequestParam("id") Integer id) throws Exception {
 		return region2Service.delete(id);
 	}
 
 	@RequestMapping("/api/region2/update")
-	public Msg update(@RequestBody Region2 region2) {
+	public Msg update(@RequestBody Region2 region2) throws Exception {
 		return region2Service.updata((Serializable) region2);
 	}
 
 	@RequestMapping("/api/region2/findById")
-	public Serializable findByPid(@RequestParam("id") Integer id) {
-		return region2Service.find(id);
+	public Region2 findByPid(@RequestParam("id") Integer id) throws Exception {
+		return (Region2)region2Service.find(id);
+	}
+	
+	@RequestMapping("/api/region2/subregion")
+	public List<Region2> subregion(@RequestParam("id")Integer id){
+		List<Region2> region2s = region2Service.selectByPid(id);
+		return region2s;
 	}
 }

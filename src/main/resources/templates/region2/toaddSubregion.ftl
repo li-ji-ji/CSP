@@ -29,14 +29,14 @@
 			<div class="layui-form-item">
 				<label class="layui-form-label">所属地区Id</label>
 				<div class="layui-input-block">
-					<input type="text" name="parentId" lay-verify="title" value=""
+					<input type="text" name="parentId" lay-verify="title" value="${fid }"
 						autocomplete="off" placeholder="请输入地区Id" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">等级</label>
 				<div class="layui-input-block">
-					<input type="text" name="level" lay-verify="title" value=""
+					<input type="text" name="level" lay-verify="title" value="${level }"
 						autocomplete="off" placeholder="请输入等级" class="layui-input">
 				</div>
 			</div>

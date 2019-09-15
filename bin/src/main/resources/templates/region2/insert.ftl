@@ -9,6 +9,7 @@
 </head>
 <body>
 
+	<form class="layui-form" action="" lay-filter="example">
 		<fieldset class="layui-elem-field layui-field-title"
 			style="margin-top: 20px;">
 			<legend>编辑地区信息</legend>
@@ -27,10 +28,10 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">所属地区Id</label>
+				<label class="layui-form-label">父Id</label>
 				<div class="layui-input-block">
 					<input type="text" name="parentId" lay-verify="title" value=""
-						autocomplete="off" placeholder="请输入地区Id" class="layui-input">
+						autocomplete="off" placeholder="请输入父Id" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">

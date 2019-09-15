@@ -23,7 +23,7 @@ public class ShopApplicationTests {
 	private Region2Service region2Service;
 
 	@Test
-	public void contextLoads() {
+	public void contextLoads() throws Exception {
 		System.out.println(Code.SUCCESS.getCode());
 		System.out.println(region2Service.find(1));
 	}

@@ -1,7 +1,14 @@
 package cn.yzj.shop.po;
 
-public class PickUp {
-    private Integer pickupId;
+import java.io.Serializable;
+
+public class PickUp implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer pickupId;
 
     private String pickupName;
 
@@ -18,6 +25,12 @@ public class PickUp {
     private Integer districtId;
 
     private Integer suppliersid;
+    
+    private String provinceName;
+    
+    private String cityName;
+    
+    private String districtName;
 
     public Integer getPickupId() {
         return pickupId;
@@ -90,4 +103,41 @@ public class PickUp {
     public void setSuppliersid(Integer suppliersid) {
         this.suppliersid = suppliersid;
     }
+
+	public String getProvinceName() {
+		return provinceName;
+	}
+
+	public void setProvinceName(String provinceName) {
+		this.provinceName = provinceName;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
+
+	public String getDistrictName() {
+		return districtName;
+	}
+
+	public void setDistrictName(String districtName) {
+		this.districtName = districtName;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	@Override
+	public String toString() {
+		return "PickUp [pickupId=" + pickupId + ", pickupName=" + pickupName + ", pickupAddress=" + pickupAddress
+				+ ", pickupPhone=" + pickupPhone + ", pickupContact=" + pickupContact + ", provinceId=" + provinceId
+				+ ", cityId=" + cityId + ", districtId=" + districtId + ", suppliersid=" + suppliersid
+				+ ", provinceName=" + provinceName + ", cityName=" + cityName + ", districtName=" + districtName + "]";
+	}
+
 }

@@ -4,7 +4,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>地区信息管理</title>
+<title>自提点信息管理</title>
 <link rel="stylesheet" href="${base}/admin/lib/layui/css/layui.css"
 	media="all">
 
@@ -16,11 +16,11 @@
 
 		<div class="layui-input-inline">
 			<input id="name" type="text" name="title" lay-verify="title"
-				autocomplete="off" placeholder="请输入地区名或者地区ID" class="layui-input">
+				autocomplete="off" placeholder="请输入自提点名或者ID" class="layui-input">
 		</div>
 		<div class="demoTable">
-			<button class="layui-btn" data-type="selectName">查询地区</button>
-			<button class="layui-btn" data-type="insert">添加地区信息</button>
+			<button class="layui-btn" data-type="selectName">查询自提点</button>
+			<button class="layui-btn" data-type="insert">添加自提点信息</button>
 			<button class="layui-btn" data-type="bulkDelete">批量删除</button>
 			<button class="layui-btn" data-type="refresh">刷新</button>
 		</div>
@@ -38,23 +38,33 @@
 						<thead>
 							<tr>
 								<th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-								<th lay-data="{field:'id', width:80, sort:true}">ID</th>
-								<th lay-data="{field:'name', width:200}">地区名字</th>
-								<th lay-data="{field:'parentId', width:100}">父id</th>
-								<th lay-data="{field:'level', width:180}">等级</th>
+								<th lay-data="{field:'pickupId', width:100, sort:true}">自提点Id</th>
+								<th lay-data="{field:'pickupName', width:180}">自提点名字</th>
+								<th lay-data="{field:'pickupAddress', width:100}">自提点地址</th>
+								<th lay-data="{field:'pickupPhone', width:150}">自提点手机号</th>
+								<th lay-data="{field:'pickupContact', width:180}">自提点联系人姓名</th>
+								<th lay-data="{field:'provinceId', width:180}">省</th>
+								<th lay-data="{field:'cityId', width:180}">市</th>
+								<th lay-data="{field:'districtId', width:180}">区/县</th>
+								<th lay-data="{field:'suppliersid', width:180}">供应者Id</th>
 								<th
-									lay-data="{field:'操作栏',fixed: 'right', width:300, align:'center', toolbar: '#barDemo'}">
+lay-data="{field:'操作栏',fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">
 								</th>
 							</tr>
 						</thead>
 						<tbody>
-							<#list region2s as region2>
+							<#list pickUps as pickUp>
 							<tr>
 								<td></td>
-								<td>${region2.id }</td>
-								<td>${region2.name}</td>
-								<td>${region2.parentId}</td>
-								<td>${region2.level}</td>
+								<td>${pickUp.pickupId }</td>
+								<td>${pickUp.pickupName}</td>
+								<td>${pickUp.pickupAddress}</td>
+								<td>${pickUp.pickupPhone}</td>
+								<td>${pickUp.pickupContact}</td>
+								<td>${pickUp.provinceName}</td>
+								<td>${pickUp.cityName}</td>
+								<td>${pickUp.districtName}</td>
+								<td>${pickUp.suppliersid}</td>
 							</tr>
 							</#list>
 						</tbody>
@@ -67,9 +77,7 @@
 	<script src="${base}/admin/lib/layui/layui.js"></script>
 	<script src="${base}/admin/js/jquery.min.js"></script>
 	<script type="text/html" id="barDemo">
- <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="subregion">查看子地区</a>
    <a class="layui-btn layui-btn-xs" lay-event="edit">编  辑</a>
- <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="toaddSubregion">添加子地区</a>
    <a class="layui-btn  layui-btn-danger layui-btn-xs" lay-event="del">删  除</a>
 </script>
 	<script type="text/javascript">
@@ -102,40 +110,30 @@
 							table.on('tool(demo)', function(obj) {
 								var data = obj.data;
 								if (obj.event === 'del') {
-									var id = data['id'];
+									var id = data['pickupId'];
 									layer.confirm('真的删除行么', function(index) {
 										obj.del();
 										layer.close(index);
-										var link = "${base}/region2/list&id="
+										var link = "${base}/pickUp/list&id="
 												+ delcommafy(id);
 										window.location.href = link;
 									});
 								} else if (obj.event === 'edit') {
-									var id = data['id'];
-									var link = "${base}/region2/toedit?id="
-											+ delcommafy(id);
-									window.location.href = link;
-								} else if (obj.event === 'subregion') {
-									var id = data['id'];
-									var link = "${base}/region2/subregion?id="
-											+ delcommafy(id);
-									window.location.href = link;
-								} else if (obj.event === 'toaddSubregion') {
-									var id = data['id'];
-									var link = "${base}/region2/toaddSubregion?id="
+									var id = data['pickupId'];
+									var link = "${base}/pickUp/toedit?id="
 											+ delcommafy(id);
 									window.location.href = link;
 								}
 							});
 
 							var $ = layui.$, active = {
-								insert : function() { //获取选中数据
-									var link = "${base}/region2/toinsert";
+								insert : function() {
+									var link = "${base}/pickUp/toinsert";
 									window.location.href = link;
 								},
 								selectName : function() {
 									var name = document.getElementById('name').value;
-									var link = "${base}/region2/selectByName?name="
+									var link = "${base}/pickUp/selectByName?name="
 											+ name;
 									window.location.href = link;
 								},
@@ -143,19 +141,19 @@
 									var checkStatus = table
 											.checkStatus('idTest'), data = checkStatus.data;
 									for (var i = 0; i < data.length; i++) {
-										var id = parseInt(data[i].id);
+										var pickupId = parseInt(data[i].pickupId);
 										$
 												.ajax({
-													url : '${base}/api/region2/delete?id='
-															+ delcommafy(id),
+													url : '${base}/api/pickUp/delete?id='
+															+ delcommafy(pickupId),
 													method : 'get',
 												});
 									}
-									var link = "${base}/region2/list";
+									var link = "${base}/pickUp/list";
 									window.location.href = link;
 								},
 								refresh : function() {
-									var link = "${base}/region2/list";
+									var link = "${base}/pickUp/list";
 									window.location.href = link;
 								}
 							};

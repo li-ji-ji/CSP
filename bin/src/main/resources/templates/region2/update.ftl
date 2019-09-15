@@ -3,41 +3,54 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>地区信息管理</title>
-<link rel="stylesheet" href="${base}/admin/lib/layui/css/layui.css"
+<title>修改地区信息</title>
+<link rel="stylesheet"
+	href="${base}/admin/lib/layui/css/layui.css"
 	media="all">
 </head>
 <body>
 
+	<form class="layui-form" action="" lay-filter="example">
 		<fieldset class="layui-elem-field layui-field-title"
 			style="margin-top: 20px;">
-			<legend>编辑地区信息</legend>
+			<legend>修改地区信息</legend>
 		</fieldset>
 
 		<form class="layui-form" name="region2" action="" lay-filter="example">
 
 			<div class="layui-form-item">
-				<div class="layui-inline"></div>
+				<div class="layui-inline">
+					<#if region2[0].id != 0> <label class="layui-form-label">id</label>
+					<div class="layui-input-inline">
+						<input type="tel" name="id" value="${region2[0].id }" id="id"
+							readonly="readonly" lay-verify="title" autocomplete="off"
+							class="layui-input">
+					</div>
+					</#if>
+				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">地区名字</label>
 				<div class="layui-input-block">
-					<input type="text" name="name" lay-verify="title" value=""
-						autocomplete="off" placeholder="请输入地区名字" class="layui-input">
+					<input type="text" name="name" lay-verify="title"
+						value="${region2[0].name}" autocomplete="off"
+						placeholder="请输入文件Key" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">所属地区Id</label>
+				<label class="layui-form-label">父ID</label>
 				<div class="layui-input-block">
-					<input type="text" name="parentId" lay-verify="title" value=""
-						autocomplete="off" placeholder="请输入地区Id" class="layui-input">
+					<input type="text" name="parentId" lay-verify="title"
+						value="${region2[0].parentId}" autocomplete="off"
+						placeholder="请输入父ID" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">等级</label>
 				<div class="layui-input-block">
-					<input type="text" name="level" lay-verify="title" value=""
-						autocomplete="off" placeholder="请输入等级" class="layui-input">
+					<input type="text" name="level" lay-verify="title"
+						value="${region2[0].level}" autocomplete="off"
+						placeholder="请输入等级" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -49,7 +62,8 @@
 		</form>
 
 		<script src="${base}/admin/js/jquery.min.js"></script>
-		<script src="${base}/admin/lib/layui/layui.js" charset="utf-8"></script>
+		<script src="${base}/admin/lib/layui/layui.js"
+			charset="utf-8"></script>
 		<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 		<script>
 			layui
@@ -58,13 +72,12 @@
 							function() {
 								var form = layui.form, layer = layui.layer, layedit = layui.layedit, upload = layui.upload;
 								//表单初始赋值
-								//指定允许上传的文件类型
 
 								//自定义验证规则
 								form.verify({
 									title : function(value) {
 										if (value.length < 1) {
-											return '至少得1个字符啊';
+											return '标题至少得1个字符啊';
 										}
 									}
 								});
@@ -80,14 +93,14 @@
 																			index) {
 																		$
 																				.ajax({
-																					url : '${request.contextPath}/api/printer/insert',
+																					url : '${base}/api/region2/update',
 																					method : 'post',
 																					contentType : "application/json;charset=UTF-8",
 																					data : JSON
 																							.stringify(data.field),
 																					dataType : 'json',
 																				});
-																		var link = '${request.contextPath}/printerinfo/list';
+																		var link = '${base}/region2/list';
 																		window.location.href = link;
 																	});
 													return false;

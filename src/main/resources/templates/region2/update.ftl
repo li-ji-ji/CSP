@@ -10,7 +10,6 @@
 </head>
 <body>
 
-	<form class="layui-form" action="" lay-filter="example">
 		<fieldset class="layui-elem-field layui-field-title"
 			style="margin-top: 20px;">
 			<legend>修改地区信息</legend>
@@ -20,9 +19,9 @@
 
 			<div class="layui-form-item">
 				<div class="layui-inline">
-					<#if region2[0].id != 0> <label class="layui-form-label">id</label>
+					<#if region2.id != 0> <label class="layui-form-label">id</label>
 					<div class="layui-input-inline">
-						<input type="tel" name="id" value="${region2[0].id }" id="id"
+						<input type="tel" name="id" value="${region2.id }" id="id"
 							readonly="readonly" lay-verify="title" autocomplete="off"
 							class="layui-input">
 					</div>
@@ -33,23 +32,23 @@
 				<label class="layui-form-label">地区名字</label>
 				<div class="layui-input-block">
 					<input type="text" name="name" lay-verify="title"
-						value="${region2[0].name}" autocomplete="off"
+						value="${region2.name}" autocomplete="off"
 						placeholder="请输入文件Key" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">父ID</label>
+				<label class="layui-form-label">所属地区ID</label>
 				<div class="layui-input-block">
 					<input type="text" name="parentId" lay-verify="title"
-						value="${region2[0].parentId}" autocomplete="off"
-						placeholder="请输入父ID" class="layui-input">
+						value="${region2.parentId}" autocomplete="off"
+						placeholder="请输入地区ID" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
 				<label class="layui-form-label">等级</label>
 				<div class="layui-input-block">
 					<input type="text" name="level" lay-verify="title"
-						value="${region2[0].level}" autocomplete="off"
+						value="${region2.level}" autocomplete="off"
 						placeholder="请输入等级" class="layui-input">
 				</div>
 			</div>
