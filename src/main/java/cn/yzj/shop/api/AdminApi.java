@@ -65,13 +65,14 @@ public class AdminApi {
 	 * 删除菜单
 	 * param String
 	 * return msg
+	 * @throws Exception 
 	 */
 	@RequestMapping("/deleteMenu")
-	public Msg deleteMenu(@RequestParam("ids")String ids) {
+	public Msg deleteMenu(@RequestParam("ids")String ids) throws Exception {
 		return systemsModule.delete(ids);
 	}
 	@RequestMapping("/updataMenu")
-	public Msg updataMenu(SystemModule systemModules) {
+	public Msg updataMenu(SystemModule systemModules) throws Exception {
 		return systemsModule.updata(systemModules);
 	}
 	
