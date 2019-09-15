@@ -3,6 +3,7 @@ package cn.yzj.shop.service.implement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import cn.yzj.shop.po.SystemModuleDTO;
 import cn.yzj.shop.po.SystemModuleExample;
 import cn.yzj.shop.service.SystemsModule;
 import cn.yzj.shop.systemclass.Code;
+import cn.yzj.shop.util.WXPayMapUtil;
 /*
  * 
  *yzj
@@ -61,10 +63,9 @@ public Msg delete(Serializable id) {
 	JSONArray array=JSONArray.parseArray((String) id);
 	ArrayList<Short> ids=new ArrayList<Short>();
 	for (Object item : array) {
-		final int number=(int) item;
-		ids.add((short) number);
+		ids.add(Short.valueOf((String) item));
 		SystemModuleExample example=new SystemModuleExample();
-		example.createCriteria().andParentIdEqualTo((short) number);
+		example.createCriteria().andParentIdEqualTo(Short.valueOf((String) item));
 		List<SystemModule> systemModules=systemModuleMapper.selectByExample(example);
 		if(systemModules.size()>0) {
 			for (SystemModule seconditem : systemModules) {
@@ -81,6 +82,9 @@ public Msg delete(Serializable id) {
 	}
 	return msg;
 }
+/**
+ * 修改菜单属性
+ */
 @Override
 public Msg updata(Serializable id) {
 	Msg msg=new Msg();
@@ -105,16 +109,46 @@ public Serializable find(Serializable pid) {
  * 数据表分页查询
  */
 @Override
+@Transactional
 public Serializable dataPage(int limit, int page, Serializable id) {
 	PageHelper.startPage(page, limit);
 	SystemModuleExample example=new SystemModuleExample();
+	example.setOrderByClause("orderby ASC");
 	example.createCriteria().andParentIdEqualTo((Short) id);
-	List<SystemModule> modules =systemModuleMapper.selectByExample(example)   ;
+	List<SystemModule> modules =systemModuleMapper.selectByExample(example);
+	List<Map<String, String>> arrayDataList=new ArrayList<Map<String,String>>();
+	Map< String, String> data=null;
+	for (SystemModule item : modules) {
+		short number=0;
+		short pid=(short) id;
+		if(pid==number) {
+			data=WXPayMapUtil.entityToMap(item);
+			data.put("parentId", "主菜单");
+		}
+		else {
+			data=WXPayMapUtil.entityToMap(item);
+			data.put("parentId",systemModuleMapper.selectByPrimaryKey((Short) id).getTitle());
+		}
+		switch (data.get("level")) {
+		case "1":
+			data.put("level", "一级菜单");
+			break;
+		case "2":
+			data.put("level", "二级菜单");
+			break;
+		case "3":
+			data.put("level", "三级菜单");
+			break;
+		default:
+			break;
+		}
+		arrayDataList.add(data);
+	}
 	PageInfo<SystemModule> pageInfo = new PageInfo<SystemModule>(modules);
 	long count = pageInfo.getTotal();
 	LayUIJSON uijson = new LayUIJSON();
 	uijson.setCount(count);
-	uijson.setData(modules);
+	uijson.setData(arrayDataList);
 	return uijson;
 }
 

@@ -20,15 +20,14 @@
 			<tr>
 				<th lay-data="{type:'checkbox'}"></th>
 				<th lay-data="{field:'modId',sort: true,align:'center'}">菜单编号</th>
-				<th lay-data="{field:'module',edit: 'text',align:'center'}">菜单类型</th>
-				<th lay-data="{field:'title', sort: true,align:'center'}">菜单名称</th>
-				<!-- <th lay-data="{field:'finishTime',align:'center'}">完成时间</th> -->
+				<th lay-data="{field:'level',align:'center'}">菜单等级</th>
+				<!--  <th lay-data="{field:'module',align:'center'}">菜单类型</th>-->
+				<th lay-data="{field:'title',align:'center',edit: 'text'}">菜单名称</th>
 				<th lay-data="{field:'visible',align:'center',templet:'#disPlayMenu'}">是否显示</th>
-				<th lay-data="{field:'parentId', sort: true,align:'center'}">上级菜单</th>
-				<th lay-data="{field:'orderby',align:'center'}">排序</th>
-				<!-- <th lay-data="{field:'isloop', sort: true,align:'center'}">是否循环发布</th> -->
+				<th lay-data="{field:'parentId',align:'center'}">上级菜单</th>
+				<th lay-data="{field:'orderby',sort: true,align:'center',edit: 'text'}">排序(越小显示越靠前)</th>
 				<th
-					lay-data="{field:'icon', sort: true,templet:'#icon',align:'center'}">菜单图标</th>
+					lay-data="{field:'icon',templet:'#icon',align:'center'}">菜单图标</th>
 					<th lay-data="{field:'url',edit: 'text',align:'center'}">菜单路径</th>
 				<th
 					lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#barDemo',align:'center'}">操作</th>
@@ -40,21 +39,20 @@
 	<!--创建子菜单数据表窗口-->
 	<div id="SecondWindow" style="display: none">
 		<table class="layui-table layui-container"
-			lay-data="{url:'', page:true, id:'SecondWindow',toolbar:'true'}"
+			lay-data="{url:'', page:true, id:'SecondWindow',toolbar:'#toolbarDemo'}"
 			lay-filter="SecondWindow">
 			<thead>
 				<tr>
 					<th lay-data="{type:'checkbox'}"></th>
-					<th lay-data="{field:'modId',sort: true,align:'center'}">菜单编号</th>
-					<th lay-data="{field:'module',edit: 'text'}">菜单类型</th>
-					<th lay-data="{field:'title', sort: true}">菜单名称</th>
-					<!-- <th lay-data="{field:'finishTime'}">完成时间</th> -->
-					<th lay-data="{field:'visible',templet:'#disPlayMenu'}">是否显示</th>
-					<th lay-data="{field:'parentId', sort: true}">上级菜单</th>
-					<th lay-data="{field:'orderby'}">排序</th>
-					<!-- <th lay-data="{field:'isloop', sort: true}">是否循环发布</th> -->
-					<th lay-data="{field:'icon', sort: true}">菜单图标</th>
-					<th lay-data="{field:'url',edit: 'text'}">菜单路径</th>
+				<th lay-data="{field:'modId',sort: true,align:'center'}">菜单编号</th>
+				<th lay-data="{field:'level',sort: true,align:'center'}">菜单等级</th>
+				<th lay-data="{field:'title', sort: true,align:'center',edit: 'text'}">菜单名称</th>
+				<th lay-data="{field:'visible',align:'center',templet:'#disPlayMenu'}">是否显示</th>
+				<th lay-data="{field:'parentId', sort: true,align:'center'}">上级菜单</th>
+				<th lay-data="{field:'orderby',align:'center',edit: 'text'}">排序</th>
+				<th
+					lay-data="{field:'icon', sort: true,templet:'#icon',align:'center'}">菜单图标</th>
+					<th lay-data="{field:'url',edit: 'text',align:'center'}">菜单路径</th>
 					<th
 						lay-data="{fixed: 'right', width:200, align:'center', toolbar: '#secondList'}">操作</th>
 				</tr>
@@ -70,7 +68,7 @@
       var $ = layui.jquery;
       var form=layui.form;
       //头工具栏事件
-      table.on('toolbar(test)', function (obj) {
+      table.on('toolbar', function (obj) {
         var checkStatus = table.checkStatus(obj.config.id);
         switch (obj.event) {
           case 'add':
@@ -86,7 +84,7 @@
                 shade: 0,
                 maxmin: true,
                 content: $('#formAdd'),
-                zIndex:1000 //重点      
+                zIndex:'1000' //重点      
               });
             });
             break;
@@ -100,12 +98,13 @@
                 });
                 var idListStr = JSON.stringify(idList);
                 layer.close(index);
+                console.log(idListStr);
                 //向服务端发送删除指令
                 $.ajax({
                     type: 'post',
                     url: '/api/deleteMenu',
                     data: {
-                      ids: idList
+                      ids: idListStr
                     },
                     success: function (obj) {
                   	  console.log(obj);
@@ -119,6 +118,8 @@
                       layer.msg("请求异常");
                     },
                     complete: function () {
+                        tableRefresh('item')
+                        tableRefresh('SecondWindow')
                     }
                   });
                   return false;
@@ -129,18 +130,19 @@
             break;
           case 'Refresh':
             tableRefresh('item')
+            tableRefresh('SecondWindow')
             break;
         };
       });
 
       //监听数据主表工具条
-      table.on('tool(test)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+      table.on('tool', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
         var tr = obj.tr; //获得当前行 tr 的DOM对象
 
         if (layEvent === 'detail') { //查看
-          if(data.level!==3){
+          if(data.level!=="三级菜单"){
             var id = data.modId
             var nav=data.title
           table.reload('SecondWindow',{
@@ -158,7 +160,7 @@
                 shade: 0,
                 maxmin: true,
                 content: $('#SecondWindow'),
-                zIndex: layer.zIndex //重点      
+                zIndex: '1000' //重点      
               });
             });
           }else{
@@ -167,7 +169,7 @@
         } else if (layEvent === 'del') { //删除
           layer.confirm('真的删除行么', function (index) {
             var id = [];
-            id = id.concat(data.modId);
+            id = id.concat(""+data.modId);
             obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
             layer.close(index);
             idList = JSON.stringify(id)
@@ -205,90 +207,17 @@
         }
       });
       
-    //监听弹窗工具条
-      table.on('tool(SecondWindow)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-        var data = obj.data; //获得当前行数据
-        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
-        var tr = obj.tr; //获得当前行 tr 的DOM对象
-
-        if (layEvent === 'detail') { //查看
-        	
-          if(data.level!==3){
-            var id = data.modId
-            var nav=data.title
-            var level=data
-          table.reload('SecondWindow',{
-            url:'/api/getSystemModuleByPid',
-            where:{
-            	pid:id
-            },
-          })
-          layui.use('layer', function () {
-              layer = layui.layer; //独立版的layer无需执行这一句
-              layer.open({
-                type: 1,//此处以iframe举例
-                title: nav+'子菜单列表',
-                area: ['1100px','500px'],
-                shade: 0,
-                maxmin: true,
-                content: $('#SecondWindow'),
-                zIndex:1 //重点      
-              });
-            });
-          }else{
-        	  parent.layer.msg("终极菜单没有子菜单!")
-          }
-        } else if (layEvent === 'del') { //删除
-        	parent.layer.confirm('真的删除行么', function (index) {
-            var id = [];
-            id = id.concat(data.modId);
-            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
-            layer.close(index);
-            idList = JSON.stringify(id)
-            //向服务端发送删除指令
-            $.ajax({
-              type: 'post',
-              url: '/api/deleteMenu',
-              data: {
-                ids: idList
-              },
-              success: function (obj) {
-            	  console.log(obj);
-                if (obj.code != 0) {
-                  layer.msg(obj.msg)
-                } else {
-                	parent.layer.msg("删除菜单"+obj.msg)
-                }
-              },
-              error: function (obj) {
-            	  parent.layer.msg("请求异常");
-              },
-              complete: function () {
-              }
-            });
-            return false;
-          });
-        } else if (layEvent === 'edit') { //编辑
-          //do something
-
-          //同步更新缓存对应的值
-          obj.update({ff
-            username: '123',
-            title: 'xxx'
-          });
-        }
-      });
 
       //监听单元格编辑
-      table.on('edit(test)', function (obj) {
+      table.on('edit', function (obj) {
         var value = obj.value //得到修改后的值
           ,
           data = obj.data //得到所在行所有键值
           ,
           field = obj.field; //得到字段
-        // layer.msg("{taskId:"+data.taskId+","+field+":'"+value+"'}");
-        var strTask = '{"taskId":' + data.taskId + ',"' + field + '":"' + value + '"}';
+        var strTask = '{"modId":' + data.modId + ',"' + field + '":"' + value + '"}';
         var upTask = JSON.parse(strTask);
+        console.log(upTask);
         $.ajax({
           type: 'post',
           url: '/api/updataMenu',
@@ -333,17 +262,17 @@
             if (obj.code != 0) {
               layer.msg(obj.msg)
             } else {
-            	parent.layer.msg("删除菜单"+obj.msg)
+            	parent.layer.msg("修改"+obj.msg)
             }
           },
           error: function (obj) {
         	  parent.layer.msg("请求异常");
           },
           complete: function () {
-        	  tableRefresh('SecondWindow')
-        	  tableRefresh('item')
+              tableRefresh('item')
+              tableRefresh('SecondWindow')
           }
-
+          
         });
         return false;
       });
@@ -365,13 +294,13 @@
      <!-- checked 选中按钮  -->
   <script type="text/html" id="disPlayMenu">
     <input type="checkbox" modId="{{d.modId}}" name="visible" value="{{d.visible}}" title="显示"
-      lay-filter="disPlayMenu" {{ d.visible==1 ? 'checked' : '' }}>
+      lay-filter="disPlayMenu" {{d.visible=="true"?'checked':'0' }}>
   </script>
 
 	</script>
 	<!--工具条事件菜单主表-->
 	<script type="text/html" id="barDemo">
-     <button  lay-event="detail" {{d.level==3?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-xs"'}}><i class="layui-icon">&#xe615;</i>下级菜单</button>
+     <button  lay-event="detail" {{d.level=="三级菜单"?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-xs"'}}><i class="layui-icon">&#xe615;</i>下级菜单</button>
     <!-- <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="add">添加子菜单</a>-->
 
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
@@ -380,8 +309,8 @@
 	</script>
 	<!--工具条事件菜单弹窗表-->
 	<script type="text/html" id="secondList">
-     <button  lay-event="detail" {{d.level==3?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-xs"'}}><i class="layui-icon">&#xe615;</i>下级菜单</button>
-     <!--<a  lay-event="add" {{d.level==3?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-warm layui-btn-xs"'}}>添加子菜单</a>-->
+     <button  lay-event="detail" {{d.level=="三级菜单"?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-xs"'}}><i class="layui-icon">&#xe615;</i>下级菜单</button>
+     <!--<a  lay-event="add" {{d.level=="三级菜单"?'class="layui-btn layui-btn-xs layui-btn-disabled"' : 'class="layui-btn layui-btn-warm layui-btn-xs"'}}>添加子菜单</a>-->
 
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
