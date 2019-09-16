@@ -26,7 +26,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label" style="width: 150px;">链接</label>
 			<div class="layui-input-block">
-				<input type="text" name="url"  required lay-verify="required"
+				<input type="text" name="url"  
 					autocomplete="off" class="layui-input" style="width: 30%;">
 			</div>
 		</div>

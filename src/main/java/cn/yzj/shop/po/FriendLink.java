@@ -1,7 +1,14 @@
 package cn.yzj.shop.po;
 
-public class FriendLink {
-    private Short linkId;
+import java.io.Serializable;
+
+public class FriendLink implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Short linkId;
 
     private String linkName;
 

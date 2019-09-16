@@ -34,10 +34,11 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label" style="width: 150px;">链接</label>
 			<div class="layui-input-block">
-				<input type="text" name="url" value="${navigation.url}" required
-					lay-verify="required" autocomplete="off" class="layui-input"
-					style="width: 30%;">
+				<input type="text" name="url" value="${navigation.url}" 
+					 autocomplete="off" class="layui-input"
+					 style="width: 30%;">
 			</div>
+			
 		</div>
 
 		<div class="layui-form-item">
@@ -78,7 +79,7 @@
 				<input type="text" name="sort" value="${navigation.sort}" required
 					lay-verify="required" autocomplete="off" class="layui-input">
 			</div>
-			<div class="layui-form-mid layui-word-aux" id="navName">
+			<div class="layui-form-mid layui-word-aux" >
 				<i class="layui-icon layui-icon-face-smile-b"> 只能填写自然数哦</i>
 			</div>
 		</div>
@@ -129,6 +130,7 @@
 			}
 
 		});
+		
 	});
 </script>
 </html>
