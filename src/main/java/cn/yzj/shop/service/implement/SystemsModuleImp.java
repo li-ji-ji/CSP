@@ -43,11 +43,31 @@ private SystemModuleMapper systemModuleMapper;
 * @throws Exception
 */
 @Override
+@Transactional
 public Msg add(Serializable id) {
 	Msg msg=new Msg();
-	if(systemModuleMapper.insertSelective((SystemModule) id)>0) {
-		msg.setCode(Code.SUCCESS.getCode());
-		msg.setMsg("菜单添加"+Code.SUCCESS.getMsg());
+	SystemModule systemModule=new SystemModule();
+	systemModule=(SystemModule) id;
+	if(systemModule.getParentId()==0) {
+		systemModule.setLevel(1);
+		if(systemModuleMapper.insertSelective(systemModule)>0) {
+			msg.setCode(Code.SUCCESS.getCode());
+			msg.setMsg("菜单添加"+Code.SUCCESS.getMsg());
+		}
+		
+	}else {
+		if(systemModuleMapper.selectByPrimaryKey(systemModule.getParentId()).getLevel()==2) {
+			if(systemModuleMapper.insertSelective((SystemModule) id)>0) {
+				msg.setCode(Code.SUCCESS.getCode());
+				msg.setMsg("菜单添加"+Code.SUCCESS.getMsg());
+			}
+		}else{
+			systemModule.setLevel(2);
+			if(systemModuleMapper.insertSelective(systemModule)>0) {
+				msg.setCode(Code.SUCCESS.getCode());
+				msg.setMsg("菜单添加"+Code.SUCCESS.getMsg());
+			}
+		}
 	}
 	return msg;
 }
@@ -270,23 +290,23 @@ public List<SelectTreeDTO> getSelectTreeNo() throws Exception {
 	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
 	SystemModuleExample example=new SystemModuleExample();
 	example.setOrderByClause("orderby ASC");
-	example.createCriteria().andVisibleEqualTo(true);
+	example.createCriteria();
 	systemsModules=systemModuleMapper.selectByExample(example);
 	List<SelectTreeDTO> selectTreeDTOs=new ArrayList<SelectTreeDTO>(); 
+	SelectTreeDTO systemMenu=new SelectTreeDTO();
+	systemMenu.setId(0);
+	systemMenu.setName("主菜单");
+	selectTreeDTOs.add(systemMenu);
 	for (SystemModule systemModule : systemsModules) {
 		if(systemModule.getParentId()==0) {
 			SelectTreeDTO item =new SelectTreeDTO();
 			item.setId(systemModule.getModId());
 			item.setName(systemModule.getTitle());
-
-			item.setIcon(systemModule.getIcon());
 			for (SystemModule systemModule2 : systemsModules) {
 				if(systemModule2.getParentId()==item.getId()) {
 					SelectTreeDTO secondItem=new SelectTreeDTO();
 					secondItem.setId(systemModule2.getModId());
 					secondItem.setName(systemModule2.getTitle());
-					secondItem.setIcon(systemModule2.getIcon());
-
 					item.getChildren().add(secondItem);
 //					for (SystemModule systemModule3 : systemsModules) {
 //						if(systemModule3.getParentId()==secondItem.getId()) {

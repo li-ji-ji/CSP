@@ -1,6 +1,8 @@
 package cn.yzj.shop.po;
 
-public class Config {
+import java.io.Serializable;
+
+public class Config implements Serializable {
     private Short id;
 
     private String name;
@@ -9,7 +11,7 @@ public class Config {
 
     private String incType;
 
-    private String desc;
+    private String remarks;
 
     public Short getId() {
         return id;
@@ -43,11 +45,11 @@ public class Config {
         this.incType = incType == null ? null : incType.trim();
     }
 
-    public String getDesc() {
-        return desc;
+    public String getRemarks() {
+        return remarks;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setRemarks(String remarks) {
+        this.remarks = remarks == null ? null : remarks.trim();
     }
 }

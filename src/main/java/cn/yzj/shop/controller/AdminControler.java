@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.yzj.shop.po.SystemModule;
+import cn.yzj.shop.service.ConfigService;
 import cn.yzj.shop.service.SystemsModule;
 import cn.yzj.shop.util.WXPayUtil;
 /*
@@ -20,11 +21,14 @@ public class AdminControler {
 	
 	@Autowired
 	private SystemsModule systemsModule;
+	@Autowired
+	private ConfigService config;
 	
 	@RequestMapping("/index")
 	public ModelAndView index(ModelAndView modelAndView) throws Exception {
 		modelAndView.setViewName("index");
 		modelAndView.addObject("model",systemsModule.getSelectTree());
+		modelAndView.addObject("config",config.find("admin_index"));
 		return modelAndView;
 	}
 	

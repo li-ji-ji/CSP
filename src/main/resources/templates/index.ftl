@@ -27,29 +27,33 @@
         <!-- 顶部开始 -->
         <div class="container">
             <div class="logo">
-                <a href="./index.html">X-admin v2.2</a></div>
+                <a href="./index.html">
+                <i class="iconfont layui-icon">${config.index_logo}</i>
+                ${config.logo_title}
+                </a>
+                </div>
             <div class="left_open">
-                <a><i title="展开左侧栏" class="iconfont">&#xe699;</i></a>
+                <a><i title="${config.open_title}" class="iconfont layui-icon">${config.open_logo}</i></a>
             </div>
             <ul class="layui-nav left fast-add" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">+新增</a>
+                    <a href="javascript:;">${config.often_title}</a>
                     <dl class="layui-nav-child">
-                        <!-- 二级菜单 -->
+                        <!-- 二级菜单 -->       
                         <dd>
-                            <a onclick="xadmin.open('最大化','http://www.baidu.com','','',true)">
+                            <a onclick="xadmin.open('最大化','${config.often_url}','','',true)">
                                 <i class="iconfont">&#xe6a2;</i>弹出最大化</a></dd>
                         <dd>
-                            <a onclick="xadmin.open('弹出自动宽高','http://www.baidu.com')">
+                            <a onclick="xadmin.open('弹出自动宽高','${config.often_url}')">
                                 <i class="iconfont">&#xe6a8;</i>弹出自动宽高</a></dd>
                         <dd>
-                            <a onclick="xadmin.open('弹出指定宽高','http://www.baidu.com',500,300)">
+                            <a onclick="xadmin.open('弹出指定宽高','${config.often_url}',500,300)">
                                 <i class="iconfont">&#xe6a8;</i>弹出指定宽高</a></dd>
                         <dd>
-                            <a onclick="xadmin.add_tab('在tab打开','member-list.html')">
+                            <a onclick="xadmin.add_tab('在tab打开','${config.often_url}')">
                                 <i class="iconfont">&#xe6b8;</i>在tab打开</a></dd>
                         <dd>
-                            <a onclick="xadmin.add_tab('在tab打开刷新','member-del.html',true)">
+                            <a onclick="xadmin.add_tab('在tab打开刷新','${config.often_url}',true)">
                                 <i class="iconfont">&#xe6b8;</i>在tab打开刷新</a></dd>
                     </dl>
                 </li>
@@ -60,15 +64,15 @@
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
                         <dd>
-                            <a onclick="xadmin.open('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                            <a onclick="xadmin.open('${config.adminList1_title}','${config.adminList1_url}">个人信息</a></dd>
                         <dd>
-                            <a onclick="xadmin.open('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
+                            <a onclick="xadmin.open('${config.adminList2_title}','${config.adminList2_url}">切换帐号</a></dd>
                         <dd>
-                            <a href="./login.html">退出</a></dd>
+                            <a href="${config.adminList3_url}">${config.adminList3_title}</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
-                    <a href="/">前台首页</a></li>
+                    <a href="${config.right_url}">${config.right_title}</a></li>
             </ul>
         </div>
         <!-- 顶部结束 -->
@@ -128,16 +132,16 @@
             <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
                 <ul class="layui-tab-title">
                     <li class="home">
-                        <i class="layui-icon">&#xe68e;</i>主页</li></ul>
+                        <i class="layui-icon">${config.tabIndex_icon}</i>${config.tabIndex_title}</li></ul>
                 <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
                     <dl>
-                        <dd data-type="this">关闭当前</dd>
-                        <dd data-type="other">关闭其它</dd>
-                        <dd data-type="all">关闭全部</dd></dl>
+                        <dd data-type="this">${config.rightClic_this}</dd>
+                        <dd data-type="other">${config.rightClic_other}</dd>
+                        <dd data-type="all">${config.rightClic_all}</dd></dl>
                 </div>
                 <div class="layui-tab-content">
                     <div class="layui-tab-item layui-show">
-                        <iframe src='${base}/admin/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                        <iframe src='${config.tabIndex_url}' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
                     </div>
                 </div>
                 <div id="tab_show"></div>
