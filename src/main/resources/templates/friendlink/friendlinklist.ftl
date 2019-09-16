@@ -139,7 +139,7 @@
 	            if (obj.code != 0) {
 	              layer.msg("修改"+obj.msg)
 	              setTimeout(function () {
-	            	  window.parent.location.reload();
+	            	  window.location.reload();
 				  }, 500);
 	            } else {
 	            	parent.layer.msg("修改"+obj.msg)
