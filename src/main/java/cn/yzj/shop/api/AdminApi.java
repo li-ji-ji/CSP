@@ -2,6 +2,8 @@ package cn.yzj.shop.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +13,7 @@ import cn.yzj.shop.po.Msg;
 import cn.yzj.shop.po.SelectTreeDTO;
 import cn.yzj.shop.po.SystemModule;
 import cn.yzj.shop.service.SystemsModule;
+import cn.yzj.shop.util.RequestUtil;
 /*
  * 
  *yzj
@@ -74,6 +77,18 @@ public class AdminApi {
 	@RequestMapping("/updataMenu")
 	public Msg updataMenu(SystemModule systemModules) throws Exception {
 		return systemsModule.updata(systemModules);
+	}
+	@RequestMapping("/test")
+	public String test(HttpServletRequest request) {
+//		System.out.println(RequestUtil.getOsName(request));//操作系统
+//		System.out.println(RequestUtil.getDeviceManufacturer(request));//客户端生产商
+//		System.out.println(RequestUtil.getDevicetype(request));//客户端类型
+//		System.out.println(RequestUtil.getBorderGroup(request));//浏览器
+//		System.out.println(RequestUtil.getBorderRenderingEngine(request));//浏览渲染引擎类型
+//		System.out.println(RequestUtil.getBorderType(request));//浏览器类型
+//		System.out.println(RequestUtil.getBrowserManufacturer(request));//浏览器生产厂家
+//		System.out.println(RequestUtil.getBrowserVersion(request));
+		return null;
 	}
 	
 }

@@ -137,39 +137,30 @@
                         <div class="layui-card-body ">
                             <table class="layui-table">
                                 <tbody>
+                                  
                                     <tr>
-                                        <th>xxx版本</th>
-                                        <td>1.0.180420</td></tr>
+                                        <th>服务器运行环境</th>
+                                        <td>${information.localOs}</td></tr>
                                     <tr>
                                         <th>服务器地址</th>
-                                        <td>x.xuebingsi.com</td></tr>
+                                        <td>${information.localHost}</td></tr>
+                                    <tr>
+                                        <th>服务器名</th>
+                                        <td>${information.localName}</td></tr>
+                                    <tr>
+                                        <th>java版本</th>
+                                        <td>${information.javaVersion}</td></tr>
+                                        
                                     <tr>
                                         <th>操作系统</th>
-                                        <td>WINNT</td></tr>
+                                        <td>${information.osName}</td></tr>
                                     <tr>
-                                        <th>运行环境</th>
-                                        <td>Apache/2.4.23 (Win32) OpenSSL/1.0.2j mod_fcgid/2.3.9</td></tr>
+                                        <th>系统厂家</th>
+                                        <td>${information.manufacturer}</td></tr>
                                     <tr>
-                                        <th>PHP版本</th>
-                                        <td>5.6.27</td></tr>
-                                    <tr>
-                                        <th>PHP运行方式</th>
-                                        <td>cgi-fcgi</td></tr>
-                                    <tr>
-                                        <th>MYSQL版本</th>
-                                        <td>5.5.53</td></tr>
-                                    <tr>
-                                        <th>ThinkPHP</th>
-                                        <td>5.0.18</td></tr>
-                                    <tr>
-                                        <th>上传附件限制</th>
-                                        <td>2M</td></tr>
-                                    <tr>
-                                        <th>执行时间限制</th>
-                                        <td>30s</td></tr>
-                                    <tr>
-                                        <th>剩余空间</th>
-                                        <td>86015.2M</td></tr>
+                                        <th>浏览器信息</th>
+                                        <td>${information.borderGroup}</td></tr>
+                                        
                                 </tbody>
                             </table>
                         </div>
@@ -182,13 +173,13 @@
                             <table class="layui-table">
                                 <tbody>
                                     <tr>
-                                        <th>版权所有</th>
-                                        <td>xuebingsi(xuebingsi)
-                                            <a href="http://x.xuebingsi.com/" target="_blank">访问官网</a></td>
+                                        <th>${config.teamList1_left}</th>
+                                        <td>${config.teamList1_right}
+                                            <a href="${config.teamList1_rightUrl}" target="_blank">访问官网</a></td>
                                     </tr>
                                     <tr>
-                                        <th>开发者</th>
-                                        <td>马志斌(113664000@qq.com)</td></tr>
+                                        <th>${config.teamList2_left}</th>
+                                        <td>${config.teamList2_right}</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -196,7 +187,7 @@
                 </div>
                 <style id="welcome_style"></style>
                 <div class="layui-col-md12">
-                    <blockquote class="layui-elem-quote layui-quote-nm">感谢layui,百度Echarts,jquery,本系统由x-admin提供技术支持。</blockquote></div>
+                    <blockquote class="layui-elem-quote layui-quote-nm">${config.bottomTip}</blockquote></div>
             </div>
         </div>
         </div>
