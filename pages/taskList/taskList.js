@@ -522,9 +522,9 @@ Page({
     })
   },
   newsCenter:function(){
-    wx.navigateTo({
-      url: '/pages/news/news',
-    })
+    // wx.navigateTo({
+    //   url: '/pages/news/news',
+    // })
   },
   printCenter:function(){
     console.log("asdsad")
