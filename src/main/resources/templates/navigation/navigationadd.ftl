@@ -12,68 +12,74 @@
 </head>
 <body class="layui-layout-body">
 
-	<form class="layui-form " method="post"
-		action="/navigation/addNavigation" style="margin-top: 50px;">
-
-
-		<div class="layui-form-item">
-			<label class="layui-form-label" style="width: 150px;">位置</label>
-			<div class="layui-input-block">
-				<input type="radio" name="position" value="top" title="顶部" checked>
-				<input type="radio" name="position" value="bottom" title="底部" >
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label" style="width: 150px;">链接</label>
-			<div class="layui-input-block">
-				<input type="text" name="url"  
-					autocomplete="off" class="layui-input" style="width: 30%;">
-			</div>
-		</div>
-
-		<div class="layui-form-item">
-			<label class="layui-form-label" style="width: 150px;">导航名称</label>
-			<div class="layui-input-inline">
-				<input type="text" name="name"  required lay-verify="required" id="name"
-					autocomplete="off" class="layui-input" >
-			</div>
-			<div class="layui-form-mid layui-word-aux" id="navName" style="color: red!important;display:none;">导航名称不能超过10个字符</div>
-		</div>
-
-		<div class="layui-form-item">
-			<label class="layui-form-label" style="width: 150px;">显示</label>
-			<div class="layui-input-block">
-				<input type="checkbox" name="isShow" 
-					lay-skin="switch" lay-text="是|否" checked>
-			</div>
-		</div>
+	<fieldset class="layui-elem-field">
+		  <legend>前台导航添加</legend>
+		  <div class="layui-field-box">
+			<form class="layui-form " method="post"
+				action="/navigation/addNavigation" style="margin-top: 50px;">
 		
-		<div class="layui-form-item">
-			<label class="layui-form-label" style="width: 150px;">新窗口打开</label>
-			<div class="layui-input-block">
-				<input type="checkbox" name="isNew" 
-					lay-skin="switch" lay-text="是|否" checked>
-			</div>
-		</div>
-
-
-		<div class="layui-form-item">
-			<label class="layui-form-label" style="width: 150px;">排序</label>
-			<div class="layui-input-inline">
-				<input type="text" name="sort" required lay-verify="required"
-					autocomplete="off" class="layui-input" >
-			</div>
-			<div class="layui-form-mid layui-word-aux" id="navName" ><i class="layui-icon layui-icon-face-smile-b" > 只能填写自然数哦</i></div>
-		</div>
-
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit lay-filter="formSubmit" style="margin-left:70px;">完成添加</button>
-				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-			</div>
-		</div>
-	</form>
-
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 150px;">位置</label>
+					<div class="layui-input-block">
+						<input type="radio" name="position" value="top" title="顶部" checked>
+						<input type="radio" name="position" value="bottom" title="底部" >
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 150px;">链接</label>
+					<div class="layui-input-block">
+						<input type="text" name="url"  
+							autocomplete="off" class="layui-input" style="width: 30%;">
+					</div>
+				</div>
+		
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 150px;">导航名称</label>
+					<div class="layui-input-inline">
+						<input type="text" name="name"  required lay-verify="required" id="name"
+							autocomplete="off" class="layui-input" >
+					</div>
+					<div class="layui-form-mid layui-word-aux" id="navName" style="color: red!important;display:none;">导航名称不能超过10个字符</div>
+				</div>
+		
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 150px;">显示</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="isShow" 
+							lay-skin="switch" lay-text="是|否" checked>
+					</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 150px;">新窗口打开</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="isNew" 
+							lay-skin="switch" lay-text="是|否" checked>
+					</div>
+				</div>
+		
+		
+				<div class="layui-form-item">
+					<label class="layui-form-label" style="width: 150px;">排序</label>
+					<div class="layui-input-inline">
+						<input type="text" name="sort" required lay-verify="required"
+							autocomplete="off" class="layui-input" >
+					</div>
+					<div class="layui-form-mid layui-word-aux" id="navName" ><i class="layui-icon layui-icon-face-smile-b" > 只能填写自然数哦</i></div>
+				</div>
+		
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit lay-filter="formSubmit" style="margin-left:70px;">完成添加</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+				
+			</form>
+		  	 
+		  </div>
+	</fieldset>
+	
 
 
 
