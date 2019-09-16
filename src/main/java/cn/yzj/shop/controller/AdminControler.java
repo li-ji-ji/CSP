@@ -53,7 +53,7 @@ public class AdminControler {
 		map.put("osName",RequestUtil.getOsName(request));//操作系统
 		map.put("manufacturer",RequestUtil.getDeviceManufacturer(request));//客户端生产商
 		map.put("devicetype", RequestUtil.getDevicetype(request));//客户端类型
-		map.put("borderGroup",RequestUtil.getBorderGroup(request)+RequestUtil.getBrowserVersion(request)+RequestUtil.getBorderRenderingEngine(request)+RequestUtil.getBorderType(request)+RequestUtil.getBrowserManufacturer(request));//浏览器信息
+		map.put("borderGroup",RequestUtil.getBorderGroup(request)+" / "+RequestUtil.getBrowserVersion(request)+" / "+RequestUtil.getBorderRenderingEngine(request)+" / "+RequestUtil.getBorderType(request)+" / "+RequestUtil.getBrowserManufacturer(request));//浏览器信息
 		modelAndView.addObject("information",map);
 		modelAndView.addObject("config",config.find("admin_welcome"));
 		return modelAndView;
