@@ -33,7 +33,7 @@ public class AdminControler {
 	
 	@RequestMapping("/index")
 	public ModelAndView index(ModelAndView modelAndView) throws Exception {
-		modelAndView.setViewName("index");
+		modelAndView.setViewName("/admin/index");
 		modelAndView.addObject("model",systemsModule.getSelectTree());
 		modelAndView.addObject("config",config.find("admin_index"));
 		return modelAndView;
@@ -41,7 +41,7 @@ public class AdminControler {
 	
 	@RequestMapping("/welcome")
 	public ModelAndView welcome(ModelAndView modelAndView,HttpServletRequest request)throws Exception{
-		modelAndView.setViewName("welcome");
+		modelAndView.setViewName("/admin/welcome");
 		modelAndView.addObject("time",WXPayUtil.getNewTime());
 		Map<String, String> map=new HashMap<String, String>();
 		InetAddress addr = InetAddress.getLocalHost();
