@@ -8,14 +8,12 @@ import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 
-/** 
-  * @author  作者 :  小雪
-  * @date 创建时间：2018年9月19日 下午2:45:10 
-  * @version 1.0 
-  * @parameter  
-  * @since  
-  * @return  
-*/
+/**
+ * 
+ *yzj
+ *2019
+ *2019年9月17日
+ */
 public class RequestUtil {
 	
 	private static Logger logger = LoggerFactory.getLogger(RequestUtil.class);

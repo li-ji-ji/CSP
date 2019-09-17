@@ -2,9 +2,12 @@ package cn.yzj.shop.po;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
+
 public class Config implements Serializable {
     private Short id;
-
+    
+    @NotBlank(message = "配置名称不能为空")
     private String name;
 
     private String value;

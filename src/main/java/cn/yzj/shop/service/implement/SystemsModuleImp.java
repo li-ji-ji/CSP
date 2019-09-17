@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -177,13 +179,15 @@ public Serializable dataPage(int limit, int page, Serializable id) {
  * return List<SystemModule>
  */
 @Override
+@Cacheable(value="user-key")
 public Serializable find() {
+	List<Object> model=new ArrayList<Object>();
 	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
 	SystemModuleExample example=new SystemModuleExample();
 	example.setOrderByClause("orderby ASC");
 	example.createCriteria().andVisibleEqualTo(true);
 	systemsModules=systemModuleMapper.selectByExample(example);
-	List<Object> model=new ArrayList<Object>();
+	
 	for (SystemModule systemModule : systemsModules) {
 		if(systemModule.getParentId()==0) {
 
@@ -233,6 +237,7 @@ public Serializable find() {
 		  model.add(item);
 		}
 	}
+	System.out.println(1);
 	return (Serializable) model;
 }
 /**
@@ -241,6 +246,7 @@ public Serializable find() {
 * @throws Exception
 */
 @Override
+@Cacheable(value="admin",key = "targetClass + methodName")
 public List<SelectTreeDTO> getSelectTree() throws Exception {
 	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
 	SystemModuleExample example=new SystemModuleExample();
@@ -286,6 +292,7 @@ public List<SelectTreeDTO> getSelectTree() throws Exception {
 * @throws Exception
 */
 @Override
+@Cacheable(value="admin",key = "targetClass + methodName")
 public List<SelectTreeDTO> getSelectTreeNo() throws Exception {
 	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
 	SystemModuleExample example=new SystemModuleExample();
@@ -328,7 +335,7 @@ public List<SelectTreeDTO> getSelectTreeNo() throws Exception {
 @Override
 public Serializable dataPage(int limit, int page) {
 	// TODO 自动生成的方法存根
-	return null;
+	return "aa@126.com"+ "aa"+ "aa123456"+"aa"+"123";
 }
 
 

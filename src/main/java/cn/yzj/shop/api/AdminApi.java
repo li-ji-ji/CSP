@@ -1,5 +1,6 @@
 package cn.yzj.shop.api;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.yzj.shop.po.Msg;
 import cn.yzj.shop.po.SelectTreeDTO;
 import cn.yzj.shop.po.SystemModule;
-import cn.yzj.shop.service.SystemsModule;
+import cn.yzj.shop.service.implement.SystemsModuleImp;
 /*
  * 
  *yzj
@@ -22,7 +23,7 @@ import cn.yzj.shop.service.SystemsModule;
 @RequestMapping("/api")
 public class AdminApi {
 	@Autowired
-	private SystemsModule systemsModule;
+	private SystemsModuleImp systemsModule;
 	@Autowired
 	private StringRedisTemplate redisTemplate;
 	/**
@@ -84,5 +85,9 @@ public class AdminApi {
 		
 		return redisTemplate.opsForValue().get(key);
 	}
+    @RequestMapping("/getUser")
+    public Serializable getUser() throws Exception {
+        return systemsModule.find();
+    }
 	
 }

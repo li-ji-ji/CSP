@@ -1,6 +1,8 @@
 package cn.yzj.shop.po;
 
-public class SelectChildren {
+import java.io.Serializable;
+
+public class SelectChildren implements Serializable{
 	private int id;
 	private String name;
 	private String icon;

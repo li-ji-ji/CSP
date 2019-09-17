@@ -3,6 +3,8 @@ package cn.yzj.shop.api;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +28,7 @@ public class ConfigApi {
 		return service.dataPage(limit, page);
 	}
 	@RequestMapping("/addConfig")
-	public Msg addConfig(Config config) throws Exception {
+	public Msg addConfig(@Validated Config config) throws Exception {
 		return service.add(config);
 	}
 	@RequestMapping("/deleteConfig")

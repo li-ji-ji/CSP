@@ -1,9 +1,10 @@
 package cn.yzj.shop.po;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectTreeDTO {
+public class SelectTreeDTO implements Serializable{
 	private int id;
 	private String name;
 	private String icon;

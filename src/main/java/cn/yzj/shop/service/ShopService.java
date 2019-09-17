@@ -2,6 +2,8 @@ package cn.yzj.shop.service;
 
 import java.io.Serializable;
 
+import org.springframework.web.bind.MethodArgumentNotValidException;
+
 import cn.yzj.shop.po.Msg;
 
 public interface ShopService<T extends Serializable,ID extends Serializable> {
