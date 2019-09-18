@@ -19,6 +19,17 @@ import cn.yzj.shop.po.Msg;
  */
 @ControllerAdvice
 public class CommonExceptionHandler{
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseBody
+	public Msg notValidExceptionHandler(MethodArgumentNotValidException e) {
+		Msg msg=new Msg();
+		FieldError fieldError = e.getBindingResult().getFieldError();
+		msg.setCode(Code.EXCEPTION.getCode());
+		msg.setMsg(Code.EXCEPTION.getMsg());
+		msg.setJsonData(fieldError.getDefaultMessage());
+		return msg;
+	}
 	/**
 	 * 
 	 *yzj
@@ -28,18 +39,6 @@ public class CommonExceptionHandler{
 	 * @param e
 	 * @return
 	 */
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	@ResponseBody
-	public Msg notValidExceptionHandler(MethodArgumentNotValidException e) {
-		Msg msg=new Msg();
-		FieldError fieldError = e.getBindingResult().getFieldError();
-		msg.setCode(Code.EXCEPTION.getCode());
-		msg.setMsg(Code.EXCEPTION.getMsg());
-		msg.setJsonData(fieldError.getDefaultMessage());
-		System.out.println("1111111111111111111");
-		return msg;
-	}
-	
 	@ExceptionHandler(BindException.class)
 	@ResponseBody
     public Msg handleBindException(BindException ex) {
@@ -49,7 +48,6 @@ public class CommonExceptionHandler{
         msg.setCode(Code.EXCEPTION.getCode());
 		msg.setMsg(Code.EXCEPTION.getMsg());
 		msg.setJsonData(fieldError.getDefaultMessage());
-		System.out.println(fieldError.getDefaultMessage());
 		return msg;
     }
 	
