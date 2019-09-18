@@ -9,7 +9,7 @@ public class Config implements Serializable {
     
     @NotBlank(message = "配置名称不能为空")
     private String name;
-
+    @NotBlank(message = "配置内容不能为空")
     private String value;
 
     private String incType;

@@ -5,14 +5,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.yzj.shop.po.EmailTemplate;
 import cn.yzj.shop.po.Msg;
 import cn.yzj.shop.po.SelectTreeDTO;
 import cn.yzj.shop.po.SystemModule;
 import cn.yzj.shop.service.implement.SystemsModuleImp;
+import cn.yzj.shop.util.EmailUtil;
 /*
  * 
  *yzj
@@ -26,6 +30,7 @@ public class AdminApi {
 	private SystemsModuleImp systemsModule;
 	@Autowired
 	private StringRedisTemplate redisTemplate;
+	@Autowired EmailUtil emailUtil;
 	/**
 	 * 数据表分页查询
 	 */
@@ -80,10 +85,9 @@ public class AdminApi {
 		return systemsModule.updata(systemModules);
 	}
 	@RequestMapping("/test")
-	public String test(@RequestParam("key")String key,@RequestParam("value")String value) {
-		redisTemplate.opsForValue().set(key, value);
-		
-		return redisTemplate.opsForValue().get(key);
+	public String test() throws Exception{
+		int i=1/0;
+		return null;
 	}
     @RequestMapping("/getUser")
     public Serializable getUser() throws Exception {
