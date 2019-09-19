@@ -1,7 +1,14 @@
 package cn.yzj.shop.po;
 
-public class SearchWord {
-    private Integer id;
+import java.io.Serializable;
+
+public class SearchWord implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 
     private String keywords;
 
