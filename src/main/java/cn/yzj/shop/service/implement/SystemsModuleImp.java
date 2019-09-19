@@ -108,6 +108,7 @@ public Msg delete(Serializable id) {
  * 修改菜单属性
  */
 @Override
+@CacheEvict(value = "admin",allEntries = true)
 public Msg updata(Serializable id) {
 	Msg msg=new Msg();
 	if(systemModuleMapper.updateByPrimaryKeySelective((SystemModule) id)>0) {
@@ -132,6 +133,7 @@ public Serializable find(Serializable pid) {
  */
 @Override
 @Transactional
+@Cacheable(value="admin",key = "targetClass + methodName+#p2")
 public Serializable dataPage(int limit, int page, Serializable id) {
 	PageHelper.startPage(page, limit);
 	SystemModuleExample example=new SystemModuleExample();
@@ -179,7 +181,7 @@ public Serializable dataPage(int limit, int page, Serializable id) {
  * return List<SystemModule>
  */
 @Override
-@Cacheable(value="user-key")
+@Cacheable(value="admin",key = "targetClass + methodName")
 public Serializable find() {
 	List<Object> model=new ArrayList<Object>();
 	List<SystemModule> systemsModules=new ArrayList<SystemModule>();

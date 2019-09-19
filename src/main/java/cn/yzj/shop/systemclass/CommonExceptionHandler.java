@@ -2,6 +2,8 @@ package cn.yzj.shop.systemclass;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
@@ -11,11 +13,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.yzj.shop.mapper.ConfigMapper;
+import cn.yzj.shop.po.ConfigExample;
 import cn.yzj.shop.po.EmailTemplate;
 import cn.yzj.shop.po.Msg;
+import cn.yzj.shop.service.ConfigService;
 import cn.yzj.shop.util.EmailUtil;
 
 /*
@@ -28,6 +34,9 @@ import cn.yzj.shop.util.EmailUtil;
 public class CommonExceptionHandler {
 	@Autowired
 	private EmailUtil emailUitl;
+	@Autowired
+	private ConfigMapper configMapper;
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseBody
 	public Msg notValidExceptionHandler(MethodArgumentNotValidException e) {
@@ -83,18 +92,35 @@ public class CommonExceptionHandler {
 	 * @param e
 	 * @return
 	 */
+	public static ExecutorService threaPool = Executors.newFixedThreadPool(30);
+
 	@ExceptionHandler(Exception.class)
 	@ResponseBody
 	public Msg exceptionHandler(Exception e) {
+		DeferredResult<Msg> deferredResult = new DeferredResult<Msg>(30 * 1000L);
 		Msg msg = new Msg();
 		msg.setCode(Code.EXCEPTION.getCode());
 		msg.setMsg(Code.EXCEPTION.getMsg());
 		msg.setJsonData(e.getMessage());
-		EmailTemplate emailTemplate=new EmailTemplate();
-		emailTemplate.setReceiver("1498856800@qq.com");
-		emailTemplate.setTitle(Code.EXCEPTION.getMsg());
-		emailTemplate.setContent(JSON.toJSONString(msg));
-		emailUitl.simpleMaill(emailTemplate);
+		System.out.println(Thread.currentThread().getName() + "启动新线程");
+		threaPool.execute(new Runnable() {
+			@Override
+			public void run() {
+				/*
+				 * yzj 2019 2019年9月19日
+				 */
+				// 自动生成的方法存根
+				System.out.println(Thread.currentThread().getName() + "执行");
+				EmailTemplate emailTemplate = new EmailTemplate();
+				ConfigExample example=new ConfigExample();
+				example.createCriteria().andIncTypeEqualTo("system_email").andNameEqualTo("admin_email");
+				emailTemplate.setReceiver(configMapper.selectByExample(example).get(0).getValue());
+				emailTemplate.setTitle(Code.EXCEPTION.getMsg());
+				emailTemplate.setContent(JSON.toJSONString(msg));
+				emailUitl.simpleMaill(emailTemplate);
+				deferredResult.setResult(msg);
+			}
+		});
 		return msg;
 	}
 }

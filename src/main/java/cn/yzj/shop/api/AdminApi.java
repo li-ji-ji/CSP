@@ -2,7 +2,10 @@ package cn.yzj.shop.api;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+import org.apache.ibatis.logging.log4j2.Log4j2Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
@@ -10,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import cn.yzj.shop.po.EmailTemplate;
 import cn.yzj.shop.po.Msg;
@@ -84,10 +88,66 @@ public class AdminApi {
 	public Msg updataMenu(SystemModule systemModules) throws Exception {
 		return systemsModule.updata(systemModules);
 	}
+	public static ExecutorService FIXED_THREAD_POOL=Executors.newFixedThreadPool(30);
 	@RequestMapping("/test")
-	public String test() throws Exception{
+	public DeferredResult<String> test() throws Exception{
 		int i=1/0;
-		return null;
+		System.out.println("外部线程:"+Thread.currentThread().getName());
+		DeferredResult<String> deferredResult=new DeferredResult<String>(10*1000L);//设置超时时间
+		deferredResult.onTimeout(new Runnable() {
+			
+			@Override
+			public void run() {
+				/*
+				 *yzj
+				 *2019
+				 *2019年9月19日
+				 */
+				//自动生成的方法存根
+				System.out.println("超时了");
+				deferredResult.setResult("超时了");
+			}
+		});
+		deferredResult.onCompletion(new Runnable() {
+			
+			@Override
+			public void run() {
+				/*
+				 *yzj
+				 *2019
+				 *2019年9月19日
+				 */
+				//自动生成的方法存根
+				System.out.println(Thread.currentThread().getName()+"调用完成!");
+			}
+		});
+		FIXED_THREAD_POOL.execute(new Runnable() {
+			
+			@Override
+			public void run() {
+				/*
+				 *yzj
+				 *2019
+				 *2019年9月19日
+				 */
+				//自动生成的方法存根
+				try {
+					Thread.sleep(20*1000L);
+				} catch (InterruptedException e) {
+					/*
+					 *yzj
+					 *2019
+					 *2019年9月19日
+					 */
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+				System.out.println("内部线程:"+Thread.currentThread().getName());
+				deferredResult.setResult("线程执行");
+			}
+		});
+		return deferredResult;
+
 	}
     @RequestMapping("/getUser")
     public Serializable getUser() throws Exception {
