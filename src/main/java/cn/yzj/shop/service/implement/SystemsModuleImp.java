@@ -108,7 +108,7 @@ public Msg delete(Serializable id) {
  * 修改菜单属性
  */
 @Override
-@CacheEvict(value = "admin",allEntries = true)
+//@CacheEvict(value = "admin",allEntries = true)
 public Msg updata(Serializable id) {
 	Msg msg=new Msg();
 	if(systemModuleMapper.updateByPrimaryKeySelective((SystemModule) id)>0) {
@@ -133,7 +133,7 @@ public Serializable find(Serializable pid) {
  */
 @Override
 @Transactional
-@Cacheable(value="admin",key = "targetClass + methodName+#p2")
+//@Cacheable(value="admin",key = "targetClass + methodName+#p2")
 public Serializable dataPage(int limit, int page, Serializable id) {
 	PageHelper.startPage(page, limit);
 	SystemModuleExample example=new SystemModuleExample();
@@ -181,7 +181,7 @@ public Serializable dataPage(int limit, int page, Serializable id) {
  * return List<SystemModule>
  */
 @Override
-@Cacheable(value="admin",key = "targetClass + methodName")
+//@Cacheable(value="admin",key = "targetClass + methodName")
 public Serializable find() {
 	List<Object> model=new ArrayList<Object>();
 	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
@@ -248,7 +248,7 @@ public Serializable find() {
 * @throws Exception
 */
 @Override
-@Cacheable(value="admin",key = "targetClass + methodName")
+//@Cacheable(value="admin",key = "targetClass + methodName")
 public List<SelectTreeDTO> getSelectTree() throws Exception {
 	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
 	SystemModuleExample example=new SystemModuleExample();
@@ -294,7 +294,7 @@ public List<SelectTreeDTO> getSelectTree() throws Exception {
 * @throws Exception
 */
 @Override
-@Cacheable(value="admin",key = "targetClass + methodName")
+//@Cacheable(value="admin",key = "targetClass + methodName")
 public List<SelectTreeDTO> getSelectTreeNo() throws Exception {
 	List<SystemModule> systemsModules=new ArrayList<SystemModule>();
 	SystemModuleExample example=new SystemModuleExample();

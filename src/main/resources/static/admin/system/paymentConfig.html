@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>任务订单后台管理列表</title>
+<link rel="stylesheet" href="../lib/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="../css/font.css">
+<script src="../lib/layui/layui.js"></script>
+<script src="../lib/module/common.js"></script>
+
+</head>
+
+<body>
+	<table class="layui-table layui-container"
+		lay-data="{url:'/api/getPaymentList', page:{limit:20}, id:'item',toolbar:'#toolbarDemo'}"
+		lay-filter="test" id="TablePage">
+		<thead>
+			<tr>
+				<th lay-data="{type:'checkbox'}"></th>
+				<th lay-data="{field:'payId',sort: true,align:'center'}">支付编号</th>
+				<th lay-data="{field:'payCode',align:'center'}">支付编码</th>
+				<th lay-data="{field:'payName',align:'center',edit: 'text'}">支付名称</th>
+				<th lay-data="{field:'payFee',align:'center',edit: 'text'}">手续费</th>
+				<th lay-data="{field:'isCod',align:'center',templet:'#isCod'}">是否到付</th>
+				<th lay-data="{field:'enabled',align:'center',templet:'#enabled'}">是否开启</th>
+				<th lay-data="{field:'isOnline',align:'center',templet:'#isOnline'}">是否在线支付</th>
+				<th
+					lay-data="{fixed: 'right', width:100, align:'center', toolbar: '#barDemo',align:'center'}">操作</th>
+			</tr>
+		</thead>
+	</table>
+
+
+	<script>
+    //主页面菜单数据表的事件监听
+    layui.use('table', function () {
+
+      var table = layui.table;
+      var $ = layui.jquery;
+      var form=layui.form;
+      //头工具栏事件
+      table.on('toolbar', function (obj) {
+        var checkStatus = table.checkStatus(obj.config.id);
+        switch (obj.event) {
+          case 'add':
+            var data = checkStatus.data;
+
+            layui.use('layer', function () {
+              layer = layui.layer; //独立版的layer无需执行这一句
+              layer.open({
+                type: 1 //此处以iframe举例
+                  ,
+                title: '添加任务',
+                area: ['500px'],
+                shade: 0,
+                maxmin: true,
+                content: $('#formAdd'),
+                zIndex:'1000' //重点      
+              });
+            });
+            break;
+          case 'delete':
+            var data = checkStatus.data;
+            if (data.length > 0) {
+              layer.confirm('确定删除选中行么?', function (index) {
+                var idList = []
+                data.forEach(element => {
+                  idList = idList.concat(""+element.payId);
+                });
+                var idListStr = JSON.stringify(idList);
+                layer.close(index);
+                var loading=layer.load();
+               
+                //向服务端发送删除指令
+                $.ajax({
+                    type: 'post',
+                    url: '/api/deletePayment',
+                    data: {
+                      ids: idListStr
+                    },
+                    success: function (obj) {
+                  	  console.log(obj);
+                      if (obj.code != 0) {
+                        layer.msg(obj.msg)
+                      } else {
+                        layer.msg("删除菜单"+obj.msg)
+                      }
+                    },
+                    error: function (obj) {
+                      layer.msg("请求异常");
+                    },
+                    complete: function () {
+                    	layer.close(loading)
+                        tableRefresh('item')
+                        
+                    }
+                  });
+                  return false;
+              });
+            } else {
+              layer.msg("最少选中一行!");
+            }
+            break;
+          case 'Refresh':
+            tableRefresh('item')
+            
+            break;
+        };
+      });
+
+      //监听数据主表工具条
+      table.on('tool', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+        if (layEvent === 'detail') { //查看
+          if(data.level!=="三级菜单"){
+            var id = data.modId
+            var nav=data.title
+          table.reload('SecondWindow',{
+            url:'/api/getSystemModuleByPid',
+            where:{
+            	pid:id
+            },
+          })
+          layui.use('layer', function () {
+              layer = layui.layer; //独立版的layer无需执行这一句
+              layer.open({
+                type: 1,//此处以iframe举例
+                title: '子菜单列表',
+                area: ['1100px','500px'],
+                shade: 0,
+                maxmin: true,
+                content: $('#SecondWindow'),
+                zIndex: '1000' //重点      
+              });
+            });
+          }else{
+            layer.msg("终极菜单没有子菜单!")
+          }
+        } else if (layEvent === 'del') { //删除
+          layer.confirm('真的删除行么', function (index) {
+            var id = [];
+            id = id.concat(""+data.payId);
+            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+            layer.close(index);
+            idList = JSON.stringify(id)
+            //向服务端发送删除指令
+            var loading=layer.load();
+               
+            $.ajax({
+              type: 'post',
+              url: '/api/deletePayment',
+              data: {
+                ids: idList
+              },
+              success: function (obj) {
+            	  console.log(obj);
+                if (obj.code != 0) {
+                  layer.msg(obj.msg)
+                } else {
+                  layer.msg("删除菜单"+obj.msg)
+                }
+              },
+              error: function (obj) {
+                layer.msg("请求异常");
+              },
+              complete: function () {
+            	  layer.close(loading)
+              }
+            });
+            return false;
+          });
+        } else if (layEvent === 'edit') { //编辑
+          //do something
+
+          //同步更新缓存对应的值
+          obj.update({
+            username: '123',
+            title: 'xxx'
+          });
+        }
+      });
+      //监听单元格编辑
+      table.on('edit', function (obj) {
+        var value = obj.value //得到修改后的值
+          ,
+          data = obj.data //得到所在行所有键值
+          ,
+          field = obj.field; //得到字段
+        var strTask = '{"payId":' + data.payId + ',"' + field + '":"' + value + '"}';
+        var upTask = JSON.parse(strTask);
+        console.log(upTask);
+        var loading=layer.load();
+        
+        $.ajax({
+          type: 'post',
+          url: '/api/updatePayment',
+          data: upTask,
+          success: function (obj) {
+        	  console.log(obj);
+            if (obj.code != 0) {
+              layer.msg("修改"+obj.msg)
+            } else {
+            	parent.layer.msg("修改"+obj.msg)
+            }
+          },
+          error: function (obj) {
+        	  parent.layer.msg("请求异常");
+          },
+          complete: function () {
+        	  layer.close(loading)
+          }
+        });
+        return false;
+      });
+      
+    //监听switch开关
+      form.on('checkbox', function (obj) {
+    	  var field =obj.elem.name//字段名
+          var Id = obj.elem.attributes.payId.value;//主键值
+         var visible = obj.elem.value;//字段值
+         if (visible=="true") {
+         	visible=false;
+         } else {
+         	visible =true;
+
+         }
+         console.log(visible)
+         var strData = '{"payId":' + Id + ',"' + field + '":"' + visible + '"}';
+         var upData = JSON.parse(strData);
+         var loading = layer.load();
+         console.log(upData)
+      $.ajax({
+          type: 'post',
+          url: '/api/updatePayment',
+          data: upData,
+          success: function (obj) {
+        	  console.log(obj);
+            if (obj.code != 0) {
+              layer.msg(obj.msg)
+            } else {
+            	parent.layer.msg("修改"+obj.msg)
+            }
+          },
+          error: function (obj) {
+        	  parent.layer.msg("请求异常");
+          },
+          complete: function () {
+        	  layer.close(loading)
+              tableRefresh('item')
+          }
+          
+        });
+        return false;
+      });
+      
+    });
+    //局部刷新数据表
+    function tableRefresh(obj) {
+      var table = layui.table;
+      table.refresh(obj);
+    }
+    
+    </script>
+
+	</script>
+	<!--工具条事件菜单主表-->
+	<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  </script>
+  
+     <!-- checked 是否开启按钮   -->
+  <script type="text/html" id="enabled">
+    <input type="checkbox" payId="{{d.payId}}" name="enabled" value="{{d.enabled}}" title="开启"
+      lay-filter="enabled" {{d.enabled==true?'checked':'0' }}>
+  </script>
+  <!-- checked 是否到付按钮  -->
+    <script type="text/html" id="isCod">
+    <input type="checkbox" payId="{{d.payId}}" name="isCod" value="{{d.isCod}}" title="到付"
+      lay-filter="isCod" {{d.isCod==true?'checked':'0' }}>
+  </script>
+  
+   <!-- checked 是否在线支付按钮  -->
+    <script type="text/html" id="isOnline">
+    <input type="checkbox" payId="{{d.payId}}" name="isOnline" value="{{d.isOnline}}" title="在线支付"
+      lay-filter="isOnline" {{d.isOnline==true?'checked':'0' }}>
+  </script>
+
+	<!--头部工具条事件-->
+	<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+      <button type="button" class="layui-btn" lay-event="add"><i class="layui-icon">&#xe608;</i> 添加</button> 
+      <button type="button" class="layui-btn layui-btn-danger" lay-event="delete"><i
+          class="layui-icon">&#xe640;</i>删除选中</button>
+     <button class="layui-btn layui-btn-warm" lay-event="Refresh"><i class="layui-icon">&#xe9aa;</i>刷新表格当前页</button>
+    </div>
+  </script>
+
+<form class="layui-form" action="" id="formAdd"
+		style="display: none; padding: 50px 75px 50px 50px;">
+		
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">支付名称:</label>
+			<div class="layui-input-block">
+				<input type="text" name="payName" required="" lay-verify="required"
+					placeholder="请输入支付名称" autocomplete="off"
+					class="layui-input layui-form-danger">
+			</div>
+		</div>
+		
+				<div class="layui-form-item">
+			<label class="layui-form-label">手续费:</label>
+			<div class="layui-input-block">
+				<input type="number" name="payFee" min="0" max="50" required=""
+					lay-verify="required" placeholder="越小排序越靠前" autocomplete="off"
+					class="layui-input layui-form-danger">
+			</div>
+		</div>
+				
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">描述说明:</label>
+			<div class="layui-input-block">
+				<input type="text" name="payDesc" required="" lay-verify="required"
+					placeholder="请描述说明" autocomplete="off"
+					class="layui-input layui-form-danger">
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">支付配置:</label>
+			<div class="layui-input-block">
+				<input type="text" name="payConfig" required="" lay-verify="required"
+					placeholder="请输入支付配置" autocomplete="off"
+					class="layui-input layui-form-danger">
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">是否开启:</label>
+			<div class="layui-input-block">
+				<input type="checkbox" lay-skin="switch" name="enabled" title="开启"
+					value="1" checked>
+			</div>
+			
+		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">在线支付:</label>
+			<div class="layui-input-block">
+				<input type="checkbox" lay-skin="switch" name="isOnline" title="是"
+					value="1" checked>
+			</div>
+			
+		</div>
+		
+		<div class="layui-form-item">
+			<label class="layui-form-label">货到付款:</label>
+			<div class="layui-input-block">
+				<input type="checkbox" lay-skin="switch" name="isCod" title="是"
+					value="1" checked>
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="formDemo">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+		<script>
+    //监听添加窗口的表单提交按钮
+    layui.use('form', function () {
+      var form = layui.form;
+      var $ = layui.jquery;
+      //监听提交
+      form.on('submit(formDemo)', function (data) {
+    	  var loading = layer.load();
+        
+       $.ajax({
+          type: 'post',
+          url: '/api/addPayment',
+          data: data.field,
+          success: function (obj) {
+        	  console.log(obj);
+            if (obj.code != 0) {
+            	parent.layer.msg(obj.msg)
+            } else {
+            	parent.layer.msg("添加失败!"+obj.msg)
+            }
+          },
+          error: function (obj) {
+        	  parent.layer.msg("请求异常");
+          },
+          complete: function () {
+        	  layer.close(loading)
+        	  tableRefresh('item')
+          }
+        });
+        return false;
+        
+      })
+    });
+  </script>
+
+
+
+
+</body>
+
+</html>

@@ -1,7 +1,16 @@
 package cn.yzj.shop.po;
 
-public class PaymentWithBLOBs extends Payment {
-    private String payDesc;
+import java.io.Serializable;
+
+public class PaymentWithBLOBs extends Payment implements Serializable{
+    /*
+	 *yzj
+	 *2019
+	 *2019年9月23日
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String payDesc;
 
     private String payConfig;
 
