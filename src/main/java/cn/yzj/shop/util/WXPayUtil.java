@@ -366,6 +366,18 @@ public class WXPayUtil {
           return df.format(new Date());
 	}
 	/**
+	 * 
+	 *yzj
+	 *2019
+	 *2019年9月20日
+	 * @param fmt 时间格式 例:yyyy-MM-dd HH:mm:ss
+	 * @return
+	 */
+	public static String getNewTime(String fmt) {
+		  SimpleDateFormat df = new SimpleDateFormat(fmt);//设置日期格式
+        return df.format(new Date());
+	}
+	/**
      * 将日期字符串格式化为日期类型
      *
      * @param date       需要格式化的字符串

@@ -1,7 +1,16 @@
 package cn.yzj.shop.po;
 
-public class Admin {
-    private Short adminId;
+import java.io.Serializable;
+
+public class Admin implements Serializable{
+    /*
+	 *yzj
+	 *2019
+	 *2019年9月20日
+	 */
+	private static final long serialVersionUID = -6113216399512149243L;
+
+	private Short adminId;
 
     private String userName;
 
@@ -11,9 +20,9 @@ public class Admin {
 
     private String ecSalt;
 
-    private Integer addTime;
+    private String addTime;
 
-    private Integer lastLogin;
+    private String lastLogin;
 
     private String lastIp;
 
@@ -71,20 +80,20 @@ public class Admin {
         this.ecSalt = ecSalt == null ? null : ecSalt.trim();
     }
 
-    public Integer getAddTime() {
+    public String getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Integer addTime) {
-        this.addTime = addTime;
+    public void setAddTime(String addTime) {
+        this.addTime = addTime == null ? null : addTime.trim();
     }
 
-    public Integer getLastLogin() {
+    public String getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Integer lastLogin) {
-        this.lastLogin = lastLogin;
+    public void setLastLogin(String lastLogin) {
+        this.lastLogin = lastLogin == null ? null : lastLogin.trim();
     }
 
     public String getLastIp() {

@@ -7,8 +7,8 @@
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="ec_salt" property="ecSalt" jdbcType="VARCHAR" />
-    <result column="add_time" property="addTime" jdbcType="INTEGER" />
-    <result column="last_login" property="lastLogin" jdbcType="INTEGER" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="last_login" property="lastLogin" jdbcType="VARCHAR" />
     <result column="last_ip" property="lastIp" jdbcType="VARCHAR" />
     <result column="lang_type" property="langType" jdbcType="VARCHAR" />
     <result column="agency_id" property="agencyId" jdbcType="SMALLINT" />
@@ -143,8 +143,8 @@
       province_id, city_id, district_id, 
       nav_list, todolist)
     values (#{adminId,jdbcType=SMALLINT}, #{userName,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{ecSalt,jdbcType=VARCHAR}, #{addTime,jdbcType=INTEGER}, 
-      #{lastLogin,jdbcType=INTEGER}, #{lastIp,jdbcType=VARCHAR}, #{langType,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{ecSalt,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{lastLogin,jdbcType=VARCHAR}, #{lastIp,jdbcType=VARCHAR}, #{langType,jdbcType=VARCHAR}, 
       #{agencyId,jdbcType=SMALLINT}, #{suppliersId,jdbcType=SMALLINT}, #{roleId,jdbcType=SMALLINT}, 
       #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, #{districtId,jdbcType=INTEGER}, 
       #{navList,jdbcType=LONGVARCHAR}, #{todolist,jdbcType=LONGVARCHAR})
@@ -221,10 +221,10 @@
         #{ecSalt,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null" >
-        #{addTime,jdbcType=INTEGER},
+        #{addTime,jdbcType=VARCHAR},
       </if>
       <if test="lastLogin != null" >
-        #{lastLogin,jdbcType=INTEGER},
+        #{lastLogin,jdbcType=VARCHAR},
       </if>
       <if test="lastIp != null" >
         #{lastIp,jdbcType=VARCHAR},
@@ -283,10 +283,10 @@
         ec_salt = #{record.ecSalt,jdbcType=VARCHAR},
       </if>
       <if test="record.addTime != null" >
-        add_time = #{record.addTime,jdbcType=INTEGER},
+        add_time = #{record.addTime,jdbcType=VARCHAR},
       </if>
       <if test="record.lastLogin != null" >
-        last_login = #{record.lastLogin,jdbcType=INTEGER},
+        last_login = #{record.lastLogin,jdbcType=VARCHAR},
       </if>
       <if test="record.lastIp != null" >
         last_ip = #{record.lastIp,jdbcType=VARCHAR},
@@ -330,8 +330,8 @@
       email = #{record.email,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       ec_salt = #{record.ecSalt,jdbcType=VARCHAR},
-      add_time = #{record.addTime,jdbcType=INTEGER},
-      last_login = #{record.lastLogin,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=VARCHAR},
+      last_login = #{record.lastLogin,jdbcType=VARCHAR},
       last_ip = #{record.lastIp,jdbcType=VARCHAR},
       lang_type = #{record.langType,jdbcType=VARCHAR},
       agency_id = #{record.agencyId,jdbcType=SMALLINT},
@@ -353,8 +353,8 @@
       email = #{record.email,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       ec_salt = #{record.ecSalt,jdbcType=VARCHAR},
-      add_time = #{record.addTime,jdbcType=INTEGER},
-      last_login = #{record.lastLogin,jdbcType=INTEGER},
+      add_time = #{record.addTime,jdbcType=VARCHAR},
+      last_login = #{record.lastLogin,jdbcType=VARCHAR},
       last_ip = #{record.lastIp,jdbcType=VARCHAR},
       lang_type = #{record.langType,jdbcType=VARCHAR},
       agency_id = #{record.agencyId,jdbcType=SMALLINT},
@@ -383,10 +383,10 @@
         ec_salt = #{ecSalt,jdbcType=VARCHAR},
       </if>
       <if test="addTime != null" >
-        add_time = #{addTime,jdbcType=INTEGER},
+        add_time = #{addTime,jdbcType=VARCHAR},
       </if>
       <if test="lastLogin != null" >
-        last_login = #{lastLogin,jdbcType=INTEGER},
+        last_login = #{lastLogin,jdbcType=VARCHAR},
       </if>
       <if test="lastIp != null" >
         last_ip = #{lastIp,jdbcType=VARCHAR},
@@ -427,8 +427,8 @@
       email = #{email,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       ec_salt = #{ecSalt,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=INTEGER},
-      last_login = #{lastLogin,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      last_login = #{lastLogin,jdbcType=VARCHAR},
       last_ip = #{lastIp,jdbcType=VARCHAR},
       lang_type = #{langType,jdbcType=VARCHAR},
       agency_id = #{agencyId,jdbcType=SMALLINT},
@@ -447,8 +447,8 @@
       email = #{email,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       ec_salt = #{ecSalt,jdbcType=VARCHAR},
-      add_time = #{addTime,jdbcType=INTEGER},
-      last_login = #{lastLogin,jdbcType=INTEGER},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      last_login = #{lastLogin,jdbcType=VARCHAR},
       last_ip = #{lastIp,jdbcType=VARCHAR},
       lang_type = #{langType,jdbcType=VARCHAR},
       agency_id = #{agencyId,jdbcType=SMALLINT},

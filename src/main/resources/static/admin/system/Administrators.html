@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>任务订单后台管理列表</title>
+<link rel="stylesheet" href="../lib/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="../css/font.css">
+<script src="../lib/layui/layui.js"></script>
+<script src="../lib/module/common.js"></script>
+
+</head>
+
+<body>
+	<table class="layui-table layui-container"
+		lay-data="{url:'/api/getAdminList', page:{limit:20}, id:'item',toolbar:'#toolbarDemo'}"
+		lay-filter="test" id="TablePage">
+		<thead>
+			<tr>
+				<th lay-data="{type:'checkbox'}"></th>
+				<th lay-data="{field:'adminId',sort: true,align:'center'}">管理员编号</th>
+				<th lay-data="{field:'userName',align:'center',edit: 'text'}">管理员名称</th>
+				<th lay-data="{field:'password',align:'center',edit: 'text'}">管理员密码</th>
+				<th lay-data="{field:'email',align:'center',edit: 'text'}">管理员邮箱</th>
+				<th lay-data="{field:'addTime',align:'center'}">添加时间</th>
+				<th lay-data="{field:'lastLogin',align:'center'}">最后登录时间</th>
+				<th lay-data="{field:'lastIp',align:'center'}">最后登录IP</th>
+				<th lay-data="{field:'roleId',align:'center'}">管理员角色</th>
+				<th
+					lay-data="{fixed: 'right', width:100, align:'center', toolbar: '#barDemo',align:'center'}">操作</th>
+			</tr>
+		</thead>
+	</table>
+
+
+	<script>
+    //主页面菜单数据表的事件监听
+    layui.use('table', function () {
+
+      var table = layui.table;
+      var $ = layui.jquery;
+      var form=layui.form;
+      //头工具栏事件
+      table.on('toolbar', function (obj) {
+        var checkStatus = table.checkStatus(obj.config.id);
+        switch (obj.event) {
+          case 'add':
+            var data = checkStatus.data;
+
+            layui.use('layer', function () {
+              layer = layui.layer; //独立版的layer无需执行这一句
+              layer.open({
+                type: 1 //此处以iframe举例
+                  ,
+                title: '添加任务',
+                area: ['500px'],
+                shade: 0,
+                maxmin: true,
+                content: $('#formAdd'),
+                zIndex:'1000' //重点      
+              });
+            });
+            break;
+          case 'delete':
+            var data = checkStatus.data;
+            if (data.length > 0) {
+              layer.confirm('确定删除选中行么?', function (index) {
+                var idList = []
+                data.forEach(element => {
+                  idList = idList.concat(""+element.adminId);
+                });
+                var idListStr = JSON.stringify(idList);
+                layer.close(index);
+                var loading=layer.load();
+               
+                //向服务端发送删除指令
+                $.ajax({
+                    type: 'post',
+                    url: '/api/deleteAdmin',
+                    data: {
+                      ids: idListStr
+                    },
+                    success: function (obj) {
+                  	  console.log(obj);
+                      if (obj.code != 0) {
+                        layer.msg(obj.msg)
+                      } else {
+                        layer.msg("删除菜单"+obj.msg)
+                      }
+                    },
+                    error: function (obj) {
+                      layer.msg("请求异常");
+                    },
+                    complete: function () {
+                    	layer.close(loading)
+                        tableRefresh('item')
+                        
+                    }
+                  });
+                  return false;
+              });
+            } else {
+              layer.msg("最少选中一行!");
+            }
+            break;
+          case 'Refresh':
+            tableRefresh('item')
+            
+            break;
+        };
+      });
+
+      //监听数据主表工具条
+      table.on('tool', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+        var data = obj.data; //获得当前行数据
+        var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+        var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+        if (layEvent === 'detail') { //查看
+          if(data.level!=="三级菜单"){
+            var id = data.modId
+            var nav=data.title
+          table.reload('SecondWindow',{
+            url:'/api/getSystemModuleByPid',
+            where:{
+            	pid:id
+            },
+          })
+          layui.use('layer', function () {
+              layer = layui.layer; //独立版的layer无需执行这一句
+              layer.open({
+                type: 1,//此处以iframe举例
+                title: '子菜单列表',
+                area: ['1100px','500px'],
+                shade: 0,
+                maxmin: true,
+                content: $('#SecondWindow'),
+                zIndex: '1000' //重点      
+              });
+            });
+          }else{
+            layer.msg("终极菜单没有子菜单!")
+          }
+        } else if (layEvent === 'del') { //删除
+          layer.confirm('真的删除行么', function (index) {
+            var id = [];
+            id = id.concat(""+data.adminId);
+            obj.del(); //删除对应行（tr）的DOM结构，并更新缓存
+            layer.close(index);
+            idList = JSON.stringify(id)
+            //向服务端发送删除指令
+            var loading=layer.load();
+               
+            $.ajax({
+              type: 'post',
+              url: '/api/deleteAdmin',
+              data: {
+                ids: idList
+              },
+              success: function (obj) {
+            	  console.log(obj);
+                if (obj.code != 0) {
+                  layer.msg(obj.msg)
+                } else {
+                  layer.msg("删除菜单"+obj.msg)
+                }
+              },
+              error: function (obj) {
+                layer.msg("请求异常");
+              },
+              complete: function () {
+            	  layer.close(loading)
+              }
+            });
+            return false;
+          });
+        } else if (layEvent === 'edit') { //编辑
+          //do something
+
+          //同步更新缓存对应的值
+          obj.update({
+            username: '123',
+            title: 'xxx'
+          });
+        }
+      });
+      
+
+      //监听单元格编辑
+      table.on('edit', function (obj) {
+        var value = obj.value //得到修改后的值
+          ,
+          data = obj.data //得到所在行所有键值
+          ,
+          field = obj.field; //得到字段
+        var strTask = '{"adminId":' + data.adminId + ',"' + field + '":"' + value + '"}';
+       var upTask = JSON.parse(strTask);
+       var loading=layer.load();
+      console.log(upTask)
+       $.ajax({
+          type: 'post',
+          url: '/api/updataAdmin',
+          data: upTask,
+          success: function (obj) {
+        	  console.log(obj);
+            if (obj.code != 0) {
+              layer.msg("修改"+obj.msg)
+            } else {
+            	parent.layer.msg("修改"+obj.msg)
+            }
+          },
+          error: function (obj) {
+        	  parent.layer.msg("请求异常");
+          },
+          complete: function () {
+        	  layer.close(loading)
+        	  tableRefresh('item')
+          }
+        });
+        return false;
+      });
+      
+
+    });
+    //局部刷新数据表
+    function tableRefresh(obj) {
+      var table = layui.table;
+      table.refresh(obj);
+    }
+    
+    </script>
+
+	</script>
+	<!--工具条事件菜单主表-->
+	<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+  </script>
+
+	<!--头部工具条事件-->
+	<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+      <button type="button" class="layui-btn" lay-event="add"><i class="layui-icon">&#xe608;</i> 添加</button>
+      <button type="button" class="layui-btn layui-btn-danger" lay-event="delete"><i
+          class="layui-icon">&#xe640;</i>删除选中</button>
+      <button class="layui-btn layui-btn-warm" lay-event="Refresh"><i class="layui-icon">&#xe9aa;</i>刷新表格当前页</button>
+    </div>
+  </script>
+
+	<form class="layui-form" action="" id="formAdd"
+		style="display: none; padding: 50px 75px 50px 50px;">
+
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">管理员名称:</label>
+			<div class="layui-input-block">
+				<input type="text" name=userName required="" lay-verify="required|username"
+					placeholder="请输入管理员名称" autocomplete="off"
+					class="layui-input layui-form-danger">
+			</div>
+		</div>
+		
+		<div class="layui-form-item">
+           <label for="" class="layui-form-label">管理员角色:</label>
+           <div class="layui-input-block">
+               <input type="number" name="roleId" id="selectRole" lay-filter="tree" class="layui-input">
+           </div>
+       </div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">管理员密码:</label>
+			<div class="layui-input-block">
+				<input type="text" name="password" required="" lay-verify="required|pass"
+					placeholder="请输入密码" autocomplete="off"
+					class="layui-input layui-form-danger">
+			</div>
+		</div>
+
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">管理员邮箱:</label>
+			<div class="layui-input-block">
+				<input type="text" name="email" required=""
+					lay-verify="required|email" placeholder="请输入邮箱" autocomplete="off"
+					class="layui-input layui-form-danger">
+			</div>
+		</div>
+
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="formDemo">立即提交</button>
+				<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+			</div>
+		</div>
+	</form>
+
+
+	<script>
+    //监听添加窗口的表单提交按钮
+    layui.use('form', function () {
+      var form = layui.form;
+      var $ = layui.jquery;
+      //监听提交
+      form.on('submit(formDemo)', function (data) {
+    	  var loading=layer.load();
+
+       $.ajax({
+          type: 'post',
+          url: '/api/addAdmin',
+          data: data.field,
+          success: function (obj) {
+        	  console.log(obj);
+            if (obj.code != 0) {
+            	parent.layer.msg(obj.msg)
+            } else {
+            	parent.layer.msg("添加失败!"+obj.msg)
+            }
+          },
+          error: function (obj) {
+        	  parent.layer.msg("请求异常");
+          },
+          complete: function () {
+        	  layer.close(loading)
+        	  tableRefresh('item')
+              
+          }
+        });
+        return false;
+        
+      })
+      //自定义表单验证
+      form.verify({
+  username: function(value, item){ //value：表单的值、item：表单的DOM对象
+    if(!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)){
+      return '用户名不能有特殊字符';
+    }
+    if(/(^\_)|(\__)|(\_+$)/.test(value)){
+      return '用户名首尾不能出现下划线\'_\'';
+    }
+    if(/^\d+\d+\d$/.test(value)){
+      return '用户名不能全为数字';
+    }
+  }
+  //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+  ,pass: [
+    /^[\S]{6,12}$/
+    ,'密码必须6到12位，且不能出现空格'
+  ] 
+}); 
+    //点击事件绑定
+    /*  	$(document).on('click','.chooseNav',function(){
+	        	var role = document.getElementById("selectPNav");
+      		if (role.children.length<=0) {
+      			 $.ajax({
+         	          type: 'post',
+         	          url: '/api/getSystemModuleByPid',
+         	          success: function (obj) {
+         	      		var list=obj.data
+         	      		for(var i=0;i<list.length;i++){
+         	      			                            var option = document.createElement("option");    // 创建添加option属性
+         	      			                            option.setAttribute("value",list[i].modId);                  // 给option的value添加值
+         	      			                            option.innerText=list[i].title;             // 打印option对应的纯文本 （超级管理员、管理员）
+         	      			                            role.appendChild(option);                          // 给select 添加option子标签
+         	      			                  }
+         	          },
+         	          error: function (obj) {
+         	            layer.msg("请求异常");
+         	          },
+         	          complete: function () {
+         	        	  form.render('select');
+         	          }
+         	        });
+      			 return false;
+      		}
+      	});*/
+    });
+  </script>
+  
+  <script>
+  //下拉树事件选择上级导航栏
+    layui.use(['treeSelect','form'], function () {
+        var treeSelect= layui.treeSelect;
+
+        treeSelect.render({
+            // 选择器
+            elem: '#selectRole',
+            // 数据
+            data: '/api/getRoleTree',
+            // 异步加载方式：get/post，默认get
+            type: 'get',
+            // 占位符
+            placeholder: '请选择',
+            // 是否开启搜索功能：true/false，默认false
+            search: true,
+            // 点击回调
+            click: function(d){
+                var selectPNav= document.getElementById("selectRole");
+                selectPNav.setAttribute('value',d.current.id)   
+            },
+            // 加载完成后的回调函数
+            success: function (d) {
+//                选中节点，根据id筛选
+//                treeSelect.checkNode('tree', 3);
+
+//                获取zTree对象，可以调用zTree方法
+//                var treeObj = treeSelect.zTree('tree');
+//                console.log(treeObj);
+
+//                刷新树结构
+//                treeSelect.refresh();
+            }
+        });      
+    });
+    </script>
+
+</body>
+
+</html>

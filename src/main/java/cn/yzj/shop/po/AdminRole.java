@@ -1,7 +1,16 @@
 package cn.yzj.shop.po;
 
-public class AdminRole {
-    private Short roleId;
+import java.io.Serializable;
+
+public class AdminRole implements Serializable{
+    /*
+	 *yzj
+	 *2019
+	 *2019年9月21日
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Short roleId;
 
     private String roleName;
 

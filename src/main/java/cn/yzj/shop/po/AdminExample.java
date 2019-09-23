@@ -454,52 +454,62 @@ public class AdminExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeEqualTo(Integer value) {
+        public Criteria andAddTimeEqualTo(String value) {
             addCriterion("add_time =", value, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeNotEqualTo(Integer value) {
+        public Criteria andAddTimeNotEqualTo(String value) {
             addCriterion("add_time <>", value, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeGreaterThan(Integer value) {
+        public Criteria andAddTimeGreaterThan(String value) {
             addCriterion("add_time >", value, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andAddTimeGreaterThanOrEqualTo(String value) {
             addCriterion("add_time >=", value, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeLessThan(Integer value) {
+        public Criteria andAddTimeLessThan(String value) {
             addCriterion("add_time <", value, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeLessThanOrEqualTo(Integer value) {
+        public Criteria andAddTimeLessThanOrEqualTo(String value) {
             addCriterion("add_time <=", value, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeIn(List<Integer> values) {
+        public Criteria andAddTimeLike(String value) {
+            addCriterion("add_time like", value, "addTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddTimeNotLike(String value) {
+            addCriterion("add_time not like", value, "addTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddTimeIn(List<String> values) {
             addCriterion("add_time in", values, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeNotIn(List<Integer> values) {
+        public Criteria andAddTimeNotIn(List<String> values) {
             addCriterion("add_time not in", values, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeBetween(Integer value1, Integer value2) {
+        public Criteria andAddTimeBetween(String value1, String value2) {
             addCriterion("add_time between", value1, value2, "addTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddTimeNotBetween(Integer value1, Integer value2) {
+        public Criteria andAddTimeNotBetween(String value1, String value2) {
             addCriterion("add_time not between", value1, value2, "addTime");
             return (Criteria) this;
         }
@@ -514,52 +524,62 @@ public class AdminExample {
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginEqualTo(Integer value) {
+        public Criteria andLastLoginEqualTo(String value) {
             addCriterion("last_login =", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginNotEqualTo(Integer value) {
+        public Criteria andLastLoginNotEqualTo(String value) {
             addCriterion("last_login <>", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginGreaterThan(Integer value) {
+        public Criteria andLastLoginGreaterThan(String value) {
             addCriterion("last_login >", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLastLoginGreaterThanOrEqualTo(String value) {
             addCriterion("last_login >=", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginLessThan(Integer value) {
+        public Criteria andLastLoginLessThan(String value) {
             addCriterion("last_login <", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginLessThanOrEqualTo(Integer value) {
+        public Criteria andLastLoginLessThanOrEqualTo(String value) {
             addCriterion("last_login <=", value, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginIn(List<Integer> values) {
+        public Criteria andLastLoginLike(String value) {
+            addCriterion("last_login like", value, "lastLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginNotLike(String value) {
+            addCriterion("last_login not like", value, "lastLogin");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastLoginIn(List<String> values) {
             addCriterion("last_login in", values, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginNotIn(List<Integer> values) {
+        public Criteria andLastLoginNotIn(List<String> values) {
             addCriterion("last_login not in", values, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginBetween(Integer value1, Integer value2) {
+        public Criteria andLastLoginBetween(String value1, String value2) {
             addCriterion("last_login between", value1, value2, "lastLogin");
             return (Criteria) this;
         }
 
-        public Criteria andLastLoginNotBetween(Integer value1, Integer value2) {
+        public Criteria andLastLoginNotBetween(String value1, String value2) {
             addCriterion("last_login not between", value1, value2, "lastLogin");
             return (Criteria) this;
         }

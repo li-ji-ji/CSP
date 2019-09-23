@@ -1,5 +1,6 @@
 package cn.yzj.shop.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 import cn.yzj.shop.po.SelectChildren;
@@ -11,7 +12,7 @@ import cn.yzj.shop.po.SystemModule;
  *2019
  *2019年9月12日
  */
-public interface SystemsModule extends ShopService{
+public interface SystemsModule extends ShopService<Serializable, Serializable>{
     /**
                    *   获取下拉树模型有url
      * @return
