@@ -230,8 +230,8 @@
           data: upTask,
           success: function (obj) {
         	  console.log(obj);
-            if (obj.code != 0) {
-              layer.msg("修改"+obj.msg)
+            if (obj.code != 1) {
+              layer.msg("修改"+obj.jsonData)
             } else {
             	parent.layer.msg("修改"+obj.msg)
             }
@@ -241,6 +241,7 @@
           },
           complete: function () {
         	  layer.close(loading)
+        	  tableRefresh("item");
           }
         });
         return false;

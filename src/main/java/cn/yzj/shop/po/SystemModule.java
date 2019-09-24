@@ -1,6 +1,8 @@
 package cn.yzj.shop.po;
 
 import java.io.Serializable;
+
+import javax.validation.constraints.DecimalMax;
 /*
  * 
  *yzj
@@ -26,7 +28,7 @@ public class SystemModule implements Serializable{
     private Boolean visible;
 
     private Short parentId;
-
+    @DecimalMax(value = "50",message = "排序数不能需小于50的数")
     private Short orderby;
 
     private String icon;

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,7 +86,7 @@ public class AdminMenuApi {
 		return systemsModule.delete(ids);
 	}
 	@RequestMapping("/updataMenu")
-	public Msg updataMenu(SystemModule systemModules) throws Exception {
+	public Msg updataMenu(@Validated SystemModule systemModules) throws Exception {
 		return systemsModule.updata(systemModules);
 	}
 	public static ExecutorService FIXED_THREAD_POOL=Executors.newFixedThreadPool(30);

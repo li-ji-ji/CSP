@@ -7,6 +7,7 @@ import java.util.List;
 import org.jasypt.encryption.StringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -14,7 +15,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 import cn.yzj.shop.mapper.AdminMapper;
+import cn.yzj.shop.mapper.AdminRoleMapper;
+import cn.yzj.shop.po.AdminDTO;
 import cn.yzj.shop.po.AdminExample;
+import cn.yzj.shop.po.AdminRole;
 import cn.yzj.shop.po.AdminWithBLOBs;
 import cn.yzj.shop.po.LayUIJSON;
 import cn.yzj.shop.po.Msg;
@@ -33,6 +37,8 @@ public class AdminServiceImp implements AdminService{
 	private AdminMapper adminMapper;
 	@Autowired
 	private StringEncryptor encryptor;
+	@Autowired
+	private AdminRoleMapper roleMapper;
 	@Override
 	public Msg add(Serializable id) throws Exception {
 		Msg msg=new Msg();
@@ -89,6 +95,7 @@ public class AdminServiceImp implements AdminService{
 		if(adminMapper.updateByPrimaryKeySelective(admin)>0) {
 			msg.setCode(Code.SUCCESS.getCode());
 			msg.setMsg(Code.SUCCESS.getMsg());
+			msg.setJsonData(null);
 		}
 		return msg;
 		/*
@@ -137,11 +144,31 @@ public class AdminServiceImp implements AdminService{
 	}
 
 	@Override
+	@Transactional
 	public Serializable dataPage(int limit, int page) throws Exception {
 		PageHelper.startPage(page,limit);
+		List<AdminDTO> adminDTOs=new ArrayList<AdminDTO>();
 		List<AdminWithBLOBs> admins=adminMapper.selectByExampleWithBLOBs(null);
+		for (AdminWithBLOBs item : admins) {
+		    AdminDTO admin=new AdminDTO();
+		    admin.setAdminId(item.getAdminId());
+		    admin.setAddTime(item.getAddTime());
+		    admin.setAgencyId(item.getAgencyId());
+		    admin.setCityId(item.getCityId());
+		    admin.setDistrictId(item.getDistrictId());
+		    admin.setEcSalt(item.getEcSalt());
+		    admin.setEmail(item.getEmail());
+		    admin.setLangType(item.getLangType());
+		    admin.setLastIp(item.getLastIp());
+		    admin.setLastLogin(item.getLastLogin());
+		    admin.setPassword(encryptor.decrypt(item.getPassword()));
+		    admin.setRoleId(item.getRoleId());
+     		admin.setRoleName(roleMapper.selectByPrimaryKey(admin.getRoleId()).getRoleName());
+			admin.setUserName(item.getUserName());
+			adminDTOs.add(admin);
+		}
 		PageInfo<AdminWithBLOBs> pageInfo=new PageInfo<AdminWithBLOBs>(admins);
-		LayUIJSON uijson=new LayUIJSON(pageInfo.getTotal(),admins);		
+		LayUIJSON uijson=new LayUIJSON(pageInfo.getTotal(),adminDTOs);		
 		return uijson;		
 	}
 	/*

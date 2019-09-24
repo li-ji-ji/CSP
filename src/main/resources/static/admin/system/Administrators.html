@@ -9,23 +9,39 @@
 <script src="../lib/layui/layui.js"></script>
 <script src="../lib/module/common.js"></script>
 
+<style type="text/css">
+
+/* 防止下拉框的下拉列表被隐藏---必须设置--- */
+.layui-table-cell {
+	overflow: visible !important;
+}
+/* 使得下拉框与单元格刚好合适 */
+td .layui-form-select {
+	width: 150px;
+	margin-top: -10px;
+	margin-left: -15px;
+	margin-right: -15px;
+}
+</style>
 </head>
 
 <body>
 	<table class="layui-table layui-container"
-		lay-data="{url:'/api/getAdminList', page:{limit:20}, id:'item',toolbar:'#toolbarDemo'}"
+		lay-data="{url:'/api/getAdminList', page:{limit:20}, id:'item',toolbar:'#toolbarDemo',height:'full-20'}"
 		lay-filter="test" id="TablePage">
 		<thead>
 			<tr>
 				<th lay-data="{type:'checkbox'}"></th>
 				<th lay-data="{field:'adminId',sort: true,align:'center'}">管理员编号</th>
 				<th lay-data="{field:'userName',align:'center',edit: 'text'}">管理员名称</th>
-				<th lay-data="{field:'password',align:'center',edit: 'text'}">管理员密码</th>
+				<th lay-data="{width:270,field:'password',align:'center',edit: 'text'}">管理员密码</th>
 				<th lay-data="{field:'email',align:'center',edit: 'text'}">管理员邮箱</th>
 				<th lay-data="{field:'addTime',align:'center'}">添加时间</th>
 				<th lay-data="{field:'lastLogin',align:'center'}">最后登录时间</th>
 				<th lay-data="{field:'lastIp',align:'center'}">最后登录IP</th>
-				<th lay-data="{field:'roleId',align:'center'}">管理员角色</th>
+				<th lay-data="{field:'roleName',width:100,align:'center'}">管理员角色</th>
+				<th
+					lay-data="{ width:150,align:'center',templet:'#tableSelectRoleTemple'}">修改管理员角色</th>
 				<th
 					lay-data="{fixed: 'right', width:100, align:'center', toolbar: '#barDemo',align:'center'}">操作</th>
 			</tr>
@@ -105,7 +121,7 @@
             break;
           case 'Refresh':
             tableRefresh('item')
-            
+ tableRefresh('item')
             break;
         };
       });
@@ -203,8 +219,8 @@
           data: upTask,
           success: function (obj) {
         	  console.log(obj);
-            if (obj.code != 0) {
-              layer.msg("修改"+obj.msg)
+            if (obj.code != 1) {
+              layer.msg("修改"+obj.jsonData)
             } else {
             	parent.layer.msg("修改"+obj.msg)
             }
@@ -219,8 +235,7 @@
         });
         return false;
       });
-      
-
+     
     });
     //局部刷新数据表
     function tableRefresh(obj) {
@@ -235,6 +250,13 @@
 	<script type="text/html" id="barDemo">
   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
   </script>
+
+	<!-- 这里的 表格下拉选择模板  -->
+	<script type="text/html" id="tableSelectRoleTemple">
+<div style="display:none" name="value">
+{{d.roleId}}
+</div>
+</script>
 
 	<!--头部工具条事件-->
 	<script type="text/html" id="toolbarDemo">
@@ -253,24 +275,25 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">管理员名称:</label>
 			<div class="layui-input-block">
-				<input type="text" name=userName required="" lay-verify="required|username"
-					placeholder="请输入管理员名称" autocomplete="off"
-					class="layui-input layui-form-danger">
+				<input type="text" name=userName required=""
+					lay-verify="required|username" placeholder="请输入管理员名称"
+					autocomplete="off" class="layui-input layui-form-danger">
 			</div>
 		</div>
-		
+
 		<div class="layui-form-item">
-           <label for="" class="layui-form-label">管理员角色:</label>
-           <div class="layui-input-block">
-               <input type="number" name="roleId" id="selectRole" lay-filter="tree" class="layui-input">
-           </div>
-       </div>
+			<label for="" class="layui-form-label">管理员角色:</label>
+			<div class="layui-input-block">
+				<input type="number" name="roleId" id="selectRole" lay-filter="tree"
+					class="layui-input">
+			</div>
+		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">管理员密码:</label>
 			<div class="layui-input-block">
-				<input type="text" name="password" required="" lay-verify="required|pass"
-					placeholder="请输入密码" autocomplete="off"
+				<input type="text" name="password" required=""
+					lay-verify="required|pass" placeholder="请输入密码" autocomplete="off"
 					class="layui-input layui-form-danger">
 			</div>
 		</div>
@@ -299,6 +322,9 @@
     layui.use('form', function () {
       var form = layui.form;
       var $ = layui.jquery;
+
+      var layer = layui.layer;
+
       //监听提交
       form.on('submit(formDemo)', function (data) {
     	  var loading=layer.load();
@@ -346,8 +372,91 @@
     ,'密码必须6到12位，且不能出现空格'
   ] 
 }); 
+      form.on('select',function(obj){
+    	  var array=obj.value.split(",")//索引0:id,索引1:角色id
+    	  var data={
+    			 "adminId": array[0],
+    			 "roleId":array[1]
+    	  }
+    	  console.log(data)
+    	  var loading=layer.load();
+    	  $.ajax({
+              type: 'post',
+              url: '/api/updataAdmin',
+              data: data,
+              success: function (obj) {
+            	  console.log(obj);
+                if (obj.code != 0) {
+                  layer.msg("修改"+obj.msg)
+                } else {
+                	parent.layer.msg("修改"+obj.msg)
+                }
+              },
+              error: function (obj) {
+            	  parent.layer.msg("请求异常");
+              },
+              complete: function () {
+            	  layer.close(loading)
+            	  tableRefresh('item')
+              }
+            });
+            return false;
+    	  
+      })
+
+$(function(){ 
+	var role = document.getElementById("tableSelectRoleTemple");
+	console.log(role);
+	var select=document.createElement("select");
+	var option = document.createElement("option");// 创建添加option属性
+	select.appendChild(option)
+	select.setAttribute("id","tableSelectRole")
+	role.appendChild(select)
+	$.ajax({
+         	          type: 'post',
+         	          url: '/api/getRoleList',
+         	          success: function (obj) {
+         	      		var list=obj.data
+         	      		for(var i=0;i<list.length;i++){
+         	      			                            var option = document.createElement("option");    // 创建添加option属性
+         	      			                            var dataStr="{{d.adminId}},"+list[i].roleId
+         	      			                            option.setAttribute("value",dataStr);                  // 给option的value添加值
+         	      			                            //option.setAttribute("selected","{{d.roleId=="+list[i].roleId+"?'1':'0' }}")
+         	      			                            option .setAttribute("adminId","{{d.adminId}}")
+         	      			                            option.setAttribute("roleId","{{d.roleId}}")
+         	      			                            option.innerText=list[i].roleName;             // 打印option对应的纯文本 （超级管理员、管理员）
+         	      			                            select.appendChild(option);                          // 给form 添加option子标签
+         	      			                  }
+         	          },
+         	          error: function (obj) {
+         	            layer.msg("请求异常");
+         	          },
+         	          complete: function () {
+         	        	  form.render('select');
+         	          }
+         	        });
+      			 return false;
+	
+	//option.setAttribute("value",1);                  // 给option的value添加值
+	//option.innerText="asdasd";             // 打印option对应的纯文本 （超级管理员、管理员）
+	
+	/*
+	<form>
+	<select name='jtcyGxmc' lay-verify='tableSelectRole' id="tableSelectRole" lay-search=''>
+	<option value=""></option>
+						<option value="0"><i>top</i></option>
+						<option value="1"><i>menu</i></option>
+						<option value="2"><i>module</i></option>
+	    </select>
+	</form>
+	var option = document.createElement("option");    // 创建添加option属性
+		                            option.setAttribute("value",1);                  // 给option的value添加值
+		                            option.innerText=list[i].title;             // 打印option对应的纯文本 （超级管理员、管理员）
+		                            role.appendChild(option);           */               // 给select 添加option子标签
+	console.log(role)
+});
     //点击事件绑定
-    /*  	$(document).on('click','.chooseNav',function(){
+    /*  	$(document).on('click','#chooseNav',function(){
 	        	var role = document.getElementById("selectPNav");
       		if (role.children.length<=0) {
       			 $.ajax({
@@ -374,8 +483,8 @@
       	});*/
     });
   </script>
-  
-  <script>
+
+	<script>
   //下拉树事件选择上级导航栏
     layui.use(['treeSelect','form'], function () {
         var treeSelect= layui.treeSelect;

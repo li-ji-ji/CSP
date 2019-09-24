@@ -2,6 +2,9 @@ package cn.yzj.shop.po;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Size;
+
 public class Admin implements Serializable{
     /*
 	 *yzj
@@ -13,9 +16,9 @@ public class Admin implements Serializable{
 	private Short adminId;
 
     private String userName;
-
+    @Email(message ="邮箱格式不符")
     private String email;
-
+    @Size(max = 12,min = 6,message = "密码必须在6~12个字符之间")
     private String password;
 
     private String ecSalt;

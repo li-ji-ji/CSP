@@ -3,6 +3,7 @@ package cn.yzj.shop.api;
 import java.io.Serializable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,7 @@ public class AdminApi {
 		return adminService.delete(ids);	
 	}
 	@RequestMapping("/updataAdmin")
-	public Msg updataAdmin(AdminWithBLOBs admin) throws Exception {
+	public Msg updataAdmin(@Validated AdminWithBLOBs admin) throws Exception {
 		return adminService.updata(admin);	
 	}
 }
