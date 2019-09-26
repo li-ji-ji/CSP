@@ -21,6 +21,7 @@ import cn.yzj.shop.po.AdminExample;
 import cn.yzj.shop.po.AdminRole;
 import cn.yzj.shop.po.AdminWithBLOBs;
 import cn.yzj.shop.po.LayUIJSON;
+import cn.yzj.shop.po.LoginDTO;
 import cn.yzj.shop.po.Msg;
 import cn.yzj.shop.service.AdminService;
 import cn.yzj.shop.systemclass.Code;
@@ -110,25 +111,24 @@ public class AdminServiceImp implements AdminService{
 	@Override
 	public Serializable find(Serializable id) throws Exception {
 		return id;
-		/*
-		 *yzj
-		 *2019
-		 *2019年9月20日
-		 */
-		//自动生成的方法存根
 		
+	}
+	@Override
+	public Msg adminLogin(LoginDTO loginDTO) {
+		Msg msg=new Msg();
+		AdminExample example=new AdminExample();
+		example.createCriteria().andUserNameEqualTo(loginDTO.getUserName()).andPasswordEqualTo(loginDTO.getPassWord());
+		if(adminMapper.selectByExampleWithBLOBs(example).size()>0) {
+			msg.setCode(Code.SUCCESS.getCode());
+			msg.setMsg(Code.SUCCESS.getMsg());
+			msg.setJsonData(null);
+		}
+		return msg;
 	}
 
 	@Override
 	public Serializable find() throws Exception {
 		return null;
-		/*
-		 *yzj
-		 *2019
-		 *2019年9月20日
-		 */
-		//自动生成的方法存根
-		
 	}
 
 	@Override

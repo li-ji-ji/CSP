@@ -14,7 +14,7 @@ public class Admin implements Serializable{
 	private static final long serialVersionUID = -6113216399512149243L;
 
 	private Short adminId;
-
+	@Size(max = 12,min = 6,message = "密码必须在6~12个字符之间")
     private String userName;
     @Email(message ="邮箱格式不符")
     private String email;

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./css/font.css">
     <link rel="stylesheet" href="./css/login.css">
 	  <link rel="stylesheet" href="./css/xadmin.css">
-    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script> -->
     <script src="./lib/layui/layui.js" charset="utf-8"></script>
     <!--[if lt IE 9]>
       <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -24,9 +24,9 @@
         <div id="darkbannerwrap"></div>
         
         <form method="post" class="layui-form" >
-            <input name="username" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+            <input name="userName" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
             <hr class="hr15">
-            <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+            <input name="passWord" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
             <hr class="hr15">
             <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
             <hr class="hr20" >
@@ -34,33 +34,42 @@
     </div>
 
     <script>
-        $(function  () {
             layui.use('form', function(){
               var form = layui.form;
+              var $ = layui.jquery;
               // layer.msg('玩命卖萌中', function(){
               //   //关闭后的操作
               //   });
               //监听提交
               form.on('submit(login)', function(data){
-                // alert(888)
-                layer.msg(JSON.stringify(data.field),function(){
-                    location.href='index.html'
-                });
-                return false;
+            	  var loading = layer.load();
+   
+                  $.ajax({
+                     type: 'post',
+                     url: '/api/verification',
+                     data: data.field,
+                     success: function (obj) {
+                   	  console.log(obj);
+                       if (obj.code != 1) {
+                       	if(obj.jsonData!=null){
+                       		parent.layer.msg(obj.jsonData)
+                       	}else{
+                       		parent.layer.msg("密码或用户名错误")
+                       	}
+                       } else {
+                    	   window.location.href = 'index'
+                       }
+                     },
+                     error: function (obj) {
+                   	  parent.layer.msg("请求异常");
+                     },
+                     complete: function () {
+                   	  layer.close(loading)
+                     }
+                   });
+                   return false;
               });
             });
-        })
-    </script>
-    <!-- 底部结束 -->
-    <script>
-    //百度统计可去掉
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
     </script>
 </body>
 </html>

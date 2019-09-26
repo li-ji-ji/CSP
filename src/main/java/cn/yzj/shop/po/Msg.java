@@ -9,7 +9,13 @@ import cn.yzj.shop.systemclass.Code;
  *2019
  *2019年9月12日
  */
-public class Msg{
+public class Msg implements Serializable{
+	/*
+	 *yzj
+	 *2019
+	 *2019年9月26日
+	 */
+	private static final long serialVersionUID = 1L;
 	private static int code=Code.FAIL.getCode();
 	private static String msg=Code.FAIL.getMsg();
 	private static String jsonData;

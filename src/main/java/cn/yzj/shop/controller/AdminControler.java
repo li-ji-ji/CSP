@@ -3,15 +3,21 @@ package cn.yzj.shop.controller;
 import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.yzj.shop.po.LoginDTO;
 import cn.yzj.shop.po.SystemModule;
+import cn.yzj.shop.service.AdminService;
 import cn.yzj.shop.service.ConfigService;
 import cn.yzj.shop.service.SystemsModule;
 import cn.yzj.shop.util.RequestUtil;
@@ -30,7 +36,6 @@ public class AdminControler {
 	private SystemsModule systemsModule;
 	@Autowired
 	private ConfigService config;
-	
 	@RequestMapping("/index")
 	public ModelAndView index(ModelAndView modelAndView) throws Exception {
 		modelAndView.setViewName("/admin/index");
@@ -56,6 +61,11 @@ public class AdminControler {
 		map.put("borderGroup",RequestUtil.getBorderGroup(request)+" / "+RequestUtil.getBrowserVersion(request)+" / "+RequestUtil.getBorderRenderingEngine(request)+" / "+RequestUtil.getBorderType(request)+" / "+RequestUtil.getBrowserManufacturer(request));//浏览器信息
 		modelAndView.addObject("information",map);
 		modelAndView.addObject("config",config.find("admin_welcome"));
+		return modelAndView;
+	}
+	@RequestMapping("/login")
+	public ModelAndView login(ModelAndView modelAndView) {
+		modelAndView.setViewName("/admin/login");
 		return modelAndView;
 	}
 
