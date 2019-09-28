@@ -420,6 +420,22 @@ public class WXPayUtil {
     	deposits=Integer.parseInt(plaintext);
 		return deposits;
     }
+    /**
+     * 获得deposits明文
+     * data 待解密数据
+     * key salt
+     * return int
+     */
+    public static String getDepositsStr(String data,String key)throws Exception{
+    	String deposits=null;
+    	String plaintext;//明文
+    	Decoder decoder=Base64.getDecoder();
+    	byte[] bs=decoder.decode(data);
+    	plaintext=new String(bs);
+    	plaintext=plaintext.substring(32);
+    	deposits=plaintext;
+		return deposits;
+    }
     /*
      * base64加密
      * key salt
@@ -427,6 +443,18 @@ public class WXPayUtil {
      * return String
      */
     public static String base64Str(String key,int deposits)throws Exception {
+    	String base6=null;
+    	Encoder encoder=Base64.getEncoder();
+    	byte [] bs=encoder.encode((key+deposits).getBytes());
+    	base6=new String(bs);
+		return base6;
+    }/*
+     * base64加密
+     * key salt
+     * deposits deposits 待加密余额明文 
+     * return String
+     */
+    public static String base64Str(String key,String deposits)throws Exception {
     	String base6=null;
     	Encoder encoder=Base64.getEncoder();
     	byte [] bs=encoder.encode((key+deposits).getBytes());

@@ -2,7 +2,9 @@ package cn.yzj.shop.service;
 
 import java.io.Serializable;
 
-import cn.yzj.shop.po.AdminDTO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import cn.yzj.shop.po.LoginDTO;
 import cn.yzj.shop.po.Msg;
 
@@ -12,6 +14,10 @@ import cn.yzj.shop.po.Msg;
  *2019年9月20日
  */
 public interface AdminService extends ShopService<Serializable, Serializable> {
-	public Msg adminLogin(LoginDTO loginDTO)throws Exception;
+	public Msg adminLogin(LoginDTO loginDTO,HttpServletResponse response)throws Exception;//用户登入
+	
+	public Msg logout(HttpServletRequest request)throws Exception;//用户退出
+	
+	
 	
 }

@@ -3,9 +3,15 @@ package cn.yzj.shop.service.implement;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.jasypt.encryption.StringEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,13 +46,14 @@ public class AdminServiceImp implements AdminService{
 	private StringEncryptor encryptor;
 	@Autowired
 	private AdminRoleMapper roleMapper;
+	@Autowired
+	private StringRedisTemplate redisTemplate;
 	@Override
 	public Msg add(Serializable id) throws Exception {
 		Msg msg=new Msg();
 		AdminWithBLOBs admin=(AdminWithBLOBs) id;
-		System.out.println("++++++++");
-		admin.setPassword(encryptor.encrypt(admin.getPassword()));
-		System.out.println("---------");
+		admin.setEcSalt(WXPayUtil.generateNonceStr());
+		admin.setPassword(WXPayUtil.base64Str(admin.getEcSalt(),admin.getPassword()));
 		admin.setAddTime(WXPayUtil.getNewTime("yyyy-MM-dd HH:mm:ss"));
 		if(adminMapper.insertSelective(admin)>0) {
 			msg.setCode(Code.SUCCESS.getCode());
@@ -91,7 +98,7 @@ public class AdminServiceImp implements AdminService{
 		Msg msg=new Msg();
 		AdminWithBLOBs admin=(AdminWithBLOBs) id;
 		if(admin.getPassword()!=null) {
-			admin.setPassword(encryptor.encrypt(admin.getPassword()));
+			admin.setPassword(WXPayUtil.base64Str(admin.getEcSalt(),admin.getPassword()));
 		}
 		if(adminMapper.updateByPrimaryKeySelective(admin)>0) {
 			msg.setCode(Code.SUCCESS.getCode());
@@ -110,19 +117,45 @@ public class AdminServiceImp implements AdminService{
 
 	@Override
 	public Serializable find(Serializable id) throws Exception {
-		return id;
+		AdminWithBLOBs adminWithBLOBs=adminMapper.selectByPrimaryKey((Short) id);
+		return adminWithBLOBs;
 		
 	}
 	@Override
-	public Msg adminLogin(LoginDTO loginDTO) {
+	public Msg adminLogin(LoginDTO loginDTO,HttpServletResponse response) throws Exception {
 		Msg msg=new Msg();
 		AdminExample example=new AdminExample();
-		example.createCriteria().andUserNameEqualTo(loginDTO.getUserName()).andPasswordEqualTo(loginDTO.getPassWord());
-		if(adminMapper.selectByExampleWithBLOBs(example).size()>0) {
-			msg.setCode(Code.SUCCESS.getCode());
-			msg.setMsg(Code.SUCCESS.getMsg());
-			msg.setJsonData(null);
-		}
+		example.createCriteria().andUserNameEqualTo(loginDTO.getUserName());
+		List<AdminWithBLOBs> adminWithBLOBs=adminMapper.selectByExampleWithBLOBs(example);
+		if(adminWithBLOBs.size()>0) {
+			for (AdminWithBLOBs item : adminWithBLOBs) {
+				String data=item.getPassword();
+				System.out.println(data);
+				String salt=item.getEcSalt();
+				System.out.println(salt);
+				String passWord=WXPayUtil.getDepositsStr(data,salt);
+				if(loginDTO.getPassWord().equals(passWord)){
+					String uuid=WXPayUtil.generateNonceStr();
+					redisTemplate.opsForValue().set(uuid,JSON.toJSONString(item));
+					redisTemplate.expire(uuid,1000*60*8,TimeUnit.MILLISECONDS);
+					Cookie token=new Cookie("token",uuid);
+					token.setMaxAge(60*60*24*3);
+					token.setPath("/");//作用范围
+					response.addCookie(token);
+					Cookie user=new Cookie("user",item.getAdminId().toString());
+					user.setPath("/");
+					user.setMaxAge(60*60*24*3);
+					response.addCookie(user);
+					msg.setCode(Code.SUCCESS.getCode());
+					msg.setMsg(Code.SUCCESS.getMsg());
+					msg.setJsonData(null);
+				}else {
+					msg.setJsonData("密码错误!");
+				}
+			}
+		}else {
+				msg.setJsonData("用户名不存在!");
+			}
 		return msg;
 	}
 
@@ -161,7 +194,7 @@ public class AdminServiceImp implements AdminService{
 		    admin.setLangType(item.getLangType());
 		    admin.setLastIp(item.getLastIp());
 		    admin.setLastLogin(item.getLastLogin());
-		    admin.setPassword(encryptor.decrypt(item.getPassword()));
+		    admin.setPassword(WXPayUtil.getDepositsStr(item.getPassword(), item.getEcSalt()));
 		    admin.setRoleId(item.getRoleId());
      		admin.setRoleName(roleMapper.selectByPrimaryKey(admin.getRoleId()).getRoleName());
 			admin.setUserName(item.getUserName());
@@ -176,4 +209,24 @@ public class AdminServiceImp implements AdminService{
 	 *2019
 	 *2019年9月20日
 	 */
+
+	@Override
+	public Msg logout(HttpServletRequest request) throws Exception {
+		Msg msg=new Msg();
+		Cookie[] cookies=request.getCookies();
+		String uuid="";
+		for (Cookie cookie : cookies) {
+			if(cookie.getName().equals("token")) {
+				uuid=cookie.getValue();
+			}
+		}
+		if(redisTemplate.delete(uuid)) {
+			msg.setCode(Code.SUCCESS.getCode());
+			msg.setMsg(Code.SUCCESS.getMsg());
+			msg.setJsonData(null);
+		}
+		return msg;
+
+		
+	}
 }

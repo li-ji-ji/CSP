@@ -22,7 +22,7 @@
                 <div class="layui-col-md12">
                     <div class="layui-card">
                         <div class="layui-card-body ">
-                            <blockquote class="layui-elem-quote">欢迎管理员：
+                            <blockquote class="layui-elem-quote">欢迎管理员：${user.userName}
                                 <span id="dateTime" class="x-red">test</span>&nbsp;&nbsp;&nbsp;&nbsp;
                             </blockquote>
                         </div>

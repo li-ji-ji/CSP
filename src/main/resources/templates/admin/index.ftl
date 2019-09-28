@@ -3,7 +3,7 @@
 <html class="x-admin-sm">
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>${config.logo_title}</title>
         <meta name="renderer" content="webkit|ie-comp|ie-stand">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -27,7 +27,7 @@
         <!-- 顶部开始 -->
         <div class="container">
             <div class="logo">
-                <a href="./index.html">
+                <a href="${config.logo_url}">
                 <i class="iconfont layui-icon">${config.index_logo}</i>
                 ${config.logo_title}
                 </a>
@@ -60,7 +60,7 @@
             </ul>
             <ul class="layui-nav right" lay-filter="">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">admin</a>
+                    <a href="javascript:;">${user.userName}</a>
                     <dl class="layui-nav-child">
                         <!-- 二级菜单 -->
                         <dd>
@@ -68,7 +68,7 @@
                         <dd>
                             <a onclick="xadmin.open('${config.adminList2_title}','${config.adminList2_url}">切换帐号</a></dd>
                         <dd>
-                            <a href="${config.adminList3_url}">${config.adminList3_title}</a></dd>
+                            <a href="${config.adminList3_url}" id="logout">${config.adminList3_title}</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item to-index">
@@ -151,13 +151,33 @@
         <style id="theme_style"></style>
         <!-- 右侧主体结束 -->
         <!-- 中部结束 -->
-        <script>//百度统计可去掉
-            var _hmt = _hmt || []; (function() {
-                var hm = document.createElement("script");
-                hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-                var s = document.getElementsByTagName("script")[0];
-                s.parentNode.insertBefore(hm, s);
-            })();</script>
+          <script>
+			layui.use(['form', 'layedit', 'laydate','element','jquery'], function() {
+			layer = layui.layer,
+			element=layui.element,
+			$=layui.jquery;
+			$(document).on('click','#logout',function(){
+			$.ajax({
+              type: 'post',
+              url: '/api/logout',
+              data: {},
+              success: function (obj) {
+            	  console.log(obj);
+                if (obj.code != 1) {
+                  layer.msg(obj.jsonData)
+                } else {
+                    window.location.href = 'logout'
+                }
+              },
+              error: function (obj) {
+            	  parent.layer.msg("请求异常");
+              },
+              complete: function () {
+              }
+            });
+			});
+			});
+          </script>
     </body>
 
 </html>

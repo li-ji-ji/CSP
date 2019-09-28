@@ -2,6 +2,7 @@ package cn.yzj.shop.systemclass;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +11,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import cn.yzj.shop.util.WXPayUtil;
 
 /*
  *yzj
@@ -24,7 +27,20 @@ public class AdminInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		    boolean isOk=false;
-		        if(redisTemplate.getExpire("admin_sesion",TimeUnit.MILLISECONDS)>0) {
+		    Cookie[] cookies=request.getCookies();
+		    String uuid="";
+		    if(cookies!=null) {
+		    	for (Cookie cookie : cookies) {
+					if(cookie.getName().equals("token")) {
+						uuid=cookie.getValue();
+					}
+				}
+		    }
+		    Long time=redisTemplate.getExpire(uuid,TimeUnit.MILLISECONDS);
+		        if(time>0) {
+		        	if(time<1000*60*4) {
+		        		redisTemplate.expire(uuid,1000*60*8,TimeUnit.MILLISECONDS);
+		        	}
 		        	isOk=true;
 		        }else {
 					response.sendRedirect("/admin/login");

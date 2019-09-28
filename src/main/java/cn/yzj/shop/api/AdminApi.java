@@ -3,6 +3,8 @@ package cn.yzj.shop.api;
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,6 @@ import cn.yzj.shop.util.WXPayUtil;
 public class AdminApi {
 	@Autowired
 	private AdminService adminService;
-	@Autowired
-	private StringRedisTemplate redisTemplate;
 	@RequestMapping("/getAdminList")
 	public Serializable getAdminList(@RequestParam(value ="limit",defaultValue ="20")int limit,@RequestParam(value ="page",defaultValue ="1")int page) throws Exception {
 		return adminService.dataPage(limit, page);
@@ -48,12 +48,13 @@ public class AdminApi {
 		return adminService.updata(admin);	
 	}
 	@RequestMapping("/verification")
-	public Msg verification(@Validated LoginDTO loginDTO) throws Exception{
-		Msg msg=adminService.adminLogin(loginDTO);
-		if(msg.getCode()==1) {
-		redisTemplate.opsForValue().set("admin_sesion",WXPayUtil.generateNonceStr());
-		redisTemplate.expire("admin_sesion",1000*60*5,TimeUnit.MILLISECONDS);
-		}
+	public Msg verification(@Validated LoginDTO loginDTO,HttpServletResponse response) throws Exception{
+		Msg msg=adminService.adminLogin(loginDTO,response);
 		return msg; 
+	}
+	@RequestMapping("/logout")
+	public Msg logout(HttpServletRequest request)throws Exception{
+		Msg msg=adminService.logout(request);
+		return msg;
 	}
 }
