@@ -14,6 +14,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
+import cn.lhj.csp.assist.menu.service.CspAdminMenuService;
 
 /*
  * 后台管理界面controller
@@ -25,7 +26,7 @@ import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 public class CspAdminPageController {
 	
 	@Autowired
-	AdminMenuApiInterface adminMenuApi;
+	private CspAdminMenuService adminMenuService;
 	
 	
 	// 跳转到后台管理界面
@@ -46,8 +47,8 @@ public class CspAdminPageController {
 	//跳转到添加菜单表单
 	@RequestMapping("/toForm")
 	public String toMenuFrom(Model model)throws Exception{
-		System.out.println(adminMenuApi.getAll());
-		JSONArray AdminMenuList =JSONArray.parseArray(adminMenuApi.getAll());
+		System.out.println(adminMenuService.getAll());
+		JSONArray AdminMenuList =JSONArray.parseArray(adminMenuService.getShowMenuToJson());
 		model.addAttribute("AdminMenuList",AdminMenuList);
 		return "ftl/admin/Form";
 	}
