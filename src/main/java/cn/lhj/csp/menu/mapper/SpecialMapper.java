@@ -1,4 +1,4 @@
-package cn.lhj.csp.assist.menu.mapper;
+package cn.lhj.csp.menu.mapper;
 
 import java.util.List;
 import java.util.Map;

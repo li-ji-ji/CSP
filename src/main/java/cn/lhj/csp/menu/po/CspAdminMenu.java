@@ -1,4 +1,4 @@
-package cn.lhj.csp.assist.menu.po;
+package cn.lhj.csp.menu.po;
 
 public class CspAdminMenu {
     private Integer id;

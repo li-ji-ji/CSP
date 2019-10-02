@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableDiscoveryClient //启用服务注册与发现
 @EnableFeignClients //启用feign进行远程调用
-@MapperScan(basePackages = {"cn.lhj.csp.admin.mapper","cn.lhj.csp.assist.menu.mapper"})
+@MapperScan(basePackages = {"cn.lhj.csp.admin.mapper","cn.lhj.csp.**.mapper"})
 public class CspApplication {
 
 	public static void main(String[] args) {

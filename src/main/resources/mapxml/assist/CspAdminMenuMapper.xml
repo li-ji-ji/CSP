@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="cn.lhj.csp.assist.menu.mapper.CspAdminMenuMapper" >
-  <resultMap id="BaseResultMap" type="cn.lhj.csp.assist.menu.po.CspAdminMenu" >
+<mapper namespace="cn.lhj.csp.menu.mapper.CspAdminMenuMapper" >
+  <resultMap id="BaseResultMap" type="cn.lhj.csp.menu.po.CspAdminMenu" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="p_id" property="pId" jdbcType="INTEGER" />
@@ -73,7 +73,7 @@
   <sql id="Base_Column_List" >
     id, name, p_id, is_hidden, mainurl, icon, icon_open, icon_close, fong_css
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.lhj.csp.assist.menu.po.CspAdminMenuExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.lhj.csp.menu.po.CspAdminMenuExample" >
     select
     <if test="distinct" >
       distinct
@@ -100,13 +100,13 @@
     delete from csp_admin_menu
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="cn.lhj.csp.assist.menu.po.CspAdminMenuExample" >
+  <delete id="deleteByExample" parameterType="cn.lhj.csp.menu.po.CspAdminMenuExample" >
     delete from csp_admin_menu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="cn.lhj.csp.assist.menu.po.CspAdminMenu" >
+  <insert id="insert" parameterType="cn.lhj.csp.menu.po.CspAdminMenu" >
     insert into csp_admin_menu (id, name, p_id, 
       is_hidden, mainurl, icon, 
       icon_open, icon_close, fong_css
@@ -116,7 +116,7 @@
       #{iconOpen,jdbcType=VARCHAR}, #{iconClose,jdbcType=VARCHAR}, #{fongCss,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="cn.lhj.csp.assist.menu.po.CspAdminMenu" >
+  <insert id="insertSelective" parameterType="cn.lhj.csp.menu.po.CspAdminMenu" >
     insert into csp_admin_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -177,7 +177,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="cn.lhj.csp.assist.menu.po.CspAdminMenuExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="cn.lhj.csp.menu.po.CspAdminMenuExample" resultType="java.lang.Integer" >
     select count(*) from csp_admin_menu
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -233,7 +233,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="cn.lhj.csp.assist.menu.po.CspAdminMenu" >
+  <update id="updateByPrimaryKeySelective" parameterType="cn.lhj.csp.menu.po.CspAdminMenu" >
     update csp_admin_menu
     <set >
       <if test="name != null" >
@@ -263,7 +263,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="cn.lhj.csp.assist.menu.po.CspAdminMenu" >
+  <update id="updateByPrimaryKey" parameterType="cn.lhj.csp.menu.po.CspAdminMenu" >
     update csp_admin_menu
     set name = #{name,jdbcType=VARCHAR},
       p_id = #{pId,jdbcType=INTEGER},

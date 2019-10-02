@@ -1,11 +1,11 @@
-package cn.lhj.csp.assist.menu.mapper;
+package cn.lhj.csp.menu.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import cn.lhj.csp.assist.menu.po.CspAdminMenu;
-import cn.lhj.csp.assist.menu.po.CspAdminMenuExample;
+import cn.lhj.csp.menu.po.CspAdminMenu;
+import cn.lhj.csp.menu.po.CspAdminMenuExample;
 
 public interface CspAdminMenuMapper {
     int countByExample(CspAdminMenuExample example);

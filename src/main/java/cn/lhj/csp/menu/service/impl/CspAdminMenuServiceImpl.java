@@ -1,4 +1,4 @@
-package cn.lhj.csp.assist.menu.service.impl;
+package cn.lhj.csp.menu.service.impl;
 
 import java.util.List;
 import java.util.Map;
@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSON;
 
-import cn.lhj.csp.assist.menu.mapper.CspAdminMenuMapper;
-import cn.lhj.csp.assist.menu.mapper.SpecialMapper;
-import cn.lhj.csp.assist.menu.po.CspAdminMenu;
-import cn.lhj.csp.assist.menu.po.CspAdminMenuExample;
-import cn.lhj.csp.assist.menu.service.CspAdminMenuService;
+import cn.lhj.csp.menu.mapper.CspAdminMenuMapper;
+import cn.lhj.csp.menu.mapper.SpecialMapper;
+import cn.lhj.csp.menu.po.CspAdminMenu;
+import cn.lhj.csp.menu.po.CspAdminMenuExample;
+import cn.lhj.csp.menu.service.CspAdminMenuService;
 import cn.lhj.csp.utils.LayUIJSON;
 
 

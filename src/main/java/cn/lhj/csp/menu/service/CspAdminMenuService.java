@@ -1,11 +1,11 @@
-package cn.lhj.csp.assist.menu.service;
+package cn.lhj.csp.menu.service;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import cn.lhj.csp.assist.menu.po.CspAdminMenu;
+import cn.lhj.csp.menu.po.CspAdminMenu;
 import cn.lhj.csp.utils.LayUIJSON;
 
 

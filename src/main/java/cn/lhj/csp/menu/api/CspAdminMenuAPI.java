@@ -1,4 +1,4 @@
-package cn.lhj.csp.assist.menu.api;
+package cn.lhj.csp.menu.api;
 
 import java.util.List;
 import java.util.Map;
@@ -13,8 +13,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
-import cn.lhj.csp.assist.menu.po.CspAdminMenu;
-import cn.lhj.csp.assist.menu.service.CspAdminMenuService;
+import cn.lhj.csp.menu.po.CspAdminMenu;
+import cn.lhj.csp.menu.service.CspAdminMenuService;
 import cn.lhj.csp.utils.LayUIJSON;
 
 /*
