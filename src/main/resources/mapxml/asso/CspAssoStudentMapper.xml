@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.lhj.csp.asso.mapper.CspAssoStudentMapper" >
+  <resultMap id="BaseResultMap" type="cn.lhj.csp.asso.po.CspAssoStudent" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="s_id" property="sId" jdbcType="VARCHAR" />
+    <result column="s_name" property="sName" jdbcType="VARCHAR" />
+    <result column="s_sex" property="sSex" jdbcType="INTEGER" />
+    <result column="s_photo" property="sPhoto" jdbcType="VARCHAR" />
+    <result column="s_grade" property="sGrade" jdbcType="INTEGER" />
+    <result column="s_major" property="sMajor" jdbcType="VARCHAR" />
+    <result column="s_tel" property="sTel" jdbcType="INTEGER" />
+    <result column="s_wechat" property="sWechat" jdbcType="VARCHAR" />
+    <result column="s_qq" property="sQq" jdbcType="INTEGER" />
+    <result column="s_mail" property="sMail" jdbcType="VARCHAR" />
+    <result column="s_asso_num" property="sAssoNum" jdbcType="INTEGER" />
+    <result column="s_act_id" property="sActId" jdbcType="VARCHAR" />
+    <result column="s_act_name" property="sActName" jdbcType="VARCHAR" />
+    <result column="s_asso_first" property="sAssoFirst" jdbcType="VARCHAR" />
+    <result column="s_asso_second" property="sAssoSecond" jdbcType="VARCHAR" />
+    <result column="s_asso_third" property="sAssoThird" jdbcType="VARCHAR" />
+    <result column="s_duties_num" property="sDutiesNum" jdbcType="INTEGER" />
+    <result column="s_duties_first" property="sDutiesFirst" jdbcType="VARCHAR" />
+    <result column="s_duties_second" property="sDutiesSecond" jdbcType="VARCHAR" />
+    <result column="s_duties_third" property="sDutiesThird" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, s_id, s_name, s_sex, s_photo, s_grade, s_major, s_tel, s_wechat, s_qq, s_mail, 
+    s_asso_num, s_act_id, s_act_name, s_asso_first, s_asso_second, s_asso_third, s_duties_num, 
+    s_duties_first, s_duties_second, s_duties_third
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.lhj.csp.asso.po.CspAssoStudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from csp_asso_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from csp_asso_student
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from csp_asso_student
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.lhj.csp.asso.po.CspAssoStudentExample" >
+    delete from csp_asso_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.lhj.csp.asso.po.CspAssoStudent" >
+    insert into csp_asso_student (id, s_id, s_name, 
+      s_sex, s_photo, s_grade, 
+      s_major, s_tel, s_wechat, 
+      s_qq, s_mail, s_asso_num, 
+      s_act_id, s_act_name, s_asso_first, 
+      s_asso_second, s_asso_third, s_duties_num, 
+      s_duties_first, s_duties_second, s_duties_third
+      )
+    values (#{id,jdbcType=INTEGER}, #{sId,jdbcType=VARCHAR}, #{sName,jdbcType=VARCHAR}, 
+      #{sSex,jdbcType=INTEGER}, #{sPhoto,jdbcType=VARCHAR}, #{sGrade,jdbcType=INTEGER}, 
+      #{sMajor,jdbcType=VARCHAR}, #{sTel,jdbcType=INTEGER}, #{sWechat,jdbcType=VARCHAR}, 
+      #{sQq,jdbcType=INTEGER}, #{sMail,jdbcType=VARCHAR}, #{sAssoNum,jdbcType=INTEGER}, 
+      #{sActId,jdbcType=VARCHAR}, #{sActName,jdbcType=VARCHAR}, #{sAssoFirst,jdbcType=VARCHAR}, 
+      #{sAssoSecond,jdbcType=VARCHAR}, #{sAssoThird,jdbcType=VARCHAR}, #{sDutiesNum,jdbcType=INTEGER}, 
+      #{sDutiesFirst,jdbcType=VARCHAR}, #{sDutiesSecond,jdbcType=VARCHAR}, #{sDutiesThird,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.lhj.csp.asso.po.CspAssoStudent" >
+    insert into csp_asso_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="sName != null" >
+        s_name,
+      </if>
+      <if test="sSex != null" >
+        s_sex,
+      </if>
+      <if test="sPhoto != null" >
+        s_photo,
+      </if>
+      <if test="sGrade != null" >
+        s_grade,
+      </if>
+      <if test="sMajor != null" >
+        s_major,
+      </if>
+      <if test="sTel != null" >
+        s_tel,
+      </if>
+      <if test="sWechat != null" >
+        s_wechat,
+      </if>
+      <if test="sQq != null" >
+        s_qq,
+      </if>
+      <if test="sMail != null" >
+        s_mail,
+      </if>
+      <if test="sAssoNum != null" >
+        s_asso_num,
+      </if>
+      <if test="sActId != null" >
+        s_act_id,
+      </if>
+      <if test="sActName != null" >
+        s_act_name,
+      </if>
+      <if test="sAssoFirst != null" >
+        s_asso_first,
+      </if>
+      <if test="sAssoSecond != null" >
+        s_asso_second,
+      </if>
+      <if test="sAssoThird != null" >
+        s_asso_third,
+      </if>
+      <if test="sDutiesNum != null" >
+        s_duties_num,
+      </if>
+      <if test="sDutiesFirst != null" >
+        s_duties_first,
+      </if>
+      <if test="sDutiesSecond != null" >
+        s_duties_second,
+      </if>
+      <if test="sDutiesThird != null" >
+        s_duties_third,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null" >
+        #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null" >
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sSex != null" >
+        #{sSex,jdbcType=INTEGER},
+      </if>
+      <if test="sPhoto != null" >
+        #{sPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="sGrade != null" >
+        #{sGrade,jdbcType=INTEGER},
+      </if>
+      <if test="sMajor != null" >
+        #{sMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="sTel != null" >
+        #{sTel,jdbcType=INTEGER},
+      </if>
+      <if test="sWechat != null" >
+        #{sWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="sQq != null" >
+        #{sQq,jdbcType=INTEGER},
+      </if>
+      <if test="sMail != null" >
+        #{sMail,jdbcType=VARCHAR},
+      </if>
+      <if test="sAssoNum != null" >
+        #{sAssoNum,jdbcType=INTEGER},
+      </if>
+      <if test="sActId != null" >
+        #{sActId,jdbcType=VARCHAR},
+      </if>
+      <if test="sActName != null" >
+        #{sActName,jdbcType=VARCHAR},
+      </if>
+      <if test="sAssoFirst != null" >
+        #{sAssoFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="sAssoSecond != null" >
+        #{sAssoSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="sAssoThird != null" >
+        #{sAssoThird,jdbcType=VARCHAR},
+      </if>
+      <if test="sDutiesNum != null" >
+        #{sDutiesNum,jdbcType=INTEGER},
+      </if>
+      <if test="sDutiesFirst != null" >
+        #{sDutiesFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="sDutiesSecond != null" >
+        #{sDutiesSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="sDutiesThird != null" >
+        #{sDutiesThird,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.lhj.csp.asso.po.CspAssoStudentExample" resultType="java.lang.Integer" >
+    select count(*) from csp_asso_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update csp_asso_student
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.sId != null" >
+        s_id = #{record.sId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sName != null" >
+        s_name = #{record.sName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sSex != null" >
+        s_sex = #{record.sSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.sPhoto != null" >
+        s_photo = #{record.sPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sGrade != null" >
+        s_grade = #{record.sGrade,jdbcType=INTEGER},
+      </if>
+      <if test="record.sMajor != null" >
+        s_major = #{record.sMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sTel != null" >
+        s_tel = #{record.sTel,jdbcType=INTEGER},
+      </if>
+      <if test="record.sWechat != null" >
+        s_wechat = #{record.sWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sQq != null" >
+        s_qq = #{record.sQq,jdbcType=INTEGER},
+      </if>
+      <if test="record.sMail != null" >
+        s_mail = #{record.sMail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sAssoNum != null" >
+        s_asso_num = #{record.sAssoNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.sActId != null" >
+        s_act_id = #{record.sActId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sActName != null" >
+        s_act_name = #{record.sActName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sAssoFirst != null" >
+        s_asso_first = #{record.sAssoFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sAssoSecond != null" >
+        s_asso_second = #{record.sAssoSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sAssoThird != null" >
+        s_asso_third = #{record.sAssoThird,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sDutiesNum != null" >
+        s_duties_num = #{record.sDutiesNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.sDutiesFirst != null" >
+        s_duties_first = #{record.sDutiesFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sDutiesSecond != null" >
+        s_duties_second = #{record.sDutiesSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sDutiesThird != null" >
+        s_duties_third = #{record.sDutiesThird,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update csp_asso_student
+    set id = #{record.id,jdbcType=INTEGER},
+      s_id = #{record.sId,jdbcType=VARCHAR},
+      s_name = #{record.sName,jdbcType=VARCHAR},
+      s_sex = #{record.sSex,jdbcType=INTEGER},
+      s_photo = #{record.sPhoto,jdbcType=VARCHAR},
+      s_grade = #{record.sGrade,jdbcType=INTEGER},
+      s_major = #{record.sMajor,jdbcType=VARCHAR},
+      s_tel = #{record.sTel,jdbcType=INTEGER},
+      s_wechat = #{record.sWechat,jdbcType=VARCHAR},
+      s_qq = #{record.sQq,jdbcType=INTEGER},
+      s_mail = #{record.sMail,jdbcType=VARCHAR},
+      s_asso_num = #{record.sAssoNum,jdbcType=INTEGER},
+      s_act_id = #{record.sActId,jdbcType=VARCHAR},
+      s_act_name = #{record.sActName,jdbcType=VARCHAR},
+      s_asso_first = #{record.sAssoFirst,jdbcType=VARCHAR},
+      s_asso_second = #{record.sAssoSecond,jdbcType=VARCHAR},
+      s_asso_third = #{record.sAssoThird,jdbcType=VARCHAR},
+      s_duties_num = #{record.sDutiesNum,jdbcType=INTEGER},
+      s_duties_first = #{record.sDutiesFirst,jdbcType=VARCHAR},
+      s_duties_second = #{record.sDutiesSecond,jdbcType=VARCHAR},
+      s_duties_third = #{record.sDutiesThird,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.lhj.csp.asso.po.CspAssoStudent" >
+    update csp_asso_student
+    <set >
+      <if test="sId != null" >
+        s_id = #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null" >
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sSex != null" >
+        s_sex = #{sSex,jdbcType=INTEGER},
+      </if>
+      <if test="sPhoto != null" >
+        s_photo = #{sPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="sGrade != null" >
+        s_grade = #{sGrade,jdbcType=INTEGER},
+      </if>
+      <if test="sMajor != null" >
+        s_major = #{sMajor,jdbcType=VARCHAR},
+      </if>
+      <if test="sTel != null" >
+        s_tel = #{sTel,jdbcType=INTEGER},
+      </if>
+      <if test="sWechat != null" >
+        s_wechat = #{sWechat,jdbcType=VARCHAR},
+      </if>
+      <if test="sQq != null" >
+        s_qq = #{sQq,jdbcType=INTEGER},
+      </if>
+      <if test="sMail != null" >
+        s_mail = #{sMail,jdbcType=VARCHAR},
+      </if>
+      <if test="sAssoNum != null" >
+        s_asso_num = #{sAssoNum,jdbcType=INTEGER},
+      </if>
+      <if test="sActId != null" >
+        s_act_id = #{sActId,jdbcType=VARCHAR},
+      </if>
+      <if test="sActName != null" >
+        s_act_name = #{sActName,jdbcType=VARCHAR},
+      </if>
+      <if test="sAssoFirst != null" >
+        s_asso_first = #{sAssoFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="sAssoSecond != null" >
+        s_asso_second = #{sAssoSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="sAssoThird != null" >
+        s_asso_third = #{sAssoThird,jdbcType=VARCHAR},
+      </if>
+      <if test="sDutiesNum != null" >
+        s_duties_num = #{sDutiesNum,jdbcType=INTEGER},
+      </if>
+      <if test="sDutiesFirst != null" >
+        s_duties_first = #{sDutiesFirst,jdbcType=VARCHAR},
+      </if>
+      <if test="sDutiesSecond != null" >
+        s_duties_second = #{sDutiesSecond,jdbcType=VARCHAR},
+      </if>
+      <if test="sDutiesThird != null" >
+        s_duties_third = #{sDutiesThird,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.lhj.csp.asso.po.CspAssoStudent" >
+    update csp_asso_student
+    set s_id = #{sId,jdbcType=VARCHAR},
+      s_name = #{sName,jdbcType=VARCHAR},
+      s_sex = #{sSex,jdbcType=INTEGER},
+      s_photo = #{sPhoto,jdbcType=VARCHAR},
+      s_grade = #{sGrade,jdbcType=INTEGER},
+      s_major = #{sMajor,jdbcType=VARCHAR},
+      s_tel = #{sTel,jdbcType=INTEGER},
+      s_wechat = #{sWechat,jdbcType=VARCHAR},
+      s_qq = #{sQq,jdbcType=INTEGER},
+      s_mail = #{sMail,jdbcType=VARCHAR},
+      s_asso_num = #{sAssoNum,jdbcType=INTEGER},
+      s_act_id = #{sActId,jdbcType=VARCHAR},
+      s_act_name = #{sActName,jdbcType=VARCHAR},
+      s_asso_first = #{sAssoFirst,jdbcType=VARCHAR},
+      s_asso_second = #{sAssoSecond,jdbcType=VARCHAR},
+      s_asso_third = #{sAssoThird,jdbcType=VARCHAR},
+      s_duties_num = #{sDutiesNum,jdbcType=INTEGER},
+      s_duties_first = #{sDutiesFirst,jdbcType=VARCHAR},
+      s_duties_second = #{sDutiesSecond,jdbcType=VARCHAR},
+      s_duties_third = #{sDutiesThird,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

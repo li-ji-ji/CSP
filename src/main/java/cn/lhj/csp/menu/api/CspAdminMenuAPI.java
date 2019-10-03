@@ -22,6 +22,7 @@ import cn.lhj.csp.utils.LayUIJSON;
  * */
 @RestController
 @CrossOrigin
+@RequestMapping("/menu")
 public class CspAdminMenuAPI{
 
 	@Autowired

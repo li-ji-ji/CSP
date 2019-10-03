@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.lhj.csp.asso.mapper.CspAssoManagementMapper" >
+  <resultMap id="BaseResultMap" type="cn.lhj.csp.asso.po.CspAssoManagement" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="asso_id" property="assoId" jdbcType="VARCHAR" />
+    <result column="asso_name" property="assoName" jdbcType="VARCHAR" />
+    <result column="asso_status" property="assoStatus" jdbcType="INTEGER" />
+    <result column="asso_affiliate_no" property="assoAffiliateNo" jdbcType="VARCHAR" />
+    <result column="asso_affiliate_name" property="assoAffiliateName" jdbcType="VARCHAR" />
+    <result column="asso_examined" property="assoExamined" jdbcType="INTEGER" />
+    <result column="asso_guider_id" property="assoGuiderId" jdbcType="INTEGER" />
+    <result column="asso_guider_name" property="assoGuiderName" jdbcType="VARCHAR" />
+    <result column="asso_leader" property="assoLeader" jdbcType="VARCHAR" />
+    <result column="asso_establishment_time" property="assoEstablishmentTime" jdbcType="TIMESTAMP" />
+    <result column="asso_modify_time" property="assoModifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, asso_id, asso_name, asso_status, asso_affiliate_no, asso_affiliate_name, asso_examined, 
+    asso_guider_id, asso_guider_name, asso_leader, asso_establishment_time, asso_modify_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.lhj.csp.asso.po.CspAssoManagementExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from csp_asso_management
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from csp_asso_management
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from csp_asso_management
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.lhj.csp.asso.po.CspAssoManagementExample" >
+    delete from csp_asso_management
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.lhj.csp.asso.po.CspAssoManagement" >
+    insert into csp_asso_management (id, asso_id, asso_name, 
+      asso_status, asso_affiliate_no, asso_affiliate_name, 
+      asso_examined, asso_guider_id, asso_guider_name, 
+      asso_leader, asso_establishment_time, asso_modify_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{assoId,jdbcType=VARCHAR}, #{assoName,jdbcType=VARCHAR}, 
+      #{assoStatus,jdbcType=INTEGER}, #{assoAffiliateNo,jdbcType=VARCHAR}, #{assoAffiliateName,jdbcType=VARCHAR}, 
+      #{assoExamined,jdbcType=INTEGER}, #{assoGuiderId,jdbcType=INTEGER}, #{assoGuiderName,jdbcType=VARCHAR}, 
+      #{assoLeader,jdbcType=VARCHAR}, #{assoEstablishmentTime,jdbcType=TIMESTAMP}, #{assoModifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.lhj.csp.asso.po.CspAssoManagement" >
+    insert into csp_asso_management
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="assoId != null" >
+        asso_id,
+      </if>
+      <if test="assoName != null" >
+        asso_name,
+      </if>
+      <if test="assoStatus != null" >
+        asso_status,
+      </if>
+      <if test="assoAffiliateNo != null" >
+        asso_affiliate_no,
+      </if>
+      <if test="assoAffiliateName != null" >
+        asso_affiliate_name,
+      </if>
+      <if test="assoExamined != null" >
+        asso_examined,
+      </if>
+      <if test="assoGuiderId != null" >
+        asso_guider_id,
+      </if>
+      <if test="assoGuiderName != null" >
+        asso_guider_name,
+      </if>
+      <if test="assoLeader != null" >
+        asso_leader,
+      </if>
+      <if test="assoEstablishmentTime != null" >
+        asso_establishment_time,
+      </if>
+      <if test="assoModifyTime != null" >
+        asso_modify_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="assoId != null" >
+        #{assoId,jdbcType=VARCHAR},
+      </if>
+      <if test="assoName != null" >
+        #{assoName,jdbcType=VARCHAR},
+      </if>
+      <if test="assoStatus != null" >
+        #{assoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="assoAffiliateNo != null" >
+        #{assoAffiliateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="assoAffiliateName != null" >
+        #{assoAffiliateName,jdbcType=VARCHAR},
+      </if>
+      <if test="assoExamined != null" >
+        #{assoExamined,jdbcType=INTEGER},
+      </if>
+      <if test="assoGuiderId != null" >
+        #{assoGuiderId,jdbcType=INTEGER},
+      </if>
+      <if test="assoGuiderName != null" >
+        #{assoGuiderName,jdbcType=VARCHAR},
+      </if>
+      <if test="assoLeader != null" >
+        #{assoLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="assoEstablishmentTime != null" >
+        #{assoEstablishmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assoModifyTime != null" >
+        #{assoModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.lhj.csp.asso.po.CspAssoManagementExample" resultType="java.lang.Integer" >
+    select count(*) from csp_asso_management
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update csp_asso_management
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.assoId != null" >
+        asso_id = #{record.assoId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assoName != null" >
+        asso_name = #{record.assoName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assoStatus != null" >
+        asso_status = #{record.assoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.assoAffiliateNo != null" >
+        asso_affiliate_no = #{record.assoAffiliateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assoAffiliateName != null" >
+        asso_affiliate_name = #{record.assoAffiliateName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assoExamined != null" >
+        asso_examined = #{record.assoExamined,jdbcType=INTEGER},
+      </if>
+      <if test="record.assoGuiderId != null" >
+        asso_guider_id = #{record.assoGuiderId,jdbcType=INTEGER},
+      </if>
+      <if test="record.assoGuiderName != null" >
+        asso_guider_name = #{record.assoGuiderName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assoLeader != null" >
+        asso_leader = #{record.assoLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="record.assoEstablishmentTime != null" >
+        asso_establishment_time = #{record.assoEstablishmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.assoModifyTime != null" >
+        asso_modify_time = #{record.assoModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update csp_asso_management
+    set id = #{record.id,jdbcType=INTEGER},
+      asso_id = #{record.assoId,jdbcType=VARCHAR},
+      asso_name = #{record.assoName,jdbcType=VARCHAR},
+      asso_status = #{record.assoStatus,jdbcType=INTEGER},
+      asso_affiliate_no = #{record.assoAffiliateNo,jdbcType=VARCHAR},
+      asso_affiliate_name = #{record.assoAffiliateName,jdbcType=VARCHAR},
+      asso_examined = #{record.assoExamined,jdbcType=INTEGER},
+      asso_guider_id = #{record.assoGuiderId,jdbcType=INTEGER},
+      asso_guider_name = #{record.assoGuiderName,jdbcType=VARCHAR},
+      asso_leader = #{record.assoLeader,jdbcType=VARCHAR},
+      asso_establishment_time = #{record.assoEstablishmentTime,jdbcType=TIMESTAMP},
+      asso_modify_time = #{record.assoModifyTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.lhj.csp.asso.po.CspAssoManagement" >
+    update csp_asso_management
+    <set >
+      <if test="assoId != null" >
+        asso_id = #{assoId,jdbcType=VARCHAR},
+      </if>
+      <if test="assoName != null" >
+        asso_name = #{assoName,jdbcType=VARCHAR},
+      </if>
+      <if test="assoStatus != null" >
+        asso_status = #{assoStatus,jdbcType=INTEGER},
+      </if>
+      <if test="assoAffiliateNo != null" >
+        asso_affiliate_no = #{assoAffiliateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="assoAffiliateName != null" >
+        asso_affiliate_name = #{assoAffiliateName,jdbcType=VARCHAR},
+      </if>
+      <if test="assoExamined != null" >
+        asso_examined = #{assoExamined,jdbcType=INTEGER},
+      </if>
+      <if test="assoGuiderId != null" >
+        asso_guider_id = #{assoGuiderId,jdbcType=INTEGER},
+      </if>
+      <if test="assoGuiderName != null" >
+        asso_guider_name = #{assoGuiderName,jdbcType=VARCHAR},
+      </if>
+      <if test="assoLeader != null" >
+        asso_leader = #{assoLeader,jdbcType=VARCHAR},
+      </if>
+      <if test="assoEstablishmentTime != null" >
+        asso_establishment_time = #{assoEstablishmentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assoModifyTime != null" >
+        asso_modify_time = #{assoModifyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.lhj.csp.asso.po.CspAssoManagement" >
+    update csp_asso_management
+    set asso_id = #{assoId,jdbcType=VARCHAR},
+      asso_name = #{assoName,jdbcType=VARCHAR},
+      asso_status = #{assoStatus,jdbcType=INTEGER},
+      asso_affiliate_no = #{assoAffiliateNo,jdbcType=VARCHAR},
+      asso_affiliate_name = #{assoAffiliateName,jdbcType=VARCHAR},
+      asso_examined = #{assoExamined,jdbcType=INTEGER},
+      asso_guider_id = #{assoGuiderId,jdbcType=INTEGER},
+      asso_guider_name = #{assoGuiderName,jdbcType=VARCHAR},
+      asso_leader = #{assoLeader,jdbcType=VARCHAR},
+      asso_establishment_time = #{assoEstablishmentTime,jdbcType=TIMESTAMP},
+      asso_modify_time = #{assoModifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

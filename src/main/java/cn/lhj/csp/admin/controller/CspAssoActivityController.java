@@ -8,17 +8,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import cn.lhj.csp.admin.dto.AssoActivityFormDto;
-import cn.lhj.csp.admin.feign.AssoManagementApiInterface;
-import cn.lhj.csp.admin.po.asso.CspAssoManagement;
-import cn.lhj.csp.admin.po.asso.CspAssoStudent;
+
+import cn.lhj.csp.asso.dto.AssoActivityFormDto;
+import cn.lhj.csp.asso.po.CspAssoManagement;
+import cn.lhj.csp.asso.po.CspAssoStudent;
+import cn.lhj.csp.asso.service.CspAssoActivityService;
+import cn.lhj.csp.asso.service.CspAssoManagementService;
+import cn.lhj.csp.asso.service.CspAssoStudentService;
 
 @Controller
 @RequestMapping("/assoAct")
 public class CspAssoActivityController {
 	
 	@Autowired
-	private AssoManagementApiInterface assoAct;
+	private CspAssoActivityService assoAct;
+
+	@Autowired
+	private CspAssoManagementService assoManage;
+	@Autowired
+	private CspAssoStudentService assoStu;
 	
 	//跳转到所有活动页面
 	@RequestMapping("/toActTable")
@@ -74,8 +82,8 @@ public class CspAssoActivityController {
 	//跳转到添加页面
 	@RequestMapping("/toActAddForm")
 	public String toActEditForm(Model model)throws Exception{
-		List<CspAssoManagement> assoList=assoAct.getAll();
-		List<CspAssoStudent> stuList=assoAct.getStuAll();
+		List<CspAssoManagement> assoList=assoManage.getAll();
+		List<CspAssoStudent> stuList=assoStu.getAll();
 		model.addAttribute("assoList", assoList);
 		model.addAttribute("stuList", stuList);
 		return "ftl/asso/activity/AddForm";
