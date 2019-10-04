@@ -1,24 +1,22 @@
 package cn.lhj.csp.fileinfo.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
-import cn.lhj.csp.fileinfo.feign.FileInfoApiInterface;
 import cn.lhj.csp.fileinfo.po.FileInfo;
+import cn.lhj.csp.fileinfo.service.FileInfoService;
 
 @Controller
 @RequestMapping("/fileinfo")
 public class FileInfoController {
 
 	@Autowired
-	private FileInfoApiInterface fileInfoApiInterface;
+	private FileInfoService fileInfoService;
 
 	@RequestMapping("/list")
 	public String list(ModelMap map, FileInfo fileInfo,
@@ -26,15 +24,15 @@ public class FileInfoController {
 			@RequestParam(required = false, defaultValue = "0") Integer id) {
 
 		if (operation.equals("insert")) {
-			fileInfoApiInterface.insert(fileInfo);
+			fileInfoService.insert(fileInfo);
 		}
 		if (operation.equals("update")) {
-			fileInfoApiInterface.update(fileInfo);
+			fileInfoService.update(fileInfo);
 		}
 		if (operation.equals("delete")) {
-			fileInfoApiInterface.delete(id);
+			fileInfoService.delete(id);
 		}
-		List<FileInfo> fileInfos = fileInfoApiInterface.getAll();
+		List<FileInfo> fileInfos = fileInfoService.getAll();
 		map.addAttribute("fileInfos", fileInfos);
 		return "ftl/fileinfo/list";
 	}
@@ -44,7 +42,7 @@ public class FileInfoController {
 			@RequestParam(required = false, defaultValue = "0") int id,
 			@RequestParam(required = false, defaultValue = "0") Integer folderId) {
 		if (operation.equals("update")) {
-			fileInfo = fileInfoApiInterface.getById(id);
+			fileInfo = fileInfoService.getById(id);
 			map.addAttribute("fileInfo", fileInfo);
 			map.addAttribute("operation", "update");
 		} else if (operation.equals("insert")) {

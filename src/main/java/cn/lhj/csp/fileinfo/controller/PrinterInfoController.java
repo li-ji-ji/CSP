@@ -7,19 +7,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cn.lhj.csp.fileinfo.feign.FileInfoApiInterface;
 import cn.lhj.csp.fileinfo.po.Printer;
+import cn.lhj.csp.fileinfo.service.PrinterInfoService;
 
 @Controller
 @RequestMapping("/printerinfo")
 public class PrinterInfoController {
 	
 		@Autowired
-		private FileInfoApiInterface fileInfoApiInterface;
+		private PrinterInfoService printerInfoService;
 		
 		@RequestMapping("/list")
 		public String list(ModelMap map) {
-			List<Printer> printers = fileInfoApiInterface.getAllPrinter();
+			List<Printer> printers = printerInfoService.getAll();
 			map.addAttribute("printers", printers);
 			return "ftl/printerinfo/list";
 		}
@@ -31,15 +31,15 @@ public class PrinterInfoController {
 		
 		@RequestMapping("/todelete")
 		public String delete(ModelMap map,Integer id) {
-			List<Printer> printers = fileInfoApiInterface.getAllPrinter();
+			List<Printer> printers = printerInfoService.getAll();
 			map.addAttribute("printers", printers);
-			fileInfoApiInterface.deletePrinter(id);
+			printerInfoService.delete(id);
 			return "ftl/printerinfo/list";
 		}
 		
 		@RequestMapping("/toupdate")
 		public String update(ModelMap map,Integer id){
-			Printer printer = fileInfoApiInterface.findByIdPrinter(id);
+			Printer printer = printerInfoService.findById(id);
 			map.addAttribute("printer", printer);
 			return "ftl/printerinfo/update";
 		}

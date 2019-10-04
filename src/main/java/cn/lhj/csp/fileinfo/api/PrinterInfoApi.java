@@ -7,37 +7,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.lhj.csp.fileinfo.feign.FileInfoApiInterface;
 import cn.lhj.csp.fileinfo.po.Printer;
+import cn.lhj.csp.fileinfo.service.PrinterInfoService;
 
 @RestController
 public class PrinterInfoApi {
 		
 		@Autowired
-		private FileInfoApiInterface fileInfoApiInterface;
+		private PrinterInfoService printerInfoService;
 		
 		@RequestMapping("/api/printer/getAll")
 		public List<Printer> getAllPrinter(){
-			return fileInfoApiInterface.getAllPrinter();
+			return printerInfoService.getAll();
 		}
 		
 		@RequestMapping("/api/printer/insert")
 		public String insertPrinter(@RequestBody Printer printer) {
-			return fileInfoApiInterface.insertPrinter(printer);
+			return printerInfoService.insert(printer);
 		}
 		
 		@RequestMapping("/api/printer/delete")
 		public String deletePrinter(Integer id) {
-			return fileInfoApiInterface.deletePrinter(id);
+			return printerInfoService.delete(id);
 		}
 		
 		@RequestMapping("/api/printer/update")
 		public String updatePrinter(@RequestBody Printer printer) {
-			return fileInfoApiInterface.updatePrinter(printer);
+			return printerInfoService.update(printer);
 		}
 		
 		@RequestMapping("/api/printer/findById")
 		public Printer findByIdPrinter(Integer id) {
-			return fileInfoApiInterface.findByIdPrinter(id);
+			return printerInfoService.findById(id);
 		}
 }

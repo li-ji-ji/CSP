@@ -8,37 +8,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.lhj.csp.fileinfo.feign.FileInfoApiInterface;
 import cn.lhj.csp.fileinfo.po.PersonFileinfo;
+import cn.lhj.csp.fileinfo.service.PersonFileInfoService;
 
 @RestController
 public class PersonFileInfoApi {
 			
 			@Autowired
-			private FileInfoApiInterface fileInfoApiInterface;
+			private PersonFileInfoService personFileInfoService;
 			
 			@RequestMapping("/api/personFileInfo/getAll")
 			public List<PersonFileinfo> getAll() {
-				return fileInfoApiInterface.getAllPersonFileInfo();
+				return personFileInfoService.getAll();
 			}
 			
 			@RequestMapping("/api/personFileInfo/insert")
 			public String insert(@RequestBody PersonFileinfo personFileinfo) {
-				return fileInfoApiInterface.insertPersonFileInfo(personFileinfo);
+				return personFileInfoService.insert(personFileinfo);
 			}
 			
 			@RequestMapping("/api/personFileInfo/delete")
 			public String delete(@RequestParam("id") Integer id) {
-				return fileInfoApiInterface.deletePersonFileInfo(id);
+				return personFileInfoService.delete(id);
 			}
 			
 			@RequestMapping("/api/personFileInfo/update")
 			public String update(@RequestBody PersonFileinfo personFileinfo) {
-				return fileInfoApiInterface.updatePersonFileInfo(personFileinfo);
+				return personFileInfoService.update(personFileinfo);
 			}
 			
 			@RequestMapping("/api/personFileInfo/findById")
 			public PersonFileinfo findById(@RequestParam("id") Integer id) {
-				return fileInfoApiInterface.findByIdPersonFileInfo(id);
+				return personFileInfoService.findById(id);
 			}
 }

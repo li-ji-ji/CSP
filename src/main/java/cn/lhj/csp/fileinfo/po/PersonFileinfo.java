@@ -5,6 +5,8 @@ public class PersonFileinfo {
 
     private Integer studentId;
 
+    private Integer printOrderId;
+
     private String fileImage;
 
     private String fileName;
@@ -33,6 +35,14 @@ public class PersonFileinfo {
 
     public void setStudentId(Integer studentId) {
         this.studentId = studentId;
+    }
+
+    public Integer getPrintOrderId() {
+        return printOrderId;
+    }
+
+    public void setPrintOrderId(Integer printOrderId) {
+        this.printOrderId = printOrderId;
     }
 
     public String getFileImage() {
@@ -93,9 +103,9 @@ public class PersonFileinfo {
 
 	@Override
 	public String toString() {
-		return "PersonFileinfo [id=" + id + ", studentId=" + studentId + ", fileImage=" + fileImage + ", fileName="
-				+ fileName + ", path=" + path + ", time=" + time + ", fileSize=" + fileSize + ", page=" + page
-				+ ", status=" + status + "]";
+		return "PersonFileinfo [id=" + id + ", studentId=" + studentId + ", printOrderId=" + printOrderId
+				+ ", fileImage=" + fileImage + ", fileName=" + fileName + ", path=" + path + ", time=" + time
+				+ ", fileSize=" + fileSize + ", page=" + page + ", status=" + status + "]";
 	}
     
 }

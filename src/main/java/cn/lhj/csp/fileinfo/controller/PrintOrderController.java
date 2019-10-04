@@ -14,13 +14,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.lhj.csp.fileinfo.feign.FileInfoApiInterface;
 import cn.lhj.csp.fileinfo.po.PrintOrder;
+import cn.lhj.csp.fileinfo.service.PrintOrderService;
+import cn.lhj.csp.fileinfo.service.PrinterInfoService;
 
 @Controller
 @RequestMapping("/printOrder")
 public class PrintOrderController {
 
 	@Autowired
-	private FileInfoApiInterface fileInfoApiInterface;
+	private PrintOrderService printOrderService;
 
 	@RequestMapping("/list")
 	public String list(ModelMap map, PrintOrder printOrder,
@@ -29,20 +31,20 @@ public class PrintOrderController {
 			@RequestParam(required = false, defaultValue = "0") String orderNo) {
 
 		if (operation.equals("insert")) {
-			fileInfoApiInterface.insertPrintOrder(printOrder);
+			printOrderService.insert(printOrder);
 		}
 		if (operation.equals("update")) {
-			fileInfoApiInterface.updatePrintOrder(printOrder);
+			printOrderService.update(printOrder);
 		}
 		if (operation.equals("delete")) {
-			fileInfoApiInterface.delete(id);
+			printOrderService.delete(id);
 		}
 
 		List<PrintOrder> printOrders = new ArrayList<PrintOrder>();
 		if (orderNo.equals("0")) {
-			printOrders = fileInfoApiInterface.getAllPrintOrder();
+			printOrders = printOrderService.getAll();
 		} else {
-			PrintOrder printOrderOrderNo = fileInfoApiInterface.selectByOrderNoPrintOrder(orderNo);
+			PrintOrder printOrderOrderNo = printOrderService.selectByOrderNo(orderNo);
 			printOrders.add(printOrderOrderNo);
 		}
 		map.addAttribute("printOrders", printOrders);
@@ -53,11 +55,11 @@ public class PrintOrderController {
 	public String edit(ModelMap map, String operation, PrintOrder printOrder,
 			@RequestParam(required = false, defaultValue = "0") int id) {
 		if (operation.equals("update")) {
-			printOrder = fileInfoApiInterface.findByIdPrintOrder(id);
+			printOrder = printOrderService.findById(id);
 			map.addAttribute("printOrder", printOrder);
 			map.addAttribute("operation", "update");
 		} else if (operation.equals("insert")) {
-			printOrder = new PrintOrder(0, "", 0, "", "", "", "", "", "", "", "", "", 0, "", (float) 0.0, "", "", "",
+			printOrder = new PrintOrder(0, "", 0,"", "", "", "", "", "", "", "", "", "", 0, "", (float) 0.0, "", "", "",
 					"", "", "", "");
 			map.addAttribute("printOrder", printOrder);
 			map.addAttribute("operation", "insert");

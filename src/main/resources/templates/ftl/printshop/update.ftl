@@ -38,11 +38,19 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
-				<label class="layui-form-label">打印店地址</label>
+				<label class="layui-form-label">位置</label>
 				<div class="layui-input-block">
 					<input type="text" name="location" lay-verify="title"
 						value="${printShop.location}" autocomplete="off"
-						placeholder="请输入打印机地址" class="layui-input">
+						placeholder="请输入位置" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">商家电话</label>
+				<div class="layui-input-block">
+					<input type="text" name="mobile" lay-verify="title"
+						value="${printShop.mobile}" autocomplete="off"
+						placeholder="请输入商家电话" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -57,6 +65,30 @@
 					<input type="radio" name="status" value="正在运营" title="正在运营"
 						checked=""> <input type="radio" name="status" value="未运营"
 						title="未运营"> </#if>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">打印机配置</label>
+				<div class="layui-input-block">
+					<input type="text" name="printerConfig" lay-verify="title"
+						value='${printShop.printerConfig}' autocomplete="off"
+						placeholder="请输入打印机配置" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">价格</label>
+				<div class="layui-input-block">
+					<input type="text" name="price" lay-verify="title"
+						value='${printShop.price}' autocomplete="off"
+						placeholder="请输入价格" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">打印机图片</label>
+				<div class="layui-input-block">
+					<input type="text" name="shopImage" lay-verify="title"
+						value="${printShop.shopImage}" autocomplete="off"
+						placeholder="请输入打印机图片" class="layui-input">
 				</div>
 			</div>
 			<div class="layui-form-item">

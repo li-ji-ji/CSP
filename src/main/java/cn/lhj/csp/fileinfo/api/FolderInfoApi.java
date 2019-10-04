@@ -7,37 +7,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import cn.lhj.csp.fileinfo.feign.FileInfoApiInterface;
 import cn.lhj.csp.fileinfo.po.FolderInfo;
+import cn.lhj.csp.fileinfo.service.FolderInfoService;
 
 @RestController
 public class FolderInfoApi {
 
 	@Autowired
-	private FileInfoApiInterface fileInfoApiInterface;
+	private FolderInfoService folderInfoService;
 	
 	@RequestMapping("/api/folderinfo/getAll")
 	public List<FolderInfo> getFolderAll(){
-		return fileInfoApiInterface.getFolderAll();
+		return folderInfoService.getAll();
 	}
 	
 	@RequestMapping("/api/folderinfo/insert")
 	public void insertFolder(@RequestBody FolderInfo folderInfo) {
-		fileInfoApiInterface.insertFolder(folderInfo);
+		folderInfoService.insert(folderInfo);
 	}
 	
 	@RequestMapping("/api/folderinfo/delete")
 	public void deleteFolder(Integer id) {
-		fileInfoApiInterface.deleteFolder(id);
+		folderInfoService.delete(id);
 	}
 	
 	@RequestMapping("/api/folderinfo/update")
 	public void updateFolder(@RequestBody FolderInfo folderInfo) {
-		fileInfoApiInterface.updateFolder(folderInfo);
+		folderInfoService.update(folderInfo);
 	}
 	
 	@RequestMapping("/api/folderinfo/getById")
 	public FolderInfo getFolderById(Integer id) {
-		return fileInfoApiInterface.getFolderById(id);
+		return folderInfoService.getById(id);
 	}
 }

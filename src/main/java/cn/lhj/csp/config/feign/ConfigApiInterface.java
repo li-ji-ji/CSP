@@ -15,9 +15,9 @@ import cn.lhj.csp.config.po.Config;
 /*
  *  已整合到AdminMenuFeignInterface中
  * */
-@RequestMapping("/api/config")
-@CrossOrigin
-@FeignClient(name= "csp-config")
+//@RequestMapping("/api/config")
+//@CrossOrigin
+//@FeignClient(name= "csp-config")
 public interface ConfigApiInterface {
 	
 	/*

@@ -1,11 +1,14 @@
 package cn.lhj.csp.fileinfo.po;
 
 public class PrintOrder {
+	
     private Integer id;
 
     private String orderNo;
 
     private Integer studentId;
+
+    private String nickName;
 
     private String orderImage;
 
@@ -45,18 +48,18 @@ public class PrintOrder {
 
     private String filePath;
 
-    public PrintOrder() {
-		super();
-	}
-
-	public PrintOrder(Integer id, String orderNo, Integer studentId, String orderImage, String fileName, String color,
-			String paper, String side, String printMode, String printCopy, String deliveryMode, String orderTime,
-			Integer page, String isUrgent, Float price, String note, String contact, String mobile, String storeAddress,
-			String deliveryAddress, String status, String filePath) {
+    
+    
+    public PrintOrder(Integer id, String orderNo, Integer studentId, String nickName, String orderImage,
+			String fileName, String color, String paper, String side, String printMode, String printCopy,
+			String deliveryMode, String orderTime, Integer page, String isUrgent, Float price, String note,
+			String contact, String mobile, String storeAddress, String deliveryAddress, String status,
+			String filePath) {
 		super();
 		this.id = id;
 		this.orderNo = orderNo;
 		this.studentId = studentId;
+		this.nickName = nickName;
 		this.orderImage = orderImage;
 		this.fileName = fileName;
 		this.color = color;
@@ -100,6 +103,14 @@ public class PrintOrder {
 
     public void setStudentId(Integer studentId) {
         this.studentId = studentId;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
     }
 
     public String getOrderImage() {
@@ -256,12 +267,13 @@ public class PrintOrder {
 
 	@Override
 	public String toString() {
-		return "PrintOrder [id=" + id + ", orderNo=" + orderNo + ", studentId=" + studentId + ", orderImage="
-				+ orderImage + ", fileName=" + fileName + ", color=" + color + ", paper=" + paper + ", side=" + side
-				+ ", printMode=" + printMode + ", printCopy=" + printCopy + ", deliveryMode=" + deliveryMode
-				+ ", orderTime=" + orderTime + ", page=" + page + ", isUrgent=" + isUrgent + ", price=" + price
-				+ ", note=" + note + ", contact=" + contact + ", mobile=" + mobile + ", storeAddress=" + storeAddress
-				+ ", deliveryAddress=" + deliveryAddress + ", status=" + status + ", filePath=" + filePath + "]";
+		return "PrintOrder [id=" + id + ", orderNo=" + orderNo + ", studentId=" + studentId + ", nickName=" + nickName
+				+ ", orderImage=" + orderImage + ", fileName=" + fileName + ", color=" + color + ", paper=" + paper
+				+ ", side=" + side + ", printMode=" + printMode + ", printCopy=" + printCopy + ", deliveryMode="
+				+ deliveryMode + ", orderTime=" + orderTime + ", page=" + page + ", isUrgent=" + isUrgent + ", price="
+				+ price + ", note=" + note + ", contact=" + contact + ", mobile=" + mobile + ", storeAddress="
+				+ storeAddress + ", deliveryAddress=" + deliveryAddress + ", status=" + status + ", filePath="
+				+ filePath + "]";
 	}
-
+    
 }

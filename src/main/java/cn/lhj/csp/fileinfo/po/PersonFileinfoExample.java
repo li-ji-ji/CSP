@@ -224,6 +224,66 @@ public class PersonFileinfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andPrintOrderIdIsNull() {
+            addCriterion("print_order_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdIsNotNull() {
+            addCriterion("print_order_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdEqualTo(Integer value) {
+            addCriterion("print_order_id =", value, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdNotEqualTo(Integer value) {
+            addCriterion("print_order_id <>", value, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdGreaterThan(Integer value) {
+            addCriterion("print_order_id >", value, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("print_order_id >=", value, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdLessThan(Integer value) {
+            addCriterion("print_order_id <", value, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdLessThanOrEqualTo(Integer value) {
+            addCriterion("print_order_id <=", value, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdIn(List<Integer> values) {
+            addCriterion("print_order_id in", values, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdNotIn(List<Integer> values) {
+            addCriterion("print_order_id not in", values, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdBetween(Integer value1, Integer value2) {
+            addCriterion("print_order_id between", value1, value2, "printOrderId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrintOrderIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("print_order_id not between", value1, value2, "printOrderId");
+            return (Criteria) this;
+        }
+
         public Criteria andFileImageIsNull() {
             addCriterion("file_image is null");
             return (Criteria) this;

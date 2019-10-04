@@ -17,7 +17,7 @@ public class CspApplicationTests {
 	
 	@Test
 	public void contextLoads() {
-		System.out.println(fileInfoApi.selectByOrderNoPrintOrder("HZcno7GQqgNqhm55i5PlTGFMiUDnqG02"));
+		
 	}
 
 }

@@ -6,21 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import cn.lhj.csp.fileinfo.feign.FileInfoApiInterface;
 import cn.lhj.csp.fileinfo.po.PrintShop;
 import cn.lhj.csp.fileinfo.po.Printer;
+import cn.lhj.csp.fileinfo.service.PrintShopService;
 
 @Controller
 @RequestMapping("/printshop")
 public class PrintShopController {
 		
 		@Autowired
-		private FileInfoApiInterface fileInfoApiInterface;
+		private PrintShopService printShopService;
 		
 		@RequestMapping("/list")
 		public String list(ModelMap map) {
-			List<PrintShop> printshops = fileInfoApiInterface.getAllPrintShop();
+			List<PrintShop> printshops = printShopService.getAll();
 			map.addAttribute("printshops", printshops);
 			return "ftl/printshop/list";
 		}
@@ -32,15 +31,15 @@ public class PrintShopController {
 		
 		@RequestMapping("/todelete")
 		public String delete(ModelMap map,Integer id) {
-			fileInfoApiInterface.deletePrintShop(id);
-			List<PrintShop> printshops = fileInfoApiInterface.getAllPrintShop();
+			printShopService.delete(id);
+			List<PrintShop> printshops = printShopService.getAll();
 			map.addAttribute("printshops", printshops);
 			return "ftl/printshop/list";
 		}
 		
 		@RequestMapping("/toupdate")
 		public String update(ModelMap map,Integer id){
-			PrintShop printShop = fileInfoApiInterface.findByIdPrintShop(id);
+			PrintShop printShop = printShopService.findById(id);
 			map.addAttribute("printShop", printShop);
 			return "ftl/printshop/update";
 		}

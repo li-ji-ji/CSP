@@ -304,6 +304,76 @@ public class PrintShopExample {
             return (Criteria) this;
         }
 
+        public Criteria andMobileIsNull() {
+            addCriterion("mobile is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileIsNotNull() {
+            addCriterion("mobile is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileEqualTo(String value) {
+            addCriterion("mobile =", value, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileNotEqualTo(String value) {
+            addCriterion("mobile <>", value, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileGreaterThan(String value) {
+            addCriterion("mobile >", value, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileGreaterThanOrEqualTo(String value) {
+            addCriterion("mobile >=", value, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileLessThan(String value) {
+            addCriterion("mobile <", value, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileLessThanOrEqualTo(String value) {
+            addCriterion("mobile <=", value, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileLike(String value) {
+            addCriterion("mobile like", value, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileNotLike(String value) {
+            addCriterion("mobile not like", value, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileIn(List<String> values) {
+            addCriterion("mobile in", values, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileNotIn(List<String> values) {
+            addCriterion("mobile not in", values, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileBetween(String value1, String value2) {
+            addCriterion("mobile between", value1, value2, "mobile");
+            return (Criteria) this;
+        }
+
+        public Criteria andMobileNotBetween(String value1, String value2) {
+            addCriterion("mobile not between", value1, value2, "mobile");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;
@@ -371,6 +441,216 @@ public class PrintShopExample {
 
         public Criteria andStatusNotBetween(String value1, String value2) {
             addCriterion("status not between", value1, value2, "status");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigIsNull() {
+            addCriterion("printer_config is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigIsNotNull() {
+            addCriterion("printer_config is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigEqualTo(String value) {
+            addCriterion("printer_config =", value, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigNotEqualTo(String value) {
+            addCriterion("printer_config <>", value, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigGreaterThan(String value) {
+            addCriterion("printer_config >", value, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigGreaterThanOrEqualTo(String value) {
+            addCriterion("printer_config >=", value, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigLessThan(String value) {
+            addCriterion("printer_config <", value, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigLessThanOrEqualTo(String value) {
+            addCriterion("printer_config <=", value, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigLike(String value) {
+            addCriterion("printer_config like", value, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigNotLike(String value) {
+            addCriterion("printer_config not like", value, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigIn(List<String> values) {
+            addCriterion("printer_config in", values, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigNotIn(List<String> values) {
+            addCriterion("printer_config not in", values, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigBetween(String value1, String value2) {
+            addCriterion("printer_config between", value1, value2, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrinterConfigNotBetween(String value1, String value2) {
+            addCriterion("printer_config not between", value1, value2, "printerConfig");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIsNull() {
+            addCriterion("price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIsNotNull() {
+            addCriterion("price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceEqualTo(String value) {
+            addCriterion("price =", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotEqualTo(String value) {
+            addCriterion("price <>", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceGreaterThan(String value) {
+            addCriterion("price >", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceGreaterThanOrEqualTo(String value) {
+            addCriterion("price >=", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceLessThan(String value) {
+            addCriterion("price <", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceLessThanOrEqualTo(String value) {
+            addCriterion("price <=", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceLike(String value) {
+            addCriterion("price like", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotLike(String value) {
+            addCriterion("price not like", value, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceIn(List<String> values) {
+            addCriterion("price in", values, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotIn(List<String> values) {
+            addCriterion("price not in", values, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceBetween(String value1, String value2) {
+            addCriterion("price between", value1, value2, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andPriceNotBetween(String value1, String value2) {
+            addCriterion("price not between", value1, value2, "price");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageIsNull() {
+            addCriterion("shop_image is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageIsNotNull() {
+            addCriterion("shop_image is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageEqualTo(String value) {
+            addCriterion("shop_image =", value, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageNotEqualTo(String value) {
+            addCriterion("shop_image <>", value, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageGreaterThan(String value) {
+            addCriterion("shop_image >", value, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageGreaterThanOrEqualTo(String value) {
+            addCriterion("shop_image >=", value, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageLessThan(String value) {
+            addCriterion("shop_image <", value, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageLessThanOrEqualTo(String value) {
+            addCriterion("shop_image <=", value, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageLike(String value) {
+            addCriterion("shop_image like", value, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageNotLike(String value) {
+            addCriterion("shop_image not like", value, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageIn(List<String> values) {
+            addCriterion("shop_image in", values, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageNotIn(List<String> values) {
+            addCriterion("shop_image not in", values, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageBetween(String value1, String value2) {
+            addCriterion("shop_image between", value1, value2, "shopImage");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopImageNotBetween(String value1, String value2) {
+            addCriterion("shop_image not between", value1, value2, "shopImage");
             return (Criteria) this;
         }
     }

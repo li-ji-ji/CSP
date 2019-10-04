@@ -10,21 +10,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 import cn.lhj.csp.config.po.ConfigCategory;
+import cn.lhj.csp.config.service.ConfigCategoryService;
 
 @Controller
 @RequestMapping("/configCategory")
 public class ConfigCategoryManage {
 	
 	@Autowired
-	private AdminMenuApiInterface configApiInterface;
+	private ConfigCategoryService configCategoryService;
 	
 	@RequestMapping("/list")
 	public String list(ModelMap map,@RequestParam(required = false, defaultValue = "0")Integer id,@RequestParam(required = false, defaultValue = "null")String operation) {
 		
 		if(operation.equals("delete")) {
-			configApiInterface.deleteConfigCategory(id);
+			configCategoryService.delete(id);
 		}	
-		List<ConfigCategory> configCategorys = configApiInterface.getAllConfigCategory();
+		List<ConfigCategory> configCategorys = configCategoryService.getAll();
 		map.addAttribute("configCategorys", configCategorys);
 		return "ftl/configcategory/list";
 	}
@@ -32,7 +33,7 @@ public class ConfigCategoryManage {
 	@RequestMapping("/edit")
 	public String edit(ModelMap map,String operation,ConfigCategory configCategory,@RequestParam(required = false, defaultValue = "0")int id,@RequestParam(required = false, defaultValue = "")String dataType) {
 		if(operation.equals("update")) {
-			configCategory = configApiInterface.findByIdConfigCategory(id);
+			configCategory = configCategoryService.findById(id);
 			map.addAttribute("configCategory", configCategory);
 			map.addAttribute("operation", "update");
 		}

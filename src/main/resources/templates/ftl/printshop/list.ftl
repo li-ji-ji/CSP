@@ -27,9 +27,13 @@
 							<tr>
 								<th lay-data="{type:'checkbox', fixed: 'left'}"></th>
 								<th lay-data="{field:'id', width:80, sort:true}">ID</th>
-								<th lay-data="{field:'name', width:300}">name</th>
-								<th lay-data="{field:'location', width:300}">location</th>
-								<th lay-data="{field:'status', width:100}">status</th>
+								<th lay-data="{field:'name', width:300}">打印店名</th>
+								<th lay-data="{field:'location', width:300}">位置</th>
+								<th lay-data="{field:'mobile', width:300}">商家电话</th>
+								<th lay-data="{field:'status', width:100}">状态</th>
+								<th lay-data="{field:'printerConfig', width:300}">打印机配置</th>
+								<th lay-data="{field:'price', width:300}">价格</th>
+								<th lay-data="{field:'shopImage', width:300}">打印机图片</th>
 								<th
 									lay-data="{field:'操作栏',fixed: 'right', width:200, align:'center', toolbar: '#barDemo'}">
 									操作栏</th>
@@ -42,7 +46,11 @@
 								<td>${printshop.id}</td>
 								<td>${printshop.name}</td>
 								<td>${printshop.location}</td>
+								<td>${printshop.mobile}</td>
 								<td>${printshop.status}</td>
+								<td>${printshop.printerConfig}</td>
+								<td>${printshop.price}</td>
+								<td>${printshop.shopImage}</td>
 							</tr>
 							</#list>
 						</tbody>
