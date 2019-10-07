@@ -1,7 +1,7 @@
 package cn.lhj.csp.fileinfo.po;
 
 public class FileInfo {
-	
+	//1
     private Integer id;
 
     private String name;
