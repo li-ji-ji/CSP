@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yzj.csp.task.mapper.TaskMapper" >
+  <resultMap id="BaseResultMap" type="cn.yzj.csp.task.po.Task" >
+    <id column="task_id" property="taskId" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="task_title" property="taskTitle" jdbcType="VARCHAR" />
+    <result column="task_type" property="taskType" jdbcType="INTEGER" />
+    <result column="finish_time" property="finishTime" jdbcType="VARCHAR" />
+    <result column="task_publisher" property="taskPublisher" jdbcType="INTEGER" />
+    <result column="task_receiver" property="taskReceiver" jdbcType="INTEGER" />
+    <result column="task_status" property="taskStatus" jdbcType="INTEGER" />
+    <result column="publish_time" property="publishTime" jdbcType="VARCHAR" />
+    <result column="prepay_id" property="prepayId" jdbcType="VARCHAR" />
+    <result column="task_reward" property="taskReward" jdbcType="INTEGER" />
+    <result column="publisher_name" property="publisherName" jdbcType="VARCHAR" />
+    <result column="publisher_number" property="publisherNumber" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.yzj.csp.task.po.TaskWithBLOBs" extends="BaseResultMap" >
+    <result column="task_context" property="taskContext" jdbcType="LONGVARCHAR" />
+    <result column="task_remarks" property="taskRemarks" jdbcType="LONGVARCHAR" />
+    <result column="images" property="images" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    task_id, order_id, task_title, task_type, finish_time, task_publisher, task_receiver, 
+    task_status, publish_time, prepay_id, task_reward, publisher_name, publisher_number
+  </sql>
+  <sql id="Blob_Column_List" >
+    task_context, task_remarks, images
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="cn.yzj.csp.task.po.TaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="cn.yzj.csp.task.po.TaskExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from task
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="cn.yzj.csp.task.po.TaskExample" >
+    delete from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="cn.yzj.csp.task.po.TaskWithBLOBs" >
+    insert into task (task_id, order_id, task_title, 
+      task_type, finish_time, task_publisher, 
+      task_receiver, task_status, publish_time, 
+      prepay_id, task_reward, publisher_name, 
+      publisher_number, task_context, task_remarks, 
+      images)
+    values (#{taskId,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{taskTitle,jdbcType=VARCHAR}, 
+      #{taskType,jdbcType=INTEGER}, #{finishTime,jdbcType=VARCHAR}, #{taskPublisher,jdbcType=INTEGER}, 
+      #{taskReceiver,jdbcType=INTEGER}, #{taskStatus,jdbcType=INTEGER}, #{publishTime,jdbcType=VARCHAR}, 
+      #{prepayId,jdbcType=VARCHAR}, #{taskReward,jdbcType=INTEGER}, #{publisherName,jdbcType=VARCHAR}, 
+      #{publisherNumber,jdbcType=VARCHAR}, #{taskContext,jdbcType=LONGVARCHAR}, #{taskRemarks,jdbcType=LONGVARCHAR}, 
+      #{images,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yzj.csp.task.po.TaskWithBLOBs" >
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="taskTitle != null" >
+        task_title,
+      </if>
+      <if test="taskType != null" >
+        task_type,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="taskPublisher != null" >
+        task_publisher,
+      </if>
+      <if test="taskReceiver != null" >
+        task_receiver,
+      </if>
+      <if test="taskStatus != null" >
+        task_status,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="prepayId != null" >
+        prepay_id,
+      </if>
+      <if test="taskReward != null" >
+        task_reward,
+      </if>
+      <if test="publisherName != null" >
+        publisher_name,
+      </if>
+      <if test="publisherNumber != null" >
+        publisher_number,
+      </if>
+      <if test="taskContext != null" >
+        task_context,
+      </if>
+      <if test="taskRemarks != null" >
+        task_remarks,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTitle != null" >
+        #{taskTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null" >
+        #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPublisher != null" >
+        #{taskPublisher,jdbcType=INTEGER},
+      </if>
+      <if test="taskReceiver != null" >
+        #{taskReceiver,jdbcType=INTEGER},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayId != null" >
+        #{prepayId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskReward != null" >
+        #{taskReward,jdbcType=INTEGER},
+      </if>
+      <if test="publisherName != null" >
+        #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherNumber != null" >
+        #{publisherNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taskContext != null" >
+        #{taskContext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="taskRemarks != null" >
+        #{taskRemarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="cn.yzj.csp.task.po.TaskExample" resultType="java.lang.Integer" >
+    select count(*) from task
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update task
+    <set >
+      <if test="record.taskId != null" >
+        task_id = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskTitle != null" >
+        task_title = #{record.taskTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskType != null" >
+        task_type = #{record.taskType,jdbcType=INTEGER},
+      </if>
+      <if test="record.finishTime != null" >
+        finish_time = #{record.finishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskPublisher != null" >
+        task_publisher = #{record.taskPublisher,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskReceiver != null" >
+        task_receiver = #{record.taskReceiver,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskStatus != null" >
+        task_status = #{record.taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.publishTime != null" >
+        publish_time = #{record.publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.prepayId != null" >
+        prepay_id = #{record.prepayId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskReward != null" >
+        task_reward = #{record.taskReward,jdbcType=INTEGER},
+      </if>
+      <if test="record.publisherName != null" >
+        publisher_name = #{record.publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.publisherNumber != null" >
+        publisher_number = #{record.publisherNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.taskContext != null" >
+        task_context = #{record.taskContext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.taskRemarks != null" >
+        task_remarks = #{record.taskRemarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.images != null" >
+        images = #{record.images,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update task
+    set task_id = #{record.taskId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      task_title = #{record.taskTitle,jdbcType=VARCHAR},
+      task_type = #{record.taskType,jdbcType=INTEGER},
+      finish_time = #{record.finishTime,jdbcType=VARCHAR},
+      task_publisher = #{record.taskPublisher,jdbcType=INTEGER},
+      task_receiver = #{record.taskReceiver,jdbcType=INTEGER},
+      task_status = #{record.taskStatus,jdbcType=INTEGER},
+      publish_time = #{record.publishTime,jdbcType=VARCHAR},
+      prepay_id = #{record.prepayId,jdbcType=VARCHAR},
+      task_reward = #{record.taskReward,jdbcType=INTEGER},
+      publisher_name = #{record.publisherName,jdbcType=VARCHAR},
+      publisher_number = #{record.publisherNumber,jdbcType=VARCHAR},
+      task_context = #{record.taskContext,jdbcType=LONGVARCHAR},
+      task_remarks = #{record.taskRemarks,jdbcType=LONGVARCHAR},
+      images = #{record.images,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update task
+    set task_id = #{record.taskId,jdbcType=INTEGER},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      task_title = #{record.taskTitle,jdbcType=VARCHAR},
+      task_type = #{record.taskType,jdbcType=INTEGER},
+      finish_time = #{record.finishTime,jdbcType=VARCHAR},
+      task_publisher = #{record.taskPublisher,jdbcType=INTEGER},
+      task_receiver = #{record.taskReceiver,jdbcType=INTEGER},
+      task_status = #{record.taskStatus,jdbcType=INTEGER},
+      publish_time = #{record.publishTime,jdbcType=VARCHAR},
+      prepay_id = #{record.prepayId,jdbcType=VARCHAR},
+      task_reward = #{record.taskReward,jdbcType=INTEGER},
+      publisher_name = #{record.publisherName,jdbcType=VARCHAR},
+      publisher_number = #{record.publisherNumber,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yzj.csp.task.po.TaskWithBLOBs" >
+    update task
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskTitle != null" >
+        task_title = #{taskTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null" >
+        task_type = #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null" >
+        finish_time = #{finishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPublisher != null" >
+        task_publisher = #{taskPublisher,jdbcType=INTEGER},
+      </if>
+      <if test="taskReceiver != null" >
+        task_receiver = #{taskReceiver,jdbcType=INTEGER},
+      </if>
+      <if test="taskStatus != null" >
+        task_status = #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null" >
+        publish_time = #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="prepayId != null" >
+        prepay_id = #{prepayId,jdbcType=VARCHAR},
+      </if>
+      <if test="taskReward != null" >
+        task_reward = #{taskReward,jdbcType=INTEGER},
+      </if>
+      <if test="publisherName != null" >
+        publisher_name = #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherNumber != null" >
+        publisher_number = #{publisherNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taskContext != null" >
+        task_context = #{taskContext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="taskRemarks != null" >
+        task_remarks = #{taskRemarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="images != null" >
+        images = #{images,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.yzj.csp.task.po.TaskWithBLOBs" >
+    update task
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      task_title = #{taskTitle,jdbcType=VARCHAR},
+      task_type = #{taskType,jdbcType=INTEGER},
+      finish_time = #{finishTime,jdbcType=VARCHAR},
+      task_publisher = #{taskPublisher,jdbcType=INTEGER},
+      task_receiver = #{taskReceiver,jdbcType=INTEGER},
+      task_status = #{taskStatus,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=VARCHAR},
+      prepay_id = #{prepayId,jdbcType=VARCHAR},
+      task_reward = #{taskReward,jdbcType=INTEGER},
+      publisher_name = #{publisherName,jdbcType=VARCHAR},
+      publisher_number = #{publisherNumber,jdbcType=VARCHAR},
+      task_context = #{taskContext,jdbcType=LONGVARCHAR},
+      task_remarks = #{taskRemarks,jdbcType=LONGVARCHAR},
+      images = #{images,jdbcType=LONGVARCHAR}
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yzj.csp.task.po.Task" >
+    update task
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      task_title = #{taskTitle,jdbcType=VARCHAR},
+      task_type = #{taskType,jdbcType=INTEGER},
+      finish_time = #{finishTime,jdbcType=VARCHAR},
+      task_publisher = #{taskPublisher,jdbcType=INTEGER},
+      task_receiver = #{taskReceiver,jdbcType=INTEGER},
+      task_status = #{taskStatus,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=VARCHAR},
+      prepay_id = #{prepayId,jdbcType=VARCHAR},
+      task_reward = #{taskReward,jdbcType=INTEGER},
+      publisher_name = #{publisherName,jdbcType=VARCHAR},
+      publisher_number = #{publisherNumber,jdbcType=VARCHAR}
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  
+  <insert id="insertReturnId" parameterType="cn.yzj.csp.task.po.TaskWithBLOBs" >
+   <selectKey keyProperty="taskId" order="AFTER" resultType="java.lang.Integer">
+        SELECT LAST_INSERT_ID() 
+     </selectKey>
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        task_id,
+      </if>
+      <if test="taskTitle != null" >
+        task_title,
+      </if>
+      <if test="taskType != null" >
+        task_type,
+      </if>
+      <if test="finishTime != null" >
+        finish_time,
+      </if>
+      <if test="taskPublisher != null" >
+        task_publisher,
+      </if>
+      <if test="taskReceiver != null" >
+        task_receiver,
+      </if>
+      <if test="taskStatus != null" >
+        task_status,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="isloop != null" >
+        isloop,
+      </if>
+      <if test="taskReward != null" >
+        task_reward,
+      </if>
+      <if test="publisherName != null" >
+        publisher_name,
+      </if>
+      <if test="publisherNumber != null" >
+        publisher_number,
+      </if>
+      <if test="taskContext != null" >
+        task_context,
+      </if>
+      <if test="taskRemarks != null" >
+        task_remarks,
+      </if>
+      <if test="images != null" >
+        images,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taskId != null" >
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="taskTitle != null" >
+        #{taskTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="taskType != null" >
+        #{taskType,jdbcType=INTEGER},
+      </if>
+      <if test="finishTime != null" >
+        #{finishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPublisher != null" >
+        #{taskPublisher,jdbcType=INTEGER},
+      </if>
+      <if test="taskReceiver != null" >
+        #{taskReceiver,jdbcType=INTEGER},
+      </if>
+      <if test="taskStatus != null" >
+        #{taskStatus,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null" >
+        #{publishTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isloop != null" >
+        #{isloop,jdbcType=INTEGER},
+      </if>
+      <if test="taskReward != null" >
+        #{taskReward,jdbcType=INTEGER},
+      </if>
+      <if test="publisherName != null" >
+        #{publisherName,jdbcType=VARCHAR},
+      </if>
+      <if test="publisherNumber != null" >
+        #{publisherNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="taskContext != null" >
+        #{taskContext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="taskRemarks != null" >
+        #{taskRemarks,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="images != null" >
+        #{images,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

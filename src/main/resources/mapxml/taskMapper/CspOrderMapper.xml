@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.yzj.csp.task.mapper.CspOrderMapper" >
+  <resultMap id="BaseResultMap" type="cn.yzj.csp.task.po.CspOrder" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_no" property="orderNo" jdbcType="VARCHAR" />
+    <result column="transaction_id" property="transactionId" jdbcType="VARCHAR" />
+    <result column="refund_id" property="refundId" jdbcType="VARCHAR" />
+    <result column="out_refund_no" property="outRefundNo" jdbcType="VARCHAR" />
+    <result column="total_fee" property="totalFee" jdbcType="INTEGER" />
+    <result column="commission" property="commission" jdbcType="INTEGER" />
+    <result column="settlement_fee" property="settlementFee" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="VARCHAR" />
+    <result column="payer" property="payer" jdbcType="INTEGER" />
+    <result column="receiver" property="receiver" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_no, transaction_id, refund_id, out_refund_no, total_fee, commission, settlement_fee, 
+    status, create_time, update_time, payer, receiver
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from csp_order
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByOrderNo" resultMap="BaseResultMap" parameterType="String" >
+    select 
+    <include refid="Base_Column_List" />
+    from csp_order
+    where order_no = #{orderNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from csp_order
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.yzj.csp.task.po.CspOrder" >
+    insert into csp_order (id, order_no, transaction_id, 
+      refund_id, out_refund_no, total_fee, 
+      commission, settlement_fee, status, 
+      create_time, update_time, payer, 
+      receiver)
+    values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{transactionId,jdbcType=VARCHAR}, 
+      #{refundId,jdbcType=VARCHAR}, #{outRefundNo,jdbcType=VARCHAR}, #{totalFee,jdbcType=INTEGER}, 
+      #{commission,jdbcType=INTEGER}, #{settlementFee,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=VARCHAR}, #{updateTime,jdbcType=VARCHAR}, #{payer,jdbcType=INTEGER}, 
+      #{receiver,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.yzj.csp.task.po.CspOrder" >
+    insert into csp_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderNo != null" >
+        order_no,
+      </if>
+      <if test="transactionId != null" >
+        transaction_id,
+      </if>
+      <if test="refundId != null" >
+        refund_id,
+      </if>
+      <if test="outRefundNo != null" >
+        out_refund_no,
+      </if>
+      <if test="totalFee != null" >
+        total_fee,
+      </if>
+      <if test="commission != null" >
+        commission,
+      </if>
+      <if test="settlementFee != null" >
+        settlement_fee,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="payer != null" >
+        payer,
+      </if>
+      <if test="receiver != null" >
+        receiver,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundId != null" >
+        #{refundId,jdbcType=VARCHAR},
+      </if>
+      <if test="outRefundNo != null" >
+        #{outRefundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        #{totalFee,jdbcType=INTEGER},
+      </if>
+      <if test="commission != null" >
+        #{commission,jdbcType=INTEGER},
+      </if>
+      <if test="settlementFee != null" >
+        #{settlementFee,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null" >
+        #{payer,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null" >
+        #{receiver,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.yzj.csp.task.po.CspOrder" >
+    update csp_order
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundId != null" >
+        refund_id = #{refundId,jdbcType=VARCHAR},
+      </if>
+      <if test="outRefundNo != null" >
+        out_refund_no = #{outRefundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        total_fee = #{totalFee,jdbcType=INTEGER},
+      </if>
+      <if test="commission != null" >
+        commission = #{commission,jdbcType=INTEGER},
+      </if>
+      <if test="settlementFee != null" >
+        settlement_fee = #{settlementFee,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null" >
+        payer = #{payer,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null" >
+        receiver = #{receiver,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <update id="updateByOrderNoSelective" parameterType="cn.yzj.csp.task.po.CspOrder" >
+    update csp_order
+    <set >
+      <if test="orderNo != null" >
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null" >
+        transaction_id = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="refundId != null" >
+        refund_id = #{refundId,jdbcType=VARCHAR},
+      </if>
+      <if test="outRefundNo != null" >
+        out_refund_no = #{outRefundNo,jdbcType=VARCHAR},
+      </if>
+      <if test="totalFee != null" >
+        total_fee = #{totalFee,jdbcType=INTEGER},
+      </if>
+      <if test="commission != null" >
+        commission = #{commission,jdbcType=INTEGER},
+      </if>
+      <if test="settlementFee != null" >
+        settlement_fee = #{settlementFee,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=VARCHAR},
+      </if>
+      <if test="payer != null" >
+        payer = #{payer,jdbcType=INTEGER},
+      </if>
+      <if test="receiver != null" >
+        receiver = #{receiver,jdbcType=INTEGER},
+      </if>
+    </set>
+    where order_no = #{orderNo,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.yzj.csp.task.po.CspOrder" >
+    update csp_order
+    set order_no = #{orderNo,jdbcType=VARCHAR},
+      transaction_id = #{transactionId,jdbcType=VARCHAR},
+      refund_id = #{refundId,jdbcType=VARCHAR},
+      out_refund_no = #{outRefundNo,jdbcType=VARCHAR},
+      total_fee = #{totalFee,jdbcType=INTEGER},
+      commission = #{commission,jdbcType=INTEGER},
+      settlement_fee = #{settlementFee,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=VARCHAR},
+      payer = #{payer,jdbcType=INTEGER},
+      receiver = #{receiver,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

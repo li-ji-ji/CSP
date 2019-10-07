@@ -1,4 +1,4 @@
-package cn.lhj.csp.task.po;
+package cn.yzj.csp.task.po;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -684,63 +684,73 @@ public class TaskExample {
             return (Criteria) this;
         }
 
-        public Criteria andIsloopIsNull() {
-            addCriterion("isloop is null");
+        public Criteria andPrepayIdIsNull() {
+            addCriterion("prepay_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopIsNotNull() {
-            addCriterion("isloop is not null");
+        public Criteria andPrepayIdIsNotNull() {
+            addCriterion("prepay_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopEqualTo(Integer value) {
-            addCriterion("isloop =", value, "isloop");
+        public Criteria andPrepayIdEqualTo(String value) {
+            addCriterion("prepay_id =", value, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopNotEqualTo(Integer value) {
-            addCriterion("isloop <>", value, "isloop");
+        public Criteria andPrepayIdNotEqualTo(String value) {
+            addCriterion("prepay_id <>", value, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopGreaterThan(Integer value) {
-            addCriterion("isloop >", value, "isloop");
+        public Criteria andPrepayIdGreaterThan(String value) {
+            addCriterion("prepay_id >", value, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopGreaterThanOrEqualTo(Integer value) {
-            addCriterion("isloop >=", value, "isloop");
+        public Criteria andPrepayIdGreaterThanOrEqualTo(String value) {
+            addCriterion("prepay_id >=", value, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopLessThan(Integer value) {
-            addCriterion("isloop <", value, "isloop");
+        public Criteria andPrepayIdLessThan(String value) {
+            addCriterion("prepay_id <", value, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopLessThanOrEqualTo(Integer value) {
-            addCriterion("isloop <=", value, "isloop");
+        public Criteria andPrepayIdLessThanOrEqualTo(String value) {
+            addCriterion("prepay_id <=", value, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopIn(List<Integer> values) {
-            addCriterion("isloop in", values, "isloop");
+        public Criteria andPrepayIdLike(String value) {
+            addCriterion("prepay_id like", value, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopNotIn(List<Integer> values) {
-            addCriterion("isloop not in", values, "isloop");
+        public Criteria andPrepayIdNotLike(String value) {
+            addCriterion("prepay_id not like", value, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopBetween(Integer value1, Integer value2) {
-            addCriterion("isloop between", value1, value2, "isloop");
+        public Criteria andPrepayIdIn(List<String> values) {
+            addCriterion("prepay_id in", values, "prepayId");
             return (Criteria) this;
         }
 
-        public Criteria andIsloopNotBetween(Integer value1, Integer value2) {
-            addCriterion("isloop not between", value1, value2, "isloop");
+        public Criteria andPrepayIdNotIn(List<String> values) {
+            addCriterion("prepay_id not in", values, "prepayId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrepayIdBetween(String value1, String value2) {
+            addCriterion("prepay_id between", value1, value2, "prepayId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPrepayIdNotBetween(String value1, String value2) {
+            addCriterion("prepay_id not between", value1, value2, "prepayId");
             return (Criteria) this;
         }
 

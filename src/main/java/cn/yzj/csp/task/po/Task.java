@@ -1,4 +1,4 @@
-package cn.lhj.csp.task.po;
+package cn.yzj.csp.task.po;
 
 public class Task {
     private Integer taskId;
@@ -19,7 +19,7 @@ public class Task {
 
     private String publishTime;
 
-    private Integer isloop;
+    private String prepayId;
 
     private Integer taskReward;
 
@@ -99,12 +99,12 @@ public class Task {
         this.publishTime = publishTime == null ? null : publishTime.trim();
     }
 
-    public Integer getIsloop() {
-        return isloop;
+    public String getPrepayId() {
+        return prepayId;
     }
 
-    public void setIsloop(Integer isloop) {
-        this.isloop = isloop;
+    public void setPrepayId(String prepayId) {
+        this.prepayId = prepayId == null ? null : prepayId.trim();
     }
 
     public Integer getTaskReward() {

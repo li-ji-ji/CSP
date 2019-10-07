@@ -1,4 +1,4 @@
-package cn.lhj.csp.task.po;
+package cn.yzj.csp.task.po;
 
 public class TaskDTO {
 	private Integer taskId;

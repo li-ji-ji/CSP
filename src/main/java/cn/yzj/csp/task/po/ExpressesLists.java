@@ -1,4 +1,4 @@
-package cn.lhj.csp.task.po;
+package cn.yzj.csp.task.po;
 
 import java.util.ArrayList;
 import java.util.List;

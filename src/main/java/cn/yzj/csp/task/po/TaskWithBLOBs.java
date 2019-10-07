@@ -1,4 +1,4 @@
-package cn.lhj.csp.task.po;
+package cn.yzj.csp.task.po;
 
 public class TaskWithBLOBs extends Task {
     private String taskContext;

@@ -22,7 +22,7 @@ import cn.lhj.csp.fileinfo.service.ShopCartInfoService;
 import cn.lhj.csp.fileinfo.util.WXPayMapUtil;
 import cn.lhj.csp.fileinfo.util.WXPayUtil;
 import cn.lhj.csp.fileinfo.util.WxConfig;
-import cn.lhj.csp.task.po.PayPram;
+import cn.yzj.csp.task.po.PayPram;
 import net.sf.json.JSONObject;
 
 @Service

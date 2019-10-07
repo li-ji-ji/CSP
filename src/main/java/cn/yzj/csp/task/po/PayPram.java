@@ -1,11 +1,11 @@
-package cn.lhj.csp.task.po;
-
+package cn.yzj.csp.task.po;
+//统一下单对象
 public class PayPram{
 	private String appid="wxe721fcd7e4f66bda";//小程序ip 68
 	private String mch_id="1546321581";//商户id 86
 	private String nonce_str;//随机字符串 86
 	private String trade_type="JSAPI";//交易类型 86
-	private String notify_url="http://244z00029g.zicp.vip/notify_url";//通知地址
+	private String notify_url="https://qzimp.cn/csp/notify_url";//通知地址
 	private String spbill_create_ip;//主机ip
 	private int total_fee;//金额
 	private String out_trade_no;//商户订单编号 唯一
