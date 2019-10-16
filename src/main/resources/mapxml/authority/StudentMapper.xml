@@ -34,7 +34,7 @@
 			<result column="role" property="role" />
 			<!-- 角色、权限多对多链接 -->
 			<!-- <collection property="permissions" javaType="List"
-				ofType="cn.lhj.csp.authority.po.SysPermission">
+				ofType="com.cfz.csp.authority.po.SysPermission">
 				<id column="id" property="id" />
 				<result column="available" property="available" />
 				<result column="name" property="name" />
