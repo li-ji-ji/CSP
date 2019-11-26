@@ -137,7 +137,7 @@
 								//指定允许上传的文件类型
 								upload.render({
 									elem : '#test3',
-									url : '${request.contextPath}/upload/',
+									url : '${request.contextPath}/uploadFile/',
 									accept : 'file' //普通文件
 									,
 									done : function(res) {
@@ -146,7 +146,7 @@
 								});
 								upload.render({ //允许上传的文件后缀
 									elem : '#test4',
-									url : '${request.contextPath}/upload/',
+									url : '${request.contextPath}/uploadFile/',
 									accept : 'file' //普通文件
 									,
 									exts : 'zip|rar|7z' //只允许上传压缩文件
@@ -157,7 +157,7 @@
 								});
 								upload.render({
 									elem : '#test5',
-									url : '${request.contextPath}/upload/',
+									url : '${request.contextPath}/uploadFile/',
 									accept : 'video' //视频
 									,
 									done : function(res) {
@@ -166,7 +166,7 @@
 								});
 								upload.render({
 									elem : '#test6',
-									url : '${request.contextPath}/upload/',
+									url : '${request.contextPath}/uploadFile/',
 									accept : 'audio' //音频
 									,
 									done : function(res) {

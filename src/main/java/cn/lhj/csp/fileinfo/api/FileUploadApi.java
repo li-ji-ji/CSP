@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.lhj.csp.config.service.ConfigService;
 import cn.lhj.csp.fileinfo.po.FileInfo;
 import cn.lhj.csp.fileinfo.service.FileInfoService;
 import cn.lhj.csp.fileinfo.service.impl.RedisTemplateServiceImpl;
@@ -38,6 +39,9 @@ public class FileUploadApi {
 
 	@Autowired
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	private ConfigService configService;
 
 	@RequestMapping(value = "/uploadFile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE,method=RequestMethod.POST)
 	public Map<String, Object> uploadFile(@RequestPart("file") MultipartFile file,

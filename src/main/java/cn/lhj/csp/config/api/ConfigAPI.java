@@ -65,6 +65,11 @@ public class ConfigAPI {
 		return "修改成功";
 	}
 	
+	@RequestMapping("/api/config/selectByType")
+	public List<Config> selectByType(@RequestParam("type")String type){
+		return configService.selectByType(type);
+	}
+	
 	@RequestMapping("/api/config/insertConfigOne")
 	public int insertConfigOne(@RequestBody Config config)throws Exception{
 		return configService.insert(config);
