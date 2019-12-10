@@ -146,6 +146,18 @@ public class ConfigAPI {
 		}
 	}
 	
+	@RequestMapping("/api/config/getWeChatPayAll")
+	public List<Config> getWeChatPayAll() {
+		String config = redisTemplateServiceImpl.getValue("wechatpay");
+		if (config == null) {
+			config = String.valueOf(JSONArray.fromObject(configService.selectByType("微信支付配置")));
+			redisTemplateServiceImpl.set("wechatpay", config);
+			return configService.selectByType("微信支付配置");
+		} else {
+			return AnalysisJsonArray(config);
+		}
+	}
+	
 	/*
 	 * 解析jsonArray字符串
 	 */
