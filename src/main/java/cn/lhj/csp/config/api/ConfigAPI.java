@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSON;
 
-import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
+//import cn.lhj.csp.admin.feign.AdminMenuApiInterface;
 import cn.lhj.csp.config.po.Config;
 import cn.lhj.csp.config.po.ConfigCategory;
 import cn.lhj.csp.config.service.ConfigCategoryService;
