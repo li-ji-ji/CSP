@@ -122,6 +122,15 @@ public class ConfigAPI {
 		return configCategoryService.findById(id);
 	}
 	
+//	@RequestMapping("/api/config/all")
+//	public List<Config> getAll(){
+//		return configService.selectAll();
+//	}
+	
+//	@RequestMapping("/api/config/findByKey")
+//	public Config findByKey() {
+//		return configService.findByConfigKey("系统图片");
+//	}
 	@RequestMapping("/api/config/getTengXunYunAll")
 	public List<Config> getTengXunYunAll() {
 		String config = redisTemplateServiceImpl.getValue("tengxunyun");
@@ -138,6 +147,7 @@ public class ConfigAPI {
 	public Config getSystemPicture() {
 		String config = redisTemplateServiceImpl.getValue("systempicture");
 		if (config == null) {
+			System.out.println(configService.findByConfigKey("系统图片"));
 			config = String.valueOf(JSONArray.fromObject(configService.findByConfigKey("系统图片")));
 			redisTemplateServiceImpl.set("systempicture", config);
 			return configService.findByConfigKey("系统图片");
@@ -157,7 +167,7 @@ public class ConfigAPI {
 			return AnalysisJsonArray(config);
 		}
 	}
-	
+
 	/*
 	 * 解析jsonArray字符串
 	 */

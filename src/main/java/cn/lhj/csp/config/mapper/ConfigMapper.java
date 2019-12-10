@@ -56,9 +56,19 @@ public interface ConfigMapper {
     Config findOneByType(String type);
     
     @Select("SELECT distinct type FROM config where 1= 1")
+    @Results({
+		@Result(property = "configKey",  column = "config_key"),
+		@Result(property = "configValue", column = "config_value"),
+		@Result(property = "dataType", column = "data_type")
+	})
     List<String> getTypes();
     
     @Select("SELECT * FROM config where config_key = #{configKey}")
+    @Results({
+		@Result(property = "configKey",  column = "config_key"),
+		@Result(property = "configValue", column = "config_value"),
+		@Result(property = "dataType", column = "data_type")
+	})
     public Config findByConfigKey(String configKey);
     
 }
