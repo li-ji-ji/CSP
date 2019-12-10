@@ -89,7 +89,9 @@ public class ExcelUtil implements Serializable {
 			}
 			// 5、关闭流
 			System.out.println("表的长度="+len);
-			workbook.close();
+			
+			//workbook.close();
+		
 		} catch (IOException e) {
 System.out.println("表内对象在"+rowlen+"行出现了问题！");
 	        	e.printStackTrace();

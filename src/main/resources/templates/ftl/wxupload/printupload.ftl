@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="${base}/css/upload.css" media="all">
 <script src="${base}/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript"
-		src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+	src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
 </head>
 <body class="container">
 	<span id="time"></span>
@@ -21,13 +21,14 @@
 			</div>
 			<br />
 			<div style="width: 98%;">
-				<div class="progress progress-striped active" style="display:;height:100px;">
+				<div class="progress progress-striped active"
+					style="display:; height: 100px;">
 					<div id="progressBar" class="progress-bar progress-bar-success"
 						role="progressbar" aria-valuemin="0" aria-valuenow="0"
 						aria-valuemax="100" style="width: 20%"></div>
 				</div>
 				<!-- 显示文件信息 -->
-				<div id="showFieInfo" style="font-size:40px;">
+				<div id="showFieInfo" style="font-size: 40px;">
 					<label name="upfileName"></label><br /> <label name="upfileSize"></label><br />
 					<label name="upfileType"></label><br />
 				</div>
@@ -77,7 +78,7 @@
     });
     function uploadFile(){
     	
-        var url ="http://qzimp.cn/api/file/print/upload";
+        var url ="/csp/print/upload";
         var fileObj = fileBtn.get(0).files[0];
         if(fileObj==null){
             alert("请选择文件");
@@ -159,7 +160,38 @@
     		seconds = (time.getSeconds() < 10 ? ("0" + time
     				.getSeconds())
     				: time.getSeconds());
-
+    		var fileImage = "";
+        	var index = fileName.lastIndexOf(".");
+        	var suffix = fileName.substr(index+1);
+        	console.log(suffix);
+        	switch(suffix){
+        		case 'png':
+            		fileImage='../../images/im.png';
+            		break;
+        		case 'jpg':
+        			fileImage='../../images/im.png';
+        			break;
+        		case 'ppt':
+            		fileImage='../../images/ppt.png';
+            		break;
+        		case 'pptx':
+            		fileImage='../../images/ppt.png';
+            		break;
+        		case 'doc':
+        			fileImage='../../images/doc.png';
+            		break;
+        		case 'docx':
+        			fileImage='../../images/doc.png';
+            		break;
+        		case 'pdf':
+            		fileImage='../../images/pdf.png';
+            		break;
+        		default:
+        			alert("只能上传pdf,png,jpg,ppt,pptx,doc,docx,pdf文件,请重新选择文件");
+        			// 进度条归零
+                	setProgress(0);
+                	return;
+        	}
     		//拼格式，如：2018-01-15 14:32:57
     		time = year + "-" + month + "-" + date
     				+ " " + hours + ":" + minutes
@@ -172,15 +204,17 @@
 				page=1;
                 }
             status = 'true';
-        	var upArray = '[{"fileName":"'
-				+ fileName +'","fileImage":"'+fileImage+'"' '","path":"'
-				+ path + '","time":"' + time
-				+ '","fileSize":"' + fileSize
-				+ '","page":"' + page
-				+ '","status":"' + status
-				+ '"}]';
+            var upArray = '[{"fileImage":"'+fileImage+'","fileName":"'
+			+ fileName + '","path":"'
+			+ path + '","time":"' + time
+			+ '","fileSize":"' + fileSize
+			+ '","page":"' + page
+			+ '","status":"' + status
+			+ '"}]';
             uploadBtn.attr('disabled', false);
-            console.log('上传完成')
+            console.log(upArray);
+            uploadBtn.attr('disabled', false);
+            console.log('上传完成');
 			wx.miniProgram.navigateTo({url:'/pages/homePage/homePage?fileName='+upArray});
         };
 

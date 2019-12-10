@@ -77,8 +77,8 @@
         uploadFile();
     });
     function uploadFile(){
-    	
-        var url ="http://qzimp.cn/api/file/print/upload";
+    	var url ="/csp/print/upload";
+        //var url ="https://qzimp.cn/api/file/print/upload";
         var fileObj = fileBtn.get(0).files[0];
         if(fileObj==null){
             alert("请选择文件");

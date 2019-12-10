@@ -1,5 +1,6 @@
 package cn.lhj.csp.config.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,9 @@ import cn.lhj.csp.config.po.Config;
 import cn.lhj.csp.config.po.ConfigCategory;
 import cn.lhj.csp.config.service.ConfigCategoryService;
 import cn.lhj.csp.config.service.ConfigService;
+import cn.lhj.csp.fileinfo.service.impl.RedisTemplateServiceImpl;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 @RestController
 @CrossOrigin
@@ -23,6 +27,9 @@ public class ConfigAPI {
 	
 	@Autowired
 	private ConfigService configService;
+	
+	@Autowired
+	private RedisTemplateServiceImpl redisTemplateServiceImpl;
 	
 	@Autowired
 	private ConfigCategoryService configCategoryService;
@@ -113,5 +120,64 @@ public class ConfigAPI {
 	@RequestMapping("/api/configCategory/findById")
 	public ConfigCategory findByIdConfigCategory(@RequestParam("id")Integer id) {
 		return configCategoryService.findById(id);
+	}
+	
+	@RequestMapping("/api/config/getTengXunYunAll")
+	public List<Config> getTengXunYunAll() {
+		String config = redisTemplateServiceImpl.getValue("tengxunyun");
+		if (config == null) {
+			config = String.valueOf(JSONArray.fromObject(configService.selectByType("腾讯云配置")));
+			redisTemplateServiceImpl.set("tengxunyun", config);
+			return configService.selectByType("腾讯云配置");
+		} else {
+			return AnalysisJsonArray(config);
+		}
+	}
+	
+	@RequestMapping("/api/config/getSystemPicture")
+	public Config getSystemPicture() {
+		String config = redisTemplateServiceImpl.getValue("systempicture");
+		if (config == null) {
+			config = String.valueOf(JSONArray.fromObject(configService.findByConfigKey("系统图片")));
+			redisTemplateServiceImpl.set("systempicture", config);
+			return configService.findByConfigKey("系统图片");
+		} else {
+			return AnalysisOneJsonArray(config);
+		}
+	}
+	
+	/*
+	 * 解析jsonArray字符串
+	 */
+	public List<Config> AnalysisJsonArray(String config) {
+		JSONArray json = JSONArray.fromObject(config);
+		List<Config> configs = new ArrayList<>();
+		if (json.size() > 0) {
+			for (int i = 0; i < json.size(); i++) {
+				Config configObject = null;
+				JSONObject job = json.getJSONObject(i); // 遍历 jsonarray 数组，把每一个对象转成 json 对象
+				configObject = new Config((Integer) job.get("id"), (String) job.get("configKey"),
+						(String) job.get("configValue"), (String) job.get("dataType"), (String) job.get("type"),
+						(String) job.get("enable"));
+				configs.add(configObject);
+			}
+		}
+		return configs;
+	}
+	
+	/*
+	 * 解析一条jsonArray数据
+	 * 
+	 */
+	public Config AnalysisOneJsonArray(String config) {
+		JSONArray json = JSONArray.fromObject(config);
+		Config configObject = null;
+		if (json.size() > 0) {
+			JSONObject job = json.getJSONObject(0);// 遍历 jsonarray 数组，把每一个对象转成 json 对象
+			configObject = new Config((Integer) job.get("id"), (String) job.get("configKey"),
+					(String) job.get("configValue"), (String) job.get("dataType"), (String) job.get("type"),
+					(String) job.get("enable"));
+		}
+		return configObject;
 	}
 }

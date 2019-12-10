@@ -23,4 +23,6 @@ public interface ConfigService {
 	public List<Config> selectByType(String type);
 	
 	public List<String> getTypes();
+	
+	public Config findByConfigKey(String configKey);
 }

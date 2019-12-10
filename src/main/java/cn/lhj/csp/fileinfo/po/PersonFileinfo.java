@@ -1,6 +1,7 @@
 package cn.lhj.csp.fileinfo.po;
 
 public class PersonFileinfo {
+	
     private Integer id;
 
     private Integer studentId;
