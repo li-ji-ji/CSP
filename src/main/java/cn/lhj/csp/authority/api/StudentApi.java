@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import cn.lhj.csp.authority.po.Student;
+import cn.lhj.csp.authority.po.UserBinding;
 import cn.lhj.csp.authority.service.StudentService;
 import cn.lhj.csp.authority.util.ExcelUtil;
 
@@ -45,7 +46,22 @@ public class StudentApi {
 		map.put("data", data);
 		return map;
 	}
-
+	
+	@RequestMapping("/selectStudentBatch")
+	public List<Student> selectStudentBatch(@RequestParam("ids")String ids)throws Exception{
+		return studentService.selectStudentBatch(ids);
+	}
+	
+	@RequestMapping("/login")
+	public Student login(@RequestParam("code")String code)throws Exception {
+		return studentService.userLogin(code);
+	}
+	
+	@RequestMapping("/binding")
+	public Student binding(UserBinding userBinding) throws Exception {
+		return studentService.binding(userBinding);
+	}
+	
 	@RequestMapping("/toedit")
 	public Student toEdit(Integer id) throws Exception {
 		System.out.println(id);
@@ -54,6 +70,11 @@ public class StudentApi {
 			student = studentService.selectByPrimaryKey(id);
 		}
 		return student;
+	}
+	
+	@RequestMapping("/updataUser")
+	public boolean updataUser(Student student) {
+		return studentService.updateByPrimaryKeySelective(student);
 	}
 
 	@RequestMapping("/onedit")

@@ -42,6 +42,7 @@ public class CspAdminMenuAPI{
 	}
 	
 	//获取所有菜单数据以LayUI接口数据格式返回
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping("/getAllToLayUI")
 	public LayUIJSON getAllToLayUI() throws Exception{
 		LayUIJSON menuMsg=new LayUIJSON();
@@ -53,6 +54,7 @@ public class CspAdminMenuAPI{
 	//查询菜单列名
 	@RequestMapping("/getColumnName")
 	public JSONArray getColumnName()throws Exception{
+		@SuppressWarnings("rawtypes")
 		List<Map> getColumn=cspAdminMenuService.getColunmByTableName("csp_admin_menu");
 		JSONArray column=JSONArray.parseArray(JSONObject.toJSONString(getColumn));
 		//System.out.println(column);//打印出转换后的JSON数据

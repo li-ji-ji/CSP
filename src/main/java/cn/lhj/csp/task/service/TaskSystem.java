@@ -332,6 +332,12 @@ public class TaskSystem implements TaskSystemInterface {
 
 	/*
 	 * 统一下单接口
+	 * 参数:
+	 * openid(用户唯一标识)
+	 * data(订单信息)
+	 * ip(请求方ip)
+	 * total_fee(金额)
+	 * 返回签名后的支付参数
 	 */
 	@Override
 	@Transactional
@@ -339,7 +345,7 @@ public class TaskSystem implements TaskSystemInterface {
 		WxConfig wxConfig = new WxConfig();
 		String key = wxConfig.getKey();
 		JSONObject object = JSONObject.fromObject(data);
-
+		
 		String isOK = "{code:FAIl}";
 		RestTemplate restTemplate = new RestTemplate();
 		PayPram payPram = new PayPram();
@@ -349,12 +355,6 @@ public class TaskSystem implements TaskSystemInterface {
 		payPram.setSpbill_create_ip(ip);
 		payPram.setTotal_fee(total_fee);
 		payPram.setOut_trade_no(WXPayUtil.generateNonceStr());
-		// 请求接口获取openid
-//			String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + payPram.getAppid()
-//					+ "&secret="+wxConfig.getAppSecret()+"&js_code=" + code + "&grant_type=authorization_code";
-//			String massage = restTemplate.getForObject(url, String.class);
-//			JSONObject jsonObject = JSONObject.fromObject(massage);
-//			String Openid = jsonObject.getString("openid");
 		payPram.setOpenid(openid);
 		// 设置请求参数
 		Map<String, String> paraMap = new HashMap<String, String>();
@@ -374,8 +374,7 @@ public class TaskSystem implements TaskSystemInterface {
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
 		getxml = restTemplate.postForObject("https://api.mch.weixin.qq.com/pay/unifiedorder", getxml, String.class);
 		Map<String, String> getMap = WXPayUtil.xmlToMap(getxml);
-		System.out.println(getMap.get("return_code"));
-		// 解析数据并返回Json字符串
+		// 解析数据并签名返回Json字符串
 		if (getMap.get("return_code").equals("SUCCESS") && getMap.get("result_code").equals("SUCCESS")) {
 			TaskWithBLOBs taskWithBLOBs = new TaskWithBLOBs();
 			if (object.getInt("taskType") == 2) {
@@ -425,6 +424,9 @@ public class TaskSystem implements TaskSystemInterface {
 	 * 支付成功回调接口 更新订单状态 完成下单业务
 	 * 
 	 * @throws Exception
+	 * 参数:
+	 * data(通知内容)
+	 * 返回String 通知处理完成
 	 */
 	@Transactional
 	public String notify_url(String data) throws Exception {
@@ -465,7 +467,11 @@ public class TaskSystem implements TaskSystemInterface {
 
 	/*
 	 * 
-	 * 取消订单接口
+	 * 退款接口
+	 * 参数:
+	 * out_trade_no(商户支付订单唯一标识)
+	 * total_fee(退款金额)
+	 * 返回String (joson格式的退款结果信息 )
 	 */
 	@Transactional
 	public String cancelTask(String out_trade_no, int total_fee) throws Exception {
@@ -485,7 +491,7 @@ public class TaskSystem implements TaskSystemInterface {
 		Map<String, String> map = WXPayMapUtil.entityToMap(refundDTO);
 		String xmlStr = WXPayUtil.generateSignedXml(map, key);
 		restTemplate.getMessageConverters().add(0, new StringHttpMessageConverter(Charset.forName("UTF-8")));
-		xmlStr = WXPayUtil.TransferRestTemplate(url, xmlStr);
+		xmlStr = WXPayUtil.TransferRestTemplate(url, xmlStr);//使用证书的SSL请求方法
 		map = WXPayUtil.xmlToMap(xmlStr);
 		System.out.println(map.get("return_code"));
 		if (map.get("return_code").equals("SUCCESS") && map.get("result_code").equals("SUCCESS")) {
@@ -511,6 +517,11 @@ public class TaskSystem implements TaskSystemInterface {
 	/*
 	 * 
 	 * 提现
+	 * receiverId(提现者id)
+	 * openid(用户唯一标识)
+	 * name(提现者真实姓名)
+	 * amount(提现金额)
+	 * ip(提现者ip地址)
 	 */
 	@Transactional
 	public String withdrawal(int receiverId, String openid, String name, int amount, String ip) throws Exception {
@@ -529,7 +540,7 @@ public class TaskSystem implements TaskSystemInterface {
 		Map<String, String> map = new HashMap<String, String>();
 		map = WXPayMapUtil.entityToMap(withdrawalDTO);
 		String xmlStr = WXPayUtil.generateSignedXml(map, wxConfig.getKey());
-		xmlStr = WXPayUtil.TransferRestTemplate(url, xmlStr);
+		xmlStr = WXPayUtil.TransferRestTemplate(url, xmlStr);//使用证书的SSL请求方法
 		map = WXPayUtil.xmlToMap(xmlStr);
 		if (map.get("return_code").equals("SUCCESS") && map.get("result_code").equals("SUCCESS")) {
 			CspOrder order = new CspOrder();

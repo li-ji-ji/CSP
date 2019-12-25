@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -22,7 +23,6 @@ import java.util.TreeMap;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 
-import org.apache.commons.codec.Charsets;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -186,7 +186,7 @@ public class WxPay {
 	}
 
 	public static String urlEncode(String src) throws UnsupportedEncodingException {
-		return URLEncoder.encode(src, Charsets.UTF_8.name()).replace("+", "%20");
+		return URLEncoder.encode(src, StandardCharsets.UTF_8.name()).replace("+", "%20");
 	}
 
 	public static String MD5(String data, String key) throws Exception {

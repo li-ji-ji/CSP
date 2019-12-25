@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import cn.lhj.csp.authority.po.Student;
 import cn.lhj.csp.authority.po.StudentExample;
+import cn.lhj.csp.authority.po.UserBinding;
 
 public interface StudentService {
 	long countByExample(StudentExample example);
@@ -26,7 +27,7 @@ public interface StudentService {
 
     int updateByExample(@Param("record") Student record, @Param("example") StudentExample example);
 
-    int updateByPrimaryKeySelective(Student record);
+    boolean updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
     
@@ -46,4 +47,10 @@ public interface StudentService {
     
     /**通过username查找用户信息;*/
     public Student findByName(String name);
+    
+    public List<Student> selectStudentBatch(String ids)throws Exception;
+    
+    public Student userLogin(String code)throws Exception;
+    
+    public Student binding(UserBinding user)throws Exception;
 }

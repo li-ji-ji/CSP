@@ -335,10 +335,10 @@ public class WXPayUtil {
 		ClassPathResource classPathResource = new ClassPathResource("spring/apiclient_cert.p12");
 		InputStream instream = classPathResource.getInputStream();
 		keyStore.load(instream, "1546321581".toCharArray());
-// Trust own CA and all self-signed certs
+// 自己的CA证书
 		SSLContext sslcontext = SSLContextBuilder.create().loadKeyMaterial(keyStore, "1546321581".toCharArray())
 				.build();
-// Allow TLSv1 protocol only
+// 仅允许TLSv1协议
 		HostnameVerifier hostnameVerifier = NoopHostnameVerifier.INSTANCE;
 		SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslcontext, new String[] { "TLSv1" }, null,
 				hostnameVerifier);

@@ -180,7 +180,7 @@ public class CspAssoActivityServiceImpl implements CspAssoActivityService {
 	@Override
 	public List<CspAssoActivity> getActByStuIdStarted(String stuId)throws Exception{
 		List<CspActStuRelation> relations=actStuRelation.getActStuRelationByStuId(stuId);
-		List<CspAssoActivity> actList=new ArrayList();
+		List<CspAssoActivity> actList=new ArrayList<CspAssoActivity>();
 		Date now=new Date();
 		for(CspActStuRelation relation:relations) {
 			CspAssoActivity act=getActivityByActId(relation.getActId());
@@ -199,7 +199,7 @@ public class CspAssoActivityServiceImpl implements CspAssoActivityService {
 	@Override
 	public List<CspAssoActivity> getActByStuIdSigned(String stuId) throws Exception {
 		List<CspActStuRelation> relations=actStuRelation.getActStuRelationByStuId(stuId);
-		List<CspAssoActivity> actList=new ArrayList();
+		List<CspAssoActivity> actList=new ArrayList<CspAssoActivity>();
 		Date now=new Date();
 		for(CspActStuRelation relation:relations) {
 			CspAssoActivity act=getActivityByActId(relation.getActId());
@@ -214,7 +214,7 @@ public class CspAssoActivityServiceImpl implements CspAssoActivityService {
 	@Override
 	public List<CspAssoActivity> getActByStuIdFinished(String stuId) throws Exception {
 		List<CspActStuRelation> relations=actStuRelation.getActStuRelationByStuId(stuId);
-		List<CspAssoActivity> actList=new ArrayList();
+		List<CspAssoActivity> actList=new ArrayList<CspAssoActivity>();
 		Date now=new Date();
 		for(CspActStuRelation relation:relations) {
 			CspAssoActivity act=getActivityByActId(relation.getActId());

@@ -3,14 +3,15 @@ package cn.lhj.csp.admin.dto;
 import java.io.Serializable;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 
 public class AssoDetailDto implements Serializable {
 	
+	/*
+	 *yzj
+	 *2019
+	 *2019年10月17日
+	 */
+	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String assoId;
 	private String assoName;

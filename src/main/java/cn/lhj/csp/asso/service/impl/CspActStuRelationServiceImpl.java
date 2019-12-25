@@ -13,7 +13,6 @@ import cn.lhj.csp.asso.mapper.ActStuRelationMapper;
 import cn.lhj.csp.asso.po.CspActStuRelation;
 import cn.lhj.csp.asso.po.CspActStuRelationExample;
 import cn.lhj.csp.asso.po.CspAssoActivity;
-import cn.lhj.csp.asso.po.studend.Student;
 import cn.lhj.csp.asso.service.CspActStuRelationService;
 import cn.lhj.csp.asso.service.CspAssoActivityService;
 import cn.lhj.csp.asso.service.CspAssoManagementService;
@@ -142,7 +141,7 @@ public class CspActStuRelationServiceImpl implements CspActStuRelationService {
 		CspActStuRelationExample.Criteria criteria=example.createCriteria();
 		criteria.andStuIdEqualTo(stuId);
 		List<CspActStuRelation> getRelations=actStuMapper.selectByExample(example);
-		List<CspActStuRelation> relations=new ArrayList();
+		List<CspActStuRelation> relations=new ArrayList<>();
 		Date now=new Date();
 		if(getRelations.size()>0) {
 			for(CspActStuRelation relation:getRelations) {
@@ -160,7 +159,7 @@ public class CspActStuRelationServiceImpl implements CspActStuRelationService {
 		CspActStuRelationExample.Criteria criteria=example.createCriteria();
 		criteria.andStuIdEqualTo(stuId);
 		List<CspActStuRelation> getRelations=actStuMapper.selectByExample(example);
-		List<CspActStuRelation> relations=new ArrayList();
+		List<CspActStuRelation> relations=new ArrayList<>();
 		Date now=new Date();
 		if(getRelations.size()>0) {
 			for(CspActStuRelation relation:getRelations) {
@@ -178,7 +177,7 @@ public class CspActStuRelationServiceImpl implements CspActStuRelationService {
 		CspActStuRelationExample.Criteria criteria=example.createCriteria();
 		criteria.andStuIdEqualTo(stuId);
 		List<CspActStuRelation> getRelations=actStuMapper.selectByExample(example);
-		List<CspActStuRelation> relations=new ArrayList();
+		List<CspActStuRelation> relations=new ArrayList<>();
 		Date now=new Date();
 		if(getRelations.size()>0) {
 			for(CspActStuRelation relation:getRelations) {

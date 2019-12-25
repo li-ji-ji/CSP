@@ -3,12 +3,13 @@ package cn.lhj.csp.admin.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+	@SuppressWarnings("hiding")
 	public class LayUIJSON<Object> {
 		 
 	    private int code=0;
 	    private String msg;
 	    private Long count; //总条数
-	    private List<Object> data = new ArrayList(); //装前台当前页的数据
+	    private List<Object> data = new ArrayList<Object>(); //装前台当前页的数据
 		public int getCode() {
 			return code;
 		}

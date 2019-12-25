@@ -13,7 +13,7 @@ public class WxConfig {
 
 	public WxConfig() {
 		RestTemplate restTemplate = new RestTemplate();
-		String url = "http://qzimp.cn/api/assist/api/config/getWeChatPayAll";
+		String url = "http://localhost:8080/csp/api/config/getWeChatPayAll";
 		String JsonStr = restTemplate.getForObject(url, String.class);
 		JSONArray array = JSONArray.fromObject(JsonStr);
 		for (Object object : array) {

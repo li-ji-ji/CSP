@@ -6,14 +6,16 @@ import java.util.List;
 
 import cn.lhj.csp.admin.po.asso.CspAssoManagement;
 import cn.lhj.csp.admin.po.asso.CspAssoStudent;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 public class AssoActivityFormDto implements Serializable {
 	
-    private Integer id;
+    /*
+	 *yzj
+	 *2019
+	 *2019年10月17日
+	 */
+	private static final long serialVersionUID = 1L;
+	private Integer id;
     private String activityId;
     private String activityName;
     private Integer activityStatus;

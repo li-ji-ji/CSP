@@ -1,24 +1,26 @@
-package cn.lhj.csp.config.feign;
-
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-
-import cn.lhj.csp.config.po.Config;
-
+////package cn.lhj.csp.config.feign;
+//
+////package cn.lhj.csp.config.feign;
+////
+////import java.util.List;
+////import java.util.Map;
+////
+////import org.springframework.cloud.openfeign.FeignClient;
+////import org.springframework.web.bind.annotation.CrossOrigin;
+////import org.springframework.web.bind.annotation.RequestBody;
+////import org.springframework.web.bind.annotation.RequestMapping;
+////import org.springframework.web.bind.annotation.RequestParam;
+////import org.springframework.web.multipart.MultipartFile;
+////
+////import cn.lhj.csp.config.po.Config;
+////
 /*
  *  已整合到AdminMenuFeignInterface中
  * */
 //@RequestMapping("/api/config")
 //@CrossOrigin
 //@FeignClient(name= "csp-config")
-public interface ConfigApiInterface {
+//public interface ConfigApiInterface {
 	
 	/*
 	 * @RequestMapping("/api/config/getAll") public List<Config> getAll();
@@ -48,4 +50,4 @@ public interface ConfigApiInterface {
 	 * @RequestMapping("/api/config/upload") public Map<String,Object>
 	 * upload(@RequestParam("file") MultipartFile multfile)throws Exception;
 	 */
-}
+//}
